@@ -1,0 +1,40 @@
+[
+  {
+    "family": "SF",
+    "fonts": [
+      {
+        "asset": "assets/fonts/SFUIDisplay-Regular.otf",
+        "weight": "100"
+      },
+      {
+        "asset": "assets/fonts/SFUIDisplay-Semibold.otf",
+        "weight": "400"
+      },
+      {
+        "asset": "assets/fonts/SFUIDisplay-Bold.ttf",
+        "weight": "600"
+      },
+      {
+        "asset": "assets/fonts/SFUIDisplay-Heavy.otf",
+        "weight": "700"
+      },
+      {
+        "asset": "assets/fonts/SFUIDisplay-Black.otf",
+        "weight": "900"
+      }
+    ]
+  },
+  {
+    "family": "Helvetica",
+    "fonts": [
+      {
+        "asset": "assets/fonts/Helvetica.ttf",
+        "weight": "100"
+      },
+      {
+        "asset": "assets/fonts/Helvetica-Bold.ttf",
+        "weight": "500"
+      }
+    ]
+  }
+]

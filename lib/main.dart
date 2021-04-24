@@ -1,31 +1,22 @@
 import 'package:flutter/material.dart';
-import 'Theme/theme.dart';
-import 'Pages/index.dart';
-import 'package:provider/provider.dart';
+
+import 'desktop.dart';
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  return runApp(ChangeNotifierProvider<ThemeNotifier>(
-    create: (_) => new ThemeNotifier(),
-    child: MyApp(),
-  ));
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeNotifier>(
-      builder: (context, theme, _) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Chrisbin',
-        theme: theme.getTheme(),
-        home: IndexPage(theme),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Big Sur',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: MyHomePage(),
     );
   }
 }
