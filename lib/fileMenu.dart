@@ -4,14 +4,25 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class FileMenu extends StatelessWidget {
+class FileMenu extends StatefulWidget {
 
   FileMenu({
     Key key,
   }) : super(key: key);
 
+  @override
+  _FileMenuState createState() => _FileMenuState();
+}
+
+class _FileMenuState extends State<FileMenu> {
   var rand = new Random();
-  DateTime now = DateTime.now();
+  DateTime now;
+
+  @override
+  void initState() {
+    now = DateTime.now();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

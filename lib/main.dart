@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Big Sur',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: "SF",
       ),
       home: MyHomePage(),
     );

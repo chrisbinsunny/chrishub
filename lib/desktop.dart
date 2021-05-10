@@ -1,13 +1,11 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
-import 'package:mac_dt/components/hoverDock.dart';
 import 'package:mac_dt/sizes.dart';
 
 import 'components/docker.dart';
+import 'components/finderWindow.dart';
 import 'fileMenu.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -33,13 +31,14 @@ class _MyHomePageState extends State<MyHomePage> {
             FileMenu(),
             //finder bar
             Docker(),
+           // DragBox(Offset(screenWidth(context,mulBy:.5), screenHeight(context,mulBy:.5)), 'Box One', Colors.blueAccent),
+            DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One', Colors.blueAccent),
           ],
         ),
       ),
     );
   }
 }
-
 
 
 
