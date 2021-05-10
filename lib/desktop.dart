@@ -33,8 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
             FileMenu(),
             //finder bar
             Docker(),
-            Center(child: MyStatefulWidget(),)
-
           ],
         ),
       ),

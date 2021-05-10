@@ -15,71 +15,59 @@ class Docker extends StatefulWidget {
 }
 
 class _DockerState extends State<Docker> {
-  double x = 0.0;
-  double y = 0.0;
-  final containerKey = GlobalKey();
-
-
-  void _updateLocation(PointerEvent details) {
-
-    setState(() {
-      x = details.position.dx;
-      y = details.position.dy;
-    });
-  }
-
 
   @override
   Widget build(BuildContext context) {
-    //print('absolute coordinates on screen: ${containerKey.globalPaintBounds}    ($x,$y)');
     return Align(
       alignment: Alignment.bottomCenter,
-      child: MouseRegion(
-        onHover: _updateLocation,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ClipRect(
-              child: BackdropFilter(
-                filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
-                child: Container(
-                  padding: EdgeInsets.only(bottom: 2),
-                  width: screenWidth(context,mulBy: 0.7),
-                  height: screenHeight(context,mulBy: 0.09),
-                  decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.4),
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.2),
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(15))
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ClipRect(
+            child: BackdropFilter(
+              filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
+              child: Column(
+                children: [
+                  SizedBox(height:screenHeight(context,mulBy: 0.09)),
+                  Container(
+                    padding: EdgeInsets.only(bottom: 2),
+                    width: screenWidth(context,mulBy: 0.7),
+                    height: screenHeight(context,mulBy: 0.09),
+                    decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.4),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.2),
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(15))
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        DockerItem(iName: "finder",on: true,),
+                        DockerItem(iName: "launchpad",on: false,),
+                        DockerItem(iName: "safari",on: false,),
+                        DockerItem(iName: "messages",on: false,),
+                        DockerItem(iName: "maps",on: false,),
+                        DockerItem(iName: "mail",on: false,),
+                        DockerItem(iName: "terminal",on: false,),
+                        DockerItem(iName: "xcode",on: false,),
+                        DockerItem(iName: "photos",on: false,),
+                        DockerItem(iName: "contacts",on: false,),
+                        DockerItem(iName: "calendar",on: false,),
+                        DockerItem(iName: "notes",on: false,),
+                        DockerItem(iName: "appstore",on: false,),
+                        DockerItem(iName: "system-preferences",on: false,),
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(key:containerKey,child: DockerItem(iName: "finder",on: true,)),
-                      DockerItem(iName: "launchpad",on: false,),
-                      DockerItem(iName: "safari",on: false,),
-                      DockerItem(iName: "messages",on: false,),
-                      DockerItem(iName: "maps",on: false,),
-                      DockerItem(iName: "mail",on: false,),
-                      DockerItem(iName: "terminal",on: false,),
-                      DockerItem(iName: "xcode",on: false,),
-                      DockerItem(iName: "photos",on: false,),
-                      DockerItem(iName: "contacts",on: false,),
-                      DockerItem(iName: "calendar",on: false,),
-                      DockerItem(iName: "notes",on: false,),
-                      DockerItem(iName: "appstore",on: false,),
-                      DockerItem(iName: "system-preferences",on: false,),
-                    ],
-                  ),
-                ),
+                ],
               ),
             ),
-            SizedBox(
-              height: screenHeight(context,mulBy:0.01),
-            )
-          ],
-        ),
+          ),
+          SizedBox(
+            height: screenHeight(context,mulBy:0.01),
+          )
+        ],
       ),
     );
   }
