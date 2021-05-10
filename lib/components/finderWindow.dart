@@ -2,7 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mac_dt/sizes.dart';
+import '../components/windowWidgets.dart';
+import '../sizes.dart';
 
 class App extends StatefulWidget {
   const App({Key key}) : super(key: key);
@@ -171,38 +172,13 @@ class DragBoxState extends State<DragBox> {
                           SizedBox(
                             height: screenHeight(context, mulBy: 0.015),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.14),
-                                borderRadius: BorderRadius.all(Radius.circular(5))),
-                            alignment: Alignment.centerLeft,
-                            width: screenWidth(context,),
-                            height: screenHeight(context,mulBy: 0.038),
-                            child: Text(
-                              "    Applications",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.14),
-                                borderRadius: BorderRadius.all(Radius.circular(5))),
-                            alignment: Alignment.centerLeft,
-                            width: screenWidth(context,),
-                            height: screenHeight(context,mulBy: 0.038),
-                            child: Text(
-                              "    Applications",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
+                          LeftPaneItems(iName: "Applications",isSelected: true,),
+                          LeftPaneItems(iName: "Desktop",),
+                          LeftPaneItems(iName: "Documents",),
+                          LeftPaneItems(iName: "Downloads",),
+                          LeftPaneItems(iName: "Movies",),
+                          LeftPaneItems(iName: "Music",),
+                          LeftPaneItems(iName: "Pictures",),
                         ],
                       ),
                     ),
@@ -266,3 +242,5 @@ class DragBoxState extends State<DragBox> {
         ));
   }
 }
+
+
