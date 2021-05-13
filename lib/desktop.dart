@@ -31,8 +31,8 @@ class _MyHomePageState extends State<MyHomePage> {
             FileMenu(),
             //finder bar
             Docker(),
-           // DragBox(Offset(screenWidth(context,mulBy:.5), screenHeight(context,mulBy:.5)), 'Box One', Colors.blueAccent),
-            DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One', Colors.blueAccent),
+            //GamePlay(),
+            DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One',),
           ],
         ),
       ),
