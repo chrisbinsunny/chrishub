@@ -15,6 +15,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  bool finderOpen = true;
+
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
@@ -32,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //finder bar
             Docker(),
             //GamePlay(),
-            DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One',),
+            DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One'),
           ],
         ),
       ),

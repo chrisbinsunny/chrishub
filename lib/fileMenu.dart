@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 
 class FileMenu extends StatefulWidget {
@@ -76,7 +77,7 @@ class _FileMenuState extends State<FileMenu> {
                     SizedBox(width: size.width*0.014,),
                     Image.asset("assets/icons/spotlight.png", height: 14.5),
                     SizedBox(width: size.width*0.014,),
-                    Image.asset("assets/icons/cc.png", height: 16,),
+                    InkWell(child: Image.asset("assets/icons/cc.png", height: 16,),),
                     SizedBox(width: size.width*0.014,),
                     Image.asset("assets/icons/siri.png", height: 15),
                     SizedBox(width: size.width*0.014,),

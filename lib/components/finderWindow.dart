@@ -2,14 +2,15 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mac_dt/componentsOnOff.dart';
+import 'package:provider/provider.dart';
 import '../components/windowWidgets.dart';
 import '../sizes.dart';
 
 class DragBox extends StatefulWidget {
   final Offset initPos;
   final String label;
-
-  DragBox(this.initPos, this.label);
+  DragBox(this.initPos, this.label,);
 
   @override
   DragBoxState createState() => DragBoxState();
@@ -18,6 +19,7 @@ class DragBox extends StatefulWidget {
 class DragBoxState extends State<DragBox> {
   Offset position = Offset(0.0, 0.0);
   String selected = "Applications";
+  //bool finderOpen= false;
 
   @override
   void initState() {
@@ -27,7 +29,8 @@ class DragBoxState extends State<DragBox> {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
+    var finderOpen = Provider.of<OnOff>(context).getFinder;
+    return finderOpen?Positioned(
         left: position.dx,
         top: position.dy,
         child: Draggable(
@@ -41,10 +44,10 @@ class DragBoxState extends State<DragBox> {
                 borderRadius: BorderRadius.all(Radius.circular(15)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 10,
+                  blurRadius: 15,
+                  offset: Offset(0, 8), // changes position of shadow
                 ),
               ],
 
@@ -76,16 +79,21 @@ class DragBoxState extends State<DragBox> {
                         children: [
                           Row(
                             children: [
-                              Container(
-                                height: 11.5,
-                                width: 11.5,
-                                decoration: BoxDecoration(
-                                  color: Colors.redAccent,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.black.withOpacity(0.2),
+                              InkWell(
+                                child: Container(
+                                  height: 11.5,
+                                  width: 11.5,
+                                  decoration: BoxDecoration(
+                                    color: Colors.redAccent,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.black.withOpacity(0.2),
+                                    ),
                                   ),
                                 ),
+                                onTap: (){
+                                  Provider.of<OnOff>(context, listen: false).toggleFinder();
+                                },
                               ),
                               SizedBox(
                                 width: screenWidth(context, mulBy: 0.005),
@@ -265,6 +273,6 @@ class DragBoxState extends State<DragBox> {
               ),
             ),
           ),
-        ));
+        )):Container();
   }
 }

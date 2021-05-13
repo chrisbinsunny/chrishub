@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import '../componentsOnOff.dart';
 import 'hoverDock.dart';
 
 import '../sizes.dart';
@@ -57,9 +59,14 @@ class _DockerState extends State<Docker> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    DockerItem(
-                      iName: "finder",
-                      on: true,
+                    InkWell(
+                      onTap: (){
+                        Provider.of<OnOff>(context, listen: false).toggleFinder();
+                      },
+                      child: DockerItem(
+                        iName: "finder",
+                        on: true,
+                      ),
                     ),
                     DockerItem(
                       iName: "launchpad",
