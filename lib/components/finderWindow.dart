@@ -14,7 +14,6 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   Color caughtColor = Colors.deepPurple;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -70,6 +69,7 @@ class DragBox extends StatefulWidget {
 
 class DragBoxState extends State<DragBox> {
   Offset position = Offset(0.0, 0.0);
+  String selected = "Applications";
 
   @override
   void initState() {
@@ -84,119 +84,198 @@ class DragBoxState extends State<DragBox> {
         top: position.dy,
         child: Draggable(
           data: widget.itemColor,
-          child: Container(
-            width: screenWidth(context, mulBy: 0.55),
-            height: screenHeight(context, mulBy: 0.65),
+          child: DecoratedBox(
             decoration: BoxDecoration(
-                // color: Colors.white,
-                border: Border.all(
-                  color: Colors.white.withOpacity(0.2),
+                borderRadius:BorderRadius.all(Radius.circular(15)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.15),
+                  spreadRadius: 10,
+                  blurRadius: 15,
+                  offset: Offset(0, 3), // changes position of shadow
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(15))),
-            child: Row(
-              children: [
-                ClipRect(
-                  child: BackdropFilter(
-                    filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: screenWidth(context, mulBy: 0.013),
-                          vertical: screenHeight(context, mulBy: 0.025)),
-                      height: screenHeight(context),
-                      width: screenWidth(context, mulBy: 0.13),
-                      decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.6),
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.2),
-                          ),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              bottomLeft: Radius.circular(15))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                height: 11.5,
-                                width: 11.5,
-                                decoration: BoxDecoration(
-                                  color: Colors.redAccent,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.black.withOpacity(0.2),
+              ],
+            ),
+            child: Container(
+              width: screenWidth(context, mulBy: 0.55),
+              height: screenHeight(context, mulBy: 0.65),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.2),
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(15))),
+              child: Row(
+                children: [
+                  ClipRect(
+                    child: BackdropFilter(
+                      filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth(context, mulBy: 0.013),
+                            vertical: screenHeight(context, mulBy: 0.025)),
+                        height: screenHeight(context),
+                        width: screenWidth(context, mulBy: 0.13),
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.6),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.2),
+                            ),
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                bottomLeft: Radius.circular(15))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  height: 11.5,
+                                  width: 11.5,
+                                  decoration: BoxDecoration(
+                                    color: Colors.redAccent,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.black.withOpacity(0.2),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: screenWidth(context, mulBy: 0.005),
-                              ),
-                              Container(
-                                height: 11.5,
-                                width: 11.5,
-                                decoration: BoxDecoration(
-                                  color: Colors.amber,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.black.withOpacity(0.2),
+                                SizedBox(
+                                  width: screenWidth(context, mulBy: 0.005),
+                                ),
+                                Container(
+                                  height: 11.5,
+                                  width: 11.5,
+                                  decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.black.withOpacity(0.2),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: screenWidth(context, mulBy: 0.005),
-                              ),
-                              Container(
-                                height: 11.5,
-                                width: 11.5,
-                                decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.black.withOpacity(0.2),
-                                  ),
+                                SizedBox(
+                                  width: screenWidth(context, mulBy: 0.005),
                                 ),
-                              )
-                            ],
-                          ),SizedBox(
-                            height: screenHeight(context, mulBy: 0.035),
-                          ),
-                          Text(
-                            "Favourites",
-                            style: TextStyle(
+                                Container(
+                                  height: 11.5,
+                                  width: 11.5,
+                                  decoration: BoxDecoration(
+                                    color: Colors.green,
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Colors.black.withOpacity(0.2),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: screenHeight(context, mulBy: 0.035),
+                            ),
+                            Text(
+                              "Favourites",
+                              style: TextStyle(
                                 fontWeight: FontWeight.w700,
                                 fontFamily: "SF",
                                 color: Colors.black38,
                                 fontSize: 12,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: screenHeight(context, mulBy: 0.015),
-                          ),
-                          LeftPaneItems(iName: "Applications",isSelected: true,),
-                          LeftPaneItems(iName: "Desktop",),
-                          LeftPaneItems(iName: "Documents",),
-                          LeftPaneItems(iName: "Downloads",),
-                          LeftPaneItems(iName: "Movies",),
-                          LeftPaneItems(iName: "Music",),
-                          LeftPaneItems(iName: "Pictures",),
-                        ],
+                            SizedBox(
+                              height: screenHeight(context, mulBy: 0.015),
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    selected = "Applications";
+                                  });
+                                },
+                                child: LeftPaneItems(
+                                  iName: "Applications",
+                                  isSelected:
+                                      (selected == "Applications") ? true : false,
+                                )),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selected = "Desktop";
+                                });
+                              },
+                              child: LeftPaneItems(
+                              iName: "Desktop",
+                              isSelected: (selected == "Desktop") ? true : false,
+                            ),),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selected = "Documents";
+                                });
+                              },
+                              child: LeftPaneItems(
+                              iName: "Documents",
+                              isSelected:
+                                  (selected == "Documents") ? true : false,
+                            ),),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selected = "Downloads";
+                                });
+                              },
+                              child: LeftPaneItems(
+                              iName: "Downloads",
+                              isSelected:
+                                  (selected == "Downloads") ? true : false,
+                            ),),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selected = "Movies";
+                                });
+                              },
+                              child: LeftPaneItems(
+                              iName: "Movies",
+                              isSelected: (selected == "Movies") ? true : false,
+                            ),),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selected = "Music";
+                                });
+                              },
+                              child: LeftPaneItems(
+                              iName: "Music",
+                              isSelected: (selected == "Music") ? true : false,
+                            ),),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  selected = "Pictures";
+                                });
+                              },
+                              child: LeftPaneItems(
+                              iName: "Pictures",
+                              isSelected: (selected == "Pictures") ? true : false,
+                            ),),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.2),
-                        ),
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(15),
-                            bottomRight: Radius.circular(15))),
-                  ),
-                )
-              ],
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.2),
+                          ),
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(15),
+                              bottomRight: Radius.circular(15))),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
           onDraggableCanceled: (velocity, offset) {
@@ -242,5 +321,3 @@ class DragBoxState extends State<DragBox> {
         ));
   }
 }
-
-

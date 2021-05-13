@@ -1,11 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../sizes.dart';
 
 class LeftPaneItems extends StatefulWidget {
-  final bool isSelected;
+  bool isSelected;
   final String iName;
-  const LeftPaneItems({
+  LeftPaneItems({
     this.isSelected=false,
     this.iName,
     Key key,
@@ -38,14 +39,20 @@ class _LeftPaneItemsState extends State<LeftPaneItems> {
             borderRadius: BorderRadius.all(Radius.circular(5))),
         alignment: Alignment.centerLeft,
         width: screenWidth(context,),
+        padding: EdgeInsets.only(left: screenWidth(context,mulBy: 0.005)),
         height: screenHeight(context,mulBy: 0.038),
-        child: Text(
-          "    ${widget.iName}",
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-            fontSize: 12,
-          ),
+        child: Row(
+          children: [
+            Image.asset("assets/icons/${widget.iName.toLowerCase()}.png", height: 15),
+            Text(
+              "    ${widget.iName}",
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+                fontSize: 12,
+              ),
+            ),
+          ],
         ),
       ),
     );

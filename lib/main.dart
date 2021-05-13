@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'dart:html';
 
 import 'desktop.dart';
 
 void main() {
+  document.documentElement.requestFullscreen();
   runApp(MyApp());
 }
 
