@@ -2,11 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mac_dt/fileMenu/controlCentre.dart';
 import 'package:mac_dt/sizes.dart';
 
 import 'components/docker.dart';
 import 'components/finderWindow.dart';
-import 'fileMenu.dart';
+import 'fileMenu/fileMenu.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -31,10 +32,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Image.asset("assets/wallpapers/bigsur_light.jpg",  fit: BoxFit.cover,)),
             //file menu
             FileMenu(),
-            //finder bar
+            //docker bar
             Docker(),
-            //GamePlay(),
+            //FinderWindow
             DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One'),
+            //Control Centre
+            Positioned(
+              top: screenHeight(context,mulBy: 0.035),
+              child: Container(
+                  padding: EdgeInsets.symmetric(
+                      vertical: screenHeight(context,mulBy: 0.007),
+                    horizontal: screenWidth(context, mulBy: 0.005)
+                  ),
+                  height: screenHeight(context)-(screenHeight(context, mulBy: 0.140)),
+                  width: screenWidth(context),
+                  child: ControlCentre()
+              ),
+            ),
           ],
         ),
       ),
