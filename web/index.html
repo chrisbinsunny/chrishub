@@ -24,58 +24,21 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="img/apple.png"/>
 
-  <title>mac_dt</title>
+  <title>MacBook Pro</title>
   <script defer src="index.dart.js" type="application/javascript"></script>
-  <style>
-    body {
-  justify-content: center;
-  align-items: center;
-  background: #000;
-  display: flex;
-  height: 100vh;
-  padding: 0;
-  margin: 0;
-}
 
-.progress {
-  background: rgba(255,255,255,0.1);
-  justify-content: flex-start;
-  border-radius: 100px;
-  align-items: center;
-  position: relative;
-  padding: 0 0px;
-  display: flex;
-  height: 5px;
-  width: 160px;
-}
-
-.progress-value {
-  animation: load 10s normal forwards;
-  box-shadow: 0 10px 40px -10px #fff;
-  border-radius: 100px;
-  background: #fff;
-  height: 4px;
-  width: 0;
-}
-
-@keyframes load {
-  0% { width: 0; }
-  10% { width: 10; }
-  30% { width: 30%; }
-  50% { width: 54%; }
-  80% { width: 68%; }
-  100% { width: 89%; }
-}
-  </style>
   <link rel="manifest" href="manifest.json">
 </head>
+
 <body id="app-container">
 
+<img src="img/apple.png" />
 <div class="progress">
   <div class="progress-value"></div>
 </div>
+
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
