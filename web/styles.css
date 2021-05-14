@@ -16,8 +16,9 @@ body {
   position: relative;
   padding: 0 0px;
   display: flex;
+  margin-top:8%;
   height: 5px;
-  width: 160px;
+  width: 190px;
 }
 
 .progress-value {
@@ -39,4 +40,9 @@ body {
   80% { width: 77%; }
   90% { width: 85%; }
   100% { width: 95%; }
+}
+
+.total{
+  text-align:center;
+  align-items: center;
 }
