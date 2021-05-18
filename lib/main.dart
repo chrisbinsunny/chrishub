@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Big Sur',
+        title: 'Chrisbin\'s MacBook Pro',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           fontFamily: "SF",

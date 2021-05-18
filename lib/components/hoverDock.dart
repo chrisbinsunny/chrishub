@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:html' as html;
 
+import 'package:mac_dt/sizes.dart';
+
 
 class TranslateOnHover extends StatefulWidget {
   final Widget child;
@@ -15,7 +17,7 @@ class TranslateOnHover extends StatefulWidget {
 
 class _TranslateOnHoverState extends State<TranslateOnHover> {
   final nonHoverTransform = Matrix4.identity()..translate(0, 0, 0);
-  final hoverTransform = Matrix4.identity()..scale(1.4,1.4)..translate(-5, -20, 0, );
+  final hoverTransform = Matrix4.identity()..scale(1.2,1.2)..translate(-5, -25, 0, );
 
   bool _hovering = false;
 
@@ -27,7 +29,7 @@ class _TranslateOnHoverState extends State<TranslateOnHover> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 140),
         child: widget.child,
-        transform: _hovering ? hoverTransform : nonHoverTransform,
+        transform: _hovering ? hoverTransform: nonHoverTransform,
       ),
     );
   }
