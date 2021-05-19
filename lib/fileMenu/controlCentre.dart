@@ -162,7 +162,13 @@ class _ControlCentreState extends State<ControlCentre> {
                                                 mulBy: 0.09),
                                             decoration: ccDecoration,
                                             child: Row(
-                                              children: [],
+                                              children: [
+                                                Text("Dark Mode",style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: Colors.black,
+                                                  fontSize: 12,
+                                                ),)
+                                              ],
                                             ),
                                           ),
                                         ),

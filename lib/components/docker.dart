@@ -26,6 +26,7 @@ class _DockerState extends State<Docker> {
     now = DateTime.now();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -47,8 +48,7 @@ class _DockerState extends State<Docker> {
                         border: Border.all(
                           color: Colors.white.withOpacity(0.2),
                         ),
-                        borderRadius:
-                            BorderRadius.all(Radius.circular(15))),
+                        borderRadius: BorderRadius.all(Radius.circular(15))),
                   ),
                 ),
               ),
@@ -60,8 +60,9 @@ class _DockerState extends State<Docker> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     InkWell(
-                      onTap: (){
-                        Provider.of<OnOff>(context, listen: false).toggleFinder();
+                      onTap: () {
+                        Provider.of<OnOff>(context, listen: false)
+                            .toggleFinder();
                       },
                       child: DockerItem(
                         iName: "finder",
@@ -109,37 +110,56 @@ class _DockerState extends State<Docker> {
                       child: Column(
                         children: [
                           Expanded(
-                              child: Container(
-                                  child: Stack(
-                                    alignment: Alignment.topCenter,
-                            children: [
-                              Image.asset(
-                                "assets/apps/calendar.png",
-                              ),
-                              Positioned(
-                                top: screenHeight(context,mulBy: 0.01),
-                                child: Text(
-                                  "${DateFormat('LLL').format(now).toUpperCase()}",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                    fontFamily: 'SF',
-                                      fontWeight: FontWeight.w400,
-                                    fontSize: 11
-                                ),),
-                              ),
-                              Positioned(
-                                top: screenHeight(context,mulBy: 0.026),
-                                child: Text(
-                                  "${DateFormat('d').format(now).toUpperCase()}",
-                                  style: TextStyle(
-                                      color: Colors.black87.withOpacity(0.8),
-                                      fontFamily: 'SF',
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 28
-                                  ),),
-                              ),
-                            ],
-                          )).moveUpOnHover,
+                            child: Container(
+                                child: Stack(
+                              alignment: Alignment.topCenter,
+                              children: [
+                                Image.asset(
+                                  "assets/apps/calendar.png",
+                                ),
+                                Positioned(
+                                  top: screenHeight(context, mulBy: 0.01),
+                                  child: Container(
+                                    height: screenHeight(context, mulBy: 0.02),
+                                    width: screenWidth(context, mulBy: 0.03),
+                                    color: Colors.transparent,
+                                    child: FittedBox(
+                                      fit: BoxFit.fitHeight,
+                                      child: Text(
+                                        "${DateFormat('LLL').format(now).toUpperCase()}",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: 'SF',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 11,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: screenHeight(context, mulBy: 0.026),
+                                  child: Container(
+                                    height: screenHeight(context, mulBy: 0.047),
+                                    width: screenWidth(context, mulBy: 0.03),
+                                    color: Colors.transparent,
+                                    child: FittedBox(
+                                      fit: BoxFit.fitHeight,
+                                      child: Text(
+                                        "${DateFormat('d').format(now).toUpperCase()}",
+                                        style: TextStyle(
+                                            color:
+                                                Colors.black87.withOpacity(0.8),
+                                            fontFamily: 'SF',
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 28),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )).moveUpOnHover,
                           ),
                           Container(
                             height: 4,
