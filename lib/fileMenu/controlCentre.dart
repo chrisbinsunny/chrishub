@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../componentsOnOff.dart';
@@ -151,23 +152,22 @@ class _ControlCentreState extends State<ControlCentre> {
                                           filter: ImageFilter.blur(
                                               sigmaX: 15.0, sigmaY: 15.0),
                                           child: Container(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: screenWidth(context,
-                                                    mulBy: 0.013),
-                                                vertical: screenHeight(context,
-                                                    mulBy: 0.025)),
+                                            // padding: EdgeInsets.symmetric(
+                                            //     horizontal: screenWidth(context,
+                                            //         mulBy: 0.013),
+                                            //     vertical: screenHeight(context,
+                                            //         mulBy: 0.015)),
                                             height: screenHeight(context,
                                                 mulBy: 0.08),
                                             width: screenWidth(context,
                                                 mulBy: 0.09),
                                             decoration: ccDecoration,
                                             child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                Text("Dark Mode",style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.black,
-                                                  fontSize: 12,
-                                                ),)
+
+
+                                                MBPText(text:"Dark Mode\nOn")
                                               ],
                                             ),
                                           ),
