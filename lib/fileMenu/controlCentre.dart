@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import '../theme/theme.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -21,13 +22,15 @@ class _ControlCentreState extends State<ControlCentre> {
     blurRadius: 2,
     offset: Offset(0, 1), // changes position of shadow
   );
-  BoxDecoration ccDecoration = BoxDecoration(
-      color: Colors.white.withOpacity(0.4),
-      backgroundBlendMode: BlendMode.luminosity
-  );
   @override
   Widget build(BuildContext context) {
+    BoxDecoration ccDecoration = BoxDecoration(
+        color: Theme.of(context).backgroundColor,
+        backgroundBlendMode: BlendMode.luminosity);
+    debugPrint("${screenHeight(context, mulBy: 1)}");
+    debugPrint("${screenWidth(context, mulBy: 1)}");
     var ccOpen = Provider.of<OnOff>(context).getCc;
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
     return ccOpen
         ? Container(
             child: Align(
@@ -55,7 +58,7 @@ class _ControlCentreState extends State<ControlCentre> {
                       height: screenHeight(context, mulBy: 0.45),
                       width: screenWidth(context, mulBy: 0.2),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.3),
+                        color: Theme.of(context).backgroundColor,
                         border: Border.all(
                           color: Colors.black.withOpacity(0.2),
                         ),
@@ -71,9 +74,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                 decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10)),
-                                  boxShadow: [
-                                    ccShadow
-                                  ],
+                                  boxShadow: [ccShadow],
                                 ),
                                 child: ClipRRect(
                                   borderRadius:
@@ -109,9 +110,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(10)),
-                                        boxShadow: [
-                                          ccShadow
-                                        ],
+                                        boxShadow: [ccShadow],
                                       ),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.all(
@@ -141,9 +140,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(10)),
-                                        boxShadow: [
-                                          ccShadow
-                                        ],
+                                        boxShadow: [ccShadow],
                                       ),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.all(
@@ -163,11 +160,65 @@ class _ControlCentreState extends State<ControlCentre> {
                                                 mulBy: 0.09),
                                             decoration: ccDecoration,
                                             child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: [
-
-
-                                                MBPText(text:"Dark Mode\nOn")
+                                                InkWell(
+                                                  onTap: () {
+                                                    themeNotifier.isDark()
+                                                        ? themeNotifier
+                                                            .setTheme(
+                                                                ThemeNotifier
+                                                                    .lightTheme)
+                                                        : themeNotifier
+                                                            .setTheme(
+                                                                ThemeNotifier
+                                                                    .darkTheme);
+                                                  },
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10)),
+                                                    child: BackdropFilter(
+                                                      filter: ImageFilter.blur(
+                                                          sigmaX: 15.0,
+                                                          sigmaY: 15.0),
+                                                      child: Container(
+                                                        height: screenHeight(
+                                                            context,
+                                                            mulBy: 0.0456),
+                                                        width: screenWidth(
+                                                            context,
+                                                            mulBy: 0.0219),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .buttonColor,
+                                                        ),
+                                                        child: Center(
+                                                          child: Image.asset(
+                                                            "assets/icons/darkBlack.png",
+                                                            height:
+                                                                screenHeight(
+                                                                    context,
+                                                                    mulBy:
+                                                                        0.032),
+                                                            fit: BoxFit
+                                                                .fitHeight,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                    child: MBPText(
+                                                        text:
+                                                            "Dark Mode\n${themeNotifier.isDark() ? "On" : "Off"}"))
                                               ],
                                             ),
                                           ),
@@ -183,9 +234,7 @@ class _ControlCentreState extends State<ControlCentre> {
                             decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
-                              boxShadow: [
-                                ccShadow
-                              ],
+                              boxShadow: [ccShadow],
                             ),
                             child: ClipRRect(
                               borderRadius:
@@ -215,9 +264,7 @@ class _ControlCentreState extends State<ControlCentre> {
                             decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
-                              boxShadow: [
-                                ccShadow
-                              ],
+                              boxShadow: [ccShadow],
                             ),
                             child: ClipRRect(
                               borderRadius:
@@ -247,9 +294,7 @@ class _ControlCentreState extends State<ControlCentre> {
                             decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
-                              boxShadow: [
-                                ccShadow
-                              ],
+                              boxShadow: [ccShadow],
                             ),
                             child: ClipRRect(
                               borderRadius:
