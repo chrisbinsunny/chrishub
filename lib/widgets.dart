@@ -7,7 +7,7 @@ class MBPText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FittedBox(
-      fit: BoxFit.contain,
+      fit: BoxFit.scaleDown,
       child: Text(text,style: TextStyle(
         fontWeight: FontWeight.w600,
         color: Colors.black,
