@@ -25,8 +25,12 @@ class _ControlCentreState extends State<ControlCentre> {
   @override
   Widget build(BuildContext context) {
     BoxDecoration ccDecoration = BoxDecoration(
-        color: Theme.of(context).backgroundColor,
-        backgroundBlendMode: BlendMode.luminosity);
+        color: Theme.of(context).backgroundColor.withOpacity(.2),
+        border: Border.all(color: Theme.of(context).cardColor),
+        borderRadius:BorderRadius.all(Radius.circular(10)),
+
+    // backgroundBlendMode: BlendMode.softLight,
+    );
     debugPrint("${screenHeight(context, mulBy: 1)}");
     debugPrint("${screenWidth(context, mulBy: 1)}");
     var ccOpen = Provider.of<OnOff>(context).getCc;
@@ -54,11 +58,12 @@ class _ControlCentreState extends State<ControlCentre> {
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           horizontal: screenWidth(context, mulBy: 0.007),
-                          vertical: screenHeight(context, mulBy: 0.010)),
+                          vertical: screenHeight(context, mulBy: 0.014)),
                       height: screenHeight(context, mulBy: 0.45),
                       width: screenWidth(context, mulBy: 0.2),
                       decoration: BoxDecoration(
                         color: Theme.of(context).backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(18)),
                         border: Border.all(
                           color: Colors.black.withOpacity(0.2),
                         ),
@@ -92,9 +97,6 @@ class _ControlCentreState extends State<ControlCentre> {
                                           screenHeight(context, mulBy: 0.17),
                                       width: screenWidth(context, mulBy: 0.09),
                                       decoration: ccDecoration,
-                                      child: Row(
-                                        children: [],
-                                      ),
                                     ),
                                   ),
                                 ),
