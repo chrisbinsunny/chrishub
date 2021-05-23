@@ -26,8 +26,8 @@ class ThemeNotifier with ChangeNotifier {
 
   static final ThemeData darkTheme = ThemeData(
     primarySwatch: Colors.deepPurple,
-      backgroundColor: Color(0xff242b4b).withOpacity(0.3), //Control Center
-    cardColor: Colors.black.withOpacity(0.2), //Control Center item border
+      backgroundColor: Color(0xff363644).withOpacity(0.25), //Control Center
+    cardColor: Colors.white.withOpacity(0.2), //Control Center item border
     scaffoldBackgroundColor: Color(0xff242b4b),
     primaryTextTheme: TextTheme(
       button: TextStyle(

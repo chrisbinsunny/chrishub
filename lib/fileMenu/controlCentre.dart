@@ -26,13 +26,11 @@ class _ControlCentreState extends State<ControlCentre> {
   Widget build(BuildContext context) {
     BoxDecoration ccDecoration = BoxDecoration(
         color: Theme.of(context).backgroundColor.withOpacity(.2),
-        border: Border.all(color: Theme.of(context).cardColor),
+        border: Border.all(color: Theme.of(context).cardColor,width: .5),
         borderRadius:BorderRadius.all(Radius.circular(10)),
 
     // backgroundBlendMode: BlendMode.softLight,
     );
-    debugPrint("${screenHeight(context, mulBy: 1)}");
-    debugPrint("${screenWidth(context, mulBy: 1)}");
     var ccOpen = Provider.of<OnOff>(context).getCc;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     return ccOpen
