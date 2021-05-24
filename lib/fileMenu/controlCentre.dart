@@ -16,16 +16,17 @@ class ControlCentre extends StatefulWidget {
 }
 
 class _ControlCentreState extends State<ControlCentre> {
-  BoxShadow ccShadow = BoxShadow(
-    color: Colors.black.withOpacity(.2),
+  CustomBoxShadow ccShadow = CustomBoxShadow(
+    color: Colors.black.withOpacity(.4),
     spreadRadius: 1,
-    blurRadius: 2,
-    offset: Offset(0, 1), // changes position of shadow
+    blurRadius: 3,
+    //offset: Offset(0, .7),
+      blurStyle: BlurStyle.outer
   );
   @override
   Widget build(BuildContext context) {
     BoxDecoration ccDecoration = BoxDecoration(
-        color: Theme.of(context).backgroundColor.withOpacity(.2),
+        color: Theme.of(context).backgroundColor.withOpacity(.05),
         border: Border.all(color: Theme.of(context).cardColor,width: .5),
         borderRadius:BorderRadius.all(Radius.circular(10)),
 
@@ -57,6 +58,7 @@ class _ControlCentreState extends State<ControlCentre> {
                       padding: EdgeInsets.symmetric(
                           horizontal: screenWidth(context, mulBy: 0.007),
                           vertical: screenHeight(context, mulBy: 0.014)),
+                      margin: EdgeInsets.zero,
                       height: screenHeight(context, mulBy: 0.45),
                       width: screenWidth(context, mulBy: 0.2),
                       decoration: BoxDecoration(
@@ -74,10 +76,13 @@ class _ControlCentreState extends State<ControlCentre> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
+                                padding: EdgeInsets.zero,
+                                margin: EdgeInsets.zero,
                                 decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10)),
                                   boxShadow: [ccShadow],
+
                                 ),
                                 child: ClipRRect(
                                   borderRadius:
@@ -86,6 +91,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                     filter: ImageFilter.blur(
                                         sigmaX: 15.0, sigmaY: 15.0),
                                     child: Container(
+                                      margin: EdgeInsets.zero,
                                       padding: EdgeInsets.symmetric(
                                           horizontal: screenWidth(context,
                                               mulBy: 0.013),
