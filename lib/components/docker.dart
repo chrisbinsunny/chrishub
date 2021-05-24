@@ -20,6 +20,7 @@ class Docker extends StatefulWidget {
 
 class _DockerState extends State<Docker> {
   DateTime now;
+  bool _animate=false;
 
   @override
   void initState() {
@@ -36,7 +37,8 @@ class _DockerState extends State<Docker> {
         children: [
           Stack(
             children: [
-              ClipRect(
+              ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
                 child: BackdropFilter(
                   filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
                   child: Container(
@@ -44,7 +46,7 @@ class _DockerState extends State<Docker> {
                     width: screenWidth(context, mulBy: 0.7),
                     height: screenHeight(context, mulBy: 0.09),
                     decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.4),
+                        color: Theme.of(context).focusColor,
                         border: Border.all(
                           color: Colors.white.withOpacity(0.2),
                         ),
@@ -61,6 +63,9 @@ class _DockerState extends State<Docker> {
                   children: [
                     InkWell(
                       onTap: () {
+                        setState(() {
+                          _animate = !_animate;
+                        });
                         Provider.of<OnOff>(context, listen: false)
                             .toggleFinder();
                       },
@@ -214,27 +219,24 @@ class DockerItem extends StatefulWidget {
 class _DockerItemState extends State<DockerItem> {
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: Container(
-        child: Column(
-          children: [
-            Expanded(
-                child: Container(
-                    child: Image.asset(
-              "assets/apps/${widget.iName}.png",
-            )).moveUpOnHover),
-            Container(
-              height: 4,
-              width: 4,
-              decoration: BoxDecoration(
-                color: widget.on ? Colors.black : Colors.transparent,
-                shape: BoxShape.circle,
-              ),
-            )
-          ],
-        ),
-      ).showCursorOnHover,
-    );
+    return Container(
+      child: Column(
+        children: [
+          Expanded(
+              child: Container(
+                  child: Image.asset(
+            "assets/apps/${widget.iName}.png",
+          )).moveUpOnHover),
+          Container(
+            height: 4,
+            width: 4,
+            decoration: BoxDecoration(
+              color: widget.on ? Colors.black : Colors.transparent,
+              shape: BoxShape.circle,
+            ),
+          )
+        ],
+      ),
+    ).showCursorOnHover;
   }
 }

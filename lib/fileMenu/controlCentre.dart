@@ -16,21 +16,22 @@ class ControlCentre extends StatefulWidget {
 }
 
 class _ControlCentreState extends State<ControlCentre> {
-  CustomBoxShadow ccShadow = CustomBoxShadow(
-    color: Colors.black.withOpacity(.4),
-    spreadRadius: 1,
-    blurRadius: 3,
-    //offset: Offset(0, .7),
-      blurStyle: BlurStyle.outer
-  );
+
   @override
   Widget build(BuildContext context) {
     BoxDecoration ccDecoration = BoxDecoration(
-        color: Theme.of(context).backgroundColor.withOpacity(.05),
-        border: Border.all(color: Theme.of(context).cardColor,width: .5),
+        color: Theme.of(context).backgroundColor,
+        border: Border.all(color: Theme.of(context).cardColor,width: .55),
         borderRadius:BorderRadius.all(Radius.circular(10)),
 
-    // backgroundBlendMode: BlendMode.softLight,
+   // backgroundBlendMode: BlendMode.luminosity,
+    );
+    CustomBoxShadow ccShadow = CustomBoxShadow(
+        color: Theme.of(context).accentColor,
+        spreadRadius: 0,
+        blurRadius: 3,
+        //offset: Offset(0, .5),
+        blurStyle: BlurStyle.outer
     );
     var ccOpen = Provider.of<OnOff>(context).getCc;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
@@ -62,10 +63,11 @@ class _ControlCentreState extends State<ControlCentre> {
                       height: screenHeight(context, mulBy: 0.45),
                       width: screenWidth(context, mulBy: 0.2),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).backgroundColor,
+                        color: Theme.of(context).backgroundColor.withOpacity(0.1),
                         borderRadius: BorderRadius.all(Radius.circular(18)),
                         border: Border.all(
-                          color: Colors.black.withOpacity(0.2),
+                          color: Theme.of(context).cardColor.withOpacity(0.15),
+                          width: 0.7
                         ),
                       ),
                       child: Column(
@@ -155,11 +157,6 @@ class _ControlCentreState extends State<ControlCentre> {
                                           filter: ImageFilter.blur(
                                               sigmaX: 15.0, sigmaY: 15.0),
                                           child: Container(
-                                            // padding: EdgeInsets.symmetric(
-                                            //     horizontal: screenWidth(context,
-                                            //         mulBy: 0.013),
-                                            //     vertical: screenHeight(context,
-                                            //         mulBy: 0.015)),
                                             height: screenHeight(context,
                                                 mulBy: 0.08),
                                             width: screenWidth(context,
@@ -224,7 +221,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                 Flexible(
                                                     child: MBPText(
                                                         text:
-                                                            "Dark Mode\n${themeNotifier.isDark() ? "On" : "Off"}"))
+                                                            "Dark Mode\n${themeNotifier.isDark() ? "On" : "Off"}", color: Theme.of(context).cardColor.withOpacity(1),))
                                               ],
                                             ),
                                           ),
