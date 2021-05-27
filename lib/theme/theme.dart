@@ -13,9 +13,11 @@ class ThemeNotifier with ChangeNotifier {
         )
     ),
     primarySwatch: Colors.blueGrey,
-    backgroundColor: Colors.white.withOpacity(0.2), //Control Center
+    backgroundColor: Colors.white.withOpacity(0.15), //Control Center
     cardColor: Colors.black.withOpacity(0.0), //Control Center item border, font color
-    accentColor: Colors.black.withOpacity(.3), //shadow color
+    splashColor: Colors.black.withOpacity(0.2), //Control Center border
+    shadowColor: Colors.black.withOpacity(0.15), //Control Center outer border
+    accentColor: Colors.black.withOpacity(.15), //shadow color
     focusColor: Colors.white.withOpacity(0.4), //docker color
     primaryTextTheme: TextTheme(
       button: TextStyle(
@@ -40,10 +42,12 @@ class ThemeNotifier with ChangeNotifier {
       )
     ),
     primarySwatch: Colors.deepPurple,
-      backgroundColor: Color(0xff2b2b2b).withOpacity(.1), //Control Center
-    cardColor: Colors.white.withOpacity(0.2), //Control Center item border, font color
-      accentColor: Colors.black.withOpacity(.4), //shadow color
-      focusColor: Color(0xff6c5252).withOpacity(0.3), //docker color
+      backgroundColor: Color(0xff2b2b2b).withOpacity(.05), //Control Center
+    cardColor: Colors.white.withOpacity(0.15), //Control Center item border, font color
+      splashColor: Colors.black.withOpacity(0.4), //Control Center border
+      shadowColor: Colors.black.withOpacity(0.3), //Control Center outer border
+      accentColor: Colors.black.withOpacity(.2), //shadow color
+      focusColor: Color(0xff3e3232).withOpacity(0.2), //docker color
 
       scaffoldBackgroundColor: Color(0xff242b4b),
     primaryTextTheme: TextTheme(
