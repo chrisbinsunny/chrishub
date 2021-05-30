@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 class MBPText extends StatelessWidget {
   final Color color;
   final String text;
-  const MBPText({this.color= Colors.black,this.text, Key key}) : super(key: key);
+  final double size;
+  final FontWeight weight;
+  const MBPText({this.color= Colors.black,this.text, this.size=12, this.weight, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: Text(text,style: TextStyle(
-        fontWeight: Theme.of(context).textTheme.headline4.fontWeight,
+        fontWeight: weight==null?Theme.of(context).textTheme.headline4.fontWeight:weight,
         color: color,
-        fontSize: 12,
+        fontSize: size,
       ),textAlign: TextAlign.center,),
     );
   }

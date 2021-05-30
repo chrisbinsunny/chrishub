@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 // Provider.of<OnOff>(context, listen: false).toggleFinder();
 
 class OnOff extends ChangeNotifier{
-  bool finderOpen =false;
-  bool ccOpen =true;
+
+  bool finderOpen =true;
+  bool ccOpen =false;
 
   bool get getFinder {
     return finderOpen;
