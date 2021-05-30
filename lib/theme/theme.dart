@@ -3,7 +3,7 @@ import 'sharedPref.dart';
 
 class ThemeNotifier with ChangeNotifier {
 
-  // static bool isDark;
+  String thm = "B";
 
   static final ThemeData lightTheme = ThemeData(
     textTheme: TextTheme(
@@ -12,6 +12,7 @@ class ThemeNotifier with ChangeNotifier {
           fontSize: 12,
         )
     ),
+    fontFamily: "SF",
     primarySwatch: Colors.blueGrey,
     backgroundColor: Colors.white.withOpacity(0.15), //Control Center
     cardColor: Colors.black.withOpacity(0.0), //Control Center item border, font color
@@ -19,6 +20,10 @@ class ThemeNotifier with ChangeNotifier {
     shadowColor: Colors.black.withOpacity(0.15), //Control Center outer border
     accentColor: Colors.black.withOpacity(.15), //shadow color
     focusColor: Colors.white.withOpacity(0.4), //docker color
+    canvasColor: Colors.blue.withOpacity(0.4), //fileMenu Color
+    scaffoldBackgroundColor: Colors.white, //window Color
+    hintColor: Colors.white.withOpacity(0.6), //window transparency Color
+
     primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey,
@@ -37,10 +42,13 @@ class ThemeNotifier with ChangeNotifier {
   static final ThemeData darkTheme = ThemeData(
     textTheme: TextTheme(
       headline4: TextStyle(
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w400,
         fontSize: 12,
-      )
+        fontFamily: "SF"
+      ),
+
     ),
+    fontFamily: "SF",
     primarySwatch: Colors.deepPurple,
       backgroundColor: Color(0xff2b2b2b).withOpacity(.05), //Control Center
     cardColor: Colors.white.withOpacity(0.15), //Control Center item border, font color
@@ -48,9 +56,10 @@ class ThemeNotifier with ChangeNotifier {
       shadowColor: Colors.black.withOpacity(0.3), //Control Center outer border
       accentColor: Colors.black.withOpacity(.2), //shadow color
       focusColor: Color(0xff3e3232).withOpacity(0.2), //docker color
-
-      scaffoldBackgroundColor: Color(0xff242b4b),
-    primaryTextTheme: TextTheme(
+      canvasColor: Colors.black.withOpacity(0.3), //fileMenu Color
+      scaffoldBackgroundColor: Color(0xff242127), //window Color
+      hintColor: Color(0xff242127).withOpacity(0.3), //window transparency Color
+      primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey[200],
         decorationColor: Colors.blueGrey[50],
@@ -67,12 +76,14 @@ class ThemeNotifier with ChangeNotifier {
   ThemeData _themeData;
   ThemeNotifier(this._themeData);
   getTheme() => _themeData;
+  String get findThm => thm;
 
   isDark() => _themeData==lightTheme?false:true;
 
 
   setTheme(ThemeData themeData) async {
     _themeData = themeData;
+    thm=(themeData==lightTheme)?"B":"B";
     notifyListeners();
   }
 

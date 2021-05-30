@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../sizes.dart';
+import '../widgets.dart';
 
 class LeftPaneItems extends StatefulWidget {
   bool isSelected;
@@ -44,13 +45,11 @@ class _LeftPaneItemsState extends State<LeftPaneItems> {
         child: Row(
           children: [
             Image.asset("assets/icons/${widget.iName.toLowerCase()}.png", height: 15),
-            Text(
-              "    ${widget.iName}",
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-                fontSize: 12,
-              ),
+            MBPText(
+              text: "    ${widget.iName}",
+
+                color: Theme.of(context).cardColor.withOpacity(1),
+
             ),
           ],
         ),

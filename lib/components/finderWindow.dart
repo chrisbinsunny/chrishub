@@ -3,9 +3,11 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mac_dt/componentsOnOff.dart';
+import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../components/windowWidgets.dart';
 import '../sizes.dart';
+import '../widgets.dart';
 
 class DragBox extends StatefulWidget {
   final Offset initPos;
@@ -250,6 +252,7 @@ class DragBoxState extends State<DragBox> {
   }
 
   Container finderWindow(BuildContext context) {
+    String thm = Provider.of<ThemeNotifier>(context).findThm;
     return Container(
           width: screenWidth(context, mulBy: 0.55),
           height: screenHeight(context, mulBy: 0.65),
@@ -283,10 +286,7 @@ class DragBoxState extends State<DragBox> {
                     height: screenHeight(context),
                     width: screenWidth(context, mulBy: 0.14),
                     decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.6),
-                        border: Border.all(
-                          color: Colors.white.withOpacity(0.2),
-                        ),
+                        color: Theme.of(context).hintColor,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(15),
                             bottomLeft: Radius.circular(15))),
@@ -436,14 +436,64 @@ class DragBoxState extends State<DragBox> {
               ),
               Expanded(
                 child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth(context, mulBy: 0.013),
+                      vertical: screenHeight(context, mulBy: 0.03)),
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Theme.of(context).scaffoldBackgroundColor,
                       border: Border.all(
                         color: Colors.white.withOpacity(0.2),
                       ),
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(15),
                           bottomRight: Radius.circular(15))),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset("assets/icons/back$thm.png", height: 18),
+                              SizedBox(width: screenWidth(context,mulBy: 0.01),),
+                              Image.asset("assets/icons/forw$thm.png", height: 18.5),
+                              SizedBox(width: screenWidth(context,mulBy: 0.007),),
+                              Container(
+                                width: screenWidth(context,mulBy: 0.07),
+                                child: MBPText(
+                                  text: selected,
+                                  size: 15,
+                                  // style: TextStyle(
+                                  //   fontWeight: FontWeight.w700,
+                                  //   color: Colors.black.withOpacity(0.7),
+                                  //   fontSize: 15,
+                                  // ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Image.asset("assets/icons/sort$thm.png", height: 20),
+                          Row(
+                            children: [
+                              Image.asset("assets/icons/icon$thm.png", height: 18),
+                              SizedBox(width: screenWidth(context,mulBy: 0.015),),
+                              Image.asset("assets/icons/share$thm.png", height: 19),
+                              SizedBox(width: screenWidth(context,mulBy: 0.015),),
+                              Image.asset("assets/icons/tag$thm.png", height: 15),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Image.asset("assets/icons/more$thm.png", height: 15),
+                              SizedBox(width: screenWidth(context,mulBy: 0.007),),
+                              Image.asset("assets/icons/search$thm.png", height: 15),
+                            ],
+                          ),
+
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],

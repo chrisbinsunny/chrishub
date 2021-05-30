@@ -39,10 +39,10 @@ class _FileMenuState extends State<FileMenu> {
             width: size.width,
             padding: EdgeInsets.all(3),
             decoration: new BoxDecoration(
-              color: Colors.blue.withOpacity(0.6),
+              color: Theme.of(context).canvasColor,
               border:  Border(
                 bottom: BorderSide(
-                  color: Colors.white.withOpacity(0.3),
+                  color: Colors.white.withOpacity(0.0),
                   width: 0.5,
                 ),
               ),),
