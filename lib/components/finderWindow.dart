@@ -347,9 +347,9 @@ class DragBoxState extends State<DragBox> {
                         Text(
                           "Favourites",
                           style: TextStyle(
-                            fontWeight: FontWeight.w700,
+                            fontWeight: Theme.of(context).textTheme.headline1.fontWeight,
                             fontFamily: "SF",
-                            color: Colors.black38,
+                            color: Theme.of(context).cardColor.withOpacity(.38),
                             fontSize: 12,
                           ),
                         ),
@@ -463,6 +463,8 @@ class DragBoxState extends State<DragBox> {
                                 child: MBPText(
                                   text: selected,
                                   size: 15,
+                                  weight: Theme.of(context).textTheme.headline1.fontWeight,
+                                  color: Theme.of(context).cardColor.withOpacity(1),
                                   // style: TextStyle(
                                   //   fontWeight: FontWeight.w700,
                                   //   color: Colors.black.withOpacity(0.7),

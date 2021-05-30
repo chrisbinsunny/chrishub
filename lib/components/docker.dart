@@ -82,7 +82,7 @@ class _DockerState extends State<Docker> {
                             _animate = !_animate;
                           });
                           Provider.of<OnOff>(context, listen: false)
-                              .toggleFinder();
+                              .openFinder();
                         },
                         child: DockerItem(
                           iName: "finder",

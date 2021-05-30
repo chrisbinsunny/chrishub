@@ -88,7 +88,22 @@ class _FileMenuState extends State<FileMenu> {
                     SizedBox(width: size.width*0.014,),
                     Image.asset("assets/icons/siri.png", height: 15),
                     SizedBox(width: size.width*0.014,),
-                    FittedBox(fit: BoxFit.fitHeight, child:Text("${DateFormat('E d LLL hh:mm a').format(now)}", style: TextStyle(fontFamily: 'SF', fontWeight: FontWeight.w400, color: Colors.white),),),
+                    FittedBox(fit: BoxFit.fitHeight,
+                      child: Text(
+                        "${DateFormat('E d LLL hh:mm a').format(now)}",
+                        style: TextStyle(fontFamily: 'SF',
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white),),),
+                    // StreamBuilder(
+                    //   stream: Stream.periodic(const Duration(seconds: 1)),
+                    //   builder: (context, snapshot){
+                    //   return FittedBox(fit: BoxFit.fitHeight,
+                    //     child: Text(
+                    //       "${DateFormat('E d LLL hh:mm a').format(DateTime.now())}",
+                    //       style: TextStyle(fontFamily: 'SF',
+                    //           fontWeight: FontWeight.w400,
+                    //           color: Colors.white),),);
+                    // },),
                     SizedBox(width: size.width*0.014,),
                   ],
                 ),

@@ -10,7 +10,11 @@ class ThemeNotifier with ChangeNotifier {
         headline4: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 12,
-        )
+        ),
+      headline1: TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 15,
+      )
     ),
     fontFamily: "SF",
     primarySwatch: Colors.blueGrey,
@@ -46,12 +50,17 @@ class ThemeNotifier with ChangeNotifier {
         fontSize: 12,
         fontFamily: "SF"
       ),
+        headline1: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 15,
+        )
 
     ),
     fontFamily: "SF",
     primarySwatch: Colors.deepPurple,
       backgroundColor: Color(0xff2b2b2b).withOpacity(.05), //Control Center
     cardColor: Colors.white.withOpacity(0.15), //Control Center item border, font color
+
       splashColor: Colors.black.withOpacity(0.4), //Control Center border
       shadowColor: Colors.black.withOpacity(0.3), //Control Center outer border
       accentColor: Colors.black.withOpacity(.2), //shadow color
