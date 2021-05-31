@@ -508,55 +508,301 @@ class DragBoxState extends State<DragBox> {
 }
 
 
-class MoveableStackItem extends StatefulWidget {
-  const MoveableStackItem({Key key}) : super(key: key);
+class Finder extends StatefulWidget {
+  final Offset initPos;
+  const Finder({this.initPos, Key key}) : super(key: key);
 
   @override
-  _MoveableStackItemState createState() => _MoveableStackItemState();
+  _FinderState createState() => _FinderState();
 }
 
-class _MoveableStackItemState extends State<MoveableStackItem> {
-  double xPosition = 0;
-  double yPosition = 0;
-  Color color;
+class _FinderState extends State<Finder> {
+  Offset position= Offset(0.0, 0.0);
+  String selected = "Applications";
+
 
   @override
   void initState() {
+    position = widget.initPos;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: yPosition,
-      left: xPosition,
-      child: Container(
-        width: 200,
-        height: 350,
-        color: Colors.red,
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            GestureDetector(
-              onPanUpdate: (tapInfo) {
-                setState(() {
-                  xPosition += tapInfo.delta.dx;
-                  yPosition += tapInfo.delta.dy;
-                });
-              },
-              child: Container(
-                width: 200,
-                height: 150,
-                color: Colors.green,
-              ),
-            ),
-            Container(
-              width: 200,
-              height: 150,
-              color: Colors.blue,
-            ),
-          ],
+    var finderOpen = Provider.of<OnOff>(context).getFinder;
+    return finderOpen?Positioned(
+      top: position.dy,
+      left: position.dx,
+      child: finderWindow(context),
+    ):Container();
+  }
+
+  Container finderWindow(BuildContext context) {
+    String thm = Provider.of<ThemeNotifier>(context).findThm;
+    return Container(
+      width: screenWidth(context, mulBy: 0.55),
+      height: screenHeight(context, mulBy: 0.65),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.white.withOpacity(0.2),
         ),
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            spreadRadius: 10,
+            blurRadius: 15,
+            offset: Offset(0, 8), // changes position of shadow
+          ),
+        ],
+
+      ),
+      child: Stack(
+        children: [
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    bottomLeft: Radius.circular(15)),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth(context, mulBy: 0.013),
+                        vertical: screenHeight(context, mulBy: 0.025)),
+                    height: screenHeight(context),
+                    width: screenWidth(context, mulBy: 0.14),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).hintColor,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            bottomLeft: Radius.circular(15))),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            InkWell(
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.redAccent,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
+                                ),
+                              ),
+                              onTap: (){
+                                Provider.of<OnOff>(context, listen: false).toggleFinder();
+                              },
+                            ),
+                            SizedBox(
+                              width: screenWidth(context, mulBy: 0.005),
+                            ),
+                            Container(
+                              height: 11.5,
+                              width: 11.5,
+                              decoration: BoxDecoration(
+                                color: Colors.amber,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.black.withOpacity(0.2),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: screenWidth(context, mulBy: 0.005),
+                            ),
+                            Container(
+                              height: 11.5,
+                              width: 11.5,
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Colors.black.withOpacity(0.2),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: screenHeight(context, mulBy: 0.035),
+                        ),
+                        Text(
+                          "Favourites",
+                          style: TextStyle(
+                            fontWeight: Theme.of(context).textTheme.headline1.fontWeight,
+                            fontFamily: "SF",
+                            color: Theme.of(context).cardColor.withOpacity(.38),
+                            fontSize: 12,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight(context, mulBy: 0.015),
+                        ),
+                        InkWell(
+                            onTap: () {
+                              setState(() {
+                                selected = "Applications";
+                              });
+                            },
+                            child: LeftPaneItems(
+                              iName: "Applications",
+                              isSelected:
+                              (selected == "Applications") ? true : false,
+                            )),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              selected = "Desktop";
+                            });
+                          },
+                          child: LeftPaneItems(
+                            iName: "Desktop",
+                            isSelected: (selected == "Desktop") ? true : false,
+                          ),),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              selected = "Documents";
+                            });
+                          },
+                          child: LeftPaneItems(
+                            iName: "Documents",
+                            isSelected:
+                            (selected == "Documents") ? true : false,
+                          ),),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              selected = "Downloads";
+                            });
+                          },
+                          child: LeftPaneItems(
+                            iName: "Downloads",
+                            isSelected:
+                            (selected == "Downloads") ? true : false,
+                          ),),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              selected = "Movies";
+                            });
+                          },
+                          child: LeftPaneItems(
+                            iName: "Movies",
+                            isSelected: (selected == "Movies") ? true : false,
+                          ),),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              selected = "Music";
+                            });
+                          },
+                          child: LeftPaneItems(
+                            iName: "Music",
+                            isSelected: (selected == "Music") ? true : false,
+                          ),),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              selected = "Pictures";
+                            });
+                          },
+                          child: LeftPaneItems(
+                            iName: "Pictures",
+                            isSelected: (selected == "Pictures") ? true : false,
+                          ),),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: screenWidth(context, mulBy: 0.013),
+                      vertical: screenHeight(context, mulBy: 0.03)),
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      border: Border.all(
+                        color: Colors.white.withOpacity(0.2),
+                      ),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(15),
+                          bottomRight: Radius.circular(15))),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset("assets/icons/back$thm.png", height: 18),
+                              SizedBox(width: screenWidth(context,mulBy: 0.01),),
+                              Image.asset("assets/icons/forw$thm.png", height: 18.5),
+                              SizedBox(width: screenWidth(context,mulBy: 0.007),),
+                              Container(
+                                width: screenWidth(context,mulBy: 0.07),
+                                child: MBPText(
+                                  text: selected,
+                                  size: 15,
+                                  weight: Theme.of(context).textTheme.headline1.fontWeight,
+                                  color: Theme.of(context).cardColor.withOpacity(1),
+                                  // style: TextStyle(
+                                  //   fontWeight: FontWeight.w700,
+                                  //   color: Colors.black.withOpacity(0.7),
+                                  //   fontSize: 15,
+                                  // ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Image.asset("assets/icons/sort$thm.png", height: 20),
+                          Row(
+                            children: [
+                              Image.asset("assets/icons/icon$thm.png", height: 18),
+                              SizedBox(width: screenWidth(context,mulBy: 0.015),),
+                              Image.asset("assets/icons/share$thm.png", height: 19),
+                              SizedBox(width: screenWidth(context,mulBy: 0.015),),
+                              Image.asset("assets/icons/tag$thm.png", height: 15),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Image.asset("assets/icons/more$thm.png", height: 15),
+                              SizedBox(width: screenWidth(context,mulBy: 0.007),),
+                              Image.asset("assets/icons/search$thm.png", height: 15),
+                            ],
+                          ),
+
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+          GestureDetector(
+            onPanUpdate: (tapInfo) {
+              setState(() {
+                position= Offset(position.dx+tapInfo.delta.dx,position.dy+tapInfo.delta.dy);
+                // position.dx += tapInfo.delta.dx;
+                // position.dy += tapInfo.delta.dy;
+              });
+            },
+            child: Container(
+                width: screenWidth(context, mulBy: 0.55),
+                height: screenHeight(context, mulBy: 0.04),
+                color: Colors.red.withOpacity(0.5)
+            ),
+          ),
+        ],
       ),
     );
   }

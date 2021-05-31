@@ -108,10 +108,10 @@ class _MyHomePageState extends State<MyHomePage> {
             //docker bar
             Docker(),
             //FinderWindow
-            DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One'),
+            //DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One'),
             //Control Centre
             //_buildDraggable(),
-            MoveableStackItem(),
+            Finder(initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))),
             Positioned(
               top: screenHeight(context,mulBy: 0.035),
               child: Container(

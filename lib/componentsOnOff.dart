@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class OnOff extends ChangeNotifier{
 
-  bool finderOpen =false;
+  bool finderOpen =true;
   bool ccOpen =false;
 
   bool get getFinder {
