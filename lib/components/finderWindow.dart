@@ -38,6 +38,9 @@ class DragBoxState extends State<DragBox> {
         child: Draggable(
           child: finderWindow(context),
           onDraggableCanceled: (velocity, offset) {
+            debugPrint("Finder Pos= $position");
+            debugPrint("Finder velocity= $velocity");
+
             setState(() {
               position = offset;
             });
@@ -504,3 +507,57 @@ class DragBoxState extends State<DragBox> {
   }
 }
 
+
+class MoveableStackItem extends StatefulWidget {
+  const MoveableStackItem({Key key}) : super(key: key);
+
+  @override
+  _MoveableStackItemState createState() => _MoveableStackItemState();
+}
+
+class _MoveableStackItemState extends State<MoveableStackItem> {
+  double xPosition = 0;
+  double yPosition = 0;
+  Color color;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      top: yPosition,
+      left: xPosition,
+      child: Container(
+        width: 200,
+        height: 350,
+        color: Colors.red,
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            GestureDetector(
+              onPanUpdate: (tapInfo) {
+                setState(() {
+                  xPosition += tapInfo.delta.dx;
+                  yPosition += tapInfo.delta.dy;
+                });
+              },
+              child: Container(
+                width: 200,
+                height: 150,
+                color: Colors.green,
+              ),
+            ),
+            Container(
+              width: 200,
+              height: 150,
+              color: Colors.blue,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
