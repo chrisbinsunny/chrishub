@@ -6,11 +6,18 @@ import 'package:flutter/material.dart';
 
 class OnOff extends ChangeNotifier{
 
-  bool finderOpen =true;
   bool ccOpen =false;
+  bool finderOpen =false;
+  bool finderFS = false;
+  bool safariOpen =true;
+  bool safariFS = false;
 
   bool get getFinder {
     return finderOpen;
+  }
+
+  bool get getFinderFS {
+    return finderFS;
   }
 
   void toggleFinder() {
@@ -18,8 +25,44 @@ class OnOff extends ChangeNotifier{
     notifyListeners();
   }
 
+  void toggleFinderFS() {
+    finderFS= !finderFS;
+    notifyListeners();
+  }
+  void offFinderFS() {
+    finderFS= false;
+    notifyListeners();
+  }
+
   void openFinder() {
     finderOpen= true;
+    notifyListeners();
+  }
+
+  bool get getSafari {
+    return safariOpen;
+  }
+
+  bool get getSafariFS {
+    return safariFS;
+  }
+
+  void toggleSafari() {
+    safariOpen= !safariOpen;
+    notifyListeners();
+  }
+
+  void toggleSafariFS() {
+    safariFS= !safariFS;
+    notifyListeners();
+  }
+  void offSafariFS() {
+    safariFS= false;
+    notifyListeners();
+  }
+
+  void openSafari() {
+    safariOpen= true;
     notifyListeners();
   }
 
