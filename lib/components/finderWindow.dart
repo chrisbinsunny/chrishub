@@ -805,9 +805,12 @@ class _FinderState extends State<Finder> {
           ),
           GestureDetector(
             onPanUpdate: (tapInfo) {
-              setState(() {
-                position= Offset(position.dx+tapInfo.delta.dx,position.dy+tapInfo.delta.dy);
-              });
+              if(!finderFS){
+                setState(() {
+                  position = Offset(position.dx + tapInfo.delta.dx,
+                      position.dy + tapInfo.delta.dy);
+                });
+              }
             },
             onPanStart: (details){
               Provider.of<OnOff>(context, listen: false).onFinderPan();

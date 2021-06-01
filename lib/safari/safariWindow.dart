@@ -76,19 +76,112 @@ class _SafariState extends State<Safari> {
               Container(
                 padding: EdgeInsets.symmetric(
                     horizontal: screenWidth(context, mulBy: 0.013),
-                    vertical: screenHeight(context, mulBy: 0.03)),
+                    vertical: screenHeight(context, mulBy: 0.01)),
+                height: screenHeight(context,mulBy: 0.059),
                 decoration: BoxDecoration(
                     color: Theme.of(context).dividerColor,
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10),
                         topLeft: Radius.circular(10))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        InkWell(
+                          child: Container(
+                            height: 11.5,
+                            width: 11.5,
+                            decoration: BoxDecoration(
+                              color: Colors.redAccent,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.black.withOpacity(0.2),
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            Provider.of<OnOff>(context, listen: false)
+                                .toggleSafari();
+                            Provider.of<OnOff>(context, listen: false)
+                                .offSafariFS();
+                          },
+                        ),
+                        SizedBox(
+                          width: screenWidth(context, mulBy: 0.005),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: 11.5,
+                            width: 11.5,
+                            decoration: BoxDecoration(
+                              color: Colors.amber,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.black.withOpacity(0.2),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: screenWidth(context, mulBy: 0.005),
+                        ),
+                        InkWell(
+                          child: Container(
+                            height: 11.5,
+                            width: 11.5,
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.black.withOpacity(0.2),
+                              ),
+                            ),
+                          ),
+                          onTap: () {
+                            Provider.of<OnOff>(context, listen: false)
+                                .toggleSafariFS();
+                          },
+                        )
+                      ],
+                    ),
+                    Spacer(),
+                    Container(
+                      width: 300,
+                      height: screenHeight(context,mulBy: 0.03),//0.038
+                      margin: EdgeInsets.zero,
+                      child: TextFormField(
+                        decoration: new InputDecoration(
+                          labelText: "Search or enter website name",
+                          labelStyle: TextStyle(
+                            color: Theme.of(context).cardColor.withOpacity(0.5),
+                            fontFamily: "SF",
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10
+                          ),
+                          fillColor: Colors.white,
+                          border: new OutlineInputBorder(
+                            borderRadius: new BorderRadius.circular(5.0),
+                            borderSide: new BorderSide(
+                              color: Colors.transparent
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Spacer(),
+
+                  ],
+                ),
               ),
               GestureDetector(
                 onPanUpdate: (tapInfo) {
-                  setState(() {
-                    position = Offset(position.dx + tapInfo.delta.dx,
-                        position.dy + tapInfo.delta.dy);
-                  });
+                  if (!safariFS) {
+                    setState(() {
+                      position = Offset(position.dx + tapInfo.delta.dx,
+                          position.dy + tapInfo.delta.dy);
+                    });
+                  }
                 },
                 onPanStart: (details) {
                   Provider.of<OnOff>(context, listen: false).onSafariPan();
@@ -125,8 +218,7 @@ class _SafariState extends State<Safari> {
                     context,
                   ),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).hintColor,
-
+                    color: Theme.of(context).hintColor,
                   ),
                 ),
               ),
