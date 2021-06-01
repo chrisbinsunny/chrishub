@@ -11,6 +11,10 @@ class OnOff extends ChangeNotifier{
   bool finderFS = false;
   bool safariOpen =true;
   bool safariFS = false;
+  bool safariPan = false;
+  bool finderPan = false;
+
+
 
   bool get getFinder {
     return finderOpen;
@@ -36,6 +40,19 @@ class OnOff extends ChangeNotifier{
 
   void openFinder() {
     finderOpen= true;
+    notifyListeners();
+  }
+
+  bool get getFinderPan {
+    return finderPan;
+  }
+  void offFinderPan() {
+    finderPan= false;
+    notifyListeners();
+  }
+
+  void onFinderPan() {
+    finderPan= true;
     notifyListeners();
   }
 
@@ -66,6 +83,19 @@ class OnOff extends ChangeNotifier{
     notifyListeners();
   }
 
+  bool get getSafariPan {
+    return safariPan;
+  }
+  void offSafariPan() {
+    safariPan= false;
+    notifyListeners();
+  }
+
+  void onSafariPan() {
+    safariPan= true;
+    notifyListeners();
+  }
+
   bool get getCc {
     return ccOpen;
   }
@@ -74,4 +104,5 @@ class OnOff extends ChangeNotifier{
     ccOpen= !ccOpen;
     notifyListeners();
   }
+
 }

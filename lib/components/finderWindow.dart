@@ -520,6 +520,7 @@ class _FinderState extends State<Finder> {
   Offset position= Offset(0.0, 0.0);
   String selected = "Applications";
   bool finderFS;
+  bool finderPan;
 
 
   @override
@@ -532,8 +533,9 @@ class _FinderState extends State<Finder> {
   Widget build(BuildContext context) {
     var finderOpen = Provider.of<OnOff>(context).getFinder;
     finderFS = Provider.of<OnOff>(context).getFinderFS;
+    finderPan = Provider.of<OnOff>(context).getFinderPan;
     return finderOpen?AnimatedPositioned(
-      duration: Duration(milliseconds: 200),
+      duration: Duration(milliseconds: finderPan?0:200),
       top: finderFS?screenHeight(context,mulBy: 0.035):position.dy,
       left: finderFS?0:position.dx,
       child: finderWindow(context),
@@ -806,6 +808,12 @@ class _FinderState extends State<Finder> {
               setState(() {
                 position= Offset(position.dx+tapInfo.delta.dx,position.dy+tapInfo.delta.dy);
               });
+            },
+            onPanStart: (details){
+              Provider.of<OnOff>(context, listen: false).onFinderPan();
+            },
+            onPanEnd: (details){
+              Provider.of<OnOff>(context, listen: false).offFinderPan();
             },
             onDoubleTap: (){
               Provider.of<OnOff>(context, listen: false).toggleFinderFS();
