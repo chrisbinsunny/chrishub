@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
+import 'package:mac_dt/safari/safariWindow.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
 
@@ -106,6 +107,8 @@ class _MyHomePageState extends State<MyHomePage> {
             //FinderWindow
             Finder(initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))),
             //DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One'),
+            //SafariWindow
+            Safari(initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))),
             // file menu
             FileMenu(),
             //docker bar

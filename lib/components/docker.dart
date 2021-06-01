@@ -93,9 +93,15 @@ class _DockerState extends State<Docker> {
                         iName: "launchpad",
                         on: false,
                       ),
-                      DockerItem(
-                        iName: "safari",
-                        on: false,
+                      InkWell(
+                        onTap: (){
+                          Provider.of<OnOff>(context, listen: false)
+                              .openSafari();
+                        },
+                        child: DockerItem(
+                          iName: "safari",
+                          on: false,
+                        ),
                       ),
                       DockerItem(
                         iName: "messages",

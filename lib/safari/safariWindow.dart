@@ -16,10 +16,10 @@ class Safari extends StatefulWidget {
 }
 
 class _SafariState extends State<Safari> {
-  Offset position= Offset(0.0, 0.0);
+  Offset position = Offset(0.0, 0.0);
   String selected = "Applications";
-  bool finderFS;
-
+  bool safariFS;
+  bool safariPan;
 
   @override
   void initState() {
@@ -29,28 +29,35 @@ class _SafariState extends State<Safari> {
 
   @override
   Widget build(BuildContext context) {
-    var finderOpen = Provider.of<OnOff>(context).getFinder;
-    finderFS = Provider.of<OnOff>(context).getFinderFS;
-    return finderOpen?AnimatedPositioned(
-      duration: Duration(milliseconds: 200),
-      top: finderFS?screenHeight(context,mulBy: 0.035):position.dy,
-      left: finderFS?0:position.dx,
-      child: finderWindow(context),
-    ):Container();
+    var safariOpen = Provider.of<OnOff>(context).getSafari;
+    safariFS = Provider.of<OnOff>(context).getSafariFS;
+    safariPan = Provider.of<OnOff>(context).getSafariPan;
+    return safariOpen
+        ? AnimatedPositioned(
+            duration: Duration(milliseconds: safariPan ? 0 : 200),
+            top: safariFS ? screenHeight(context, mulBy: 0.035) : position.dy,
+            left: safariFS ? 0 : position.dx,
+            child: safariWindow(context),
+          )
+        : Container();
   }
 
-  AnimatedContainer finderWindow(BuildContext context) {
+  AnimatedContainer safariWindow(BuildContext context) {
     String thm = Provider.of<ThemeNotifier>(context).findThm;
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
-      width: finderFS?screenWidth(context, mulBy: 1):screenWidth(context, mulBy: 0.55),
-      height: finderFS?screenHeight(context, mulBy: 0.863):screenHeight(context, mulBy: 0.65),
+      width: safariFS
+          ? screenWidth(context, mulBy: 1)
+          : screenWidth(context, mulBy: 0.55),
+      height: safariFS
+          ? screenHeight(context, mulBy: 0.863)
+          : screenHeight(context, mulBy: 0.65),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
         ),
-        borderRadius: BorderRadius.all(Radius.circular(15)),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
@@ -60,260 +67,69 @@ class _SafariState extends State<Safari> {
           ),
         ],
       ),
-      child: Stack(
-        alignment: Alignment.topRight,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
+          Stack(
+            alignment: Alignment.topRight,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    bottomLeft: Radius.circular(15)),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth(context, mulBy: 0.013),
-                        vertical: screenHeight(context, mulBy: 0.025)),
-                    height: screenHeight(context),
-                    width: screenWidth(context, mulBy: 0.14),
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).hintColor,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            bottomLeft: Radius.circular(15))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            InkWell(
-                              child: Container(
-                                height: 11.5,
-                                width: 11.5,
-                                decoration: BoxDecoration(
-                                  color: Colors.redAccent,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.black.withOpacity(0.2),
-                                  ),
-                                ),
-                              ),
-                              onTap: (){
-                                Provider.of<OnOff>(context, listen: false).toggleFinder();
-                                Provider.of<OnOff>(context, listen: false).offFinderFS();
-                              },
-                            ),
-                            SizedBox(
-                              width: screenWidth(context, mulBy: 0.005),
-                            ),
-                            InkWell(
-                              child: Container(
-                                height: 11.5,
-                                width: 11.5,
-                                decoration: BoxDecoration(
-                                  color: Colors.amber,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.black.withOpacity(0.2),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: screenWidth(context, mulBy: 0.005),
-                            ),
-                            InkWell(
-                              child: Container(
-                                height: 11.5,
-                                width: 11.5,
-                                decoration: BoxDecoration(
-                                  color: Colors.green,
-                                  shape: BoxShape.circle,
-                                  border: Border.all(
-                                    color: Colors.black.withOpacity(0.2),
-                                  ),
-                                ),
-                              ),
-                              onTap: (){
-                                Provider.of<OnOff>(context, listen: false).toggleFinderFS();
-                              },
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: screenHeight(context, mulBy: 0.035),
-                        ),
-                        Text(
-                          "Favourites",
-                          style: TextStyle(
-                            fontWeight: Theme.of(context).textTheme.headline1.fontWeight,
-                            fontFamily: "SF",
-                            color: Theme.of(context).cardColor.withOpacity(.38),
-                            fontSize: 12,
-                          ),
-                        ),
-                        SizedBox(
-                          height: screenHeight(context, mulBy: 0.015),
-                        ),
-                        InkWell(
-                            onTap: () {
-                              setState(() {
-                                selected = "Applications";
-                              });
-                            },
-                            child: LeftPaneItems(
-                              iName: "Applications",
-                              isSelected:
-                              (selected == "Applications") ? true : false,
-                            )),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              selected = "Desktop";
-                            });
-                          },
-                          child: LeftPaneItems(
-                            iName: "Desktop",
-                            isSelected: (selected == "Desktop") ? true : false,
-                          ),),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              selected = "Documents";
-                            });
-                          },
-                          child: LeftPaneItems(
-                            iName: "Documents",
-                            isSelected:
-                            (selected == "Documents") ? true : false,
-                          ),),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              selected = "Downloads";
-                            });
-                          },
-                          child: LeftPaneItems(
-                            iName: "Downloads",
-                            isSelected:
-                            (selected == "Downloads") ? true : false,
-                          ),),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              selected = "Movies";
-                            });
-                          },
-                          child: LeftPaneItems(
-                            iName: "Movies",
-                            isSelected: (selected == "Movies") ? true : false,
-                          ),),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              selected = "Music";
-                            });
-                          },
-                          child: LeftPaneItems(
-                            iName: "Music",
-                            isSelected: (selected == "Music") ? true : false,
-                          ),),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              selected = "Pictures";
-                            });
-                          },
-                          child: LeftPaneItems(
-                            iName: "Pictures",
-                            isSelected: (selected == "Pictures") ? true : false,
-                          ),),
-                      ],
-                    ),
-                  ),
-                ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth(context, mulBy: 0.013),
+                    vertical: screenHeight(context, mulBy: 0.03)),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).dividerColor,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        topLeft: Radius.circular(10))),
               ),
-              Expanded(
+              GestureDetector(
+                onPanUpdate: (tapInfo) {
+                  setState(() {
+                    position = Offset(position.dx + tapInfo.delta.dx,
+                        position.dy + tapInfo.delta.dy);
+                  });
+                },
+                onPanStart: (details) {
+                  Provider.of<OnOff>(context, listen: false).onSafariPan();
+                },
+                onPanEnd: (details) {
+                  Provider.of<OnOff>(context, listen: false).offSafariPan();
+                },
+                onDoubleTap: () {
+                  Provider.of<OnOff>(context, listen: false).toggleSafariFS();
+                },
+                child: Container(
+                    alignment: Alignment.centerRight,
+                    width: safariFS
+                        ? screenWidth(context, mulBy: 0.95)
+                        : screenWidth(context, mulBy: 0.5),
+                    height: screenHeight(context, mulBy: 0.058),
+                    color: Colors.transparent),
+              ),
+            ],
+          ),
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(10),
+                  bottomLeft: Radius.circular(10)),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
                 child: Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: screenWidth(context, mulBy: 0.013),
-                      vertical: screenHeight(context, mulBy: 0.03)),
+                      vertical: screenHeight(context, mulBy: 0.025)),
+                  height: screenHeight(context, mulBy: 0.14),
+                  width: screenWidth(
+                    context,
+                  ),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.2),
-                      ),
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(15),
-                          bottomRight: Radius.circular(15))),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset("assets/icons/back$thm.png", height: 18),
-                              SizedBox(width: screenWidth(context,mulBy: 0.01),),
-                              Image.asset("assets/icons/forw$thm.png", height: 18.5),
-                              SizedBox(width: screenWidth(context,mulBy: 0.007),),
-                              Container(
-                                width: screenWidth(context,mulBy: 0.07),
-                                child: MBPText(
-                                  text: selected,
-                                  size: 15,
-                                  weight: Theme.of(context).textTheme.headline1.fontWeight,
-                                  color: Theme.of(context).cardColor.withOpacity(1),
-                                  // style: TextStyle(
-                                  //   fontWeight: FontWeight.w700,
-                                  //   color: Colors.black.withOpacity(0.7),
-                                  //   fontSize: 15,
-                                  // ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Image.asset("assets/icons/sort$thm.png", height: 20),
-                          Row(
-                            children: [
-                              Image.asset("assets/icons/icon$thm.png", height: 18),
-                              SizedBox(width: screenWidth(context,mulBy: 0.015),),
-                              Image.asset("assets/icons/share$thm.png", height: 19),
-                              SizedBox(width: screenWidth(context,mulBy: 0.015),),
-                              Image.asset("assets/icons/tag$thm.png", height: 15),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Image.asset("assets/icons/more$thm.png", height: 15),
-                              SizedBox(width: screenWidth(context,mulBy: 0.007),),
-                              Image.asset("assets/icons/search$thm.png", height: 15),
-                            ],
-                          ),
+                      color: Theme.of(context).hintColor,
 
-                        ],
-                      )
-                    ],
                   ),
                 ),
-              )
-            ],
-          ),
-          GestureDetector(
-            onPanUpdate: (tapInfo) {
-              setState(() {
-                position= Offset(position.dx+tapInfo.delta.dx,position.dy+tapInfo.delta.dy);
-              });
-            },
-            onDoubleTap: (){
-              Provider.of<OnOff>(context, listen: false).toggleFinderFS();
-            },
-            child: Container(
-                alignment: Alignment.centerRight,
-                width: finderFS?screenWidth(context, mulBy: 0.95):screenWidth(context, mulBy: 0.5),
-                height: screenHeight(context, mulBy: 0.04),
-                color: Colors.transparent
+              ),
             ),
           ),
         ],
