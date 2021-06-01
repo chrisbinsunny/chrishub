@@ -519,6 +519,7 @@ class Finder extends StatefulWidget {
 class _FinderState extends State<Finder> {
   Offset position= Offset(0.0, 0.0);
   String selected = "Applications";
+  bool finderFS;
 
 
   @override
@@ -530,18 +531,22 @@ class _FinderState extends State<Finder> {
   @override
   Widget build(BuildContext context) {
     var finderOpen = Provider.of<OnOff>(context).getFinder;
-    return finderOpen?Positioned(
-      top: position.dy,
-      left: position.dx,
+    finderFS = Provider.of<OnOff>(context).getFinderFS;
+    return finderOpen?AnimatedPositioned(
+      duration: Duration(milliseconds: 200),
+      top: finderFS?screenHeight(context,mulBy: 0.035):position.dy,
+      left: finderFS?0:position.dx,
       child: finderWindow(context),
     ):Container();
   }
 
-  Container finderWindow(BuildContext context) {
+  AnimatedContainer finderWindow(BuildContext context) {
     String thm = Provider.of<ThemeNotifier>(context).findThm;
-    return Container(
-      width: screenWidth(context, mulBy: 0.55),
-      height: screenHeight(context, mulBy: 0.65),
+
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 200),
+      width: finderFS?screenWidth(context, mulBy: 1):screenWidth(context, mulBy: 0.55),
+      height: finderFS?screenHeight(context, mulBy: 0.863):screenHeight(context, mulBy: 0.65),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -555,9 +560,9 @@ class _FinderState extends State<Finder> {
             offset: Offset(0, 8), // changes position of shadow
           ),
         ],
-
       ),
       child: Stack(
+        alignment: Alignment.topRight,
         children: [
           Row(
             children: [
@@ -597,35 +602,43 @@ class _FinderState extends State<Finder> {
                               ),
                               onTap: (){
                                 Provider.of<OnOff>(context, listen: false).toggleFinder();
+                                Provider.of<OnOff>(context, listen: false).offFinderFS();
                               },
                             ),
                             SizedBox(
                               width: screenWidth(context, mulBy: 0.005),
                             ),
-                            Container(
-                              height: 11.5,
-                              width: 11.5,
-                              decoration: BoxDecoration(
-                                color: Colors.amber,
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.black.withOpacity(0.2),
+                            InkWell(
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
                                 ),
                               ),
                             ),
                             SizedBox(
                               width: screenWidth(context, mulBy: 0.005),
                             ),
-                            Container(
-                              height: 11.5,
-                              width: 11.5,
-                              decoration: BoxDecoration(
-                                color: Colors.green,
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Colors.black.withOpacity(0.2),
+                            InkWell(
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
                                 ),
                               ),
+                              onTap: (){
+                                Provider.of<OnOff>(context, listen: false).toggleFinderFS();
+                              },
                             )
                           ],
                         ),
@@ -792,14 +805,16 @@ class _FinderState extends State<Finder> {
             onPanUpdate: (tapInfo) {
               setState(() {
                 position= Offset(position.dx+tapInfo.delta.dx,position.dy+tapInfo.delta.dy);
-                // position.dx += tapInfo.delta.dx;
-                // position.dy += tapInfo.delta.dy;
               });
             },
+            onDoubleTap: (){
+              Provider.of<OnOff>(context, listen: false).toggleFinderFS();
+            },
             child: Container(
-                width: screenWidth(context, mulBy: 0.55),
+              alignment: Alignment.centerRight,
+                width: finderFS?screenWidth(context, mulBy: 0.95):screenWidth(context, mulBy: 0.5),
                 height: screenHeight(context, mulBy: 0.04),
-                color: Colors.red.withOpacity(0.5)
+                color: Colors.transparent
             ),
           ),
         ],

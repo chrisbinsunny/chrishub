@@ -103,15 +103,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 height:size.height,
                 width: size.width,
                 child: Image.asset(themeNotifier.isDark()?"assets/wallpapers/bigsur_dark.jpg":"assets/wallpapers/bigsur_light.jpg",  fit: BoxFit.cover,)),
-            //file menu
+            //FinderWindow
+            Finder(initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))),
+            //DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One'),
+            // file menu
             FileMenu(),
             //docker bar
             Docker(),
-            //FinderWindow
-            //DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One'),
+
             //Control Centre
-            //_buildDraggable(),
-            Finder(initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))),
             Positioned(
               top: screenHeight(context,mulBy: 0.035),
               child: Container(
