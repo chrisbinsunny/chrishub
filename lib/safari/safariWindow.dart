@@ -18,6 +18,7 @@ class Safari extends StatefulWidget {
 class _SafariState extends State<Safari> {
   Offset position = Offset(0.0, 0.0);
   String selected = "Applications";
+  TextEditingController urlController = new TextEditingController();
   bool safariFS;
   bool safariPan;
 
@@ -71,20 +72,163 @@ class _SafariState extends State<Safari> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Stack(
-            alignment: Alignment.topRight,
+            alignment: Alignment.centerRight,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth(context, mulBy: 0.013),
-                    vertical: screenHeight(context, mulBy: 0.01)),
                 height: screenHeight(context,mulBy: 0.059),
                 decoration: BoxDecoration(
                     color: Theme.of(context).dividerColor,
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10),
                         topLeft: Radius.circular(10))),
+                // child: Row(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   children: [
+                //     Row(
+                //       children: [
+                //         InkWell(
+                //           child: Container(
+                //             height: 11.5,
+                //             width: 11.5,
+                //             decoration: BoxDecoration(
+                //               color: Colors.redAccent,
+                //               shape: BoxShape.circle,
+                //               border: Border.all(
+                //                 color: Colors.black.withOpacity(0.2),
+                //               ),
+                //             ),
+                //           ),
+                //           onTap: () {
+                //             Provider.of<OnOff>(context, listen: false)
+                //                 .toggleSafari();
+                //             Provider.of<OnOff>(context, listen: false)
+                //                 .offSafariFS();
+                //           },
+                //         ),
+                //         SizedBox(
+                //           width: screenWidth(context, mulBy: 0.005),
+                //         ),
+                //         InkWell(
+                //           child: Container(
+                //             height: 11.5,
+                //             width: 11.5,
+                //             decoration: BoxDecoration(
+                //               color: Colors.amber,
+                //               shape: BoxShape.circle,
+                //               border: Border.all(
+                //                 color: Colors.black.withOpacity(0.2),
+                //               ),
+                //             ),
+                //           ),
+                //         ),
+                //         SizedBox(
+                //           width: screenWidth(context, mulBy: 0.005),
+                //         ),
+                //         InkWell(
+                //           child: Container(
+                //             height: 11.5,
+                //             width: 11.5,
+                //             decoration: BoxDecoration(
+                //               color: Colors.green,
+                //               shape: BoxShape.circle,
+                //               border: Border.all(
+                //                 color: Colors.black.withOpacity(0.2),
+                //               ),
+                //             ),
+                //           ),
+                //           onTap: () {
+                //             Provider.of<OnOff>(context, listen: false)
+                //                 .toggleSafariFS();
+                //           },
+                //         )
+                //       ],
+                //     ),
+                //     Spacer(),
+                //     Container(
+                //         width: 300,
+                //         height: screenHeight(context,mulBy: 0.03),//0.038
+                //         margin: EdgeInsets.zero,
+                //       decoration: BoxDecoration(
+                //         color: Color(0xff47454b),
+                //         borderRadius:  BorderRadius.circular(5),
+                //       ),
+                //       child: TextField(
+                //         textAlignVertical: TextAlignVertical.center,
+                //         controller: urlController,
+                //         decoration: InputDecoration(
+                //           hintStyle: TextStyle(fontSize: 17,color: Theme.of(context).backgroundColor),
+                //           hintText: 'Origin',
+                //           prefixIcon: Icon(Icons.place,color: Theme.of(context).backgroundColor),
+                //           border: InputBorder.none,
+                //           contentPadding: EdgeInsets.only(left: 20, bottom: 8, top: 8),
+                //           focusedBorder: OutlineInputBorder(
+                //             borderRadius: BorderRadius.all(Radius.circular(32)),
+                //             borderSide: BorderSide(color: Theme.of(context).primaryColor,width: 3),
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     // Container(
+                //     //   width: 300,
+                //     //   height: screenHeight(context,mulBy: 0.03),//0.038
+                //     //   margin: EdgeInsets.zero,
+                //     //   child: TextFormField(
+                //     //     decoration: new InputDecoration(
+                //     //       labelText: "Search or enter website name",
+                //     //       labelStyle: TextStyle(
+                //     //         color: Theme.of(context).cardColor.withOpacity(0.5),
+                //     //         fontFamily: "SF",
+                //     //         fontWeight: FontWeight.w400,
+                //     //         fontSize: 10
+                //     //       ),
+                //     //       fillColor: Colors.white,
+                //     //       border: new OutlineInputBorder(
+                //     //         borderRadius: new BorderRadius.circular(5.0),
+                //     //         borderSide: new BorderSide(
+                //     //           color: Colors.transparent
+                //     //         ),
+                //     //       ),
+                //     //     ),
+                //     //   ),
+                //     // ),
+                //     Spacer(),
+                //
+                //   ],
+                // ),
+              ),
+              GestureDetector(
+                onPanUpdate: (tapInfo) {
+                  if (!safariFS) {
+                    setState(() {
+                      position = Offset(position.dx + tapInfo.delta.dx,
+                          position.dy + tapInfo.delta.dy);
+                    });
+                  }
+                },
+                onPanStart: (details) {
+                  Provider.of<OnOff>(context, listen: false).onSafariPan();
+                },
+                onPanEnd: (details) {
+                  Provider.of<OnOff>(context, listen: false).offSafariPan();
+                },
+                onDoubleTap: () {
+                  Provider.of<OnOff>(context, listen: false).toggleSafariFS();
+                },
+                child: Container(
+                    alignment: Alignment.centerRight,
+                    width: safariFS
+                        ? screenWidth(context, mulBy: 0.95)
+                        : screenWidth(context, mulBy: 0.5),
+                    height: screenHeight(context, mulBy: 0.058),
+                    color: Colors.transparent),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth(context, mulBy: 0.013),
+                    vertical: screenHeight(context, mulBy: 0.01)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
                       children: [
@@ -150,55 +294,45 @@ class _SafariState extends State<Safari> {
                       width: 300,
                       height: screenHeight(context,mulBy: 0.03),//0.038
                       margin: EdgeInsets.zero,
-                      child: TextFormField(
-                        decoration: new InputDecoration(
-                          labelText: "Search or enter website name",
-                          labelStyle: TextStyle(
-                            color: Theme.of(context).cardColor.withOpacity(0.5),
-                            fontFamily: "SF",
-                            fontWeight: FontWeight.w400,
-                            fontSize: 10
-                          ),
-                          fillColor: Colors.white,
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(5.0),
-                            borderSide: new BorderSide(
-                              color: Colors.transparent
+                      decoration: BoxDecoration(
+                        color: Color(0xff47454b),
+                        borderRadius:  BorderRadius.circular(5),
+                      ),
+                      child: Center(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: TextField(
+                            controller: urlController,
+                            textAlignVertical: TextAlignVertical.top,
+                            textAlign: TextAlign.center,
+                            cursorColor: Theme.of(context).cardColor.withOpacity(0.7),
+                            style: TextStyle(
+                              height: 2,
+                              color: Theme.of(context).cardColor.withOpacity(1),
+                              fontFamily: "HN",
+                              fontWeight: FontWeight.w400,
+                              fontSize: 10,
+                            ),
+                            decoration: InputDecoration(
+                              hintText: "Search or enter website name", //TODO
+                              alignLabelWithHint: true,
+                              hintStyle: TextStyle(
+                                height: 2,
+                                          color: Theme.of(context).cardColor.withOpacity(0.4),
+                                          fontFamily: "HN",
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 10,
+                                      ),
+                              border: InputBorder.none,
+
                             ),
                           ),
                         ),
                       ),
                     ),
                     Spacer(),
-
                   ],
                 ),
-              ),
-              GestureDetector(
-                onPanUpdate: (tapInfo) {
-                  if (!safariFS) {
-                    setState(() {
-                      position = Offset(position.dx + tapInfo.delta.dx,
-                          position.dy + tapInfo.delta.dy);
-                    });
-                  }
-                },
-                onPanStart: (details) {
-                  Provider.of<OnOff>(context, listen: false).onSafariPan();
-                },
-                onPanEnd: (details) {
-                  Provider.of<OnOff>(context, listen: false).offSafariPan();
-                },
-                onDoubleTap: () {
-                  Provider.of<OnOff>(context, listen: false).toggleSafariFS();
-                },
-                child: Container(
-                    alignment: Alignment.centerRight,
-                    width: safariFS
-                        ? screenWidth(context, mulBy: 0.95)
-                        : screenWidth(context, mulBy: 0.5),
-                    height: screenHeight(context, mulBy: 0.058),
-                    color: Colors.transparent),
               ),
             ],
           ),
@@ -219,6 +353,12 @@ class _SafariState extends State<Safari> {
                   ),
                   decoration: BoxDecoration(
                     color: Theme.of(context).hintColor,
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.black.withOpacity(0.5),
+                        width: 0.8
+                      )
+                    )
                   ),
                 ),
               ),
