@@ -82,6 +82,27 @@ flutter:
         weight: 100
       - asset: assets/fonts/Helvetica-Bold.ttf
         weight: 500
+    - family: HN
+      fonts:
+        - asset: assets/fonts/HN/HNUltraLight.ttf
+          weight: 100
+        - asset: assets/fonts/HN/HNThin.ttf
+          weight: 200
+        - asset: assets/fonts/HN/HNLight.ttf
+          weight: 300
+        - asset: assets/fonts/HN/HNRegular.ttf
+          weight: 400
+        - asset: assets/fonts/HN/HNMedium.ttf
+          weight: 500
+        - asset: assets/fonts/HN/HNBold.ttf
+          weight: 600
+        - asset: assets/fonts/HN/HNHeavy.ttf
+          weight: 700
+        - asset: assets/fonts/HN/HNBlack.ttf
+          weight: 800
+        - asset: assets/fonts/HN/HNExtraBlack.ttf
+          weight: 900
+
 
 
   #
