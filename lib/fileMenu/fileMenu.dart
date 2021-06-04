@@ -53,19 +53,19 @@ class _FileMenuState extends State<FileMenu> {
                     SizedBox(width: size.width*0.012,),
                     Image.asset("assets/icons/apple_file.png",),
                     SizedBox(width: size.width*0.013,),
-                    FittedBox(fit: BoxFit.fitHeight, child: Text("Finder", style: TextStyle(fontFamily: 'SF', fontWeight: FontWeight.w600, color: Colors.white),)),
+                    FittedBox(fit: BoxFit.fitHeight, child: Text("Finder", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w600, color: Colors.white),)),
                     SizedBox(width: size.width*0.014,),
-          FittedBox(fit: BoxFit.fitHeight, child:Text("File", style: TextStyle(fontFamily: 'SF', fontWeight: FontWeight.w400, color: Colors.white),),),
+          FittedBox(fit: BoxFit.fitHeight, child:Text("File", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, color: Colors.white),),),
                     SizedBox(width: size.width*0.014,),
-            FittedBox(fit: BoxFit.fitHeight, child:Text("Edit", style: TextStyle(fontFamily: 'SF', fontWeight: FontWeight.w400, color: Colors.white),),),
+            FittedBox(fit: BoxFit.fitHeight, child:Text("Edit", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, color: Colors.white),),),
                     SizedBox(width: size.width*0.014,),
-    FittedBox(fit: BoxFit.fitHeight, child:Text("View", style: TextStyle(fontFamily: 'SF', fontWeight: FontWeight.w400, color: Colors.white),),),
+    FittedBox(fit: BoxFit.fitHeight, child:Text("View", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, color: Colors.white),),),
                     SizedBox(width: size.width*0.014,),
-    FittedBox(fit: BoxFit.fitHeight, child: Text("Go", style: TextStyle(fontFamily: 'SF', fontWeight: FontWeight.w400, color: Colors.white),),),
+    FittedBox(fit: BoxFit.fitHeight, child: Text("Go", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, color: Colors.white),),),
                     SizedBox(width: size.width*0.014,),
-    FittedBox(fit: BoxFit.fitHeight, child: Text("Window", style: TextStyle(fontFamily: 'SF', fontWeight: FontWeight.w400, color: Colors.white),),),
+    FittedBox(fit: BoxFit.fitHeight, child: Text("Window", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, color: Colors.white),),),
                     SizedBox(width: size.width*0.014,),
-    FittedBox(fit: BoxFit.fitHeight, child: Text("Help", style: TextStyle(fontFamily: 'SF', fontWeight: FontWeight.w400, color: Colors.white),),),
+    FittedBox(fit: BoxFit.fitHeight, child: Text("Help", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, color: Colors.white),),),
 
 
                   ],
@@ -73,7 +73,7 @@ class _FileMenuState extends State<FileMenu> {
                 Spacer(),
                 Row(
                   children: [
-                  FittedBox(fit: BoxFit.fitHeight, child:Text("${rand.nextInt(20)+60}% ", style: TextStyle(fontFamily: 'SF', fontWeight: FontWeight.w400, fontSize: 12.5, color: Colors.white),),),
+                  FittedBox(fit: BoxFit.fitHeight, child:Text("${rand.nextInt(20)+60}% ", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, fontSize: 12.5, color: Colors.white),),),
                     Image.asset("assets/icons/battery.png", height: 12, ),
                     SizedBox(width: size.width*0.014,),
                     Image.asset("assets/icons/wifi.png", height: 13.5,),
@@ -91,7 +91,7 @@ class _FileMenuState extends State<FileMenu> {
                     FittedBox(fit: BoxFit.fitHeight,
                       child: Text(
                         "${DateFormat('E d LLL hh:mm a').format(now)}",
-                        style: TextStyle(fontFamily: 'SF',
+                        style: TextStyle(fontFamily: 'HN',
                             fontWeight: FontWeight.w400,
                             color: Colors.white),),),
                     // StreamBuilder(
