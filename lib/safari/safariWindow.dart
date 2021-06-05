@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import '../components/windowWidgets.dart';
 import '../sizes.dart';
 import '../widgets.dart';
-import 'dart:ui';
+import 'dart:html';
+import 'dart:ui' as ui;
 
 class Safari extends StatefulWidget {
   final Offset initPos;
@@ -21,11 +22,24 @@ class _SafariState extends State<Safari> {
   TextEditingController urlController = new TextEditingController();
   bool safariFS;
   bool safariPan;
+  String url = "";
+  final IFrameElement _iframeElement = IFrameElement();
+
 
   @override
   void initState() {
     position = widget.initPos;
     super.initState();
+    _iframeElement.src = 'yoyo';
+    _iframeElement.style.border = 'none';
+    // _iframeElement.height= '1080';
+    // _iframeElement.width= '1920';
+    _iframeElement.allowFullscreen = true;
+    //ignore: undefined_prefixed_name
+    ui.platformViewRegistry.registerViewFactory(
+      'yoyo', //use source as registered key to ensure uniqueness
+          (int viewId) => _iframeElement,
+    );
   }
 
   @override
@@ -306,6 +320,27 @@ class _SafariState extends State<Safari> {
                             textAlignVertical: TextAlignVertical.top,
                             textAlign: TextAlign.center,
                             cursorColor: Theme.of(context).cardColor.withOpacity(0.7),
+                            onSubmitted: (text){
+                              setState(() {
+                                debugPrint(text);
+                                text = text.trim();
+                                if (text.length == 0) return;
+
+                                if (text.indexOf("http://") != 0 && url.indexOf("https://") != 0) {
+                                url = "https://" + text;
+                                }
+
+                               // url = encodeURI(url);
+                               // display_url = url;
+                                if (url.contains("google.com")) { // 😅
+                                url = 'https://www.google.com/webhp?igu=1';
+                               // display_url = "https://www.google.com";
+                                }
+                                _iframeElement.src= url;
+                                url = text;
+
+                              });
+                            },
                             style: TextStyle(
                               height: 2,
                               color: Theme.of(context).cardColor.withOpacity(1),
@@ -342,11 +377,11 @@ class _SafariState extends State<Safari> {
                   bottomRight: Radius.circular(10),
                   bottomLeft: Radius.circular(10)),
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+                filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth(context, mulBy: 0.013),
-                      vertical: screenHeight(context, mulBy: 0.025)),
+                  // padding: EdgeInsets.symmetric(
+                  //     horizontal: screenWidth(context, mulBy: 0.013),
+                  //     vertical: screenHeight(context, mulBy: 0.025)),
                   height: screenHeight(context, mulBy: 0.14),
                   width: screenWidth(
                     context,
@@ -360,6 +395,7 @@ class _SafariState extends State<Safari> {
                       )
                     )
                   ),
+                  child: (url=="")? Container():HtmlElementView(viewType: 'yoyo',),
                 ),
               ),
             ),
