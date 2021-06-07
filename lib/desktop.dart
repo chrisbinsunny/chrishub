@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Finder(initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))),
             //DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One'),
             //SafariWindow
-            Safari(initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))),
+            Safari(initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
             // file menu
             FileMenu(),
             //docker bar
