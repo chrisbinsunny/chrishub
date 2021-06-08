@@ -9,7 +9,7 @@ class OnOff extends ChangeNotifier{
   bool ccOpen =false;
   bool finderOpen =false;
   bool finderFS = false;
-  bool safariOpen =true;
+  bool safariOpen =false;
   bool safariFS = false;
   bool safariPan = false;
   bool finderPan = false;
