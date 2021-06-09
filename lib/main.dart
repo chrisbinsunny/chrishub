@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'theme/theme.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:provider/provider.dart';
-import 'dart:html';
 
 import 'desktop.dart';
 
 void main() {
-  document.documentElement.requestFullscreen();
   runApp(ChangeNotifierProvider<ThemeNotifier>(
       create: (_) => ThemeNotifier(ThemeNotifier.darkTheme),
       child: MyApp()));
