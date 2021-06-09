@@ -24,37 +24,48 @@ class _SafariState extends State<Safari> {
   bool safariFS;
   bool safariPan;
   String url = "";
-  final IFrameElement _iframeElement = IFrameElement();
+  bool isDoc = false;
+  final IFrameElement _iframeElementURL = IFrameElement();
+  final IFrameElement _iframeElementDOC = IFrameElement();
 
-  void handleURL(String text, {bool doc = false})
-  {
-
+  void handleURL(
+    String text,
+  ) {
+    isDoc = false;
     text = text.trim();
     if (text.length == 0) return;
 
-    if(doc){
-      url=text;
-      setState(() {
-        urlController.text= url.substring(8,url.indexOf("/",8));
-
-        _iframeElement.srcdoc= url;
-      });
-      return;
-    }
-
     if (text.indexOf("http://") != 0 && text.indexOf("https://") != 0) {
       url = "https://" + text + "/";
-    }else{url=text;}
+    } else {
+      url = text;
+    }
 
-    if (url.contains("google")) { // 😅
+    if (url.contains("google")) {
+      // 😅
       url = "https://www.google.com/webhp?igu=1";
     }
 
     setState(() {
-      url=Uri.encodeFull(url);
-      urlController.text= url.substring(8,url.indexOf("/",8));
+      url = Uri.encodeFull(url);
+      urlController.text = url.substring(8, url.indexOf("/", 8));
+      _iframeElementURL.src = url;
+      debugPrint(_iframeElementURL.innerHtml.toString());
+    });
+  }
 
-      _iframeElement.src= url;
+  void handleDOC(
+    String text,
+  ) {
+    text = text.trim();
+    if (text.length == 0) return;
+
+    setState(() {
+      isDoc = true;
+      url = text;
+      urlController.text = url.substring(8, url.indexOf("/", 8));
+
+      _iframeElementDOC.srcdoc = url;
     });
   }
 
@@ -62,13 +73,18 @@ class _SafariState extends State<Safari> {
   void initState() {
     position = widget.initPos;
     super.initState();
-    _iframeElement.src = 'https://www.google.com/webhp?igu=1';
-    _iframeElement.style.border = 'none';
-    _iframeElement.allow= "autoplay";
-    _iframeElement.allowFullscreen = true;
+    _iframeElementURL.src = 'https://www.google.com/webhp?igu=1';
+    _iframeElementURL.style.border = 'none';
+    _iframeElementURL.allow = "autoplay";
+    _iframeElementURL.allowFullscreen = true;
     ui.platformViewRegistry.registerViewFactory(
-      'browser', //use source as registered key to ensure uniqueness
-          (int viewId) => _iframeElement,
+      'urlIframe',
+      (int viewId) => _iframeElementURL,
+    );
+
+    ui.platformViewRegistry.registerViewFactory(
+      'docIframe',
+      (int viewId) => _iframeElementDOC,
     );
   }
 
@@ -119,7 +135,9 @@ class _SafariState extends State<Safari> {
             alignment: Alignment.centerRight,
             children: [
               Container(
-                height: safariFS? screenHeight(context, mulBy: 0.059):screenHeight(context, mulBy: 0.06),
+                height: safariFS
+                    ? screenHeight(context, mulBy: 0.059)
+                    : screenHeight(context, mulBy: 0.06),
                 decoration: BoxDecoration(
                     color: Theme.of(context).dividerColor,
                     borderRadius: BorderRadius.only(
@@ -145,20 +163,19 @@ class _SafariState extends State<Safari> {
                   Provider.of<OnOff>(context, listen: false).toggleSafariFS();
                 },
                 child: Container(
-                    alignment: Alignment.topRight,
-                    width: safariFS
-                        ? screenWidth(context, mulBy: 0.95)
-                        : screenWidth(context, mulBy: 0.7),
-                    height: safariFS? screenHeight(context, mulBy: 0.059):screenHeight(context, mulBy: 0.06),
+                  alignment: Alignment.topRight,
+                  width: safariFS
+                      ? screenWidth(context, mulBy: 0.95)
+                      : screenWidth(context, mulBy: 0.7),
+                  height: safariFS
+                      ? screenHeight(context, mulBy: 0.059)
+                      : screenHeight(context, mulBy: 0.06),
                   decoration: BoxDecoration(
-                    color: Colors.transparent,
+                      color: Colors.transparent,
                       border: Border(
                           bottom: BorderSide(
                               color: Colors.black.withOpacity(0.5),
-                              width: 0.8
-                          )
-                      )
-                  ),
+                              width: 0.8))),
                 ),
               ),
               Container(
@@ -188,6 +205,8 @@ class _SafariState extends State<Safari> {
                                 .toggleSafari();
                             Provider.of<OnOff>(context, listen: false)
                                 .offSafariFS();
+                            url = "";
+                            urlController.text = "";
                           },
                         ),
                         SizedBox(
@@ -228,21 +247,27 @@ class _SafariState extends State<Safari> {
                         )
                       ],
                     ),
-                    Spacer(flex: 2,),
-                    ElevatedButton(onPressed: (){
-                      setState(() {
-                        url="";
-                        urlController.text="";
-                      });
-                    }, child: Text("Home")),
-                    Spacer(flex: 1,),
+                    Spacer(
+                      flex: 2,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            url = "";
+                            urlController.text = "";
+                          });
+                        },
+                        child: Text("Home")),
+                    Spacer(
+                      flex: 1,
+                    ),
                     Container(
                       width: 300,
-                      height: screenHeight(context,mulBy: 0.03),//0.038
+                      height: screenHeight(context, mulBy: 0.03), //0.038
                       margin: EdgeInsets.zero,
                       decoration: BoxDecoration(
                         color: Color(0xff47454b),
-                        borderRadius:  BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(5),
                       ),
                       child: Center(
                         child: Container(
@@ -251,8 +276,9 @@ class _SafariState extends State<Safari> {
                             controller: urlController,
                             //textAlignVertical: TextAlignVertical.center,
                             textAlign: TextAlign.center,
-                            cursorColor: Theme.of(context).cardColor.withOpacity(0.55),
-                            onSubmitted: (text)=>handleURL(text),
+                            cursorColor:
+                                Theme.of(context).cardColor.withOpacity(0.55),
+                            onSubmitted: (text) => handleURL(text),
                             style: TextStyle(
                               height: 2,
                               color: Theme.of(context).cardColor.withOpacity(1),
@@ -265,22 +291,26 @@ class _SafariState extends State<Safari> {
                             decoration: InputDecoration(
                               hintText: "Search or enter website name", //TODO
                               isCollapsed: true,
-                              contentPadding: EdgeInsets.fromLTRB(5.0 , 00.0 , 5.0 , 3.0),
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(5.0, 00.0, 5.0, 3.0),
                               hintStyle: TextStyle(
-                                height:2,
-                                          color: Theme.of(context).cardColor.withOpacity(0.4),
-                                          fontFamily: "HN",
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 10,
-                                      ),
+                                height: 2,
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(0.4),
+                                fontFamily: "HN",
+                                fontWeight: FontWeight.w400,
+                                fontSize: 10,
+                              ),
                               border: InputBorder.none,
-
                             ),
                           ),
                         ),
                       ),
                     ),
-                    Spacer(flex: 3,),
+                    Spacer(
+                      flex: 3,
+                    ),
                   ],
                 ),
               ),
@@ -303,123 +333,176 @@ class _SafariState extends State<Safari> {
                   ),
                   decoration: BoxDecoration(
                     color: Theme.of(context).hintColor,
-
                   ),
-                  child: (url=="")? Container(
-                    child: Column(
-                      children: [
-                        Text("Favourites"),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                              onTap: (){
-                                handleURL("https://www.google.com/webhp?igu=1");
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  height: screenHeight(context, mulBy: 0.08),
-                                  width: screenWidth(context, mulBy: 0.04),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10)
-                                  ),
-                                  child: Image.asset("assets/caches/google.png",fit: BoxFit.scaleDown,),
-                                ),
+                  child: (url == "")
+                      ? Container(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: screenHeight(context, mulBy: 0.08),
                               ),
-                            ),
-                            InkWell(
-                              onTap: (){
-                                handleURL("https://www.youtube.com/embed/GEZhD3J89ZE?start=4207&autoplay=1&enablejsapi=1");
-                              },
-                              child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  height: screenHeight(context, mulBy: 0.08),
-                                  width: screenWidth(context, mulBy: 0.04),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10)
-                                  ),
-                                  child: Image.asset("assets/caches/youtube.jpg",fit: BoxFit.scaleDown,),
-                                ),
+                              MBPText(
+                                text: "Favourites",
+                                color:
+                                    Theme.of(context).cardColor.withOpacity(1),
+                                size: 20,
+                                weight: ,
                               ),
-                            ),
-                            InkWell(
-                              onTap: (){
-                                handleURL('<a class="twitter-timeline" href="https://twitter.com/chrisbinsunny?ref_src=twsrc%5Etfw">Tweets by chrisbinsunny</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>', doc: true);
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  height: screenHeight(context, mulBy: 0.08),
-                                  width: screenWidth(context, mulBy: 0.04),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10)
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      handleURL(
+                                          "https://www.google.com/webhp?igu=1");
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Container(
+                                        height:
+                                            screenHeight(context, mulBy: 0.08),
+                                        width:
+                                            screenWidth(context, mulBy: 0.04),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Image.asset(
+                                          "assets/caches/google.png",
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  child: Image.asset("assets/caches/twitter.png",fit: BoxFit.scaleDown,),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: (){
-                                handleURL("https://www.youtube.com/embed/GEZhD3J89ZE?start=4207&autoplay=1&enablejsapi=1");
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  height: screenHeight(context, mulBy: 0.08),
-                                  width: screenWidth(context, mulBy: 0.04),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10)
+                                  InkWell(
+                                    onTap: () {
+                                      handleURL(
+                                          "https://www.youtube.com/embed/GEZhD3J89ZE?start=4207&autoplay=1&enablejsapi=1");
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Container(
+                                        height:
+                                            screenHeight(context, mulBy: 0.08),
+                                        width:
+                                            screenWidth(context, mulBy: 0.04),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Image.asset(
+                                          "assets/caches/youtube.jpg",
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  child: Image.asset("assets/caches/github.png",fit: BoxFit.scaleDown,),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: (){
-                                handleURL("https://www.youtube.com/embed/GEZhD3J89ZE?start=4207&autoplay=1&enablejsapi=1");
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  height: screenHeight(context, mulBy: 0.08),
-                                  width: screenWidth(context, mulBy: 0.04),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10)
+                                  InkWell(
+                                    onTap: () {
+                                      handleDOC(
+                                        '<a class="twitter-timeline" href="https://twitter.com/chrisbinsunny?ref_src=twsrc%5Etfw">Tweets by chrisbinsunny</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>',
+                                      );
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Container(
+                                        height:
+                                            screenHeight(context, mulBy: 0.08),
+                                        width:
+                                            screenWidth(context, mulBy: 0.04),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Image.asset(
+                                          "assets/caches/twitter.png",
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  child: Image.asset("assets/caches/google.png",fit: BoxFit.scaleDown,),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: (){
-                                handleURL("https://www.youtube.com/embed/GEZhD3J89ZE?start=4207&autoplay=1&enablejsapi=1");
-                              },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Container(
-                                  height: screenHeight(context, mulBy: 0.08),
-                                  width: screenWidth(context, mulBy: 0.04),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10)
+                                  InkWell(
+                                    onTap: () {
+                                      handleURL(
+                                          "https://www.youtube.com/embed/GEZhD3J89ZE?start=4207&autoplay=1&enablejsapi=1");
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Container(
+                                        height:
+                                            screenHeight(context, mulBy: 0.08),
+                                        width:
+                                            screenWidth(context, mulBy: 0.04),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Image.asset(
+                                          "assets/caches/github.png",
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  child: Image.asset("assets/caches/insta.png",fit: BoxFit.scaleDown,),
-                                ),
-                              ),
-                            ),
-
-                          ],
+                                  InkWell(
+                                    onTap: () {
+                                      handleURL(
+                                          "https://www.youtube.com/embed/GEZhD3J89ZE?start=4207&autoplay=1&enablejsapi=1");
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Container(
+                                        height:
+                                            screenHeight(context, mulBy: 0.08),
+                                        width:
+                                            screenWidth(context, mulBy: 0.04),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Image.asset(
+                                          "assets/caches/google.png",
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      handleURL(
+                                          "https://www.youtube.com/embed/GEZhD3J89ZE?start=4207&autoplay=1&enablejsapi=1");
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Container(
+                                        height:
+                                            screenHeight(context, mulBy: 0.08),
+                                        width:
+                                            screenWidth(context, mulBy: 0.04),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Image.asset(
+                                          "assets/caches/insta.png",
+                                          fit: BoxFit.scaleDown,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         )
-                      ],
-                    ),
-                  ):HtmlElementView(viewType: 'browser',),
+                      : ((!isDoc)
+                          ? HtmlElementView(
+                              viewType: 'urlIframe',
+                            )
+                          : HtmlElementView(
+                              viewType: 'docIframe',
+                            )),
                 ),
               ),
             ),
