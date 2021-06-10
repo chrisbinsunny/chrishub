@@ -112,16 +112,22 @@ class _DockerState extends State<Docker> {
                         on: false,
                       ),
                       DockerItem(
-                        iName: "mail",
+                        iName: "spotify",
                         on: false,
                       ),
                       DockerItem(
                         iName: "terminal",
                         on: false,
                       ),
-                      DockerItem(
-                        iName: "xcode",
-                        on: false,
+                      InkWell(
+                        onTap: (){
+                          Provider.of<OnOff>(context, listen: false)
+                              .openVS();
+                        },
+                        child: DockerItem(
+                          iName: "vscode",
+                          on: false,
+                        ),
                       ),
                       DockerItem(
                         iName: "photos",
