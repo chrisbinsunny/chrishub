@@ -8,15 +8,15 @@ import '../widgets.dart';
 import 'dart:html' as html;
 import 'dart:ui' as ui;
 
-class SpotifyCode extends StatefulWidget {
+class Spotify extends StatefulWidget {
   final Offset initPos;
-  const SpotifyCode({this.initPos, Key key}) : super(key: key);
+  const Spotify({this.initPos, Key key}) : super(key: key);
 
   @override
-  _SpotifyCodeState createState() => _SpotifyCodeState();
+  _SpotifyState createState() => _SpotifyState();
 }
 
-class _SpotifyCodeState extends State<SpotifyCode> {
+class _SpotifyState extends State<Spotify> {
   Offset position = Offset(0.0, 0.0);
   bool spotifyFS;
   bool spotifyPan;
@@ -40,9 +40,9 @@ class _SpotifyCodeState extends State<SpotifyCode> {
 
   @override
   Widget build(BuildContext context) {
-    var spotifyOpen = Provider.of<OnOff>(context).getVS;
-    spotifyFS = Provider.of<OnOff>(context).getVSFS;
-    spotifyPan = Provider.of<OnOff>(context).getVSPan;
+    var spotifyOpen = Provider.of<OnOff>(context).getSpotify;
+    spotifyFS = Provider.of<OnOff>(context).getSpotifyFS;
+    spotifyPan = Provider.of<OnOff>(context).getSpotifyPan;
     return spotifyOpen
         ? AnimatedPositioned(
       duration: Duration(milliseconds: spotifyPan ? 0 : 200),
@@ -103,13 +103,13 @@ class _SpotifyCodeState extends State<SpotifyCode> {
                   }
                 },
                 onPanStart: (details) {
-                  Provider.of<OnOff>(context, listen: false).onSafariPan();
+                  Provider.of<OnOff>(context, listen: false).onSpotifyPan();
                 },
                 onPanEnd: (details) {
-                  Provider.of<OnOff>(context, listen: false).offSafariPan();
+                  Provider.of<OnOff>(context, listen: false).offSpotifyPan();
                 },
                 onDoubleTap: () {
-                  Provider.of<OnOff>(context, listen: false).toggleSafariFS();
+                  Provider.of<OnOff>(context, listen: false).toggleSpotifyFS();
                 },
                 child: Container(
                   alignment: Alignment.topRight,
@@ -151,9 +151,9 @@ class _SpotifyCodeState extends State<SpotifyCode> {
                           ),
                           onTap: () {
                             Provider.of<OnOff>(context, listen: false)
-                                .toggleVS();
+                                .toggleSpotify();
                             Provider.of<OnOff>(context, listen: false)
-                                .offVSFS();
+                                .offSpotifyFS();
                           },
                         ),
                         SizedBox(
@@ -189,7 +189,7 @@ class _SpotifyCodeState extends State<SpotifyCode> {
                           ),
                           onTap: () {
                             Provider.of<OnOff>(context, listen: false)
-                                .toggleVSFS();
+                                .toggleSpotifyFS();
                           },
                         )
                       ],

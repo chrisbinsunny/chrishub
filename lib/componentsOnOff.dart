@@ -16,7 +16,7 @@ class OnOff extends ChangeNotifier{
   bool vsOpen = false;
   bool vsFS = false;
   bool vsPan = false;
-  bool spotifyOpen = true;
+  bool spotifyOpen = false;
   bool spotifyFS = false;
   bool spotifyPan = false;
 
@@ -143,42 +143,42 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getSpotify {
-    return finderOpen;
+    return spotifyOpen;
   }
 
   bool get getSpotifyFS {
-    return finderFS;
+    return spotifyFS;
   }
 
   void toggleSpotify() {
-    finderOpen= !finderOpen;
+    spotifyOpen= !spotifyOpen;
     notifyListeners();
   }
 
   void toggleSpotifyFS() {
-    finderFS= !finderFS;
+    spotifyFS= !spotifyFS;
     notifyListeners();
   }
-  void offFinderFS() {
-    finderFS= false;
-    notifyListeners();
-  }
-
-  void openFinder() {
-    finderOpen= true;
+  void offSpotifyFS() {
+    spotifyFS= false;
     notifyListeners();
   }
 
-  bool get getFinderPan {
-    return finderPan;
-  }
-  void offFinderPan() {
-    finderPan= false;
+  void openSpotify() {
+    spotifyOpen= true;
     notifyListeners();
   }
 
-  void onFinderPan() {
-    finderPan= true;
+  bool get getSpotifyPan {
+    return spotifyPan;
+  }
+  void offSpotifyPan() {
+    spotifyPan= false;
+    notifyListeners();
+  }
+
+  void onSpotifyPan() {
+    spotifyPan= true;
     notifyListeners();
   }
 
@@ -189,6 +189,11 @@ class OnOff extends ChangeNotifier{
 
   void toggleCc() {
     ccOpen= !ccOpen;
+    notifyListeners();
+  }
+
+  void offCc() {
+    ccOpen= false;
     notifyListeners();
   }
 

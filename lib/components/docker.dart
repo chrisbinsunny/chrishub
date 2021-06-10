@@ -33,6 +33,8 @@ class _DockerState extends State<Docker> {
   Widget build(BuildContext context) {
     bool safariOpen = Provider.of<OnOff>(context).getSafari;
     bool vsOpen = Provider.of<OnOff>(context).getVS;
+    bool spotifyOpen = Provider.of<OnOff>(context).getSpotify;
+
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -114,9 +116,15 @@ class _DockerState extends State<Docker> {
                         iName: "maps",
                         on: false,
                       ),
-                      DockerItem(
-                        iName: "spotify",
-                        on: false,
+                      InkWell(
+                        onTap: (){
+                          Provider.of<OnOff>(context, listen: false)
+                              .openSpotify();
+                        },
+                        child: DockerItem(
+                          iName: "spotify",
+                          on: spotifyOpen,
+                        ),
                       ),
                       DockerItem(
                         iName: "terminal",
