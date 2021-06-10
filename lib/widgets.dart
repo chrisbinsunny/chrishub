@@ -5,7 +5,8 @@ class MBPText extends StatelessWidget {
   final String text;
   final double size;
   final FontWeight weight;
-  const MBPText({this.color= Colors.black,this.text, this.size=12, this.weight, Key key}) : super(key: key);
+  final String fontFamily;
+  const MBPText({this.color= Colors.black,this.text, this.size=12, this.weight, this.fontFamily, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

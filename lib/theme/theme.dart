@@ -16,7 +16,7 @@ class ThemeNotifier with ChangeNotifier {
         fontSize: 15,
       )
     ),
-    fontFamily: "HN",
+    fontFamily: "SF",
     primarySwatch: Colors.blueGrey,
     backgroundColor: Colors.white.withOpacity(0.15), //Control Center
     cardColor: Colors.black.withOpacity(0.0), //Control Center item border, font color
