@@ -31,6 +31,7 @@ class _FileMenuState extends State<FileMenu> {
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
+    int num= rand.nextInt(20);
     return ClipRect(
       child: new BackdropFilter(
         filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
@@ -73,7 +74,7 @@ class _FileMenuState extends State<FileMenu> {
                 Spacer(),
                 Row(
                   children: [
-                  FittedBox(fit: BoxFit.fitHeight, child:Text("${rand.nextInt(20)+60}% ", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, fontSize: 12.5, color: Colors.white),),),
+                  FittedBox(fit: BoxFit.fitHeight, child:Text("${num+60}% ", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, fontSize: 12.5, color: Colors.white),),),
                     Image.asset("assets/icons/battery.png", height: 12, ),
                     SizedBox(width: size.width*0.014,),
                     Image.asset("assets/icons/wifi.png", height: 13.5,),
