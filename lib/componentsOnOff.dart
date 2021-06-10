@@ -9,10 +9,13 @@ class OnOff extends ChangeNotifier{
   bool ccOpen =false;
   bool finderOpen =false;
   bool finderFS = false;
-  bool safariOpen =true;
+  bool safariOpen =false;
   bool safariFS = false;
   bool safariPan = false;
   bool finderPan = false;
+  bool vsOpen = true;
+  bool vsFS = false;
+  bool vsPan = false;
 
 
 
@@ -95,6 +98,48 @@ class OnOff extends ChangeNotifier{
     safariPan= true;
     notifyListeners();
   }
+
+  bool get getVS {
+    return vsOpen;
+  }
+
+  bool get getVSFS {
+    return vsFS;
+  }
+
+  void toggleVS() {
+    vsOpen= !vsOpen;
+    notifyListeners();
+  }
+
+  void toggleVSFS() {
+    vsFS= !vsFS;
+    notifyListeners();
+  }
+  void offVSFS() {
+    vsFS= false;
+    notifyListeners();
+  }
+
+  void openVS() {
+    vsOpen= true;
+    notifyListeners();
+  }
+
+  bool get getVSPan {
+    return vsPan;
+  }
+  void offVSPan() {
+    vsPan= false;
+    notifyListeners();
+  }
+
+  void onVSPan() {
+    vsPan= true;
+    notifyListeners();
+  }
+
+
 
   bool get getCc {
     return ccOpen;
