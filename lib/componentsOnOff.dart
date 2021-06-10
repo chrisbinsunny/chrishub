@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class OnOff extends ChangeNotifier{
 
+  String onTop="finder";
   bool ccOpen =false;
   bool finderOpen =false;
   bool finderFS = false;
@@ -21,6 +22,14 @@ class OnOff extends ChangeNotifier{
   bool spotifyPan = false;
 
 
+  String get getTop {
+    return onTop;
+  }
+
+  set setTop(top) {
+    onTop=top;
+    notifyListeners();
+  }
 
   bool get getFinder {
     return finderOpen;

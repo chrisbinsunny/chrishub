@@ -26,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ValueNotifier<List<double>> posValueListener = ValueNotifier([0.0, 0.0]);
   ValueChanged<List<double>> posValueChanged;
 
-  
+
 
 
   @override
@@ -45,13 +45,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 width: size.width,
                 child: Image.asset(themeNotifier.isDark()?"assets/wallpapers/bigsur_dark.jpg":"assets/wallpapers/bigsur_light.jpg",  fit: BoxFit.cover,)),
             //FinderWindow
-            Finder(initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))),
+            Finder(key: ObjectKey("finder"), initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))),
             //SafariWindow
-            Safari(initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
+            Safari(key: ObjectKey("safari"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
             //VSCodeWindow
-            VSCode(initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
+            VSCode(key: ObjectKey("vscode"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
             //SpotifyWindow
-            Spotify(initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
+            Spotify(key: ObjectKey("spotify"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
             // file menu
             FileMenu(),
             //docker bar
