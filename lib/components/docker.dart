@@ -31,6 +31,9 @@ class _DockerState extends State<Docker> {
 
   @override
   Widget build(BuildContext context) {
+    bool safariOpen = Provider.of<OnOff>(context).getSafari;
+    bool vsOpen = Provider.of<OnOff>(context).getVS;
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: Column(
@@ -100,7 +103,7 @@ class _DockerState extends State<Docker> {
                         },
                         child: DockerItem(
                           iName: "safari",
-                          on: false,
+                          on: safariOpen,
                         ),
                       ),
                       DockerItem(
@@ -126,7 +129,7 @@ class _DockerState extends State<Docker> {
                         },
                         child: DockerItem(
                           iName: "vscode",
-                          on: false,
+                          on: vsOpen,
                         ),
                       ),
                       DockerItem(
@@ -197,7 +200,7 @@ class _DockerState extends State<Docker> {
                               height: 4,
                               width: 4,
                               decoration: BoxDecoration(
-                                color: true ? Colors.black : Colors.transparent,
+                                color: true ? Theme.of(context).cardColor.withOpacity(1) : Colors.transparent,
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -259,7 +262,7 @@ class _DockerItemState extends State<DockerItem> {
             height: 4,
             width: 4,
             decoration: BoxDecoration(
-              color: widget.on ? Colors.black : Colors.transparent,
+              color: widget.on ? Theme.of(context).cardColor.withOpacity(1): Colors.transparent,
               shape: BoxShape.circle,
             ),
           )
