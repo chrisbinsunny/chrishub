@@ -7,6 +7,7 @@ import 'package:mac_dt/safari/safariWindow.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
 
+import 'apps/vscode.dart';
 import 'theme/theme.dart';
 import 'components/docker.dart';
 import 'components/finderWindow.dart';
@@ -106,9 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Image.asset(themeNotifier.isDark()?"assets/wallpapers/bigsur_dark.jpg":"assets/wallpapers/bigsur_light.jpg",  fit: BoxFit.cover,)),
             //FinderWindow
             Finder(initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))),
-            //DragBox(Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18)), 'Box One'),
             //SafariWindow
             Safari(initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
+            //VSCodeWindow
+            VSCode(initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
             // file menu
             FileMenu(),
             //docker bar

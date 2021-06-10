@@ -8,107 +8,51 @@ import '../widgets.dart';
 import 'dart:html' as html;
 import 'dart:ui' as ui;
 
-class vscode extends StatefulWidget {
+class VSCode extends StatefulWidget {
   final Offset initPos;
-  const vscode({this.initPos, Key key}) : super(key: key);
+  const VSCode({this.initPos, Key key}) : super(key: key);
 
   @override
-  _vscodeState createState() => _vscodeState();
+  _VSCodeState createState() => _VSCodeState();
 }
 
-class _vscodeState extends State<vscode> {
+class _VSCodeState extends State<VSCode> {
   Offset position = Offset(0.0, 0.0);
-  String selected = "Applications";
-  TextEditingController urlController = new TextEditingController();
   bool vsFS;
   bool vsPan;
-  String url = "";
-  bool isDoc = false;
   final html.IFrameElement _iframeElementURL = html.IFrameElement();
-  final html.IFrameElement _iframeElementDOC = html.IFrameElement();
-
-  void handleURL(
-      String text,
-      ) {
-    isDoc = false;
-    text = text.trim();
-    if (text.length == 0) return;
-
-
-
-    if (text.indexOf("http://") != 0 && text.indexOf("https://") != 0) {
-      url = "https://" + text + "/";
-    } else {
-      url = text;
-    }
-
-    if (url.contains("pornhub")||url.contains("porn")||url.contains("xxx")) {
-      url = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&enablejsapi=1";
-    }
-
-    if (url.contains("google")) {
-      url = "https://www.google.com/webhp?igu=1";
-    }
-
-    setState(() {
-      url = Uri.encodeFull(url);
-      urlController.text = url.substring(8, url.indexOf("/", 8));
-      _iframeElementURL.src = url;
-      debugPrint(_iframeElementURL.innerHtml.toString());
-    });
-  }
-
-  void handleDOC(
-      String text,
-      ) {
-    text = text.trim();
-    if (text.length == 0) return;
-
-    setState(() {
-      isDoc = true;
-      url = text;
-      urlController.text = url.substring(8, url.indexOf("/", 8));
-
-      _iframeElementDOC.srcdoc = url;
-    });
-  }
 
   @override
   void initState() {
     position = widget.initPos;
     super.initState();
-    _iframeElementURL.src = 'https://www.google.com/webhp?igu=1';
+    _iframeElementURL.src = 'https://github1s.com/chrisbinsunny/chrisbinsunny.github.io/blob/master/js/jquery.animatedheadline.js';
     _iframeElementURL.style.border = 'none';
     _iframeElementURL.allow = "autoplay";
     _iframeElementURL.allowFullscreen = true;
     ui.platformViewRegistry.registerViewFactory(
-      'urlIframe',
+      'vsIframe',
           (int viewId) => _iframeElementURL,
     );
 
-    ui.platformViewRegistry.registerViewFactory(
-      'docIframe',
-          (int viewId) => _iframeElementDOC,
-    );
   }
 
   @override
   Widget build(BuildContext context) {
-    var safariOpen = Provider.of<OnOff>(context).getSafari;
+    var vsOpen = Provider.of<OnOff>(context).getVS;
     vsFS = Provider.of<OnOff>(context).getVSFS;
     vsPan = Provider.of<OnOff>(context).getVSPan;
-    return safariOpen
+    return vsOpen
         ? AnimatedPositioned(
       duration: Duration(milliseconds: vsPan ? 0 : 200),
       top: vsFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
       left: vsFS ? 0 : position.dx,
-      child: safariWindow(context),
+      child: vsWindow(context),
     )
         : Container();
   }
 
-  AnimatedContainer safariWindow(BuildContext context) {
-    String thm = Provider.of<ThemeNotifier>(context).findThm;
+  AnimatedContainer vsWindow(BuildContext context) {
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
@@ -158,13 +102,13 @@ class _vscodeState extends State<vscode> {
                   }
                 },
                 onPanStart: (details) {
-                  Provider.of<OnOff>(context, listen: false).onSafariPan();
+                  Provider.of<OnOff>(context, listen: false).onVSPan();
                 },
                 onPanEnd: (details) {
-                  Provider.of<OnOff>(context, listen: false).offSafariPan();
+                  Provider.of<OnOff>(context, listen: false).offVSPan();
                 },
                 onDoubleTap: () {
-                  Provider.of<OnOff>(context, listen: false).toggleSafariFS();
+                  Provider.of<OnOff>(context, listen: false).toggleVSFS();
                 },
                 child: Container(
                   alignment: Alignment.topRight,
@@ -206,11 +150,9 @@ class _vscodeState extends State<vscode> {
                           ),
                           onTap: () {
                             Provider.of<OnOff>(context, listen: false)
-                                .toggleSafari();
+                                .toggleVS();
                             Provider.of<OnOff>(context, listen: false)
-                                .offSafariFS();
-                            url = "";
-                            urlController.text = "";
+                                .offVSFS();
                           },
                         ),
                         SizedBox(
@@ -246,82 +188,10 @@ class _vscodeState extends State<vscode> {
                           ),
                           onTap: () {
                             Provider.of<OnOff>(context, listen: false)
-                                .toggleSafariFS();
+                                .toggleVSFS();
                           },
                         )
                       ],
-                    ),
-                    Spacer(
-                      flex: 4,
-                    ),
-                    Center(
-                      child: Container(
-                        height: screenHeight(context, mulBy: 0.033),
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
-                          color: Theme.of(context).cardColor.withOpacity(0.5),
-                          icon: Icon(Icons.home_outlined, size: 22,),
-                          onPressed: () {
-                            setState(() {
-                              url = "";
-                              urlController.text = "";
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    Spacer(
-                      flex: 1,
-                    ),
-                    Container(
-                      width: 300,
-                      height: screenHeight(context, mulBy: 0.03), //0.038
-                      margin: EdgeInsets.zero,
-                      decoration: BoxDecoration(
-                        color: Color(0xff47454b),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: Center(
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: TextField(
-
-                            controller: urlController,
-                            //textAlignVertical: TextAlignVertical.center,
-                            textAlign: TextAlign.center,
-                            cursorColor:
-                            Theme.of(context).cardColor.withOpacity(0.55),
-                            onSubmitted: (text) => handleURL(text),
-                            style: TextStyle(
-                              height: 2,
-                              color: Theme.of(context).cardColor.withOpacity(1),
-                              fontFamily: "HN",
-                              fontWeight: FontWeight.w400,
-                              fontSize: 10,
-                            ),
-                            maxLines: 1,
-                            decoration: InputDecoration(
-                              hintText: "Search or enter website name", //TODO
-                              isCollapsed: true,
-                              contentPadding:
-                              EdgeInsets.fromLTRB(5.0, 00.0, 5.0, 3.0),
-                              hintStyle: TextStyle(
-                                height: 2,
-                                color: Theme.of(context)
-                                    .cardColor
-                                    .withOpacity(0.4),
-                                fontFamily: "HN",
-                                fontWeight: FontWeight.w400,
-                                fontSize: 10,
-                              ),
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Spacer(
-                      flex: 6,
                     ),
                   ],
                 ),
@@ -336,9 +206,6 @@ class _vscodeState extends State<vscode> {
               child: BackdropFilter(
                 filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
                 child: Container(
-                  // padding: EdgeInsets.symmetric(
-                  //     horizontal: screenWidth(context, mulBy: 0.013),
-                  //     vertical: screenHeight(context, mulBy: 0.025)),
                   height: screenHeight(context, mulBy: 0.14),
                   width: screenWidth(
                     context,
@@ -346,283 +213,9 @@ class _vscodeState extends State<vscode> {
                   decoration: BoxDecoration(
                     color: Theme.of(context).hintColor,
                   ),
-                  child: (url == "")
-                      ? Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: screenHeight(context, mulBy: 0.08),
-                        horizontal: screenWidth(context, mulBy: 0.12)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MBPText(
-                          text: "Favourites",
-                          color:
-                          Theme.of(context).cardColor.withOpacity(1),
-                          size: 22,
-                          weight: Theme.of(context)
-                              .textTheme
-                              .headline1
-                              .fontWeight,
-                        ),
-                        SizedBox(
-                          height: screenHeight(context, mulBy: 0.02),
-                        ),
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                html.window.open(
-                                  'https://www.apple.com',
-                                  'new tab',
-                                );
-                              },
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                    child: Container(
-                                      height: screenHeight(context,
-                                          mulBy: 0.08),
-                                      width: screenWidth(context,
-                                          mulBy: 0.04),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                          BorderRadius.circular(10)),
-                                      child: Image.asset(
-                                        "assets/caches/apple.png",
-                                        fit: BoxFit.scaleDown,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight(context,
-                                        mulBy: 0.01),
-                                  ),
-                                  MBPText(
-                                    text: "Apple",
-                                    size: 10,
-                                    color: Theme.of(context)
-                                        .cardColor
-                                        .withOpacity(0.8),
-                                  )
-                                ],
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                handleURL(
-                                    "https://www.google.com/webhp?igu=1");
-                              },
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                    child: Container(
-                                      height: screenHeight(context,
-                                          mulBy: 0.08),
-                                      width: screenWidth(context,
-                                          mulBy: 0.04),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                          BorderRadius.circular(10)),
-                                      child: Image.asset(
-                                        "assets/caches/google.png",
-                                        fit: BoxFit.scaleDown,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight(context,
-                                        mulBy: 0.01),
-                                  ),
-                                  MBPText(
-                                    text: "Google",
-                                    size: 10,
-                                    color: Theme.of(context)
-                                        .cardColor
-                                        .withOpacity(0.8),
-                                  )
-                                ],
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                handleURL(
-                                    "https://www.youtube.com/embed/GEZhD3J89ZE?start=4207&autoplay=1&enablejsapi=1");
-                              },
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                    child: Container(
-                                      height: screenHeight(context,
-                                          mulBy: 0.08),
-                                      width: screenWidth(context,
-                                          mulBy: 0.04),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                          BorderRadius.circular(10)),
-                                      child: Image.asset(
-                                        "assets/caches/youtube.jpg",
-                                        fit: BoxFit.scaleDown,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight(context,
-                                        mulBy: 0.01),
-                                  ),
-                                  MBPText(
-                                    text: "Youtube",
-                                    size: 10,
-                                    color: Theme.of(context)
-                                        .cardColor
-                                        .withOpacity(0.8),
-                                  )
-                                ],
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                handleDOC(
-                                  '<a class="twitter-timeline" href="https://twitter.com/chrisbinsunny?ref_src=twsrc%5Etfw">Tweets by chrisbinsunny</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>',
-                                );
-                              },
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                    child: Container(
-                                      height: screenHeight(context,
-                                          mulBy: 0.08),
-                                      width: screenWidth(context,
-                                          mulBy: 0.04),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                          BorderRadius.circular(10)),
-                                      child: Image.asset(
-                                        "assets/caches/twitter.png",
-                                        fit: BoxFit.scaleDown,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight(context,
-                                        mulBy: 0.01),
-                                  ),
-                                  MBPText(
-                                    text: "Twitter",
-                                    size: 10,
-                                    color: Theme.of(context)
-                                        .cardColor
-                                        .withOpacity(0.8),
-                                  )
-                                ],
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                html.window.open(
-                                    "https://github.com/chrisbinsunny",
-                                    "new_tab");
-                              },
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                    child: Container(
-                                      height: screenHeight(context,
-                                          mulBy: 0.08),
-                                      width: screenWidth(context,
-                                          mulBy: 0.04),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                          BorderRadius.circular(10)),
-                                      child: Image.asset(
-                                        "assets/caches/github.png",
-                                        fit: BoxFit.scaleDown,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight(context,
-                                        mulBy: 0.01),
-                                  ),
-                                  MBPText(
-                                    text: "GitHub",
-                                    size: 10,
-                                    color: Theme.of(context)
-                                        .cardColor
-                                        .withOpacity(0.8),
-                                  )
-                                ],
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                html.window.open(
-                                    "https://www.instagram.com/binary.ghost",
-                                    "new_tab");
-                              },
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(10),
-                                    child: Container(
-                                      height: screenHeight(context,
-                                          mulBy: 0.08),
-                                      width: screenWidth(context,
-                                          mulBy: 0.04),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                          BorderRadius.circular(10)),
-                                      child: Image.asset(
-                                        "assets/caches/insta.png",
-                                        fit: BoxFit.scaleDown,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight(context,
-                                        mulBy: 0.01),
-                                  ),
-                                  MBPText(
-                                    text: "Instagram",
-                                    size: 10,
-                                    color: Theme.of(context)
-                                        .cardColor
-                                        .withOpacity(0.8),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                      : ((!isDoc)
-                      ? HtmlElementView(
-                    viewType: 'urlIframe',
-                  )
-                      : HtmlElementView(
-                    viewType: 'docIframe',
-                  )),
+                  child: HtmlElementView(
+                    viewType: 'vsIframe',
+                  ),
                 ),
               ),
             ),
