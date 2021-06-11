@@ -536,7 +536,7 @@ class _FinderState extends State<Finder> {
     finderPan = Provider.of<OnOff>(context).getFinderPan;
     return finderOpen?AnimatedPositioned(
       duration: Duration(milliseconds: finderPan?0:200),
-      top: finderFS?screenHeight(context,mulBy: 0.035):position.dy,
+      top: finderFS?screenHeight(context,mulBy: 0.034):position.dy,
       left: finderFS?0:position.dx,
       child: finderWindow(context),
     ):Container();
@@ -548,7 +548,7 @@ class _FinderState extends State<Finder> {
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: finderFS?screenWidth(context, mulBy: 1):screenWidth(context, mulBy: 0.55),
-      height: finderFS?screenHeight(context, mulBy: 0.863):screenHeight(context, mulBy: 0.65),
+      height: finderFS?screenHeight(context, mulBy: 0.966):screenHeight(context, mulBy: 0.65),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -744,9 +744,6 @@ class _FinderState extends State<Finder> {
                       vertical: screenHeight(context, mulBy: 0.03)),
                   decoration: BoxDecoration(
                       color: Theme.of(context).scaffoldBackgroundColor,
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.2),
-                      ),
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(15),
                           bottomRight: Radius.circular(15))),

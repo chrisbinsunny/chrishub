@@ -32,6 +32,7 @@ class _FileMenuState extends State<FileMenu> {
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
     int num= rand.nextInt(20);
+    String fs= Provider.of<OnOff>(context).getFS;
     return ClipRect(
       child: new BackdropFilter(
         filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
@@ -54,7 +55,8 @@ class _FileMenuState extends State<FileMenu> {
                     SizedBox(width: size.width*0.012,),
                     Image.asset("assets/icons/apple_file.png",),
                     SizedBox(width: size.width*0.013,),
-                    FittedBox(fit: BoxFit.fitHeight, child: Text("Finder", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w600, color: Colors.white),)),
+                    //TODO
+                    FittedBox(fit: BoxFit.fitHeight, child: Text(fs==""?"Finder":fs, style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w600, color: Colors.white),)),
                     SizedBox(width: size.width*0.014,),
           FittedBox(fit: BoxFit.fitHeight, child:Text("File", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, color: Colors.white),),),
                     SizedBox(width: size.width*0.014,),
