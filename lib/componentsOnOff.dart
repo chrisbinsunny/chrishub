@@ -20,7 +20,11 @@ class OnOff extends ChangeNotifier{
   bool spotifyOpen = false;
   bool spotifyFS = false;
   bool spotifyPan = false;
+  String fullScreen = "";
 
+  String get getFS {
+    return fullScreen;
+  }
 
   String get getTop {
     return onTop;
@@ -46,10 +50,13 @@ class OnOff extends ChangeNotifier{
 
   void toggleFinderFS() {
     finderFS= !finderFS;
+    fullScreen=(fullScreen!="")?"":"Finder";
     notifyListeners();
   }
+
   void offFinderFS() {
     finderFS= false;
+    fullScreen="";
     notifyListeners();
   }
 
@@ -61,6 +68,7 @@ class OnOff extends ChangeNotifier{
   bool get getFinderPan {
     return finderPan;
   }
+
   void offFinderPan() {
     finderPan= false;
     notifyListeners();
@@ -86,10 +94,13 @@ class OnOff extends ChangeNotifier{
 
   void toggleSafariFS() {
     safariFS= !safariFS;
+    fullScreen=(fullScreen!="")?"":"Safari";
     notifyListeners();
   }
+
   void offSafariFS() {
     safariFS= false;
+    fullScreen="";
     notifyListeners();
   }
 
@@ -101,6 +112,7 @@ class OnOff extends ChangeNotifier{
   bool get getSafariPan {
     return safariPan;
   }
+
   void offSafariPan() {
     safariPan= false;
     notifyListeners();
@@ -126,10 +138,13 @@ class OnOff extends ChangeNotifier{
 
   void toggleVSFS() {
     vsFS= !vsFS;
+    fullScreen=(fullScreen!="")?"":"VS Code";
     notifyListeners();
   }
+
   void offVSFS() {
     vsFS= false;
+    fullScreen="";
     notifyListeners();
   }
 
@@ -141,6 +156,7 @@ class OnOff extends ChangeNotifier{
   bool get getVSPan {
     return vsPan;
   }
+
   void offVSPan() {
     vsPan= false;
     notifyListeners();
@@ -166,10 +182,13 @@ class OnOff extends ChangeNotifier{
 
   void toggleSpotifyFS() {
     spotifyFS= !spotifyFS;
+    fullScreen=(fullScreen!="")?"":"Spotify";
     notifyListeners();
   }
+
   void offSpotifyFS() {
     spotifyFS= false;
+    fullScreen="";
     notifyListeners();
   }
 
@@ -181,6 +200,7 @@ class OnOff extends ChangeNotifier{
   bool get getSpotifyPan {
     return spotifyPan;
   }
+
   void offSpotifyPan() {
     spotifyPan= false;
     notifyListeners();

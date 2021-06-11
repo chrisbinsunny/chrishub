@@ -34,10 +34,13 @@ class _DockerState extends State<Docker> {
     bool safariOpen = Provider.of<OnOff>(context).getSafari;
     bool vsOpen = Provider.of<OnOff>(context).getVS;
     bool spotifyOpen = Provider.of<OnOff>(context).getSpotify;
+    String fs= Provider.of<OnOff>(context).getFS;
 
 
-    return Align(
-      alignment: Alignment.bottomCenter,
+    return AnimatedPositioned(
+      duration: Duration(milliseconds: 400),
+      top: (fs=="")?screenHeight(context, mulBy: 0.9):screenHeight(context, mulBy: 1.05),
+      left: screenWidth(context, mulBy: 0.15),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
