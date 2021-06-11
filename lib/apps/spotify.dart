@@ -212,7 +212,7 @@ class _SpotifyState extends State<Spotify> {
                     context,
                   ),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).hintColor,
+                    color: Theme.of(context).dividerColor.withOpacity(0.8),
                   ),
                   child: HtmlElementView(
                     viewType: 'spotifyIframe',

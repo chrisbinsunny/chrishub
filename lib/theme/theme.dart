@@ -27,7 +27,7 @@ class ThemeNotifier with ChangeNotifier {
     canvasColor: Colors.blue.withOpacity(0.4), //fileMenu Color
     scaffoldBackgroundColor: Colors.white, //window Color
     hintColor: Colors.white.withOpacity(0.6), //window transparency Color
-    dividerColor: Color(0xff3a383e), // Safari Window color
+    dividerColor: Colors.white, // Safari Window color
 
     primaryTextTheme: TextTheme(
       button: TextStyle(
@@ -68,7 +68,7 @@ class ThemeNotifier with ChangeNotifier {
       focusColor: Color(0xff3e3232).withOpacity(0.2), //docker color
       canvasColor: Colors.black.withOpacity(0.3), //fileMenu Color
       scaffoldBackgroundColor: Color(0xff242127), //Finder window Color
-      dividerColor: Color(0xff3a383e), // Safari Window color
+      dividerColor: Color(0xff3a383e), // Window top color
       hintColor: Color(0xff242127).withOpacity(0.3), //window transparency Color
       primaryTextTheme: TextTheme(
       button: TextStyle(
