@@ -8,6 +8,7 @@ import 'package:mac_dt/safari/safariWindow.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
 
+import 'apps/maps.dart';
 import 'apps/spotify.dart';
 import 'apps/vscode.dart';
 import 'theme/theme.dart';
@@ -52,8 +53,13 @@ class _MyHomePageState extends State<MyHomePage> {
             VSCode(key: ObjectKey("vscode"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
             //SpotifyWindow
             Spotify(key: ObjectKey("spotify"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
+
             // file menu
             FileMenu(),
+
+            //TODO State change of widgets under this will cause iFrame HTMLView to reload. Engine Fix required.
+            /// Track the issue here: https://github.com/flutter/flutter/issues/80524
+
             //docker bar
             Docker(),
 
