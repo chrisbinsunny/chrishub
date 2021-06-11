@@ -35,10 +35,11 @@ class _DockerState extends State<Docker> {
     bool vsOpen = Provider.of<OnOff>(context).getVS;
     bool spotifyOpen = Provider.of<OnOff>(context).getSpotify;
     String fs= Provider.of<OnOff>(context).getFS;
+    bool fsAni= Provider.of<OnOff>(context).getFSAni;
 
 
     return AnimatedPositioned(
-      duration: Duration(milliseconds: 400),
+      duration: Duration(milliseconds: (fsAni)?400:0),
       top: (fs=="")?screenHeight(context, mulBy: 0.9):screenHeight(context, mulBy: 1.05),
       left: screenWidth(context, mulBy: 0.15),
       child: Column(

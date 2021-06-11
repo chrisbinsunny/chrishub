@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class OnOff extends ChangeNotifier{
 
   String onTop="finder";
+  String fs="";
   bool ccOpen =false;
   bool finderOpen =false;
   bool finderFS = false;
@@ -20,11 +21,15 @@ class OnOff extends ChangeNotifier{
   bool spotifyOpen = false;
   bool spotifyFS = false;
   bool spotifyPan = false;
-  String fullScreen = "";
+  bool fsAni= false;
 
   String get getFS {
-    return fullScreen;
+    return fs;
   }
+
+  bool get getFSAni{
+  return fsAni;
+}
 
   String get getTop {
     return onTop;
@@ -49,15 +54,29 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleFinderFS() {
+    bool localFs= fsAni;
     finderFS= !finderFS;
-    fullScreen=(fullScreen!="")?"":"Finder";
+    fs=(fs=="")?"Finder":"";
+    if(!localFs){
+      fsAni = true;
+    }
     notifyListeners();
+    if(localFs){
+      Future.delayed(Duration(milliseconds: 400), () {
+        fsAni = false;
+        notifyListeners();
+      });
+    }
   }
 
   void offFinderFS() {
     finderFS= false;
-    fullScreen="";
+    fs="";
     notifyListeners();
+    Future.delayed(Duration(milliseconds: 400),(){
+      fsAni=false;
+      notifyListeners();
+    });
   }
 
   void openFinder() {
@@ -93,15 +112,29 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleSafariFS() {
+    bool localFs= fsAni;
     safariFS= !safariFS;
-    fullScreen=(fullScreen!="")?"":"Safari";
+    fs=(fs=="")?"Safari":"";
+    if(!localFs){
+      fsAni = true;
+    }
     notifyListeners();
+    if(localFs){
+      Future.delayed(Duration(milliseconds: 400), () {
+        fsAni = false;
+        notifyListeners();
+      });
+    }
   }
 
   void offSafariFS() {
     safariFS= false;
-    fullScreen="";
+    fs="";
     notifyListeners();
+    Future.delayed(Duration(milliseconds: 400),(){
+      fsAni=false;
+      notifyListeners();
+    });
   }
 
   void openSafari() {
@@ -137,15 +170,29 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleVSFS() {
+    bool localFs= fsAni;
     vsFS= !vsFS;
-    fullScreen=(fullScreen!="")?"":"VS Code";
+    fs=(fs=="")?"VS Code":"";
+    if(!localFs){
+      fsAni = true;
+    }
     notifyListeners();
+    if(localFs){
+      Future.delayed(Duration(milliseconds: 400), () {
+        fsAni = false;
+        notifyListeners();
+      });
+    }
   }
 
   void offVSFS() {
     vsFS= false;
-    fullScreen="";
+    fs="";
     notifyListeners();
+    Future.delayed(Duration(milliseconds: 400),(){
+      fsAni=false;
+      notifyListeners();
+    });
   }
 
   void openVS() {
@@ -181,15 +228,29 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleSpotifyFS() {
+    bool localFs= fsAni;
     spotifyFS= !spotifyFS;
-    fullScreen=(fullScreen!="")?"":"Spotify";
+    fs=(fs=="")?"Spotify":"";
+    if(!localFs){
+      fsAni = true;
+    }
     notifyListeners();
+    if(localFs){
+      Future.delayed(Duration(milliseconds: 400), () {
+        fsAni = false;
+        notifyListeners();
+      });
+    }
   }
 
   void offSpotifyFS() {
     spotifyFS= false;
-    fullScreen="";
+    fs="";
     notifyListeners();
+    Future.delayed(Duration(milliseconds: 400),(){
+      fsAni=false;
+      notifyListeners();
+    });
   }
 
   void openSpotify() {
