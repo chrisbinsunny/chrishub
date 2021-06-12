@@ -6,17 +6,23 @@ class MBPText extends StatelessWidget {
   final double size;
   final FontWeight weight;
   final String fontFamily;
-  const MBPText({this.color= Colors.black,this.text, this.size=12, this.weight, this.fontFamily, Key key}) : super(key: key);
+  final int maxLines;
+  const MBPText({this.color= Colors.black,this.text, this.size=12, this.weight, this.fontFamily="SF", this.maxLines=1, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FittedBox(
       fit: BoxFit.scaleDown,
-      child: Text(text,style: TextStyle(
+      child: Text(text,
+        style: TextStyle(
         fontWeight: weight==null?Theme.of(context).textTheme.headline4.fontWeight:weight,
+        fontFamily: fontFamily,
         color: color,
         fontSize: size,
-      ),textAlign: TextAlign.center,),
+      ),
+        textAlign: TextAlign.center,
+        maxLines: maxLines,
+      ),
     );
   }
 }
