@@ -28,6 +28,7 @@ class ThemeNotifier with ChangeNotifier {
     scaffoldBackgroundColor: Colors.white, //window Color
     hintColor: Colors.white.withOpacity(0.6), //window transparency Color
     dividerColor: Colors.white, // Safari Window color
+    dialogBackgroundColor: Colors.white, //feedback body color
 
     primaryTextTheme: TextTheme(
       button: TextStyle(
@@ -58,7 +59,7 @@ class ThemeNotifier with ChangeNotifier {
 
     ),
     fontFamily: "SF",
-    primarySwatch: Colors.deepPurple,
+    primarySwatch: Colors.deepOrange,
       backgroundColor: Color(0xff2b2b2b).withOpacity(.05), //Control Center
     cardColor: Colors.white.withOpacity(0.15), //Control Center item border, font color
 
@@ -70,6 +71,7 @@ class ThemeNotifier with ChangeNotifier {
       scaffoldBackgroundColor: Color(0xff242127), //Finder window Color
       dividerColor: Color(0xff3a383e), // Window top color
       hintColor: Color(0xff242127).withOpacity(0.3), //window transparency Color
+      dialogBackgroundColor: Color(0xff1e1f23), //feedback body color
       primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey[200],

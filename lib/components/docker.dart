@@ -223,9 +223,15 @@ class _DockerState extends State<Docker> {
                         iName: "notes",
                         on: false,
                       ),
-                      DockerItem(
-                        iName: "appstore",
-                        on: false,
+                      InkWell(
+                        onTap: (){
+                          Provider.of<OnOff>(context, listen: false)
+                              .openFeedBack();
+                        },
+                        child: DockerItem(
+                          iName: "feedback",
+                          on: false,
+                        ),
                       ),
                       DockerItem(
                         iName: "system-preferences",
