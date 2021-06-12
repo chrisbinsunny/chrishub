@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mac_dt/componentsOnOff.dart';
@@ -24,22 +25,33 @@ class _FeedBackState extends State<FeedBack> {
   bool feedbackFS;
   bool feedbackPan;
   bool feedbackOpen;
+  bool error=true;
+  bool valAni=false;
+  bool valid = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController mobileNoController = TextEditingController();
   TextEditingController feedbackController = TextEditingController();
-
+  String type = "Feedback";
 
   void _submitForm() {
-    // Validate returns true if the form is valid, or false
-    // otherwise.
-    if (_formKey.currentState.validate()) {
+
+    if(nameController.text.isNotEmpty &&
+    emailController.text.contains("@")&&
+    (mobileNoController.text.isEmpty||(mobileNoController.text.length>=10&&int.tryParse(mobileNoController.text) != null)) &&
+    type.isNotEmpty &&
+    feedbackController.text.isNotEmpty) {
+      valid = true;
+    }
+    _formKey.currentState.validate();
+    if (valid) {
       // If the form is valid, proceed.
       FeedbackForm feedbackForm = FeedbackForm(
           nameController.text,
           emailController.text,
           mobileNoController.text,
+          type,
           feedbackController.text);
 
       FormController formController = FormController();
@@ -57,40 +69,38 @@ class _FeedBackState extends State<FeedBack> {
           _showSnackbar("Error Occurred!");
         }
       });
+      valid=false;
     }
   }
 
   _showSnackbar(String message) {
-    final snackBar = SnackBar(content: Text(message));
-    // _scaffoldKey.currentState.showSnackBar(snackBar);
-  debugPrint(message);
+    debugPrint(message);
   }
-
 
   @override
   void initState() {
     position = widget.initPos;
     super.initState();
-
   }
+
 
   @override
   Widget build(BuildContext context) {
     feedbackOpen = Provider.of<OnOff>(context).getFeedBack;
     feedbackFS = Provider.of<OnOff>(context).getFeedBackFS;
     feedbackPan = Provider.of<OnOff>(context).getFeedBackPan;
-    return true
+    return feedbackOpen
         ? AnimatedPositioned(
-      duration: Duration(milliseconds: feedbackPan ? 0 : 200),
-      top: feedbackFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-      left: feedbackFS ? 0 : position.dx,
-      child: feedbackWindow(context),
-    )
+            duration: Duration(milliseconds: feedbackPan ? 0 : 200),
+            top:
+                feedbackFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
+            left: feedbackFS ? 0 : position.dx,
+            child: feedbackWindow(context),
+          )
         : Container();
   }
 
   AnimatedContainer feedbackWindow(BuildContext context) {
-
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: feedbackFS
@@ -113,218 +123,638 @@ class _FeedBackState extends State<FeedBack> {
           ),
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Stack(
+        alignment: Alignment.topCenter,
         children: [
-          Stack(
-            alignment: Alignment.centerRight,
+          Row(
             children: [
-              Container(
-                height: feedbackFS
-                    ? screenHeight(context, mulBy: 0.059)
-                    : screenHeight(context, mulBy: 0.06),
-                decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        topLeft: Radius.circular(10))),
-              ),
-              GestureDetector(
-                onPanUpdate: (tapInfo) {
-                  if (!feedbackFS) {
-                    setState(() {
-                      position = Offset(position.dx + tapInfo.delta.dx,
-                          position.dy + tapInfo.delta.dy);
-                    });
-                  }
-                },
-                onPanStart: (details) {
-                  Provider.of<OnOff>(context, listen: false).onSpotifyPan();
-                },
-                onPanEnd: (details) {
-                  Provider.of<OnOff>(context, listen: false).offSpotifyPan();
-                },
-                onDoubleTap: () {
-                  Provider.of<OnOff>(context, listen: false).toggleSpotifyFS();
-                },
-                child: Container(
-                  alignment: Alignment.topRight,
-                  width: feedbackFS
-                      ? screenWidth(context, mulBy: 0.95)
-                      : screenWidth(context, mulBy: 0.7),
-                  height: feedbackFS
-                      ? screenHeight(context, mulBy: 0.059)
-                      : screenHeight(context, mulBy: 0.06),
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border(
-                          bottom: BorderSide(
-                              color: Colors.black.withOpacity(0.5),
-                              width: 0.8))),
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10),
+                    bottomLeft: Radius.circular(10),
+                  ),
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 200),
+                    //width: screenWidth(context, mulBy: feedbackFS ? .5 : .35),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).dialogBackgroundColor,
+                        border: Border(
+                            right: BorderSide(
+                                color: Theme.of(context).cardColor.withOpacity(0.3),
+                                width: 0.6))),
+                  ),
                 ),
               ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth(context, mulBy: 0.013),
-                    vertical: screenHeight(context, mulBy: 0.01)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(10),
+                  bottomRight: Radius.circular(10),
+                ),
+                child: Stack(
                   children: [
-                    Row(
-                      children: [
-                        InkWell(
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.redAccent,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
+                    AnimatedContainer(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth(context,mulBy: 0.02),
+                        vertical: screenHeight(context, mulBy: 0.05)
+                      ),
+                      duration: Duration(milliseconds: 200),
+                      width: screenWidth(context, mulBy: feedbackFS ? .75 : .5),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).dialogBackgroundColor,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          AnimatedContainer(
+                            duration: Duration(milliseconds: 200),
+                            height: screenHeight(context, mulBy: feedbackFS ? 0.40 : .3),
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  "assets/apps/feedback.png",
+                                  height: 100,
+                                 // width: 30,
+                                ),
+                                MBPText(text: "Chrisbin's MacBook Pro Feedback", size: 25, color: Theme.of(context).cardColor.withOpacity(1),),
+                              ],
+                            ),
+                          ),
+                          AnimatedContainer(
+                            duration: Duration(milliseconds: 200),
+                            width: screenWidth(context, mulBy: feedbackFS?0.5:0.46),
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: screenWidth(context, mulBy: 0.22),
+                                        height: screenHeight(context, mulBy: 0.038), //0.038
+                                        child: TextFormField(
+                                          cursorHeight: 16,
+                                          controller: nameController,
+                                          validator: (value) {
+                                            if (value.isEmpty) {
+                                              setState(() {
+                                                error=false;
+                                                valAni=true;
+                                              });
+                                            }
+                                            return null;
+                                          },
+                                          textAlign: TextAlign.start,
+                                          cursorColor:
+                                          Theme.of(context).cardColor.withOpacity(0.55),
+                                          style: TextStyle(
+                                            height: 1.5,
+                                            color: Theme.of(context).cardColor.withOpacity(1),
+                                            fontFamily: "HN",
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12,
+                                          ),
+                                          maxLines: 1,
+                                          decoration: InputDecoration(
+                                              isDense: true,
+                                              filled: true,
+                                              fillColor: Color(0xff2f2e32),
+                                              contentPadding: EdgeInsets.symmetric(
+                                                  vertical: 8,
+                                                  horizontal: 15
+                                              ),
+                                              hintText: "Name*",
+                                              hintStyle: TextStyle(
+                                                height: 1.5,
+                                                color: Theme.of(context)
+                                                    .cardColor
+                                                    .withOpacity(0.4),
+                                                fontFamily: "HN",
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12,
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10),
+                                                borderSide: BorderSide(
+                                                    width: 2,
+                                                    color: Color(0xffb558e1)
+                                                ),),
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10),
+                                                borderSide: BorderSide(
+                                                ),)
+                                          ),
+                                        ),
+                                      ),
+                                      AnimatedContainer(
+                                        duration: Duration(milliseconds: 200),
+                                        width: screenWidth(context, mulBy: feedbackFS? 0.06: 0.02),
+                                      ),
+                                      SizedBox(
+                                        width: screenWidth(context, mulBy: 0.22),
+                                        height: screenHeight(context, mulBy: 0.038), //0.038
+                                        child: TextFormField(
+                                          cursorHeight: 16,
+                                          controller: emailController,
+                                          validator: (value) {
+                                            if (!value.contains("@")) {
+                                              setState(() {
+                                                error=false;
+                                                valAni=true;
+                                              });
+                                            }
+                                            return null;
+                                          },
+                                          textAlign: TextAlign.start,
+                                          cursorColor:
+                                          Theme.of(context).cardColor.withOpacity(0.55),
+                                          style: TextStyle(
+                                            height: 1.5,
+                                            color: Theme.of(context).cardColor.withOpacity(1),
+                                            fontFamily: "HN",
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12,
+                                          ),
+                                          maxLines: 1,
+                                          decoration: InputDecoration(
+                                              isDense: true,
+                                              filled: true,
+                                              fillColor: Color(0xff2f2e32),
+                                              contentPadding: EdgeInsets.symmetric(
+                                                  vertical: 8,
+                                                  horizontal: 15
+                                              ),
+                                              hintText: "Email ID*",
+                                              hintStyle: TextStyle(
+                                                height: 1.5,
+                                                color: Theme.of(context)
+                                                    .cardColor
+                                                    .withOpacity(0.4),
+                                                fontFamily: "HN",
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12,
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10),
+                                                borderSide: BorderSide(
+                                                    width: 2,
+                                                    color: Color(0xffb558e1)
+                                                ),),
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10),
+                                                borderSide: BorderSide(
+                                                ),)
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: screenHeight(context,mulBy: 0.025),
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: screenWidth(context, mulBy: 0.22),
+                                        height: screenHeight(context, mulBy: 0.038), //0.038
+                                        child: TextFormField(
+                                          cursorHeight: 16,
+                                          controller: mobileNoController,
+                                          validator: (value){
+                                            if(value.isNotEmpty && value.length<10 &&int.tryParse(value)==null)
+                                              setState(() {
+                                                error=false;
+                                                valAni=true;
+                                              });
+                                            return null;
+                                          },
+                                          textAlign: TextAlign.start,
+                                          cursorColor:
+                                          Theme.of(context).cardColor.withOpacity(0.55),
+                                          style: TextStyle(
+                                            height: 1.5,
+                                            color: Theme.of(context).cardColor.withOpacity(1),
+                                            fontFamily: "HN",
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12,
+                                          ),
+                                          maxLines: 1,
+                                          decoration: InputDecoration(
+                                              isDense: true,
+                                              filled: true,
+                                              fillColor: Color(0xff2f2e32),
+                                              contentPadding: EdgeInsets.symmetric(
+                                                  vertical: 8,
+                                                  horizontal: 15
+                                              ),
+                                              hintText: "Mobile Number",
+                                              hintStyle: TextStyle(
+                                                height: 1.5,
+                                                color: Theme.of(context)
+                                                    .cardColor
+                                                    .withOpacity(0.4),
+                                                fontFamily: "HN",
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12,
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10),
+                                                borderSide: BorderSide(
+                                                    width: 2,
+                                                    color: Color(0xffb558e1)
+                                                ),),
+                                              border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(10),
+                                                borderSide: BorderSide(
+                                                ),)
+                                          ),
+                                        ),
+                                      ),
+                                      AnimatedContainer(
+                                        duration: Duration(milliseconds: 200),
+                                        width: screenWidth(context, mulBy: feedbackFS? 0.06: 0.02),
+                                      ),
+                                      Row(
+                                        children: [
+                                          MBPText(text: "Type:       ", size: 12, color: Theme.of(context).cardColor.withOpacity(0.85),),
+                                          InkWell(
+                                            onTap: (){
+                                              setState(() {
+                                                type="Feedback";
+                                              });
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  height: 14,
+                                                  width: 14,
+                                                  margin: EdgeInsets.zero,
+                                                  padding: EdgeInsets.zero,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    shape: BoxShape.circle,
+                                                      border: (type!="Feedback")? Border.all(
+                                                          color: Colors.black
+                                                      ):Border.all(
+                                                        width: 4,
+                                                          color: Colors.blue
+                                                      ),
+                                                  ),
+                                                ),
+                                                MBPText(text: "   Feedback", size: 12, color: Theme.of(context).cardColor.withOpacity(0.75),),
+                                              ],
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: screenWidth(context, mulBy: 0.015),
+                                          ),
+                                          InkWell(
+                                            onTap: (){
+                                              setState(() {
+                                                type="Issue";
+                                              });
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  height: 14,
+                                                  width: 14,
+                                                  margin: EdgeInsets.zero,
+                                                  padding: EdgeInsets.zero,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    shape: BoxShape.circle,
+                                                    border: (type!="Issue")? Border.all(
+                                                        color: Colors.black
+                                                    ):Border.all(
+                                                        width: 4,
+                                                        color: Colors.blue
+                                                    ),
+                                                  ),
+                                                ),
+                                                MBPText(text: "   Issues", size: 12, color: Theme.of(context).cardColor.withOpacity(0.75),),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: screenHeight(context,mulBy: 0.025),
+                                  ),
+                                  SizedBox(
+                                    width: screenWidth(context, mulBy: 0.35),
+                                    height: screenHeight(context, mulBy: 0.13), //0.038
+                                    child: TextFormField(
+                                      cursorHeight: 16,
+                                      controller: feedbackController,
+                                      textAlign: TextAlign.start,
+                                      validator: (value){
+                                        if(value.isEmpty){
+                                          setState(() {
+                                            error=false;
+                                            valAni=true;
+                                          });
+                                        }
+                                        return null;
+                                      },
+                                      cursorColor:
+                                      Theme.of(context).cardColor.withOpacity(0.55),
+                                      style: TextStyle(
+                                        height: 1.5,
+                                        color: Theme.of(context).cardColor.withOpacity(1),
+                                        fontFamily: "HN",
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12,
+                                      ),
+                                      maxLines: 6,
+                                      decoration: InputDecoration(
+                                          isDense: true,
+                                          filled: true,
+                                          fillColor: Color(0xff2f2e32),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              vertical: 8,
+                                              horizontal: 15
+                                          ),
+                                          hintText: "$type*",
+                                          hintStyle: TextStyle(
+                                            height: 1.5,
+                                            color: Theme.of(context)
+                                                .cardColor
+                                                .withOpacity(0.4),
+                                            fontFamily: "HN",
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 12,
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                            borderSide: BorderSide(
+                                                width: 2,
+                                                color: Color(0xffb558e1)
+                                            ),),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                            borderSide: BorderSide(
+                                            ),)
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: screenHeight(context,mulBy: 0.025),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: InkWell(
+                                      onTap: _submitForm,
+                                      child: Container(
+                                        decoration: new BoxDecoration(
+                                            gradient: new LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              colors: [
+                                                Color(0xffb558e1),
+                                                Color(0xff7a3a9e),
+                                              ],
+                                            ),
+                                          borderRadius: BorderRadius.circular(7)
+                                        ),
+                                        width: 80,
+                                        height: 30,
+                                        child: MBPText(
+                                          text: "Submit",
+                                          size: 11,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           ),
-                          onTap: () {
-                            Provider.of<OnOff>(context, listen: false)
-                                .toggleSpotify();
-                            Provider.of<OnOff>(context, listen: false)
-                                .offSpotifyFS();
-                          },
+
+                        ],
+                      ),
+                    ),
+                    !error?InkWell(
+                      onTap: (){
+                        setState(() {
+                          error=true;
+                        });
+                      },
+                      child: AnimatedContainer(
+                          duration: Duration(milliseconds: 200),
+                          width: screenWidth(context, mulBy: feedbackFS ? .75 : .5),
+                          //height: screenHeight(context),
+                          color: Colors.transparent
+                      ),
+                    ):Container(),
+                    AnimatedPositioned(
+                      duration: Duration(milliseconds: valAni?400:200),
+                      left: screenWidth(context,mulBy: feedbackFS?0.284:0.17),
+                      top: error?-(screenHeight(context, mulBy: 0.32)):0,
+                      child: AnimatedContainer(
+                        duration: Duration(milliseconds: 200),
+                        width: feedbackFS
+                            ? screenWidth(context, mulBy: 0.17)
+                            : screenWidth(context, mulBy: 0.16),
+                        height: feedbackFS
+                            ? screenHeight(context, mulBy: 0.32)
+                            : screenHeight(context, mulBy: 0.3),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.2),
+                          ),
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(10),
+                              bottomLeft: Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 10,
+                              blurRadius: 15,
+                              offset: Offset(0, 8), // changes position of shadow
+                            ),
+                          ],
                         ),
-                        SizedBox(
-                          width: screenWidth(context, mulBy: 0.005),
-                        ),
-                        InkWell(
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.amber,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(10),
+                              bottomLeft: Radius.circular(10)),
+                          child: BackdropFilter(
+                            filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
                               ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth(context, mulBy: 0.02)
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    "assets/apps/feedback.png",
+                                    height: 50,
+                                  ),
+                                  MBPText(
+                                    text: "Value Error",
+                                    color: Theme.of(context).cardColor.withOpacity(1),
+                                    size: 18,
+                                    weight: FontWeight.w600,
+                                  ),
+                                  SizedBox(
+                                    height: screenHeight(context, mulBy: 0.01),
+                                  ),
+                                  MBPText(
+                                    text: "Please check the values\nyou entered.",
+                                    color: Theme.of(context).cardColor.withOpacity(1),
+                                    size: 11.5,
+                                    weight: FontWeight.w300,
+                                    fontFamily: "HN",
+                                    maxLines: 2,
+                                  ),
+                                  SizedBox(
+                                    height: screenHeight(context, mulBy: 0.035),
+                                  ),
+                                  InkWell(
+                                    onTap: (){
+                                      setState(() {
+                                        error=true;
+                                        Future.delayed(Duration(milliseconds: 400), () {valAni=false;});
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: new BoxDecoration(
+                                          gradient: new LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: [
+                                              Color(0xff1473e8),
+                                              Color(0xff0c4382),
+                                            ],
+                                          ),
+                                          borderRadius: BorderRadius.circular(5)
+                                      ),
+                                      width: 65,
+                                      height: 23,
+                                      child: MBPText(
+                                        text: "Continue",
+                                        size: 11,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: screenWidth(context, mulBy: 0.005),
-                        ),
-                        InkWell(
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
-                              ),
-                            ),
-                          ),
-                          onTap: () {
-                            Provider.of<OnOff>(context, listen: false)
-                                .toggleSpotifyFS();
-                          },
-                        )
-                      ],
+                      ),
                     ),
                   ],
                 ),
               ),
             ],
           ),
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10)),
-              child: BackdropFilter(
-                filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
-                child: Container(
-                  height: screenHeight(context, mulBy: 0.14),
-                  width: screenWidth(
-                    context,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor.withOpacity(0.8),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Form(
-                          key: _formKey,
-                          child:
-                          Padding(padding: EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                TextFormField(
-                                  controller: nameController,
-                                  validator: (value) {
-                                    if (value.isEmpty) {
-                                      return 'Enter Valid Name';
-                                    }
-                                    return null;
-                                  },
-                                  decoration: InputDecoration(
-                                      labelText: 'Name'
-                                  ),
-                                ),
-                                TextFormField(
-                                  controller: emailController,
-                                  validator: (value) {
-                                    if (!value.contains("@")) {
-                                      return 'Enter Valid Email';
-                                    }
-                                    return null;
-                                  },
-                                  keyboardType: TextInputType.emailAddress,
-                                  decoration: InputDecoration(
-                                      labelText: 'Email'
-                                  ),
-                                ),
-                                TextFormField(
-                                  controller: mobileNoController,
-                                  validator: (value) {
-                                    if (value.trim().length != 10) {
-                                      return 'Enter 10 Digit Mobile Number';
-                                    }
-                                    return null;
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    labelText: 'Mobile Number',
-                                  ),
-                                ),
-                                TextFormField(
-                                  controller: feedbackController,
-                                  validator: (value) {
-                                    if (value.isEmpty) {
-                                      return 'Enter Valid Feedback';
-                                    }
-                                    return null;
-                                  },
-                                  keyboardType: TextInputType.multiline,
-                                  decoration: InputDecoration(
-                                      labelText: 'Feedback'
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
+          GestureDetector(
+            onPanUpdate: (tapInfo) {
+              if (!feedbackFS) {
+                setState(() {
+                  position = Offset(position.dx + tapInfo.delta.dx,
+                      position.dy + tapInfo.delta.dy);
+                });
+              }
+            },
+            onPanStart: (details) {
+              Provider.of<OnOff>(context, listen: false).onFeedBackPan();
+            },
+            onPanEnd: (details) {
+              Provider.of<OnOff>(context, listen: false).offFeedBackPan();
+            },
+            onDoubleTap: () {
+              valAni=false;
+              Provider.of<OnOff>(context, listen: false).toggleFeedBackFS();
+            },
+            child: Container(
+              alignment: Alignment.topRight,
+              width: feedbackFS
+                  ? screenWidth(context, mulBy: 0.95)
+                  : screenWidth(context, mulBy: 0.7),
+              height: feedbackFS
+                  ? screenHeight(context, mulBy: 0.059)
+                  : screenHeight(context, mulBy: 0.06),
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(
+                horizontal: screenWidth(context, mulBy: 0.013),
+                vertical: screenHeight(context, mulBy: 0.02)),
+            child: Row(
+              children: [
+                InkWell(
+                  child: Container(
+                    height: 11.5,
+                    width: 11.5,
+                    decoration: BoxDecoration(
+                      color: Colors.redAccent,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.black.withOpacity(0.2),
                       ),
-                      RaisedButton(
-                        color: Colors.blue,
-                        textColor: Colors.white,
-                        onPressed:_submitForm,
-                        child: Text('Submit Feedback'),
+                    ),
+                  ),
+                  onTap: () {
+                    Provider.of<OnOff>(context, listen: false)
+                        .toggleFeedBack();
+                    Provider.of<OnOff>(context, listen: false)
+                        .offFeedBackFS();
+                  },
+                ),
+                SizedBox(
+                  width: screenWidth(context, mulBy: 0.005),
+                ),
+                InkWell(
+                  child: Container(
+                    height: 11.5,
+                    width: 11.5,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.black.withOpacity(0.2),
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+                SizedBox(
+                  width: screenWidth(context, mulBy: 0.005),
+                ),
+                InkWell(
+                  child: Container(
+                    height: 11.5,
+                    width: 11.5,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors.black.withOpacity(0.2),
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    valAni=false;
+                    Provider.of<OnOff>(context, listen: false)
+                        .toggleFeedBackFS();
+                  },
+                )
+              ],
             ),
           ),
         ],
@@ -332,3 +762,5 @@ class _FeedBackState extends State<FeedBack> {
     );
   }
 }
+
+
