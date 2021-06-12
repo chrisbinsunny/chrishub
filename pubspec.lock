@@ -67,6 +67,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  http:
+    dependency: "direct main"
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.13.3"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   intl:
     dependency: "direct main"
     description:
@@ -102,13 +116,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  pointer_interceptor:
-    dependency: "direct main"
+  pedantic:
+    dependency: transitive
     description:
-      name: pointer_interceptor
+      name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.0+1"
+    version: "1.11.0"
   provider:
     dependency: "direct main"
     description:
@@ -179,4 +193,4 @@ packages:
     version: "2.1.0"
 sdks:
   dart: ">=2.12.0 <3.0.0"
-  flutter: ">=1.17.0"
+  flutter: ">=1.16.0"

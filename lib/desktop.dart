@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mac_dt/apps/feedback/feedback.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
 import 'package:mac_dt/safari/safariWindow.dart';
@@ -53,6 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
             VSCode(key: ObjectKey("vscode"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
             //SpotifyWindow
             Spotify(key: ObjectKey("spotify"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
+            //FeedBack Window
+            FeedBack(initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
 
             // file menu
             FileMenu(),

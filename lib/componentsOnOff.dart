@@ -22,6 +22,9 @@ class OnOff extends ChangeNotifier{
   bool spotifyFS = false;
   bool spotifyPan = false;
   bool fsAni= false;
+  bool feedBackOpen = true;
+  bool feedBackFS = false;
+  bool feedBackPan = false;
 
   String get getFS {
     return fs;
@@ -272,6 +275,63 @@ class OnOff extends ChangeNotifier{
     notifyListeners();
   }
 
+  bool get getFeedBack {
+    return feedBackOpen;
+  }
+
+  bool get getFeedBackFS {
+    return feedBackFS;
+  }
+
+  void toggleFeedBack() {
+    feedBackOpen= !feedBackOpen;
+    notifyListeners();
+  }
+
+  void toggleFeedBackFS() {
+    bool localFs= fsAni;
+    feedBackFS= !feedBackFS;
+    fs=(fs=="")?"Feedback":"";
+    if(!localFs){
+      fsAni = true;
+    }
+    notifyListeners();
+    if(localFs){
+      Future.delayed(Duration(milliseconds: 400), () {
+        fsAni = false;
+        notifyListeners();
+      });
+    }
+  }
+
+  void offFeedBackFS() {
+    feedBackFS= false;
+    fs="";
+    notifyListeners();
+    Future.delayed(Duration(milliseconds: 400),(){
+      fsAni=false;
+      notifyListeners();
+    });
+  }
+
+  void openFeedBack() {
+    feedBackOpen= true;
+    notifyListeners();
+  }
+
+  bool get getFeedBackPan {
+    return feedBackPan;
+  }
+
+  void offFeedBackPan() {
+    feedBackPan= false;
+    notifyListeners();
+  }
+
+  void onFeedBackPan() {
+    feedBackPan= true;
+    notifyListeners();
+  }
 
   bool get getCc {
     return ccOpen;
