@@ -157,7 +157,8 @@ class _FeedBackState extends State<FeedBack> {
                         border: Border(
                             right: BorderSide(
                                 color: Theme.of(context).cardColor.withOpacity(0.3),
-                                width: 0.6))),
+                                width: 0.6))
+                        ),
                   ),
                 ),
               ),
@@ -550,7 +551,6 @@ class _FeedBackState extends State<FeedBack> {
                               ),
                             ),
                           ),
-
                         ],
                       ),
                     ),
@@ -588,7 +588,7 @@ class _FeedBackState extends State<FeedBack> {
                               bottomLeft: Radius.circular(10)),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
+                              color: !error?Colors.black.withOpacity(0.2):Colors.transparent,
                               spreadRadius: 10,
                               blurRadius: 15,
                               offset: Offset(0, 8), // changes position of shadow
@@ -714,7 +714,7 @@ class _FeedBackState extends State<FeedBack> {
                               bottomLeft: Radius.circular(10)),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
+                              color: submitShow?Colors.black.withOpacity(0.2):Colors.transparent,
                               spreadRadius: 10,
                               blurRadius: 15,
                               offset: Offset(0, 8), // changes position of shadow
