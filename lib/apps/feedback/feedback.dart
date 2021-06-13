@@ -129,6 +129,7 @@ class _FeedBackState extends State<FeedBack> {
           color: Colors.white.withOpacity(0.2),
         ),
         borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Theme.of(context).dialogBackgroundColor,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
@@ -207,7 +208,8 @@ class _FeedBackState extends State<FeedBack> {
                                 children: [
                                   Row(
                                     children: [
-                                      SizedBox(
+                                      AnimatedContainer(
+                                        duration: Duration(milliseconds: 200),
                                         width: screenWidth(context, mulBy: 0.22),
                                         height: screenHeight(context, mulBy: 0.038), //0.038
                                         child: TextFormField(
@@ -268,7 +270,8 @@ class _FeedBackState extends State<FeedBack> {
                                         duration: Duration(milliseconds: 200),
                                         width: screenWidth(context, mulBy: feedbackFS? 0.06: 0.02),
                                       ),
-                                      SizedBox(
+                                      AnimatedContainer(
+                                        duration: Duration(milliseconds: 200),
                                         width: screenWidth(context, mulBy: 0.22),
                                         height: screenHeight(context, mulBy: 0.038), //0.038
                                         child: TextFormField(
@@ -332,7 +335,8 @@ class _FeedBackState extends State<FeedBack> {
                                   ),
                                   Row(
                                     children: [
-                                      SizedBox(
+                                      AnimatedContainer(
+                                        duration: Duration(milliseconds: 200),
                                         width: screenWidth(context, mulBy: 0.22),
                                         height: screenHeight(context, mulBy: 0.038), //0.038
                                         child: TextFormField(
@@ -461,7 +465,8 @@ class _FeedBackState extends State<FeedBack> {
                                   SizedBox(
                                     height: screenHeight(context,mulBy: 0.025),
                                   ),
-                                  SizedBox(
+                                  AnimatedContainer(
+                                    duration: Duration(milliseconds: 200),
                                     width: screenWidth(context, mulBy: 0.35),
                                     height: screenHeight(context, mulBy: 0.13), //0.038
                                     child: TextFormField(
