@@ -36,6 +36,7 @@ class _DockerState extends State<Docker> {
     bool spotifyOpen = Provider.of<OnOff>(context).getSpotify;
     String fs= Provider.of<OnOff>(context).getFS;
     bool fsAni= Provider.of<OnOff>(context).getFSAni;
+    bool fbOpen = Provider.of<OnOff>(context).getFeedBack;
 
 
     return AnimatedPositioned(
@@ -230,7 +231,7 @@ class _DockerState extends State<Docker> {
                         },
                         child: DockerItem(
                           iName: "feedback",
-                          on: false,
+                          on: fbOpen,
                         ),
                       ),
                       DockerItem(
