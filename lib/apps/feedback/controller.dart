@@ -7,7 +7,7 @@ import 'model.dart';
 class FormController {
 
   // Google App Script Web URL.
-  static const String URL = "https://script.google.com/macros/s/AKfycbznjmXd912wtz5aeJ0_9M_vkg5NCa7UeEvDky0Qln-SnGqcbE23imqbsy4FNfx8Go1p/exec";
+  static const String URL = "https://script.google.com/macros/s/AKfycbyokcn6PEYDF-1TRQePNmI4grHohGkSL-iI22X5BmT9r5d_bglcsrPf1z-43kJnPTS_/exec";
   //static const String URL = "https://script.google.com/macros/s/AKfycbyAaNh-1JK5pSrUnJ34Scp3889mTMuFI86DkDp42EkWiSOOycE/exec";
 
   // Success Status Message

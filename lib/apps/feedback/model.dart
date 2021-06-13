@@ -6,12 +6,13 @@ class FeedbackForm {
   String mobileNo;
   String type;
   String feedback;
+  String dateTime;
 
-  FeedbackForm(this.name, this.email, this.mobileNo, this.type, this.feedback);
+  FeedbackForm(this.name, this.email, this.mobileNo, this.type, this.feedback, this.dateTime);
 
   factory FeedbackForm.fromJson(dynamic json) {
     return FeedbackForm("${json['name']}", "${json['email']}",
-        "${json['mobileNo']}","${json['type']}", "${json['feedback']}");
+        "${json['mobileNo']}","${json['type']}", "${json['feedback']}", "${json['dateTime']}");
   }
 
   // Method to make GET parameters.
@@ -20,6 +21,8 @@ class FeedbackForm {
     'email': email,
     'mobileNo': mobileNo,
     'type' : type,
-    'feedback': feedback
+    'feedback': feedback,
+    'dateTime': dateTime
+
   };
 }
