@@ -31,10 +31,10 @@ class _FeedBackState extends State<FeedBack> {
   int submit= 3; /// 0=submitting, 1=success, 2=error, 3= free state
   bool submitShow= false;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController mobileNoController = TextEditingController();
-  TextEditingController feedbackController = TextEditingController();
+  TextEditingController nameController;
+  TextEditingController emailController;
+  TextEditingController mobileNoController;
+  TextEditingController feedbackController;
   String type = "Feedback";
 
   void _submitForm() {
@@ -71,6 +71,10 @@ class _FeedBackState extends State<FeedBack> {
           if (response == FormController.STATUS_SUCCESS) {
             setState(() {
               submit = 1;
+              nameController.clear();
+              emailController.clear();
+              mobileNoController.clear();
+              feedbackController.clear();
             });
           } else {
             setState(() {
@@ -87,6 +91,10 @@ class _FeedBackState extends State<FeedBack> {
   @override
   void initState() {
     position = widget.initPos;
+    nameController = TextEditingController();
+    emailController = TextEditingController();
+    mobileNoController = TextEditingController();
+    feedbackController = TextEditingController();
     super.initState();
   }
 
@@ -662,14 +670,22 @@ class _FeedBackState extends State<FeedBack> {
                         ),
                       ),
                     ),
-                    submit<2?InkWell(
+                    submitShow?InkWell(
                       onTap: (){
-                        setState(() {
-                          if(submit>0)
-                            submit=3;
-                          submitShow=false;
-                        });
-                      },
+                        if(submit==2) {
+                                setState(() {
+                                  submit = 3;
+                                  submitShow = false;
+                                });
+                                return;
+                              }
+                        if(submit==1) {
+
+                          setState(() {
+                            submit = 3;
+                            submitShow = false;
+                          });
+                        }},
                       child: AnimatedContainer(
                           duration: Duration(milliseconds: 200),
                           width: screenWidth(context, mulBy: feedbackFS ? .75 : .5),
