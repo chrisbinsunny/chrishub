@@ -40,21 +40,21 @@ class _FeedBackState extends State<FeedBack> {
   void _submitForm() {
 
     if(nameController.text.isNotEmpty &&
-    emailController.text.contains("@")&&
-    (mobileNoController.text.isEmpty||(mobileNoController.text.length>=10&&int.tryParse(mobileNoController.text) != null)) &&
-    type.isNotEmpty &&
-    feedbackController.text.isNotEmpty) {
+        emailController.text.contains("@")&&
+        (mobileNoController.text.isEmpty||(mobileNoController.text.length>=10&&int.tryParse(mobileNoController.text) != null)) &&
+        type.isNotEmpty &&
+        feedbackController.text.isNotEmpty) {
       valid = true;
     }
     _formKey.currentState.validate();
     if (valid) {
       // If the form is valid, proceed.
       FeedbackForm feedbackForm = FeedbackForm(
-          nameController.text,
-          emailController.text,
-          mobileNoController.text,
-          type,
-          feedbackController.text,
+        nameController.text,
+        emailController.text,
+        mobileNoController.text,
+        type,
+        feedbackController.text,
         DateTime.now().toString(),
       );
 
@@ -106,12 +106,12 @@ class _FeedBackState extends State<FeedBack> {
     feedbackPan = Provider.of<OnOff>(context).getFeedBackPan;
     return feedbackOpen
         ? AnimatedPositioned(
-            duration: Duration(milliseconds: feedbackPan ? 0 : 200),
-            top:
-                feedbackFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-            left: feedbackFS ? 0 : position.dx,
-            child: feedbackWindow(context),
-          )
+      duration: Duration(milliseconds: feedbackPan ? 0 : 200),
+      top:
+      feedbackFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
+      left: feedbackFS ? 0 : position.dx,
+      child: feedbackWindow(context),
+    )
         : Container();
   }
 
@@ -158,7 +158,7 @@ class _FeedBackState extends State<FeedBack> {
                             right: BorderSide(
                                 color: Theme.of(context).cardColor.withOpacity(0.3),
                                 width: 0.6))
-                        ),
+                    ),
                   ),
                 ),
               ),
@@ -171,8 +171,8 @@ class _FeedBackState extends State<FeedBack> {
                   children: [
                     AnimatedContainer(
                       padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth(context,mulBy: 0.02),
-                        vertical: screenHeight(context, mulBy: 0.05)
+                          horizontal: screenWidth(context,mulBy: 0.02),
+                          vertical: screenHeight(context, mulBy: 0.05)
                       ),
                       duration: Duration(milliseconds: 200),
                       width: screenWidth(context, mulBy: feedbackFS ? .75 : .5),
@@ -190,7 +190,7 @@ class _FeedBackState extends State<FeedBack> {
                                 Image.asset(
                                   "assets/apps/feedback.png",
                                   height: 100,
-                                 // width: 30,
+                                  // width: 30,
                                 ),
                                 MBPText(text: "Chrisbin's MacBook Pro Feedback", size: 25, color: Theme.of(context).cardColor.withOpacity(1),),
                               ],
@@ -411,12 +411,12 @@ class _FeedBackState extends State<FeedBack> {
                                                   decoration: BoxDecoration(
                                                     color: Colors.white,
                                                     shape: BoxShape.circle,
-                                                      border: (type!="Feedback")? Border.all(
-                                                          color: Colors.black
-                                                      ):Border.all(
+                                                    border: (type!="Feedback")? Border.all(
+                                                        color: Colors.black
+                                                    ):Border.all(
                                                         width: 4,
-                                                          color: Colors.blue
-                                                      ),
+                                                        color: Colors.blue
+                                                    ),
                                                   ),
                                                 ),
                                                 MBPText(text: "   Feedback", size: 12, color: Theme.of(context).cardColor.withOpacity(0.75),),
@@ -535,7 +535,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 Color(0xff7a3a9e),
                                               ],
                                             ),
-                                          borderRadius: BorderRadius.circular(7)
+                                            borderRadius: BorderRadius.circular(7)
                                         ),
                                         width: 80,
                                         height: 30,
@@ -602,69 +602,69 @@ class _FeedBackState extends State<FeedBack> {
                           child: BackdropFilter(
                             filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
                             child: Container(
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: screenWidth(context, mulBy: 0.02)
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    "assets/apps/feedback.png",
-                                    height: 50,
-                                  ),
-                                  MBPText(
-                                    text: "Value Error",
-                                    color: Theme.of(context).cardColor.withOpacity(1),
-                                    size: 18,
-                                    weight: FontWeight.w600,
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight(context, mulBy: 0.01),
-                                  ),
-                                  MBPText(
-                                    text: "Please check the values\nyou entered.",
-                                    color: Theme.of(context).cardColor.withOpacity(1),
-                                    size: 11.5,
-                                    weight: FontWeight.w300,
-                                    fontFamily: "HN",
-                                    maxLines: 2,
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight(context, mulBy: 0.035),
-                                  ),
-                                  InkWell(
-                                    onTap: (){
-                                      setState(() {
-                                        error=true;
-                                        Future.delayed(Duration(milliseconds: 400), () {valAni=false;});
-                                      });
-                                    },
-                                    child: Container(
-                                      decoration: new BoxDecoration(
-                                          gradient: new LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              Color(0xff1473e8),
-                                              Color(0xff0c4382),
-                                            ],
-                                          ),
-                                          borderRadius: BorderRadius.circular(5)
-                                      ),
-                                      width: 65,
-                                      height: 23,
-                                      child: MBPText(
-                                        text: "Continue",
-                                        size: 11,
-                                        color: Colors.white,
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: screenWidth(context, mulBy: 0.02)
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/apps/feedback.png",
+                                      height: 50,
+                                    ),
+                                    MBPText(
+                                      text: "Value Error",
+                                      color: Theme.of(context).cardColor.withOpacity(1),
+                                      size: 18,
+                                      weight: FontWeight.w600,
+                                    ),
+                                    SizedBox(
+                                      height: screenHeight(context, mulBy: 0.01),
+                                    ),
+                                    MBPText(
+                                      text: "Please check the values\nyou entered.",
+                                      color: Theme.of(context).cardColor.withOpacity(1),
+                                      size: 11.5,
+                                      weight: FontWeight.w300,
+                                      fontFamily: "HN",
+                                      maxLines: 2,
+                                    ),
+                                    SizedBox(
+                                      height: screenHeight(context, mulBy: 0.035),
+                                    ),
+                                    InkWell(
+                                      onTap: (){
+                                        setState(() {
+                                          error=true;
+                                          Future.delayed(Duration(milliseconds: 400), () {valAni=false;});
+                                        });
+                                      },
+                                      child: Container(
+                                        decoration: new BoxDecoration(
+                                            gradient: new LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              colors: [
+                                                Color(0xff1473e8),
+                                                Color(0xff0c4382),
+                                              ],
+                                            ),
+                                            borderRadius: BorderRadius.circular(5)
+                                        ),
+                                        width: 65,
+                                        height: 23,
+                                        child: MBPText(
+                                          text: "Continue",
+                                          size: 11,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              )
+                                  ],
+                                )
                             ),
                           ),
                         ),
@@ -673,12 +673,12 @@ class _FeedBackState extends State<FeedBack> {
                     submitShow?InkWell(
                       onTap: (){
                         if(submit==2) {
-                                setState(() {
-                                  submit = 3;
-                                  submitShow = false;
-                                });
-                                return;
-                              }
+                          setState(() {
+                            submit = 3;
+                            submitShow = false;
+                          });
+                          return;
+                        }
                         if(submit==1) {
 
                           setState(() {
