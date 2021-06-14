@@ -7,7 +7,9 @@ class MBPText extends StatelessWidget {
   final FontWeight weight;
   final String fontFamily;
   final int maxLines;
-  const MBPText({this.color= Colors.black,this.text, this.size=12, this.weight, this.fontFamily="SF", this.maxLines=1, Key key}) : super(key: key);
+  final TextOverflow overflow;
+  final bool softWrap;
+  const MBPText({this.color= Colors.black,this.text, this.size=12, this.weight, this.fontFamily="SF", this.maxLines=1, this.softWrap=true, this.overflow= TextOverflow.fade, Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,8 @@ class MBPText extends StatelessWidget {
       ),
         textAlign: TextAlign.center,
         maxLines: maxLines,
+        overflow: overflow,
+        softWrap: softWrap,
       ),
     );
   }
