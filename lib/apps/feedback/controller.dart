@@ -7,7 +7,7 @@ import 'model.dart';
 class FormController {
 
   // Google App Script Web URL.
-  static const String URL = "https://script.google.com/macros/s/AKfycbyokcn6PEYDF-1TRQePNmI4grHohGkSL-iI22X5BmT9r5d_bglcsrPf1z-43kJnPTS_/exec";
+  static const String URL = "https://script.google.com/macros/s/AKfycbzB1TDVgMXVJIT5xszTv9W729aEIxhmFYiGh1CgKPDuRfJLi8oTqV54038EbzThtVfp7Q/exec";
   //static const String URL = "https://script.google.com/macros/s/AKfycbyAaNh-1JK5pSrUnJ34Scp3889mTMuFI86DkDp42EkWiSOOycE/exec";
 
   // Success Status Message
@@ -32,4 +32,13 @@ class FormController {
       print(e);
     }
   }
+
+  /// Async function which loads feedback from endpoint URL and returns List.
+  Future<List<FeedbackForm>> getFeedbackList() async {
+    return await http.get(Uri.parse(URL)).then((response) {
+      var jsonFeedback = convert.jsonDecode(response.body) as List;
+      return jsonFeedback.map((json) => FeedbackForm.fromJson(json)).toList();
+    });
+  }
+
 }
