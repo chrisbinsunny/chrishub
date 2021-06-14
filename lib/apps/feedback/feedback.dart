@@ -30,7 +30,8 @@ class _FeedBackState extends State<FeedBack> {
   bool valAni = false;
   bool valid = false;
   int submit = 3;
-  bool reportIssue=false;
+  bool reportIssue = true;
+  Future issues = FormController().getFeedbackList();
 
   /// 0=submitting, 1=success, 2=error, 3= free state
   bool submitShow = false;
@@ -40,7 +41,8 @@ class _FeedBackState extends State<FeedBack> {
   TextEditingController mobileNoController;
   TextEditingController feedbackController;
   String type = "Feedback";
-  FeedbackForm feedbackItem= new FeedbackForm("Name", "yoyo", "123", "io", "hihihi", "2021-06-13T09:23:06.469Z");
+  FeedbackForm feedbackItem = new FeedbackForm(
+      "Name", "yoyo", "123", "io", "hihihi", "2021-06-13T09:23:06.469Z");
   ScrollController scrollController = new ScrollController();
 
   void _submitForm() {
@@ -82,6 +84,7 @@ class _FeedBackState extends State<FeedBack> {
               emailController.clear();
               mobileNoController.clear();
               feedbackController.clear();
+              issues= FormController().getFeedbackList();
             });
           } else {
             setState(() {
@@ -93,7 +96,6 @@ class _FeedBackState extends State<FeedBack> {
       valid = false;
     }
   }
-  
 
   @override
   void initState() {
@@ -174,7 +176,38 @@ class _FeedBackState extends State<FeedBack> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: screenHeight(context,mulBy: 0.2),
+                          height: screenHeight(context, mulBy: 0.07),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              reportIssue=true;
+                            });
+                          },
+                          child: Container(
+                            decoration: new BoxDecoration(
+                                gradient: new LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    Color(0xff727272),
+                                    Color(0xff474747)
+
+                                  ],
+                                ),
+                                borderRadius:
+                                BorderRadius.circular(7)),
+                            width: 1200,
+                            height: 30,
+                            child: MBPText(
+                              text: "Feedback & Report Issues",
+                              size: 11,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight(context, mulBy: 0.05),
                         ),
                         MBPText(
                           text: "Recent Issues",
@@ -184,7 +217,7 @@ class _FeedBackState extends State<FeedBack> {
                           color: Theme.of(context).cardColor.withOpacity(1),
                         ),
                         SizedBox(
-                          height: screenHeight(context,mulBy: 0.015),
+                          height: screenHeight(context, mulBy: 0.015),
                         ),
                         Expanded(
                           child: AnimatedContainer(
@@ -201,12 +234,11 @@ class _FeedBackState extends State<FeedBack> {
                             ),
                             child: ClipRRect(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(10)),
+                                  BorderRadius.all(Radius.circular(10)),
                               child: FutureBuilder(
-                                future: FormController().getFeedbackList(),
-                                builder: (context, snapshot){
-                                  if(snapshot.hasData) {
-                                    feedbackItem = snapshot.data[0];
+                                future: issues,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
                                     return ListView.builder(
                                       physics: BouncingScrollPhysics(),
                                       itemCount: snapshot.data.length,
@@ -277,13 +309,11 @@ class _FeedBackState extends State<FeedBack> {
                                     );
                                   }
                                   return Theme(
-                                        data: ThemeData(
-                                            cupertinoOverrideTheme:
-                                            CupertinoThemeData(
-                                                brightness:
-                                                Brightness.dark)),
-                                        child:
-                                        CupertinoActivityIndicator());
+                                      data: ThemeData(
+                                          cupertinoOverrideTheme:
+                                              CupertinoThemeData(
+                                                  brightness: Brightness.dark)),
+                                      child: CupertinoActivityIndicator());
                                 },
                               ),
                             ),
@@ -334,615 +364,716 @@ class _FeedBackState extends State<FeedBack> {
                               ],
                             ),
                           ),
-                          reportIssue?
-                          AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
-                            width: screenWidth(context,
-                                mulBy: feedbackFS ? 0.5 : 0.46),
-                            child: Form(
-                              key: _formKey,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      AnimatedContainer(
-                                        duration: Duration(milliseconds: 200),
-                                        width:
-                                            screenWidth(context, mulBy: 0.22),
-                                        height: screenHeight(context,
-                                            mulBy: 0.038), //0.038
-                                        child: TextFormField(
-                                          cursorHeight: 16,
-                                          controller: nameController,
-                                          validator: (value) {
-                                            if (value.isEmpty) {
-                                              setState(() {
-                                                error = false;
-                                                valAni = true;
-                                              });
-                                            }
-                                            return null;
-                                          },
-                                          textAlign: TextAlign.start,
-                                          cursorColor: Theme.of(context)
-                                              .cardColor
-                                              .withOpacity(0.55),
-                                          style: TextStyle(
-                                            height: 1.5,
-                                            color: Theme.of(context)
-                                                .cardColor
-                                                .withOpacity(1),
-                                            fontFamily: "HN",
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12,
-                                          ),
-                                          maxLines: 1,
-                                          decoration: InputDecoration(
-                                              isDense: true,
-                                              filled: true,
-                                              fillColor: Color(0xff2f2e32),
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 8,
-                                                      horizontal: 15),
-                                              hintText: "Name*",
-                                              hintStyle: TextStyle(
-                                                height: 1.5,
-                                                color: Theme.of(context)
+                          reportIssue
+                              ? AnimatedContainer(
+                                  duration: Duration(milliseconds: 200),
+                                  width: screenWidth(context,
+                                      mulBy: feedbackFS ? 0.5 : 0.46),
+                                  child: Form(
+                                    key: _formKey,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            AnimatedContainer(
+                                              duration:
+                                                  Duration(milliseconds: 200),
+                                              width: screenWidth(context,
+                                                  mulBy: 0.22),
+                                              height: screenHeight(context,
+                                                  mulBy: 0.038), //0.038
+                                              child: TextFormField(
+                                                cursorHeight: 16,
+                                                controller: nameController,
+                                                validator: (value) {
+                                                  if (value.isEmpty) {
+                                                    setState(() {
+                                                      error = false;
+                                                      valAni = true;
+                                                    });
+                                                  }
+                                                  return null;
+                                                },
+                                                textAlign: TextAlign.start,
+                                                cursorColor: Theme.of(context)
                                                     .cardColor
-                                                    .withOpacity(0.4),
-                                                fontFamily: "HN",
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12,
+                                                    .withOpacity(0.55),
+                                                style: TextStyle(
+                                                  height: 1.5,
+                                                  color: Theme.of(context)
+                                                      .cardColor
+                                                      .withOpacity(1),
+                                                  fontFamily: "HN",
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 12,
+                                                ),
+                                                maxLines: 1,
+                                                decoration: InputDecoration(
+                                                    isDense: true,
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0xff2f2e32),
+                                                    contentPadding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 8,
+                                                            horizontal: 15),
+                                                    hintText: "Name*",
+                                                    hintStyle: TextStyle(
+                                                      height: 1.5,
+                                                      color: Theme.of(context)
+                                                          .cardColor
+                                                          .withOpacity(0.4),
+                                                      fontFamily: "HN",
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12,
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      borderSide: BorderSide(
+                                                          width: 2,
+                                                          color: Color(
+                                                              0xffb558e1)),
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      borderSide: BorderSide(),
+                                                    )),
                                               ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: BorderSide(
-                                                    width: 2,
-                                                    color: Color(0xffb558e1)),
-                                              ),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: BorderSide(),
-                                              )),
-                                        ),
-                                      ),
-                                      AnimatedContainer(
-                                        duration: Duration(milliseconds: 200),
-                                        width: screenWidth(context,
-                                            mulBy: feedbackFS ? 0.06 : 0.02),
-                                      ),
-                                      AnimatedContainer(
-                                        duration: Duration(milliseconds: 200),
-                                        width:
-                                            screenWidth(context, mulBy: 0.22),
-                                        height: screenHeight(context,
-                                            mulBy: 0.038), //0.038
-                                        child: TextFormField(
-                                          cursorHeight: 16,
-                                          controller: emailController,
-                                          validator: (value) {
-                                            if (!value.contains("@")) {
-                                              setState(() {
-                                                error = false;
-                                                valAni = true;
-                                              });
-                                            }
-                                            return null;
-                                          },
-                                          textAlign: TextAlign.start,
-                                          cursorColor: Theme.of(context)
-                                              .cardColor
-                                              .withOpacity(0.55),
-                                          style: TextStyle(
-                                            height: 1.5,
-                                            color: Theme.of(context)
-                                                .cardColor
-                                                .withOpacity(1),
-                                            fontFamily: "HN",
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12,
-                                          ),
-                                          maxLines: 1,
-                                          decoration: InputDecoration(
-                                              isDense: true,
-                                              filled: true,
-                                              fillColor: Color(0xff2f2e32),
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 8,
-                                                      horizontal: 15),
-                                              hintText: "Email ID*",
-                                              hintStyle: TextStyle(
-                                                height: 1.5,
-                                                color: Theme.of(context)
+                                            ),
+                                            AnimatedContainer(
+                                              duration:
+                                                  Duration(milliseconds: 200),
+                                              width: screenWidth(context,
+                                                  mulBy:
+                                                      feedbackFS ? 0.06 : 0.02),
+                                            ),
+                                            AnimatedContainer(
+                                              duration:
+                                                  Duration(milliseconds: 200),
+                                              width: screenWidth(context,
+                                                  mulBy: 0.22),
+                                              height: screenHeight(context,
+                                                  mulBy: 0.038), //0.038
+                                              child: TextFormField(
+                                                cursorHeight: 16,
+                                                controller: emailController,
+                                                validator: (value) {
+                                                  if (!value.contains("@")) {
+                                                    setState(() {
+                                                      error = false;
+                                                      valAni = true;
+                                                    });
+                                                  }
+                                                  return null;
+                                                },
+                                                textAlign: TextAlign.start,
+                                                cursorColor: Theme.of(context)
                                                     .cardColor
-                                                    .withOpacity(0.4),
-                                                fontFamily: "HN",
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12,
+                                                    .withOpacity(0.55),
+                                                style: TextStyle(
+                                                  height: 1.5,
+                                                  color: Theme.of(context)
+                                                      .cardColor
+                                                      .withOpacity(1),
+                                                  fontFamily: "HN",
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 12,
+                                                ),
+                                                maxLines: 1,
+                                                decoration: InputDecoration(
+                                                    isDense: true,
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0xff2f2e32),
+                                                    contentPadding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 8,
+                                                            horizontal: 15),
+                                                    hintText: "Email ID*",
+                                                    hintStyle: TextStyle(
+                                                      height: 1.5,
+                                                      color: Theme.of(context)
+                                                          .cardColor
+                                                          .withOpacity(0.4),
+                                                      fontFamily: "HN",
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12,
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      borderSide: BorderSide(
+                                                          width: 2,
+                                                          color: Color(
+                                                              0xffb558e1)),
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      borderSide: BorderSide(),
+                                                    )),
                                               ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: BorderSide(
-                                                    width: 2,
-                                                    color: Color(0xffb558e1)),
-                                              ),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: BorderSide(),
-                                              )),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                    ],
+                                        SizedBox(
+                                          height: screenHeight(context,
+                                              mulBy: 0.025),
+                                        ),
+                                        Row(
+                                          children: [
+                                            AnimatedContainer(
+                                              duration:
+                                                  Duration(milliseconds: 200),
+                                              width: screenWidth(context,
+                                                  mulBy: 0.22),
+                                              height: screenHeight(context,
+                                                  mulBy: 0.038), //0.038
+                                              child: TextFormField(
+                                                cursorHeight: 16,
+                                                controller: mobileNoController,
+                                                validator: (value) {
+                                                  if (value.isNotEmpty &&
+                                                      value.length < 10 &&
+                                                      int.tryParse(value) ==
+                                                          null)
+                                                    setState(() {
+                                                      error = false;
+                                                      valAni = true;
+                                                    });
+                                                  return null;
+                                                },
+                                                textAlign: TextAlign.start,
+                                                cursorColor: Theme.of(context)
+                                                    .cardColor
+                                                    .withOpacity(0.55),
+                                                style: TextStyle(
+                                                  height: 1.5,
+                                                  color: Theme.of(context)
+                                                      .cardColor
+                                                      .withOpacity(1),
+                                                  fontFamily: "HN",
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 12,
+                                                ),
+                                                maxLines: 1,
+                                                decoration: InputDecoration(
+                                                    isDense: true,
+                                                    filled: true,
+                                                    fillColor:
+                                                        Color(0xff2f2e32),
+                                                    contentPadding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 8,
+                                                            horizontal: 15),
+                                                    hintText: "Mobile Number",
+                                                    hintStyle: TextStyle(
+                                                      height: 1.5,
+                                                      color: Theme.of(context)
+                                                          .cardColor
+                                                          .withOpacity(0.4),
+                                                      fontFamily: "HN",
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12,
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      borderSide: BorderSide(
+                                                          width: 2,
+                                                          color: Color(
+                                                              0xffb558e1)),
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      borderSide: BorderSide(),
+                                                    )),
+                                              ),
+                                            ),
+                                            AnimatedContainer(
+                                              duration:
+                                                  Duration(milliseconds: 200),
+                                              width: screenWidth(context,
+                                                  mulBy:
+                                                      feedbackFS ? 0.06 : 0.02),
+                                            ),
+                                            Row(
+                                              children: [
+                                                MBPText(
+                                                  text: "Type:       ",
+                                                  size: 12,
+                                                  color: Theme.of(context)
+                                                      .cardColor
+                                                      .withOpacity(0.85),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      type = "Feedback";
+                                                    });
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        height: 14,
+                                                        width: 14,
+                                                        margin: EdgeInsets.zero,
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          border: (type !=
+                                                                  "Feedback")
+                                                              ? Border.all(
+                                                                  color: Colors
+                                                                      .black)
+                                                              : Border.all(
+                                                                  width: 4,
+                                                                  color: Colors
+                                                                      .blue),
+                                                        ),
+                                                      ),
+                                                      MBPText(
+                                                        text: "   Feedback",
+                                                        size: 12,
+                                                        color: Theme.of(context)
+                                                            .cardColor
+                                                            .withOpacity(0.75),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: screenWidth(context,
+                                                      mulBy: 0.015),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      type = "Issue";
+                                                    });
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Container(
+                                                        height: 14,
+                                                        width: 14,
+                                                        margin: EdgeInsets.zero,
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white,
+                                                          shape:
+                                                              BoxShape.circle,
+                                                          border: (type !=
+                                                                  "Issue")
+                                                              ? Border.all(
+                                                                  color: Colors
+                                                                      .black)
+                                                              : Border.all(
+                                                                  width: 4,
+                                                                  color: Colors
+                                                                      .blue),
+                                                        ),
+                                                      ),
+                                                      MBPText(
+                                                        text: "   Issues",
+                                                        size: 12,
+                                                        color: Theme.of(context)
+                                                            .cardColor
+                                                            .withOpacity(0.75),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: screenHeight(context,
+                                              mulBy: 0.025),
+                                        ),
+                                        AnimatedContainer(
+                                          duration: Duration(milliseconds: 200),
+                                          width:
+                                              screenWidth(context, mulBy: 0.35),
+                                          height: screenHeight(context,
+                                              mulBy: 0.13), //0.038
+                                          child: TextFormField(
+                                            cursorHeight: 16,
+                                            controller: feedbackController,
+                                            textAlign: TextAlign.start,
+                                            validator: (value) {
+                                              if (value.isEmpty) {
+                                                setState(() {
+                                                  error = false;
+                                                  valAni = true;
+                                                });
+                                              }
+                                              return null;
+                                            },
+                                            cursorColor: Theme.of(context)
+                                                .cardColor
+                                                .withOpacity(0.55),
+                                            style: TextStyle(
+                                              height: 1.5,
+                                              color: Theme.of(context)
+                                                  .cardColor
+                                                  .withOpacity(1),
+                                              fontFamily: "HN",
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 12,
+                                            ),
+                                            maxLines: 6,
+                                            decoration: InputDecoration(
+                                                isDense: true,
+                                                filled: true,
+                                                fillColor: Color(0xff2f2e32),
+                                                contentPadding:
+                                                    EdgeInsets.symmetric(
+                                                        vertical: 8,
+                                                        horizontal: 15),
+                                                hintText: "$type*",
+                                                hintStyle: TextStyle(
+                                                  height: 1.5,
+                                                  color: Theme.of(context)
+                                                      .cardColor
+                                                      .withOpacity(0.4),
+                                                  fontFamily: "HN",
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 12,
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  borderSide: BorderSide(
+                                                      width: 2,
+                                                      color: Color(0xffb558e1)),
+                                                ),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  borderSide: BorderSide(),
+                                                )),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: screenHeight(context,
+                                              mulBy: 0.025),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.centerRight,
+                                          child: InkWell(
+                                            onTap: _submitForm,
+                                            child: Container(
+                                              decoration: new BoxDecoration(
+                                                  gradient: new LinearGradient(
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment.bottomCenter,
+                                                    colors: [
+                                                      Color(0xffb558e1),
+                                                      Color(0xff7a3a9e),
+                                                    ],
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(7)),
+                                              width: 80,
+                                              height: 30,
+                                              child: MBPText(
+                                                text: "Submit",
+                                                size: 11,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  SizedBox(
-                                    height: screenHeight(context, mulBy: 0.025),
-                                  ),
-                                  Row(
+                                )
+                              : AnimatedContainer(
+                                  duration: Duration(milliseconds: 200),
+                                  width: screenWidth(context,
+                                      mulBy: feedbackFS ? 0.5 : 0.46),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      AnimatedContainer(
-                                        duration: Duration(milliseconds: 200),
-                                        width:
-                                            screenWidth(context, mulBy: 0.22),
-                                        height: screenHeight(context,
-                                            mulBy: 0.038), //0.038
-                                        child: TextFormField(
-                                          cursorHeight: 16,
-                                          controller: mobileNoController,
-                                          validator: (value) {
-                                            if (value.isNotEmpty &&
-                                                value.length < 10 &&
-                                                int.tryParse(value) == null)
-                                              setState(() {
-                                                error = false;
-                                                valAni = true;
-                                              });
-                                            return null;
-                                          },
-                                          textAlign: TextAlign.start,
-                                          cursorColor: Theme.of(context)
-                                              .cardColor
-                                              .withOpacity(0.55),
-                                          style: TextStyle(
-                                            height: 1.5,
-                                            color: Theme.of(context)
-                                                .cardColor
-                                                .withOpacity(1),
-                                            fontFamily: "HN",
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12,
-                                          ),
-                                          maxLines: 1,
-                                          decoration: InputDecoration(
-                                              isDense: true,
-                                              filled: true,
-                                              fillColor: Color(0xff2f2e32),
-                                              contentPadding:
-                                                  EdgeInsets.symmetric(
-                                                      vertical: 8,
-                                                      horizontal: 15),
-                                              hintText: "Mobile Number",
-                                              hintStyle: TextStyle(
-                                                height: 1.5,
-                                                color: Theme.of(context)
-                                                    .cardColor
-                                                    .withOpacity(0.4),
-                                                fontFamily: "HN",
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12,
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: BorderSide(
-                                                    width: 2,
-                                                    color: Color(0xffb558e1)),
-                                              ),
-                                              border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                borderSide: BorderSide(),
-                                              )),
-                                        ),
-                                      ),
-                                      AnimatedContainer(
-                                        duration: Duration(milliseconds: 200),
-                                        width: screenWidth(context,
-                                            mulBy: feedbackFS ? 0.06 : 0.02),
-                                      ),
                                       Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
                                           MBPText(
-                                            text: "Type:       ",
-                                            size: 12,
-                                            color: Theme.of(context)
-                                                .cardColor
-                                                .withOpacity(0.85),
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                type = "Feedback";
-                                              });
-                                            },
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  height: 14,
-                                                  width: 14,
-                                                  margin: EdgeInsets.zero,
-                                                  padding: EdgeInsets.zero,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    shape: BoxShape.circle,
-                                                    border: (type != "Feedback")
-                                                        ? Border.all(
-                                                            color: Colors.black)
-                                                        : Border.all(
-                                                            width: 4,
-                                                            color: Colors.blue),
-                                                  ),
-                                                ),
-                                                MBPText(
-                                                  text: "   Feedback",
-                                                  size: 12,
-                                                  color: Theme.of(context)
-                                                      .cardColor
-                                                      .withOpacity(0.75),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: screenWidth(context,
-                                                mulBy: 0.015),
-                                          ),
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                type = "Issue";
-                                              });
-                                            },
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  height: 14,
-                                                  width: 14,
-                                                  margin: EdgeInsets.zero,
-                                                  padding: EdgeInsets.zero,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    shape: BoxShape.circle,
-                                                    border: (type != "Issue")
-                                                        ? Border.all(
-                                                            color: Colors.black)
-                                                        : Border.all(
-                                                            width: 4,
-                                                            color: Colors.blue),
-                                                  ),
-                                                ),
-                                                MBPText(
-                                                  text: "   Issues",
-                                                  size: 12,
-                                                  color: Theme.of(context)
-                                                      .cardColor
-                                                      .withOpacity(0.75),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight(context, mulBy: 0.025),
-                                  ),
-                                  AnimatedContainer(
-                                    duration: Duration(milliseconds: 200),
-                                    width: screenWidth(context, mulBy: 0.35),
-                                    height: screenHeight(context,
-                                        mulBy: 0.13), //0.038
-                                    child: TextFormField(
-                                      cursorHeight: 16,
-                                      controller: feedbackController,
-                                      textAlign: TextAlign.start,
-                                      validator: (value) {
-                                        if (value.isEmpty) {
-                                          setState(() {
-                                            error = false;
-                                            valAni = true;
-                                          });
-                                        }
-                                        return null;
-                                      },
-                                      cursorColor: Theme.of(context)
-                                          .cardColor
-                                          .withOpacity(0.55),
-                                      style: TextStyle(
-                                        height: 1.5,
-                                        color: Theme.of(context)
-                                            .cardColor
-                                            .withOpacity(1),
-                                        fontFamily: "HN",
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12,
-                                      ),
-                                      maxLines: 6,
-                                      decoration: InputDecoration(
-                                          isDense: true,
-                                          filled: true,
-                                          fillColor: Color(0xff2f2e32),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              vertical: 8, horizontal: 15),
-                                          hintText: "$type*",
-                                          hintStyle: TextStyle(
-                                            height: 1.5,
-                                            color: Theme.of(context)
-                                                .cardColor
-                                                .withOpacity(0.4),
+                                            text: "Name:",
+                                            size: 15,
                                             fontFamily: "HN",
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12,
+                                            weight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .cardColor
+                                                .withOpacity(1),
                                           ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            borderSide: BorderSide(
-                                                width: 2,
-                                                color: Color(0xffb558e1)),
+                                          AnimatedContainer(
+                                            duration:
+                                                Duration(milliseconds: 200),
+                                            width: screenWidth(context,
+                                                mulBy: 0.01),
                                           ),
-                                          border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            borderSide: BorderSide(),
-                                          )),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight(context, mulBy: 0.025),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: InkWell(
-                                      onTap: _submitForm,
-                                      child: Container(
-                                        decoration: new BoxDecoration(
-                                            gradient: new LinearGradient(
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                              colors: [
-                                                Color(0xffb558e1),
-                                                Color(0xff7a3a9e),
-                                              ],
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(7)),
-                                        width: 80,
-                                        height: 30,
-                                        child: MBPText(
-                                          text: "Submit",
-                                          size: 11,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ):
-                          AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
-                            width: screenWidth(context,
-                                mulBy: feedbackFS ? 0.5 : 0.46),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    MBPText(
-                                      text: "Name:",
-                                      size: 15,
-                                      fontFamily: "HN",
-                                      weight: FontWeight.w500,
-                                      color: Theme.of(context).cardColor.withOpacity(1),
-                                    ),
-                                    AnimatedContainer(
-                                      duration: Duration(milliseconds: 200),
-                                      width: screenWidth(context, mulBy: 0.01),
-                                    ),
-                                    AnimatedContainer(
-                                      duration: Duration(milliseconds: 200),
-                                      width: screenWidth(context, mulBy: 0.14),
-                                      height: screenHeight(context,
-                                          mulBy: 0.038),
-                                      padding: EdgeInsets.only(
-                                        left: screenWidth(context,mulBy: 0.015),
-                                        right: screenWidth(context,mulBy: 0.015),
-                                        top: screenHeight(context,
-                                            mulBy: 0.011)
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xff2f2e32),
-                                          border: Border.all(
-                                              color: Theme.of(context).cardColor.withOpacity(0.5),
-                                              width: 0.5
-                                          ),
-                                          borderRadius: BorderRadius.circular(8)
-                                      ),
-                                      child: Text(
-                                        "${feedbackItem.name}",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontFamily: "HN",
-                                          fontWeight: FontWeight.w300,
-                                          color: Theme.of(context).cardColor.withOpacity(1),
-                                        ),
-                                        //maxLines: 6,
-                                      ),
-                                    ),
-                                    AnimatedContainer(
-                                      duration: Duration(milliseconds: 200),
-                                      width: screenWidth(context, mulBy: 0.03),
-                                    ),
-                                    MBPText(
-                                      text: "Time:",
-                                      size: 15,
-                                      fontFamily: "HN",
-                                      weight: FontWeight.w500,
-                                      color: Theme.of(context).cardColor.withOpacity(1),
-                                    ),
-                                    AnimatedContainer(
-                                      duration: Duration(milliseconds: 200),
-                                      width: screenWidth(context, mulBy: 0.01),
-                                    ),
-                                    AnimatedContainer(
-                                      duration: Duration(milliseconds: 200),
-                                      width: screenWidth(context, mulBy: 0.14),
-                                      height: screenHeight(context,
-                                          mulBy: 0.038),
-                                      padding: EdgeInsets.only(
-                                          left: screenWidth(context,mulBy: 0.015),
-                                          right: screenWidth(context,mulBy: 0.015),
-                                          top: screenHeight(context,
-                                              mulBy: 0.011)
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: Color(0xff2f2e32),
-                                          border: Border.all(
-                                              color: Theme.of(context).cardColor.withOpacity(0.5),
-                                              width: 0.5
-                                          ),
-                                          borderRadius: BorderRadius.circular(8)
-                                      ),
-                                      child: Text(
-                                        "${feedbackItem.dateTime}",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontFamily: "HN",
-                                          fontWeight: FontWeight.w300,
-                                          color: Theme.of(context).cardColor.withOpacity(1),
-                                        ),
-                                        //maxLines: 6,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                AnimatedContainer(
-                                  duration: Duration(milliseconds: 200),
-                                  height: screenHeight(context,mulBy: 0.02),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    MBPText(
-                                      text: "Issue:",
-                                      size: 15,
-                                      fontFamily: "HN",
-                                      weight: FontWeight.w500,
-                                      color: Theme.of(context).cardColor.withOpacity(1),
-                                    ),
-                                    AnimatedContainer(
-                                      duration: Duration(milliseconds: 200),
-                                      width: screenWidth(context, mulBy: 0.013),
-                                    ),
-                                    AnimatedContainer(
-                                      duration: Duration(milliseconds: 200),
-                                      width: screenWidth(context, mulBy: 0.35),
-                                      height: screenHeight(context,
-                                          mulBy: 0.13), //0.038
-                                      padding: EdgeInsets.only(
-                                        left: screenWidth(context,mulBy: 0.015),
-                                          right: screenWidth(context,mulBy: 0.015),
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Color(0xff2f2e32),
-                                        border: Border.all(
-                                          color: Theme.of(context).cardColor.withOpacity(0.5),
-                                          width: 0.5
-                                        ),
-                                        borderRadius: BorderRadius.circular(10)
-                                      ),
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height: screenHeight(context, mulBy: 0.02),
-                                            ),
-                                            Text(
-                                              "${feedbackItem.feedback}",
+                                          AnimatedContainer(
+                                            duration:
+                                                Duration(milliseconds: 200),
+                                            width: screenWidth(context,
+                                                mulBy: 0.14),
+                                            height: screenHeight(context,
+                                                mulBy: 0.038),
+                                            padding: EdgeInsets.only(
+                                                left: screenWidth(context,
+                                                    mulBy: 0.015),
+                                                right: screenWidth(context,
+                                                    mulBy: 0.015),
+                                                top: screenHeight(context,
+                                                    mulBy: 0.011)),
+                                            decoration: BoxDecoration(
+                                                color: Color(0xff2f2e32),
+                                                border: Border.all(
+                                                    color: Theme.of(context)
+                                                        .cardColor
+                                                        .withOpacity(0.5),
+                                                    width: 0.5),
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            child: Text(
+                                              "${feedbackItem.name}",
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: "HN",
                                                 fontWeight: FontWeight.w300,
-                                                color: Theme.of(context).cardColor.withOpacity(1),
+                                                color: Theme.of(context)
+                                                    .cardColor
+                                                    .withOpacity(1),
                                               ),
                                               //maxLines: 6,
                                             ),
-                                            SizedBox(
-                                              height: screenHeight(context, mulBy: 0.01),
+                                          ),
+                                          AnimatedContainer(
+                                            duration:
+                                                Duration(milliseconds: 200),
+                                            width: screenWidth(context,
+                                                mulBy: 0.03),
+                                          ),
+                                          MBPText(
+                                            text: "Time:",
+                                            size: 15,
+                                            fontFamily: "HN",
+                                            weight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .cardColor
+                                                .withOpacity(1),
+                                          ),
+                                          AnimatedContainer(
+                                            duration:
+                                                Duration(milliseconds: 200),
+                                            width: screenWidth(context,
+                                                mulBy: 0.01),
+                                          ),
+                                          AnimatedContainer(
+                                            duration:
+                                                Duration(milliseconds: 200),
+                                            width: screenWidth(context,
+                                                mulBy: 0.14),
+                                            height: screenHeight(context,
+                                                mulBy: 0.038),
+                                            padding: EdgeInsets.only(
+                                                left: screenWidth(context,
+                                                    mulBy: 0.015),
+                                                right: screenWidth(context,
+                                                    mulBy: 0.015),
+                                                top: screenHeight(context,
+                                                    mulBy: 0.011)),
+                                            decoration: BoxDecoration(
+                                                color: Color(0xff2f2e32),
+                                                border: Border.all(
+                                                    color: Theme.of(context)
+                                                        .cardColor
+                                                        .withOpacity(0.5),
+                                                    width: 0.5),
+                                                borderRadius:
+                                                    BorderRadius.circular(8)),
+                                            child: Text(
+                                              "${feedbackItem.dateTime}",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontFamily: "HN",
+                                                fontWeight: FontWeight.w300,
+                                                color: Theme.of(context)
+                                                    .cardColor
+                                                    .withOpacity(1),
+                                              ),
+                                              //maxLines: 6,
                                             ),
-                                          ],
+                                          ),
+                                        ],
+                                      ),
+                                      AnimatedContainer(
+                                        duration: Duration(milliseconds: 200),
+                                        height:
+                                            screenHeight(context, mulBy: 0.02),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          MBPText(
+                                            text: "Issue:",
+                                            size: 15,
+                                            fontFamily: "HN",
+                                            weight: FontWeight.w500,
+                                            color: Theme.of(context)
+                                                .cardColor
+                                                .withOpacity(1),
+                                          ),
+                                          AnimatedContainer(
+                                            duration:
+                                                Duration(milliseconds: 200),
+                                            width: screenWidth(context,
+                                                mulBy: 0.013),
+                                          ),
+                                          AnimatedContainer(
+                                            duration:
+                                                Duration(milliseconds: 200),
+                                            width: screenWidth(context,
+                                                mulBy: 0.35),
+                                            height: screenHeight(context,
+                                                mulBy: 0.13), //0.038
+                                            padding: EdgeInsets.only(
+                                              left: screenWidth(context,
+                                                  mulBy: 0.015),
+                                              right: screenWidth(context,
+                                                  mulBy: 0.015),
+                                            ),
+                                            decoration: BoxDecoration(
+                                                color: Color(0xff2f2e32),
+                                                border: Border.all(
+                                                    color: Theme.of(context)
+                                                        .cardColor
+                                                        .withOpacity(0.5),
+                                                    width: 0.5),
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: SingleChildScrollView(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    height: screenHeight(
+                                                        context,
+                                                        mulBy: 0.02),
+                                                  ),
+                                                  Text(
+                                                    "${feedbackItem.feedback}",
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontFamily: "HN",
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                      color: Theme.of(context)
+                                                          .cardColor
+                                                          .withOpacity(1),
+                                                    ),
+                                                    //maxLines: 6,
+                                                  ),
+                                                  SizedBox(
+                                                    height: screenHeight(
+                                                        context,
+                                                        mulBy: 0.01),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      AnimatedContainer(
+                                        duration: Duration(milliseconds: 200),
+                                        height:
+                                            screenHeight(context, mulBy: 0.02),
+                                      ),
+                                      MBPText(
+                                        text:
+                                            "Create a Pull Request to fix this bug:",
+                                        size: 14,
+                                        fontFamily: "HN",
+                                        weight: FontWeight.w400,
+                                        color: Theme.of(context)
+                                            .cardColor
+                                            .withOpacity(1),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: InkWell(
+                                          onTap: () {
+                                            html.window.open(
+                                              'https://github.com/chrisbinsunny/chrishub/fork',
+                                              'new tab',
+                                            );
+                                          },
+                                          child: Container(
+                                            decoration: new BoxDecoration(
+                                                gradient: new LinearGradient(
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomCenter,
+                                                  colors: [
+                                                    Color(0xffb558e1),
+                                                    Color(0xff7a3a9e),
+                                                  ],
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(7)),
+                                            width: 120,
+                                            height: 30,
+                                            child: MBPText(
+                                              text: "Fork Repository",
+                                              size: 11,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                AnimatedContainer(
-                                  duration: Duration(milliseconds: 200),
-                                  height: screenHeight(context,mulBy: 0.02),
-                                ),
-                                MBPText(
-                                  text: "Create a Pull Request to fix this bug:",
-                                  size: 14,
-                                  fontFamily: "HN",
-                                  weight: FontWeight.w400,
-                                  color: Theme.of(context).cardColor.withOpacity(1),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: InkWell(
-                                    onTap: _submitForm,
-                                    child: Container(
-                                      decoration: new BoxDecoration(
-                                          gradient: new LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              Color(0xffb558e1),
-                                              Color(0xff7a3a9e),
-                                            ],
-                                          ),
-                                          borderRadius:
-                                          BorderRadius.circular(7)),
-                                      width: 100,
-                                      height: 30,
-                                      child: MBPText(
-                                        text: "Create a PR",
-                                        size: 11,
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                                    ],
                                   ),
                                 ),
-
-                              ],
-                            ),
-                          ),
                         ],
                       ),
                     ),
