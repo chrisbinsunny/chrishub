@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mac_dt/apps/calendar.dart';
 import 'package:mac_dt/apps/feedback/feedback.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
@@ -56,6 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Spotify(key: ObjectKey("spotify"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
             //FeedBack Window
             FeedBack(initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
+            //Calendar Window
+            Calendar(key: ObjectKey("calendar"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
 
             // file menu
             FileMenu(),

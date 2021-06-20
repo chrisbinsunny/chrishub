@@ -25,6 +25,9 @@ class OnOff extends ChangeNotifier{
   bool feedBackOpen = false;
   bool feedBackFS = false;
   bool feedBackPan = false;
+  bool calendarOpen = true;
+  bool calendarFS = false;
+  bool calendarPan = false;
 
   String get getFS {
     return fs;
@@ -272,6 +275,64 @@ class OnOff extends ChangeNotifier{
 
   void onSpotifyPan() {
     spotifyPan= true;
+    notifyListeners();
+  }
+
+  bool get getCalendar {
+    return calendarOpen;
+  }
+
+  bool get getCalendarFS {
+    return calendarFS;
+  }
+
+  void toggleCalendar() {
+    calendarOpen= !calendarOpen;
+    notifyListeners();
+  }
+
+  void toggleCalendarFS() {
+    bool localFs= fsAni;
+    calendarFS= !calendarFS;
+    fs=(fs=="")?"Spotify":"";
+    if(!localFs){
+      fsAni = true;
+    }
+    notifyListeners();
+    if(localFs){
+      Future.delayed(Duration(milliseconds: 400), () {
+        fsAni = false;
+        notifyListeners();
+      });
+    }
+  }
+
+  void offCalendarFS() {
+    calendarFS= false;
+    fs="";
+    notifyListeners();
+    Future.delayed(Duration(milliseconds: 400),(){
+      fsAni=false;
+      notifyListeners();
+    });
+  }
+
+  void openCalendar() {
+    calendarOpen= true;
+    notifyListeners();
+  }
+
+  bool get getCalendarPan {
+    return calendarPan;
+  }
+
+  void offCalendarPan() {
+    calendarPan= false;
+    notifyListeners();
+  }
+
+  void onCalendarPan() {
+    calendarPan= true;
     notifyListeners();
   }
 

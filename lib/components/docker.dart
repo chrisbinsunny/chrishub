@@ -153,71 +153,77 @@ class _DockerState extends State<Docker> {
                         iName: "contacts",
                         on: false,
                       ),
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                  child: Stack(
-                                alignment: Alignment.topCenter,
-                                children: [
-                                  Image.asset(
-                                    "assets/apps/calendar.png",
-                                  ),
-                                  Positioned(
-                                    top: screenHeight(context, mulBy: 0.01),
-                                    child: Container(
-                                      height: screenHeight(context, mulBy: 0.02),
-                                      width: screenWidth(context, mulBy: 0.03),
-                                      color: Colors.transparent,
-                                      child: FittedBox(
-                                        fit: BoxFit.fitHeight,
-                                        child: Text(
-                                          "${DateFormat('LLL').format(now).toUpperCase()}",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'SF',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 11,
+                      InkWell(
+                        onTap: (){
+                          Provider.of<OnOff>(context, listen: false)
+                              .openCalendar();
+                        },
+                        child: MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                    child: Stack(
+                                  alignment: Alignment.topCenter,
+                                  children: [
+                                    Image.asset(
+                                      "assets/apps/calendar.png",
+                                    ),
+                                    Positioned(
+                                      top: screenHeight(context, mulBy: 0.01),
+                                      child: Container(
+                                        height: screenHeight(context, mulBy: 0.02),
+                                        width: screenWidth(context, mulBy: 0.03),
+                                        color: Colors.transparent,
+                                        child: FittedBox(
+                                          fit: BoxFit.fitHeight,
+                                          child: Text(
+                                            "${DateFormat('LLL').format(now).toUpperCase()}",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: 'SF',
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 11,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Positioned(
-                                    top: screenHeight(context, mulBy: 0.026),
-                                    child: Container(
-                                      height: screenHeight(context, mulBy: 0.047),
-                                      width: screenWidth(context, mulBy: 0.03),
-                                      color: Colors.transparent,
-                                      child: FittedBox(
-                                        fit: BoxFit.fitHeight,
-                                        child: Text(
-                                          "${DateFormat('d').format(now).toUpperCase()}",
-                                          style: TextStyle(
-                                              color:
-                                                  Colors.black87.withOpacity(0.8),
-                                              fontFamily: 'SF',
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 28),
+                                    Positioned(
+                                      top: screenHeight(context, mulBy: 0.026),
+                                      child: Container(
+                                        height: screenHeight(context, mulBy: 0.047),
+                                        width: screenWidth(context, mulBy: 0.03),
+                                        color: Colors.transparent,
+                                        child: FittedBox(
+                                          fit: BoxFit.fitHeight,
+                                          child: Text(
+                                            "${DateFormat('d').format(now).toUpperCase()}",
+                                            style: TextStyle(
+                                                color:
+                                                    Colors.black87.withOpacity(0.8),
+                                                fontFamily: 'SF',
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 28),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              )).moveUpOnHover,
-                            ),
-                            Container(
-                              height: 4,
-                              width: 4,
-                              decoration: BoxDecoration(
-                                color: true ? Theme.of(context).cardColor.withOpacity(1) : Colors.transparent,
-                                shape: BoxShape.circle,
+                                  ],
+                                )).moveUpOnHover,
                               ),
-                            ),
-                          ],
+                              Container(
+                                height: 4,
+                                width: 4,
+                                decoration: BoxDecoration(
+                                  color: true ? Theme.of(context).cardColor.withOpacity(1) : Colors.transparent,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       DockerItem(
