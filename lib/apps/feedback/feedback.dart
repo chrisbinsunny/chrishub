@@ -13,6 +13,8 @@ import 'dart:ui' as ui;
 import 'controller.dart';
 import 'model.dart';
 
+//TODO Theming of  feedback
+
 class FeedBack extends StatefulWidget {
   final Offset initPos;
   const FeedBack({this.initPos, Key key}) : super(key: key);
