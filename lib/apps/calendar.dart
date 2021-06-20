@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mac_dt/componentsOnOff.dart';
-import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../sizes.dart';
-import '../widgets.dart';
-import 'dart:html' as html;
-import 'dart:ui' as ui;
+import 'package:table_calendar/table_calendar.dart';
 
 class Calendar extends StatefulWidget {
   final Offset initPos;
@@ -20,22 +17,15 @@ class _CalendarState extends State<Calendar> {
   Offset position = Offset(0.0, 0.0);
   bool calendarFS;
   bool calendarPan;
-  final html.IFrameElement _iframeElementURL = html.IFrameElement();
+  CalendarFormat format = CalendarFormat.month;
+  DateTime selectedDay= DateTime.utc(1999, 07, 10);
+  DateTime focusedDay= DateTime.now();
 
 
   @override
   void initState() {
     position = widget.initPos;
     super.initState();
-    _iframeElementURL.src = 'https://open.spotify.com/embed/playlist/1hJhyi1Ofxvlsswc1ZeXEs';
-    _iframeElementURL.style.border = 'none';
-    _iframeElementURL.allow = "autoplay; encrypted-media;";
-    _iframeElementURL.allowFullscreen = true;
-    ui.platformViewRegistry.registerViewFactory(
-      'spotifyIframe',
-          (int viewId) => _iframeElementURL,
-    );
-
   }
 
   @override
@@ -65,6 +55,7 @@ class _CalendarState extends State<Calendar> {
           ? screenHeight(context, mulBy: 0.863)
           : screenHeight(context, mulBy: 0.75),
       decoration: BoxDecoration(
+        color: Theme.of(context).hintColor.withOpacity(1),
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
         ),
@@ -89,7 +80,7 @@ class _CalendarState extends State<Calendar> {
                     ? screenHeight(context, mulBy: 0.059)
                     : screenHeight(context, mulBy: 0.06),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor,
+                    color: Theme.of(context).hintColor.withOpacity(1),
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10),
                         topLeft: Radius.circular(10))),
@@ -122,10 +113,7 @@ class _CalendarState extends State<Calendar> {
                       : screenHeight(context, mulBy: 0.06),
                   decoration: BoxDecoration(
                       color: Colors.transparent,
-                      border: Border(
-                          bottom: BorderSide(
-                              color: Colors.black.withOpacity(0.5),
-                              width: 0.8))),
+                      ),
                 ),
               ),
               Container(
@@ -203,21 +191,52 @@ class _CalendarState extends State<Calendar> {
           Expanded(
             child: ClipRRect(
               borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10)),
-              child: BackdropFilter(
-                filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
-                child: Container(
-                  height: screenHeight(context, mulBy: 0.14),
-                  width: screenWidth(
-                    context,
+                  bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10)
+              ),
+              child: Container(
+                height: screenHeight(context, mulBy: 0.14),
+                width: screenWidth(
+                  context,
+                ),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).hintColor.withOpacity(1),
+                ),
+                child: TableCalendar(
+                  firstDay: DateTime.utc(1999, 07, 10),
+                  lastDay: DateTime.utc(2200, 4, 28),
+                  focusedDay: focusedDay,
+                  calendarFormat: format,
+                  onFormatChanged: (CalendarFormat _format){
+                    setState(() {
+                      format=_format;
+                    });
+                  },
+                  onDaySelected: (DateTime selectDay, DateTime focusDay){
+                    setState(() {
+                      selectedDay= selectDay;
+                      focusedDay=focusDay;
+                    });
+                  },
+                  selectedDayPredicate: (DateTime date){
+                    return isSameDay(selectedDay, date);
+                  },
+
+                  calendarStyle: CalendarStyle(
+                    isTodayHighlighted: true,
+                    selectedDecoration: BoxDecoration(
+                      color: Colors.blueGrey,
+                      shape: BoxShape.circle
+                    ),
+                    selectedTextStyle: TextStyle(
+                      color: Colors.white
+                    ),
+                    todayDecoration: BoxDecoration(
+                        color: Color(0xffff453a),
+                        shape: BoxShape.circle
+                    ),
                   ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor.withOpacity(0.8),
-                  ),
-                  child: HtmlElementView(
-                    viewType: 'spotifyIframe',
-                  ),
+
                 ),
               ),
             ),

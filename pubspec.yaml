@@ -26,6 +26,7 @@ dependencies:
   intl: ^0.17.0
   provider: ^5.0.0
   http: ^0.13.3
+  table_calendar: ^3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.

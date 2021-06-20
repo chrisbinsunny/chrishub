@@ -37,6 +37,7 @@ class _DockerState extends State<Docker> {
     String fs= Provider.of<OnOff>(context).getFS;
     bool fsAni= Provider.of<OnOff>(context).getFSAni;
     bool fbOpen = Provider.of<OnOff>(context).getFeedBack;
+    bool calendarOpen = Provider.of<OnOff>(context).getCalendar;
 
 
     return AnimatedPositioned(
@@ -218,7 +219,7 @@ class _DockerState extends State<Docker> {
                                 height: 4,
                                 width: 4,
                                 decoration: BoxDecoration(
-                                  color: true ? Theme.of(context).cardColor.withOpacity(1) : Colors.transparent,
+                                  color: calendarOpen ? Theme.of(context).cardColor.withOpacity(1) : Colors.transparent,
                                   shape: BoxShape.circle,
                                 ),
                               ),
