@@ -51,7 +51,7 @@ class _CalendarState extends State<Calendar> {
           ? screenWidth(context, mulBy: 1)
           : screenWidth(context, mulBy: 0.7),
       height: calendarFS
-          ? screenHeight(context, mulBy: 0.863)
+          ?screenHeight(context, mulBy: 0.966)
           : screenHeight(context, mulBy: 0.75),
       decoration: BoxDecoration(
         color: Theme.of(context).hintColor.withOpacity(1),
@@ -241,8 +241,13 @@ class _CalendarState extends State<Calendar> {
                         fontFamily: "HN"),
 
                   ),
+                  rowHeight: screenHeight(context, mulBy: 0.113),
+                  headerStyle: HeaderStyle(
+                    formatButtonVisible: false,
+                  ),
                   calendarBuilders:
-                      CalendarBuilders(headerTitleBuilder: (context, dateTime) {
+                      CalendarBuilders(
+                        headerTitleBuilder: (context, dateTime) {
                     return Row(
                       children: [
                         Text(
@@ -273,6 +278,7 @@ class _CalendarState extends State<Calendar> {
                           defaultBuilder: (context, dateTime, event) {
                     return Container(
                       decoration: BoxDecoration(
+                          color: (dateTime.weekday==DateTime.sunday)?Colors.white.withOpacity(0.04):Colors.transparent,
                           border: Border.all(
                               color:
                                   Theme.of(context).cardColor.withOpacity(0.5),
@@ -280,9 +286,9 @@ class _CalendarState extends State<Calendar> {
                       child: Align(
                         alignment: Alignment.topRight,
                         child: Container(
-                          padding: EdgeInsets.all(6),
+                            padding: EdgeInsets.all(6),
                           child: Text(
-                            "${DateFormat("d").format(dateTime)}",
+                            (dateTime.day==1)?"${DateFormat("d LLL").format(dateTime)}":"${DateFormat("d").format(dateTime)}",
                             style: TextStyle(
                                 color: Theme.of(context).cardColor.withOpacity(1),
                                 fontWeight: Theme.of(context)
@@ -299,6 +305,7 @@ class _CalendarState extends State<Calendar> {
                         todayBuilder: (context, dateTime, event) {
                           return Container(
                             decoration: BoxDecoration(
+                                color: (dateTime.weekday==DateTime.sunday)?Colors.white.withOpacity(0.04):Colors.transparent,
                                 border: Border.all(
                                     color:
                                     Theme.of(context).cardColor.withOpacity(0.5),
@@ -315,7 +322,7 @@ class _CalendarState extends State<Calendar> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "${DateFormat("d").format(dateTime)}",
+                                      "${DateFormat("d").format(dateTime)}",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: Theme.of(context)
@@ -333,6 +340,8 @@ class _CalendarState extends State<Calendar> {
                         selectedBuilder: (context, dateTime, event) {
                           return Container(
                             decoration: BoxDecoration(
+                                color: (dateTime.weekday==DateTime.sunday)?Colors.white.withOpacity(0.04):Colors.transparent,
+
                                 border: Border.all(
                                     color:
                                     Theme.of(context).cardColor.withOpacity(0.5),
@@ -364,14 +373,51 @@ class _CalendarState extends State<Calendar> {
                             ),
                           );
                         },
+                        outsideBuilder: (context, dateTime, event) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                color: (dateTime.weekday==DateTime.sunday)?Colors.white.withOpacity(0.04):Colors.transparent,
+                                border: Border.all(
+                                    color:
+                                    Theme.of(context).cardColor.withOpacity(0.5),
+                                    width: 0.1)),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: Container(
+                                padding: EdgeInsets.all(6),
+                                child: Text(
+                                  (dateTime==1)?"${DateFormat("d LLL").format(dateTime)}": "${DateFormat("d").format(dateTime)}",
+                                  style: TextStyle(
+                                      color: Theme.of(context).cardColor.withOpacity(0.3),
+                                      fontWeight: Theme.of(context)
+                                          .textTheme
+                                          .headline2
+                                          .fontWeight,
+                                      fontSize: 14,
+                                      fontFamily: "HN"),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        dowBuilder: (context, dateTime){
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: Text(
+                              "${DateFormat("E").format(dateTime)}",
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
+                                  color: Theme.of(context).cardColor.withOpacity(1),
+                                  fontWeight: Theme.of(context)
+                                      .textTheme
+                                      .headline2
+                                      .fontWeight,
+                                  fontSize: 14,
+                                  fontFamily: "HN"),
+                            ),
+                          );
+                        }
                       ),
-                  headerStyle: HeaderStyle(
-                    titleTextStyle: TextStyle(
-                        color: Theme.of(context).cardColor.withOpacity(1),
-                        fontWeight:
-                            Theme.of(context).textTheme.headline4.fontWeight,
-                        fontFamily: "HN"),
-                  ),
                 ),
               ),
             ),
