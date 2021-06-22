@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:provider/provider.dart';
 import '../sizes.dart';
@@ -18,9 +19,8 @@ class _CalendarState extends State<Calendar> {
   bool calendarFS;
   bool calendarPan;
   CalendarFormat format = CalendarFormat.month;
-  DateTime selectedDay= DateTime.utc(1999, 07, 10);
-  DateTime focusedDay= DateTime.now();
-
+  DateTime selectedDay = DateTime.utc(1999, 07, 10);
+  DateTime focusedDay = DateTime.now();
 
   @override
   void initState() {
@@ -35,17 +35,16 @@ class _CalendarState extends State<Calendar> {
     calendarPan = Provider.of<OnOff>(context).getCalendarPan;
     return Visibility(
       visible: spotifyOpen,
-          child: AnimatedPositioned(
-      duration: Duration(milliseconds: calendarPan ? 0 : 200),
-      top: calendarFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-      left: calendarFS ? 0 : position.dx,
-      child: calendarWindow(context),
-    ),
-        );
+      child: AnimatedPositioned(
+        duration: Duration(milliseconds: calendarPan ? 0 : 200),
+        top: calendarFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
+        left: calendarFS ? 0 : position.dx,
+        child: calendarWindow(context),
+      ),
+    );
   }
 
   AnimatedContainer calendarWindow(BuildContext context) {
-
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: calendarFS
@@ -112,8 +111,8 @@ class _CalendarState extends State<Calendar> {
                       ? screenHeight(context, mulBy: 0.059)
                       : screenHeight(context, mulBy: 0.06),
                   decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      ),
+                    color: Colors.transparent,
+                  ),
                 ),
               ),
               Container(
@@ -192,8 +191,7 @@ class _CalendarState extends State<Calendar> {
             child: ClipRRect(
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10)
-              ),
+                  bottomRight: Radius.circular(10)),
               child: Container(
                 height: screenHeight(context, mulBy: 0.14),
                 width: screenWidth(
@@ -207,36 +205,173 @@ class _CalendarState extends State<Calendar> {
                   lastDay: DateTime.utc(2200, 4, 28),
                   focusedDay: focusedDay,
                   calendarFormat: format,
-                  onFormatChanged: (CalendarFormat _format){
+                  onFormatChanged: (CalendarFormat _format) {
                     setState(() {
-                      format=_format;
+                      format = _format;
                     });
                   },
-                  onDaySelected: (DateTime selectDay, DateTime focusDay){
+                  onDaySelected: (DateTime selectDay, DateTime focusDay) {
                     setState(() {
-                      selectedDay= selectDay;
-                      focusedDay=focusDay;
+                      selectedDay = selectDay;
+                      focusedDay = focusDay;
                     });
                   },
-                  selectedDayPredicate: (DateTime date){
+                  selectedDayPredicate: (DateTime date) {
                     return isSameDay(selectedDay, date);
                   },
-
+                  weekendDays: [DateTime.sunday],
                   calendarStyle: CalendarStyle(
                     isTodayHighlighted: true,
-                    selectedDecoration: BoxDecoration(
-                      color: Colors.blueGrey,
-                      shape: BoxShape.circle
-                    ),
-                    selectedTextStyle: TextStyle(
-                      color: Colors.white
-                    ),
                     todayDecoration: BoxDecoration(
-                        color: Color(0xffff453a),
-                        shape: BoxShape.circle
-                    ),
-                  ),
+                        color: Color(0xffff453a), shape: BoxShape.circle),
+                    defaultTextStyle: TextStyle(
+                        color: Theme.of(context).cardColor.withOpacity(1),
+                        fontWeight:
+                            Theme.of(context).textTheme.headline4.fontWeight,
+                        fontFamily: "HN"),
+                    weekendTextStyle: TextStyle(
+                        color: Theme.of(context).cardColor.withOpacity(0.6),
+                        fontWeight:
+                            Theme.of(context).textTheme.headline4.fontWeight,
+                        fontFamily: "HN"),
+                    outsideTextStyle: TextStyle(
+                        color: Theme.of(context).cardColor.withOpacity(0.3),
+                        fontWeight:
+                            Theme.of(context).textTheme.headline4.fontWeight,
+                        fontFamily: "HN"),
 
+                  ),
+                  calendarBuilders:
+                      CalendarBuilders(headerTitleBuilder: (context, dateTime) {
+                    return Row(
+                      children: [
+                        Text(
+                          "${DateFormat("LLLL").format(dateTime)}",
+                          style: TextStyle(
+                              color: Theme.of(context).cardColor.withOpacity(1),
+                              fontWeight: Theme.of(context)
+                                  .textTheme
+                                  .headline1
+                                  .fontWeight,
+                              fontSize: 25,
+                              fontFamily: "HN"),
+                        ),
+                        Text(
+                          " ${DateFormat("y").format(dateTime)}",
+                          style: TextStyle(
+                              color: Theme.of(context).cardColor.withOpacity(1),
+                              fontWeight: Theme.of(context)
+                                  .textTheme
+                                  .headline2
+                                  .fontWeight,
+                              fontSize: 25,
+                              fontFamily: "HN"),
+                        ),
+                      ],
+                    );
+                  },
+                          defaultBuilder: (context, dateTime, event) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              color:
+                                  Theme.of(context).cardColor.withOpacity(0.5),
+                              width: 0.1)),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                          padding: EdgeInsets.all(6),
+                          child: Text(
+                            "${DateFormat("d").format(dateTime)}",
+                            style: TextStyle(
+                                color: Theme.of(context).cardColor.withOpacity(1),
+                                fontWeight: Theme.of(context)
+                                    .textTheme
+                                    .headline2
+                                    .fontWeight,
+                                fontSize: 14,
+                                fontFamily: "HN"),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                        todayBuilder: (context, dateTime, event) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color:
+                                    Theme.of(context).cardColor.withOpacity(0.5),
+                                    width: 0.1)),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: Container(
+                                height: 25,
+                                width: 25,
+                                margin: EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  color: Color(0xffff453a),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "${DateFormat("d").format(dateTime)}",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: Theme.of(context)
+                                            .textTheme
+                                            .headline2
+                                            .fontWeight,
+                                        fontSize: 12.5,
+                                        fontFamily: "HN"),
+                                  ),
+                                ),
+                              ),
+                            )
+                          );
+                        },
+                        selectedBuilder: (context, dateTime, event) {
+                          return Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color:
+                                    Theme.of(context).cardColor.withOpacity(0.5),
+                                    width: 0.1)),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: Container(
+                                height: 25,
+                                width: 25,
+                                margin: EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  color: Colors.blueGrey,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "${DateFormat("d").format(dateTime)}",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: Theme.of(context)
+                                            .textTheme
+                                            .headline2
+                                            .fontWeight,
+                                        fontSize: 12.5,
+                                        fontFamily: "HN"),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                  headerStyle: HeaderStyle(
+                    titleTextStyle: TextStyle(
+                        color: Theme.of(context).cardColor.withOpacity(1),
+                        fontWeight:
+                            Theme.of(context).textTheme.headline4.fontWeight,
+                        fontFamily: "HN"),
+                  ),
                 ),
               ),
             ),
@@ -246,4 +381,3 @@ class _CalendarState extends State<Calendar> {
     );
   }
 }
-

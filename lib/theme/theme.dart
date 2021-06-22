@@ -14,7 +14,11 @@ class ThemeNotifier with ChangeNotifier {
       headline1: TextStyle(
         fontWeight: FontWeight.w700,
         fontSize: 15,
-      )
+      ),
+        headline2: TextStyle(                 //calendar heading
+          fontWeight: FontWeight.w400,
+          fontSize: 15,
+        )
     ),
     fontFamily: "SF",
     primarySwatch: Colors.blueGrey,
@@ -54,6 +58,10 @@ class ThemeNotifier with ChangeNotifier {
       ),
         headline1: TextStyle(
           fontWeight: FontWeight.w600,
+          fontSize: 15,
+        ),
+        headline2: TextStyle(                 //calendar heading
+          fontWeight: FontWeight.w300,
           fontSize: 15,
         )
 
