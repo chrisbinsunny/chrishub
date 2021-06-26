@@ -25,9 +25,12 @@ class OnOff extends ChangeNotifier{
   bool feedBackOpen = false;
   bool feedBackFS = false;
   bool feedBackPan = false;
-  bool calendarOpen = true;
+  bool calendarOpen = false;
   bool calendarFS = false;
   bool calendarPan = false;
+  bool terminalOpen = true;
+  bool terminalFS = false;
+  bool terminalPan = false;
 
   String get getFS {
     return fs;
@@ -294,7 +297,7 @@ class OnOff extends ChangeNotifier{
   void toggleCalendarFS() {
     bool localFs= fsAni;
     calendarFS= !calendarFS;
-    fs=(fs=="")?"Spotify":"";
+    fs=(fs=="")?"Calendar":"";
     if(!localFs){
       fsAni = true;
     }
@@ -333,6 +336,64 @@ class OnOff extends ChangeNotifier{
 
   void onCalendarPan() {
     calendarPan= true;
+    notifyListeners();
+  }
+
+  bool get getTerminal {
+    return terminalOpen;
+  }
+
+  bool get getTerminalFS {
+    return terminalFS;
+  }
+
+  void toggleTerminal() {
+    terminalOpen= !terminalOpen;
+    notifyListeners();
+  }
+
+  void toggleTerminalFS() {
+    bool localFs= fsAni;
+    terminalFS= !terminalFS;
+    fs=(fs=="")?"Terminal":"";
+    if(!localFs){
+      fsAni = true;
+    }
+    notifyListeners();
+    if(localFs){
+      Future.delayed(Duration(milliseconds: 400), () {
+        fsAni = false;
+        notifyListeners();
+      });
+    }
+  }
+
+  void offTerminalFS() {
+    terminalFS= false;
+    fs="";
+    notifyListeners();
+    Future.delayed(Duration(milliseconds: 400),(){
+      fsAni=false;
+      notifyListeners();
+    });
+  }
+
+  void openTerminal() {
+    terminalOpen= true;
+    notifyListeners();
+  }
+
+  bool get getTerminalPan {
+    return terminalPan;
+  }
+
+  void offTerminalPan() {
+    terminalPan= false;
+    notifyListeners();
+  }
+
+  void onTerminalPan() {
+    terminalPan= true;
     notifyListeners();
   }
 

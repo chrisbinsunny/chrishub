@@ -38,7 +38,7 @@ class _DockerState extends State<Docker> {
     bool fsAni= Provider.of<OnOff>(context).getFSAni;
     bool fbOpen = Provider.of<OnOff>(context).getFeedBack;
     bool calendarOpen = Provider.of<OnOff>(context).getCalendar;
-
+    bool terminalOpen = Provider.of<OnOff>(context).getTerminal;
 
     return AnimatedPositioned(
       duration: Duration(milliseconds: (fsAni)?400:0),
@@ -132,10 +132,15 @@ class _DockerState extends State<Docker> {
                           on: spotifyOpen,
                         ),
                       ),
-                      DockerItem(
+                      InkWell(
+                        onTap: (){
+                          Provider.of<OnOff>(context, listen: false)
+                              .openTerminal();
+                        },
+                        child: DockerItem(
                         iName: "terminal",
-                        on: false,
-                      ),
+                        on: terminalOpen,
+                      ),),
                       InkWell(
                         onTap: (){
                           Provider.of<OnOff>(context, listen: false)

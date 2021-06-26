@@ -7,7 +7,7 @@ import 'desktop.dart';
 
 void main() {
   runApp(ChangeNotifierProvider<ThemeNotifier>(
-      create: (_) => ThemeNotifier(ThemeNotifier.lightTheme),
+      create: (_) => ThemeNotifier(ThemeNotifier.darkTheme),
       child: MyApp()));
 }
 

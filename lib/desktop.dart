@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mac_dt/apps/calendar.dart';
 import 'package:mac_dt/apps/feedback/feedback.dart';
+import 'package:mac_dt/apps/terminal/terminal.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
 import 'package:mac_dt/safari/safariWindow.dart';
@@ -59,6 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
             FeedBack(initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
             //Calendar Window
             Calendar(key: ObjectKey("calendar"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
+            //Terminal Window
+           Terminal(key: ObjectKey("terminal"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
 
             // file menu
             FileMenu(),
