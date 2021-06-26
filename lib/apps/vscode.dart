@@ -60,8 +60,7 @@ class _VSCodeState extends State<VSCode> {
           ? screenWidth(context, mulBy: 1)
           : screenWidth(context, mulBy: 0.7),
       height: vsFS
-          ? screenHeight(context, mulBy: 0.863)
-          : screenHeight(context, mulBy: 0.75),
+          ? screenHeight(context, mulBy: 0.966):screenHeight(context, mulBy: 0.75),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -87,7 +86,7 @@ class _VSCodeState extends State<VSCode> {
                     ? screenHeight(context, mulBy: 0.059)
                     : screenHeight(context, mulBy: 0.06),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor,
+                    color: Color(0xff252526),
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10),
                         topLeft: Radius.circular(10))),
@@ -211,7 +210,7 @@ class _VSCodeState extends State<VSCode> {
                     context,
                   ),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).hintColor,
+                    color: Color(0xff1e1e1e).withOpacity(0.9),
                   ),
                   child: HtmlElementView(
                     viewType: 'vsIframe',
