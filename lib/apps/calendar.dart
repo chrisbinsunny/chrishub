@@ -6,6 +6,9 @@ import 'package:provider/provider.dart';
 import '../sizes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+//TODO Goto May 2021 and resize the window to see the error
+
+
 class Calendar extends StatefulWidget {
   final Offset initPos;
   const Calendar({this.initPos, Key key}) : super(key: key);
@@ -241,7 +244,7 @@ class _CalendarState extends State<Calendar> {
                         fontFamily: "HN"),
 
                   ),
-                  rowHeight: screenHeight(context, mulBy: 0.113),
+                 // rowHeight: screenHeight(context, mulBy: 0.07  ),
                   headerStyle: HeaderStyle(
                     formatButtonVisible: false,
                   ),
@@ -278,7 +281,7 @@ class _CalendarState extends State<Calendar> {
                           defaultBuilder: (context, dateTime, event) {
                     return Container(
                       decoration: BoxDecoration(
-                          color: (dateTime.weekday==DateTime.sunday)?Colors.white.withOpacity(0.04):Colors.transparent,
+                          color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
                           border: Border.all(
                               color:
                                   Theme.of(context).cardColor.withOpacity(0.5),
@@ -305,7 +308,7 @@ class _CalendarState extends State<Calendar> {
                         todayBuilder: (context, dateTime, event) {
                           return Container(
                             decoration: BoxDecoration(
-                                color: (dateTime.weekday==DateTime.sunday)?Colors.white.withOpacity(0.04):Colors.transparent,
+                                color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
                                 border: Border.all(
                                     color:
                                     Theme.of(context).cardColor.withOpacity(0.5),
@@ -340,7 +343,7 @@ class _CalendarState extends State<Calendar> {
                         selectedBuilder: (context, dateTime, event) {
                           return Container(
                             decoration: BoxDecoration(
-                                color: (dateTime.weekday==DateTime.sunday)?Colors.white.withOpacity(0.04):Colors.transparent,
+                                color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
 
                                 border: Border.all(
                                     color:
@@ -376,7 +379,7 @@ class _CalendarState extends State<Calendar> {
                         outsideBuilder: (context, dateTime, event) {
                           return Container(
                             decoration: BoxDecoration(
-                                color: (dateTime.weekday==DateTime.sunday)?Colors.white.withOpacity(0.04):Colors.transparent,
+                                color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
                                 border: Border.all(
                                     color:
                                     Theme.of(context).cardColor.withOpacity(0.5),
@@ -415,8 +418,9 @@ class _CalendarState extends State<Calendar> {
                                   fontSize: 14,
                                   fontFamily: "HN"),
                             ),
-                          );
-                        }
+                          ); 
+                        },
+
                       ),
                 ),
               ),
