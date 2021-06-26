@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mac_dt/componentsOnOff.dart';
+import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../sizes.dart';
 import 'dart:ui' as ui;
@@ -44,14 +45,15 @@ class _TerminalState extends State<Terminal> {
       duration: Duration(milliseconds: 200),
       width: terminalFS
           ? screenWidth(context, mulBy: 1)
-          : screenWidth(context, mulBy: 0.7),
+          : screenWidth(context, mulBy: 0.4),
       height: terminalFS
           ? screenHeight(context, mulBy: 0.966)
-          : screenHeight(context, mulBy: 0.75),
+          : screenHeight(context, mulBy: 0.5),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
         ),
+        color: Theme.of(context).dialogBackgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
         boxShadow: [
           BoxShadow(
@@ -70,13 +72,29 @@ class _TerminalState extends State<Terminal> {
             children: [
               Container(
                 height: terminalFS
-                    ? screenHeight(context, mulBy: 0.059)
-                    : screenHeight(context, mulBy: 0.06),
+                    ? screenHeight(context, mulBy: 0.04)
+                    : screenHeight(context, mulBy: 0.04),
                 decoration: BoxDecoration(
-                    color: Color(0xff252526),
+                    color: Theme.of(context).disabledColor,
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(10),
                         topLeft: Radius.circular(10))),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    MBPText(
+                      text: "chrisbin -- -zsh -- ${terminalFS
+                          ? screenWidth(context, mulBy: .1).floor()
+                          : screenWidth(context, mulBy: 0.04).floor()}x${terminalFS
+                          ? screenHeight(context, mulBy: 0.0966).floor()
+                          : screenHeight(context, mulBy: 0.05).floor()}",
+                      fontFamily: "HN",
+                      color: Theme.of(context).cardColor.withOpacity(1),
+                      weight: Theme.of(context).textTheme.headline4.fontWeight,
+                    )
+                  ],
+                ),
               ),
               GestureDetector(
                 onPanUpdate: (tapInfo) {
@@ -102,14 +120,14 @@ class _TerminalState extends State<Terminal> {
                       ? screenWidth(context, mulBy: 0.95)
                       : screenWidth(context, mulBy: 0.7),
                   height: terminalFS
-                      ? screenHeight(context, mulBy: 0.059)
-                      : screenHeight(context, mulBy: 0.06),
+                      ? screenHeight(context, mulBy: 0.04)
+                      : screenHeight(context, mulBy: 0.04),
                   decoration: BoxDecoration(
                       color: Colors.transparent,
                       border: Border(
                           bottom: BorderSide(
-                              color: Colors.black.withOpacity(0.5),
-                              width: 0.8))),
+                              color: Colors.black.withOpacity(0.9),
+                              width: 0.2))),
                 ),
               ),
               Container(
@@ -196,9 +214,18 @@ class _TerminalState extends State<Terminal> {
                   width: screenWidth(
                     context,
                   ),
-                  decoration: BoxDecoration(
-                    color: Color(0xff1e1e1e).withOpacity(0.9),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 6,
+                    vertical: 5
                   ),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dialogBackgroundColor,
+                  ),
+                  child: Expanded(
+                    child: Container(
+                      color: Colors.green,
+                    ),
+                  )
                 ),
               ),
             ),

@@ -33,6 +33,8 @@ class ThemeNotifier with ChangeNotifier {
     hintColor: Colors.white.withOpacity(0.6), //window transparency Color
     dividerColor: Colors.white, // Safari Window color
     dialogBackgroundColor: Colors.white, //feedback body color
+    disabledColor: Colors.white, //terminal top color
+
 
     primaryTextTheme: TextTheme(
       button: TextStyle(
@@ -80,6 +82,7 @@ class ThemeNotifier with ChangeNotifier {
       dividerColor: Color(0xff3a383e), // Window top color
       hintColor: Color(0xff242127).withOpacity(0.3), //window transparency Color
       dialogBackgroundColor: Color(0xff1e1f23), //feedback body color
+      disabledColor: Color(0xff39373b), //terminal top color
       primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey[200],

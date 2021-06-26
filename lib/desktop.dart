@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //Calendar Window
             Calendar(key: ObjectKey("calendar"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
             //Terminal Window
-           Terminal(key: ObjectKey("terminal"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
+           Terminal(key: ObjectKey("terminal"), initPos: Offset(screenWidth(context,mulBy:0.28),screenHeight(context,mulBy: 0.2))),
 
             // file menu
             FileMenu(),
