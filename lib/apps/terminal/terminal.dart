@@ -1,10 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:intl/intl.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../sizes.dart';
 import 'dart:ui' as ui;
+
+//TODO Has an issue with cursor. Currently the issue is present in master branch og flutter.
+/// GitHub Issue: https://github.com/flutter/flutter/issues/31661
 
 class Terminal extends StatefulWidget {
   final Offset initPos;
@@ -18,26 +24,54 @@ class _TerminalState extends State<Terminal> {
   Offset position = Offset(0.0, 0.0);
   bool terminalFS;
   bool terminalPan;
+  var commandTECs = <TextEditingController>[];
+  var commandCards = <Widget>[];
+  DateTime now;
+
+  Widget createCard() {
+    var commandController = TextEditingController();
+    commandTECs.add(commandController);
+    return TerminalCommand(
+      commandController: commandController,
+      onSubmit: () {
+        setState(() {
+          commandCards.add(createCard());
+        });
+      },
+    );
+  }
+
+  processCommands(String text) {
+    var textWords = text.split(' ');
+    String command = textWords[0];
+    textWords.removeAt(0);
+    String variable = text.substring(text.indexOf(' '));
+    variable=variable.trim();
+    switch (command) {
+
+    }
+  }
 
   @override
   void initState() {
     position = widget.initPos;
     super.initState();
+    now = DateTime.now();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      commandCards.add(createCard());
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var terminalOpen = Provider.of<OnOff>(context).getTerminal;
     terminalFS = Provider.of<OnOff>(context).getTerminalFS;
     terminalPan = Provider.of<OnOff>(context).getTerminalPan;
-    return terminalOpen
-        ? AnimatedPositioned(
-            duration: Duration(milliseconds: terminalPan ? 0 : 200),
-            top: terminalFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-            left: terminalFS ? 0 : position.dx,
-            child: terminalWindow(context),
-          )
-        : Container();
+    return AnimatedPositioned(
+      duration: Duration(milliseconds: terminalPan ? 0 : 200),
+      top: terminalFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
+      left: terminalFS ? 0 : position.dx,
+      child: terminalWindow(context),
+    );
   }
 
   AnimatedContainer terminalWindow(BuildContext context) {
@@ -84,11 +118,8 @@ class _TerminalState extends State<Terminal> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     MBPText(
-                      text: "chrisbin -- -zsh -- ${terminalFS
-                          ? screenWidth(context, mulBy: .1).floor()
-                          : screenWidth(context, mulBy: 0.04).floor()}x${terminalFS
-                          ? screenHeight(context, mulBy: 0.0966).floor()
-                          : screenHeight(context, mulBy: 0.05).floor()}",
+                      text:
+                          "chrisbin -- -zsh -- ${terminalFS ? screenWidth(context, mulBy: .1).floor() : screenWidth(context, mulBy: 0.04).floor()}x${terminalFS ? screenHeight(context, mulBy: 0.0966).floor() : screenHeight(context, mulBy: 0.05).floor()}",
                       fontFamily: "HN",
                       color: Theme.of(context).cardColor.withOpacity(1),
                       weight: Theme.of(context).textTheme.headline4.fontWeight,
@@ -154,9 +185,9 @@ class _TerminalState extends State<Terminal> {
                           ),
                           onTap: () {
                             Provider.of<OnOff>(context, listen: false)
-                                .toggleVS();
+                                .toggleTerminal();
                             Provider.of<OnOff>(context, listen: false)
-                                .offVSFS();
+                                .offTerminalFS();
                           },
                         ),
                         SizedBox(
@@ -192,7 +223,7 @@ class _TerminalState extends State<Terminal> {
                           ),
                           onTap: () {
                             Provider.of<OnOff>(context, listen: false)
-                                .toggleVSFS();
+                                .toggleTerminalFS();
                           },
                         )
                       ],
@@ -207,31 +238,134 @@ class _TerminalState extends State<Terminal> {
               borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(10),
                   bottomLeft: Radius.circular(10)),
-              child: BackdropFilter(
-                filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
-                child: Container(
-                  height: screenHeight(context, mulBy: 0.14),
-                  width: screenWidth(
-                    context,
-                  ),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 6,
-                    vertical: 5
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).dialogBackgroundColor,
-                  ),
-                  child: Expanded(
-                    child: Container(
-                      color: Colors.green,
+              child: Container(
+                height: screenHeight(context, mulBy: 0.14),
+                width: screenWidth(
+                  context,
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).dialogBackgroundColor,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    MBPText(
+                      text:
+                          "Last login: ${DateFormat("E LLL d hh:mm:ss").format(now)} on console",
+                      color: Theme.of(context).cardColor.withOpacity(1),
+                      fontFamily: "Menlo",
+                      size: 10,
                     ),
-                  )
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: commandCards.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return commandCards[index];
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class TerminalCommand extends StatefulWidget {
+  final TextEditingController commandController;
+  final VoidCallback onSubmit;
+  TerminalCommand({Key key, this.commandController, this.onSubmit})
+      : super(key: key);
+
+  @override
+  _TerminalCommandState createState() => _TerminalCommandState();
+}
+
+class _TerminalCommandState extends State<TerminalCommand> {
+  bool submit = false;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        SizedBox(
+          height: 2,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            MBPText(
+              text: "guest@Chrisbins-MacBook-Pro ~ %",
+              color: Theme.of(context).cardColor.withOpacity(1),
+              fontFamily: "Menlo",
+              size: 10,
+            ),
+            Expanded(
+              child: Container(
+                height: 9,
+                child: Theme(
+                  data: ThemeData(
+                    textSelectionTheme: TextSelectionThemeData(
+                      cursorColor: Color(0xff9d9d9d),
+                    ),
+                  ),
+                  child: TextField(
+                    autofocus: true,
+                    enabled: !submit,
+                    cursorWidth: 8,
+                    cursorHeight: 17,
+                    controller: widget.commandController,
+                    onSubmitted: (text) {
+                      setState(() {
+                        widget.onSubmit();
+                        submit = true;
+                      });
+                    },
+                    style: TextStyle(
+                      color: Theme.of(context).cardColor.withOpacity(1),
+                      fontFamily: "Menlo",
+                      fontSize: 10,
+                      // height: 1,
+                    ),
+                    decoration: new InputDecoration(
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        contentPadding:
+                            EdgeInsets.only(left: 8, top: 10, bottom: 16)),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 2,
+        ),
+        Visibility(
+          visible: submit,
+          child: MBPText(
+            text: widget.commandController.text,
+            color: Theme.of(context).cardColor.withOpacity(1),
+            fontFamily: "Menlo",
+            size: 10,
+          ),
+        ),
+      ],
     );
   }
 }
