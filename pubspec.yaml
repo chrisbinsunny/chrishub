@@ -105,6 +105,10 @@ flutter:
           weight: 800
         - asset: assets/fonts/HN/HNExtraBlack.ttf
           weight: 900
+    - family: Menlo
+      fonts:
+        - asset: assets/fonts/Menlo-Regular.ttf
+          weight: 500
 
 
 

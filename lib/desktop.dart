@@ -38,6 +38,12 @@ class _MyHomePageState extends State<MyHomePage> {
     var size= MediaQuery.of(context).size;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen= Provider.of<OnOff>(context).getCc;
+    bool safariOpen = Provider.of<OnOff>(context).getSafari;
+    bool vsOpen = Provider.of<OnOff>(context).getVS;
+    bool spotifyOpen = Provider.of<OnOff>(context).getSpotify;
+    bool fbOpen = Provider.of<OnOff>(context).getFeedBack;
+    bool calendarOpen = Provider.of<OnOff>(context).getCalendar;
+    bool terminalOpen = Provider.of<OnOff>(context).getTerminal;
 
     return Scaffold(
       body: Center(
@@ -61,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //Calendar Window
             Calendar(key: ObjectKey("calendar"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
             //Terminal Window
-           Terminal(key: ObjectKey("terminal"), initPos: Offset(screenWidth(context,mulBy:0.28),screenHeight(context,mulBy: 0.2))),
+           Visibility(visible: terminalOpen,child: Terminal(key: ObjectKey("terminal"), initPos: Offset(screenWidth(context,mulBy:0.28),screenHeight(context,mulBy: 0.2)))),
 
             // file menu
             FileMenu(),

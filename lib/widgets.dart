@@ -21,6 +21,7 @@ class MBPText extends StatelessWidget {
         fontFamily: fontFamily,
         color: color,
         fontSize: size,
+
       ),
         textAlign: TextAlign.center,
         maxLines: maxLines,
