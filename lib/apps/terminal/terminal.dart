@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/widgets.dart';
@@ -11,6 +12,9 @@ import 'dart:ui' as ui;
 
 //TODO Has an issue with cursor. Currently the issue is present in master branch og flutter.
 /// GitHub Issue: https://github.com/flutter/flutter/issues/31661
+
+String output = "";
+String directory = "/~";
 
 class Terminal extends StatefulWidget {
   final Offset initPos;
@@ -26,15 +30,46 @@ class _TerminalState extends State<Terminal> {
   bool terminalPan;
   var commandTECs = <TextEditingController>[];
   var commandCards = <Widget>[];
+  var oldCommands = <String>[];
   DateTime now;
+  String currentDir = "~";
+  Map<String, List<String>> contents = {
+    "~": [
+      "Applications",
+      "Documents",
+      "Downloads",
+      "Library",
+      "Movies",
+      "Music",
+      "Pictures",
+      "Public"
+    ],
+    "books": [
+      "One Night at a call centre",
+    ],
+    "skills": [
+      "Front-end development",
+      "jQuery",
+      "Flutter",
+      "Firebase"
+    ],
+    "projects": [
+      "chrisbinsunny.github.io",
+      "portfolio"
+    ],
+    "interests": ["Software Engineering", "Deep Learning", "Computer Vision"],
+    "languages": ["Javascript", "C++", "Java", "Dart"],
+  };
 
   Widget createCard() {
     var commandController = TextEditingController();
     commandTECs.add(commandController);
+    oldCommands.add(commandController.text);
     return TerminalCommand(
       commandController: commandController,
       onSubmit: () {
         setState(() {
+          processCommands(commandController.text);
           commandCards.add(createCard());
         });
       },
@@ -42,13 +77,103 @@ class _TerminalState extends State<Terminal> {
   }
 
   processCommands(String text) {
-    var textWords = text.split(' ');
+    var textWords = text.split(" ");
     String command = textWords[0];
     textWords.removeAt(0);
-    String variable = text.substring(text.indexOf(' '));
-    variable=variable.trim();
+    String variable = "";
+    output="";
+    if (textWords.length > 0) variable = textWords[0];
     switch (command) {
+      case "":
+        break;
+      case "ls":
+        String target;
+        if (variable == "" || variable == null)
+          target = currentDir;
+        else {
+          target = textWords[0];
+        }
+        if (textWords.length > 1) {
+          output = "Too many arguments found, 1 argument expected.";
+          break;
+        }
+        if (contents.containsKey(target)) {
+          if(contents[target].length<10){
+            for(int i=0; i< contents[target].length;i++){
+              output+=contents[target][i];
+              if((i+1)%3==0)
+                output+="\n";
+              else
+                output+="\t";
+            }
+          }else
+            output = contents[target].join("\n");
+          break;
+        } else {
+          output = "ls: $target: No such file or directory";
+        }
+        break;
+      case "cd":
+        if (variable == "") {
+          currentDir = "~";                                                      //TODO
+          break;
+        }
+        if (textWords.length > 1) {
+          output = "Too many arguments found, 1 argument expected.";
+          break;
+        }
+        if(variable==".."||variable=="../"){
+          if(currentDir=="~"){
+            output="Can't go back. Reached the end";
+            break;
+          }
 
+          var folders=directory.split("/");
+          currentDir=folders[folders.length-2];
+
+          folders.removeAt(folders.length-1);
+          directory=folders.join("/");
+          break;
+        }
+        if (variable == "personal-documents") {
+          output = "bash /$currentDir : Permission denied.";
+          break;
+        }
+        if(contents[currentDir].contains(variable)){
+          directory = directory + "/" + variable;
+          currentDir= variable;
+        }
+        else {
+          output = "bash: cd: $variable: No such file or directory";
+    }
+        break;
+      case "echo":
+        output= textWords.join(" ");
+        break;
+      case "clear":
+        //TODO
+        break;
+      case "exit":
+        Provider.of<OnOff>(context, listen: false).toggleTerminal();
+        break;
+      case "sudo":
+        output= "\"With great power comes great responsibility.\" ~Peter Parker Principle";
+        break;
+      default:
+        output = "Command '" + command + "' not found!.\nAvailable Commands: [ cd, ls, echo, exit, mkdir]";
+    }
+  }
+
+  void _handleKeyEvent(RawKeyEvent event) {
+    if (event.runtimeType == RawKeyDownEvent){
+      if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+        setState(() {});
+        debugPrint("Up pressed.");
+      } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+        setState(() {
+          debugPrint("Down pressed.");
+        });
+      }
     }
   }
 
@@ -58,9 +183,13 @@ class _TerminalState extends State<Terminal> {
     super.initState();
     now = DateTime.now();
     SchedulerBinding.instance.addPostFrameCallback((_) {
-      commandCards.add(createCard());
+      setState(() {
+        commandCards.add(createCard());
+      });
     });
+
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +199,12 @@ class _TerminalState extends State<Terminal> {
       duration: Duration(milliseconds: terminalPan ? 0 : 200),
       top: terminalFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
       left: terminalFS ? 0 : position.dx,
-      child: terminalWindow(context),
+      child: RawKeyboardListener(
+        autofocus: true,
+          focusNode: FocusNode(),
+          onKey: _handleKeyEvent,
+          child: terminalWindow(context)
+      ),
     );
   }
 
@@ -254,7 +388,7 @@ class _TerminalState extends State<Terminal> {
                   children: [
                     MBPText(
                       text:
-                          "Last login: ${DateFormat("E LLL d hh:mm:ss").format(now)} on console",
+                          "Last login: ${DateFormat("E LLL d HH:mm:ss").format(now)} on console",
                       color: Theme.of(context).cardColor.withOpacity(1),
                       fontFamily: "Menlo",
                       size: 10,
@@ -291,6 +425,7 @@ class TerminalCommand extends StatefulWidget {
 
 class _TerminalCommandState extends State<TerminalCommand> {
   bool submit = false;
+  final dir= directory.substring(directory.lastIndexOf("/")+1);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -307,7 +442,7 @@ class _TerminalCommandState extends State<TerminalCommand> {
           textBaseline: TextBaseline.alphabetic,
           children: [
             MBPText(
-              text: "guest@Chrisbins-MacBook-Pro ~ %",
+              text: "guest@Chrisbins-MacBook-Pro $dir %",
               color: Theme.of(context).cardColor.withOpacity(1),
               fontFamily: "Menlo",
               size: 10,
@@ -329,14 +464,15 @@ class _TerminalCommandState extends State<TerminalCommand> {
                     controller: widget.commandController,
                     onSubmitted: (text) {
                       setState(() {
-                        widget.onSubmit();
                         submit = true;
                       });
+                      widget.onSubmit();
                     },
                     style: TextStyle(
                       color: Theme.of(context).cardColor.withOpacity(1),
                       fontFamily: "Menlo",
                       fontSize: 10,
+                      fontWeight: Theme.of(context).textTheme.headline4.fontWeight
                       // height: 1,
                     ),
                     decoration: new InputDecoration(
@@ -357,12 +493,15 @@ class _TerminalCommandState extends State<TerminalCommand> {
           height: 2,
         ),
         Visibility(
-          visible: submit,
-          child: MBPText(
-            text: widget.commandController.text,
-            color: Theme.of(context).cardColor.withOpacity(1),
-            fontFamily: "Menlo",
-            size: 10,
+          visible: submit&&output.trim()!="",
+          child: Text(
+            output,
+            style: TextStyle(
+              color: Theme.of(context).cardColor.withOpacity(1),
+              fontFamily: "Menlo",
+              fontSize: 10,
+              fontWeight: Theme.of(context).textTheme.headline4.fontWeight
+            ),
           ),
         ),
       ],
