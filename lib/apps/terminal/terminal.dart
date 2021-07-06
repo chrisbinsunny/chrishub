@@ -10,6 +10,8 @@ import 'package:provider/provider.dart';
 import '../../sizes.dart';
 import 'dart:ui' as ui;
 
+import 'commands.dart';
+
 //TODO Has an issue with cursor. Currently the issue is present in master branch og flutter.
 /// GitHub Issue: https://github.com/flutter/flutter/issues/31661
 
@@ -29,9 +31,10 @@ class _TerminalState extends State<Terminal> {
   bool terminalFS;
   bool terminalPan;
   var commandTECs = <TextEditingController>[];
+  var oldCommands = <String>[""];
   var commandCards = <Widget>[];
-  var oldCommands = <String>[];
   DateTime now;
+  int updownIndex=0;
   String currentDir = "~";
   Map<String, List<String>> contents = {
     "~": [
@@ -64,19 +67,20 @@ class _TerminalState extends State<Terminal> {
   Widget createCard() {
     var commandController = TextEditingController();
     commandTECs.add(commandController);
-    oldCommands.add(commandController.text);
     return TerminalCommand(
       commandController: commandController,
       onSubmit: () {
         setState(() {
           processCommands(commandController.text);
           commandCards.add(createCard());
+          oldCommands.add(commandController.text);
         });
       },
     );
   }
 
   processCommands(String text) {
+    text= text.toLowerCase();
     var textWords = text.split(" ");
     String command = textWords[0];
     textWords.removeAt(0);
@@ -99,12 +103,19 @@ class _TerminalState extends State<Terminal> {
         }
         if (contents.containsKey(target)) {
           if(contents[target].length<10){
+            int maxLen=0;
             for(int i=0; i< contents[target].length;i++){
-              output+=contents[target][i];
+
+              if(contents[target][i].length>maxLen)
+                maxLen=contents[target][i].length;
+            }
+            maxLen+=5;
+            for(int i=0; i< contents[target].length;i++){
+              output+="${contents[target][i]}";
               if((i+1)%3==0)
                 output+="\n";
               else
-                output+="\t";
+                output+=" "*(maxLen-contents[target][i].length);
             }
           }else
             output = contents[target].join("\n");
@@ -136,7 +147,7 @@ class _TerminalState extends State<Terminal> {
           break;
         }
         if (variable == "personal-documents") {
-          output = "bash /$currentDir : Permission denied.";
+          output = "/$currentDir : Permission denied.";
           break;
         }
         if(contents[currentDir].contains(variable)){
@@ -144,7 +155,7 @@ class _TerminalState extends State<Terminal> {
           currentDir= variable;
         }
         else {
-          output = "bash: cd: $variable: No such file or directory";
+          output = "cd: $variable: No such file or directory";
     }
         break;
       case "echo":
@@ -160,18 +171,27 @@ class _TerminalState extends State<Terminal> {
         output= "\"With great power comes great responsibility.\" ~Peter Parker Principle";
         break;
       default:
-        output = "Command '" + command + "' not found!.\nAvailable Commands: [ cd, ls, echo, exit, mkdir]";
+        output = "Command '" + command + "' not found!\nTry something like: [ cd, ls, echo, clear, exit, mkdir]";
     }
   }
 
   void _handleKeyEvent(RawKeyEvent event) {
     if (event.runtimeType == RawKeyDownEvent){
       if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
-        setState(() {});
-        debugPrint("Up pressed.");
+        setState(() {
+          if(updownIndex<oldCommands.length){
+            updownIndex++;
+          }
+          debugPrint("Up.${oldCommands[oldCommands.length-updownIndex]}");
+          commandTECs.last.text=oldCommands[oldCommands.length-updownIndex];
+        });
       } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
         setState(() {
-          debugPrint("Down pressed.");
+          if(updownIndex>1){
+            updownIndex--;
+          }
+          debugPrint("Down.${oldCommands[oldCommands.length-updownIndex]}");
+          commandTECs.last.text=oldCommands[oldCommands.length-updownIndex];
         });
       }
     }
