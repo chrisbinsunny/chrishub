@@ -15,6 +15,9 @@ import 'commands.dart';
 //TODO Has an issue with cursor. Currently the issue is present in master branch og flutter.
 /// GitHub Issue: https://github.com/flutter/flutter/issues/31661
 
+//TODO Clear command not working
+
+
 String output = "";
 String directory = "/~";
 
@@ -38,16 +41,16 @@ class _TerminalState extends State<Terminal> {
   String currentDir = "~";
   Map<String, List<String>> contents = {
     "~": [
-      "Applications",
-      "Documents",
-      "Downloads",
-      "Library",
-      "Movies",
-      "Music",
-      "Pictures",
-      "Public"
+      "applications",
+      "documents",
+      "downloads",
+      "library",
+      "movies",
+      "music",
+      "pictures",
+      "public"
     ],
-    "books": [
+    "library": [
       "One Night at a call centre",
     ],
     "skills": [
@@ -61,8 +64,14 @@ class _TerminalState extends State<Terminal> {
       "portfolio"
     ],
     "interests": ["Software Engineering", "Deep Learning", "Computer Vision"],
-    "languages": ["Javascript", "C++", "Java", "Dart"],
+    "languages": ["Javascript", "C++", "Java", "Dart", "Python"],
   };
+  ScrollController _scrollController = ScrollController();
+
+
+  _scrollToBottom() {
+    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+  }
 
   Widget createCard() {
     var commandController = TextEditingController();
@@ -111,7 +120,7 @@ class _TerminalState extends State<Terminal> {
             }
             maxLen+=5;
             for(int i=0; i< contents[target].length;i++){
-              output+="${contents[target][i]}";
+              output+="${contents[target][i].capitalize()}";
               if((i+1)%3==0)
                 output+="\n";
               else
@@ -204,6 +213,22 @@ class _TerminalState extends State<Terminal> {
     now = DateTime.now();
     SchedulerBinding.instance.addPostFrameCallback((_) {
       setState(() {
+        commandCards.add(
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              SizedBox(height: 5,),
+              MBPText(
+              text:
+              "Last login: ${DateFormat("E LLL d HH:mm:ss").format(now)} on console",
+              color: Theme.of(context).cardColor.withOpacity(1),
+              fontFamily: "Menlo",
+              size: 10,
+        ),
+            ],
+          ),);
         commandCards.add(createCard());
       });
     });
@@ -213,6 +238,7 @@ class _TerminalState extends State<Terminal> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
     terminalFS = Provider.of<OnOff>(context).getTerminalFS;
     terminalPan = Provider.of<OnOff>(context).getTerminalPan;
     return AnimatedPositioned(
@@ -397,32 +423,19 @@ class _TerminalState extends State<Terminal> {
                 width: screenWidth(
                   context,
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 5),
+                padding: EdgeInsets.only(left: 6, right: 6, bottom: 5),
                 decoration: BoxDecoration(
                   color: Theme.of(context).dialogBackgroundColor,
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    MBPText(
-                      text:
-                          "Last login: ${DateFormat("E LLL d HH:mm:ss").format(now)} on console",
-                      color: Theme.of(context).cardColor.withOpacity(1),
-                      fontFamily: "Menlo",
-                      size: 10,
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: commandCards.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return commandCards[index];
-                        },
-                      ),
-                    ),
-                  ],
+                child: Expanded(
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    shrinkWrap: true,
+                    itemCount: commandCards.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return commandCards[index];
+                    },
+                  ),
                 ),
               ),
             ),
@@ -445,7 +458,7 @@ class TerminalCommand extends StatefulWidget {
 
 class _TerminalCommandState extends State<TerminalCommand> {
   bool submit = false;
-  final dir= directory.substring(directory.lastIndexOf("/")+1);
+  final dir= directory.substring(directory.lastIndexOf("/")+1).capitalize();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -467,6 +480,7 @@ class _TerminalCommandState extends State<TerminalCommand> {
               fontFamily: "Menlo",
               size: 10,
             ),
+
             Expanded(
               child: Container(
                 height: 9,
@@ -514,8 +528,9 @@ class _TerminalCommandState extends State<TerminalCommand> {
         ),
         Visibility(
           visible: submit&&output.trim()!="",
-          child: Text(
+          child: SelectableText(
             output,
+            showCursor: false,
             style: TextStyle(
               color: Theme.of(context).cardColor.withOpacity(1),
               fontFamily: "Menlo",
