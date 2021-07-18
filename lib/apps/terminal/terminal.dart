@@ -531,6 +531,7 @@ class _TerminalCommandState extends State<TerminalCommand> {
           child: SelectableText(
             output,
             showCursor: false,
+            
             style: TextStyle(
               color: Theme.of(context).cardColor.withOpacity(1),
               fontFamily: "Menlo",
