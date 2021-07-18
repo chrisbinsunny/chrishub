@@ -58,3 +58,9 @@ class CustomBoxShadow extends BoxShadow {
     return result;
   }
 }
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1)}";
+  }
+}
