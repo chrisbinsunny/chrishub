@@ -17,7 +17,6 @@ import 'commands.dart';
 
 //TODO Clear command not working
 
-
 String output = "";
 String directory = "/~";
 
@@ -37,7 +36,7 @@ class _TerminalState extends State<Terminal> {
   var oldCommands = <String>[""];
   var commandCards = <Widget>[];
   DateTime now;
-  int updownIndex=0;
+  int updownIndex = 0;
   String currentDir = "~";
   Map<String, List<String>> contents = {
     "~": [
@@ -53,21 +52,24 @@ class _TerminalState extends State<Terminal> {
     "library": [
       "One Night at a call centre",
     ],
-    "skills": [
-      "Front-end development",
-      "jQuery",
-      "Flutter",
-      "Firebase"
-    ],
-    "projects": [
-      "chrisbinsunny.github.io",
-      "portfolio"
+    "skills": ["Front-end development", "jQuery", "Flutter", "Firebase"],
+    "projects": ["chrisbinsunny.github.io", "portfolio"],
+    "applications": [
+      "calendar",
+      "feedback",
+      "notes",
+      "photos",
+      "messages",
+      "maps",
+      "safari",
+      "terminal",
+      "spotify",
+      "vscode",
     ],
     "interests": ["Software Engineering", "Deep Learning", "Computer Vision"],
     "languages": ["Javascript", "C++", "Java", "Dart", "Python"],
   };
   ScrollController _scrollController = ScrollController();
-
 
   _scrollToBottom() {
     _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
@@ -89,12 +91,12 @@ class _TerminalState extends State<Terminal> {
   }
 
   processCommands(String text) {
-    text= text.toLowerCase();
+    text = text.toLowerCase();
     var textWords = text.split(" ");
     String command = textWords[0];
     textWords.removeAt(0);
     String variable = "";
-    output="";
+    output = "";
     if (textWords.length > 0) variable = textWords[0];
     switch (command) {
       case "":
@@ -111,96 +113,158 @@ class _TerminalState extends State<Terminal> {
           break;
         }
         if (contents.containsKey(target)) {
-          if(contents[target].length<10){
-            int maxLen=0;
-            for(int i=0; i< contents[target].length;i++){
-
-              if(contents[target][i].length>maxLen)
-                maxLen=contents[target][i].length;
+          if (contents[target].length < 10) {
+            int maxLen = 0;
+            for (int i = 0; i < contents[target].length; i++) {
+              if (contents[target][i].length > maxLen)
+                maxLen = contents[target][i].length;
             }
-            maxLen+=5;
-            for(int i=0; i< contents[target].length;i++){
-              output+="${contents[target][i].capitalize()}";
-              if((i+1)%3==0)
-                output+="\n";
+            maxLen += 5;
+            for (int i = 0; i < contents[target].length; i++) {
+              output += "${contents[target][i].capitalize()}";
+              if ((i + 1) % 3 == 0)
+                output += "\n";
               else
-                output+=" "*(maxLen-contents[target][i].length);
+                output += " " * (maxLen - contents[target][i].length);
             }
-          }else
-            output = contents[target].join("\n");
+          } else
+            contents[target].forEach((item) {
+              output += "${item.capitalize()}\n";
+            });
           break;
         } else {
           output = "ls: $target: No such file or directory";
         }
         break;
+      case "open":
+        if (variable=="-a"||currentDir=="applications")
+          {
+            switch (textWords[1]){
+              case "finder":
+                output="Opening Finder";
+                Provider.of<OnOff>(context, listen: false).openFinder();
+                break;
+              case "safari":
+                output="Opening Safari";
+                Provider.of<OnOff>(context, listen: false).openSafari();
+                break;
+              case "messages":
+                output="Opening Messages";
+             //TODO   Provider.of<OnOff>(context, listen: false).openMessages();
+                break;
+              case "maps":
+                output="Opening Maps";
+             //TODO   Provider.of<OnOff>(context, listen: false).openMaps();
+                break;
+              case "spotify":
+                output="Opening Spotify";
+                Provider.of<OnOff>(context, listen: false).openSpotify();
+                break;
+              case "terminal":
+                output="Opening Terminal";
+                Provider.of<OnOff>(context, listen: false).openTerminal();
+                break;
+              case "vscode":
+                output="Opening Visual Studio Code";
+                Provider.of<OnOff>(context, listen: false).openVS();
+                break;
+              case "photos":
+                output="Opening Photos";
+            //TODO    Provider.of<OnOff>(context, listen: false).openPhotos();
+                break;
+              case "calendar":
+                output="Opening Calendar";
+                Provider.of<OnOff>(context, listen: false).openCalendar();
+                break;
+              case "notes":
+                output="Opening Notes";
+             //TODO   Provider.of<OnOff>(context, listen: false).openNotes();
+                break;
+              case "feedback":
+                output="Opening Feedback";
+                Provider.of<OnOff>(context, listen: false).openFeedBack();
+                break;
+              default:
+                output="Application not found or Installed.";
+            }
+          }
+        else{
+          output="Can't open the application from this location. Try using \"open -a\".";
+        }
+        break;
       case "cd":
         if (variable == "") {
-          currentDir = "~";                                                      //TODO
+          currentDir = "~"; //TODO currently moves to root. should adjust as macos
           break;
         }
         if (textWords.length > 1) {
           output = "Too many arguments found, 1 argument expected.";
           break;
         }
-        if(variable==".."||variable=="../"){
-          if(currentDir=="~"){
-            output="Can't go back. Reached the end";
+        if (variable == ".." || variable == "../") {
+          if (currentDir == "~") {
+            output = "Can't go back. Reached the end";
             break;
           }
 
-          var folders=directory.split("/");
-          currentDir=folders[folders.length-2];
+          var folders = directory.split("/");
+          currentDir = folders[folders.length - 2];
 
-          folders.removeAt(folders.length-1);
-          directory=folders.join("/");
+          folders.removeAt(folders.length - 1);
+          directory = folders.join("/");
           break;
         }
         if (variable == "personal-documents") {
           output = "/$currentDir : Permission denied.";
           break;
         }
-        if(contents[currentDir].contains(variable)){
+        if (contents[currentDir].contains(variable)) {
           directory = directory + "/" + variable;
-          currentDir= variable;
-        }
-        else {
+          currentDir = variable;
+        } else {
           output = "cd: $variable: No such file or directory";
-    }
+        }
         break;
       case "echo":
-        output= textWords.join(" ");
+        output = textWords.join(" ");
         break;
       case "clear":
         //TODO
         break;
       case "exit":
-        Provider.of<OnOff>(context, listen: false).toggleTerminal();
+        {
+          directory="/~";
+          Provider.of<OnOff>(context, listen: false).toggleTerminal();
+        }
         break;
       case "sudo":
-        output= "\"With great power comes great responsibility.\" ~Peter Parker Principle";
+        output =
+            "\"With great power comes great responsibility.\" ~Peter Parker Principle";
         break;
       default:
-        output = "Command '" + command + "' not found!\nTry something like: [ cd, ls, echo, clear, exit, mkdir]";
+        output = "Command '" +
+            command +
+            "' not found!\nTry something like: [ cd, ls, echo, clear, exit, mkdir]";
     }
   }
 
   void _handleKeyEvent(RawKeyEvent event) {
-    if (event.runtimeType == RawKeyDownEvent){
+    if (event.runtimeType == RawKeyDownEvent) {
       if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
         setState(() {
-          if(updownIndex<oldCommands.length){
+          if (updownIndex < oldCommands.length) {
             updownIndex++;
           }
-          debugPrint("Up.${oldCommands[oldCommands.length-updownIndex]}");
-          commandTECs.last.text=oldCommands[oldCommands.length-updownIndex];
+          debugPrint("Up.${oldCommands[oldCommands.length - updownIndex]}");
+          commandTECs.last.text = oldCommands[oldCommands.length - updownIndex];
         });
       } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
         setState(() {
-          if(updownIndex>1){
+          if (updownIndex > 1) {
             updownIndex--;
           }
-          debugPrint("Down.${oldCommands[oldCommands.length-updownIndex]}");
-          commandTECs.last.text=oldCommands[oldCommands.length-updownIndex];
+          debugPrint("Down.${oldCommands[oldCommands.length - updownIndex]}");
+          commandTECs.last.text = oldCommands[oldCommands.length - updownIndex];
         });
       }
     }
@@ -219,22 +283,23 @@ class _TerminalState extends State<Terminal> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               MBPText(
-              text:
-              "Last login: ${DateFormat("E LLL d HH:mm:ss").format(now)} on console",
-              color: Theme.of(context).cardColor.withOpacity(1),
-              fontFamily: "Menlo",
-              size: 10,
-        ),
+                text:
+                    "Last login: ${DateFormat("E LLL d HH:mm:ss").format(now)} on console",
+                color: Theme.of(context).cardColor.withOpacity(1),
+                fontFamily: "Menlo",
+                size: 10,
+              ),
             ],
-          ),);
+          ),
+        );
         commandCards.add(createCard());
       });
     });
-
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -246,11 +311,10 @@ class _TerminalState extends State<Terminal> {
       top: terminalFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
       left: terminalFS ? 0 : position.dx,
       child: RawKeyboardListener(
-        autofocus: true,
+          autofocus: true,
           focusNode: FocusNode(),
           onKey: _handleKeyEvent,
-          child: terminalWindow(context)
-      ),
+          child: terminalWindow(context)),
     );
   }
 
@@ -364,6 +428,7 @@ class _TerminalState extends State<Terminal> {
                             ),
                           ),
                           onTap: () {
+                            directory="/~";
                             Provider.of<OnOff>(context, listen: false)
                                 .toggleTerminal();
                             Provider.of<OnOff>(context, listen: false)
@@ -427,15 +492,13 @@ class _TerminalState extends State<Terminal> {
                 decoration: BoxDecoration(
                   color: Theme.of(context).dialogBackgroundColor,
                 ),
-                child: Expanded(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    shrinkWrap: true,
-                    itemCount: commandCards.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return commandCards[index];
-                    },
-                  ),
+                child: ListView.builder(
+                  controller: _scrollController,
+                  shrinkWrap: true,
+                  itemCount: commandCards.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return commandCards[index];
+                  },
                 ),
               ),
             ),
@@ -458,7 +521,7 @@ class TerminalCommand extends StatefulWidget {
 
 class _TerminalCommandState extends State<TerminalCommand> {
   bool submit = false;
-  final dir= directory.substring(directory.lastIndexOf("/")+1).capitalize();
+  final dir = directory.substring(directory.lastIndexOf("/") + 1).capitalize();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -480,7 +543,6 @@ class _TerminalCommandState extends State<TerminalCommand> {
               fontFamily: "Menlo",
               size: 10,
             ),
-
             Expanded(
               child: Container(
                 height: 9,
@@ -503,12 +565,13 @@ class _TerminalCommandState extends State<TerminalCommand> {
                       widget.onSubmit();
                     },
                     style: TextStyle(
-                      color: Theme.of(context).cardColor.withOpacity(1),
-                      fontFamily: "Menlo",
-                      fontSize: 10,
-                      fontWeight: Theme.of(context).textTheme.headline4.fontWeight
-                      // height: 1,
-                    ),
+                        color: Theme.of(context).cardColor.withOpacity(1),
+                        fontFamily: "Menlo",
+                        fontSize: 10,
+                        fontWeight:
+                            Theme.of(context).textTheme.headline4.fontWeight
+                        // height: 1,
+                        ),
                     decoration: new InputDecoration(
                         border: InputBorder.none,
                         focusedBorder: InputBorder.none,
@@ -527,17 +590,15 @@ class _TerminalCommandState extends State<TerminalCommand> {
           height: 2,
         ),
         Visibility(
-          visible: submit&&output.trim()!="",
+          visible: submit && output.trim() != "",
           child: SelectableText(
             output,
             showCursor: false,
-            
             style: TextStyle(
-              color: Theme.of(context).cardColor.withOpacity(1),
-              fontFamily: "Menlo",
-              fontSize: 10,
-              fontWeight: Theme.of(context).textTheme.headline4.fontWeight
-            ),
+                color: Theme.of(context).cardColor.withOpacity(1),
+                fontFamily: "Menlo",
+                fontSize: 10,
+                fontWeight: Theme.of(context).textTheme.headline4.fontWeight),
           ),
         ),
       ],
