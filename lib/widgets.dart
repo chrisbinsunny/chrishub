@@ -64,3 +64,66 @@ extension StringExtension on String {
     return "${this[0].toUpperCase()}${this.substring(1)}";
   }
 }
+
+
+class CCSlider extends StatefulWidget {
+  final double width;
+  final double height;
+  const CCSlider({Key key, this.width, this.height}) : super(key: key);
+
+  @override
+  _CCSliderState createState() => _CCSliderState();
+}
+
+class _CCSliderState extends State<CCSlider> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: widget.width,
+      height: widget.height,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(widget.height)
+      ),
+      child: Stack(
+        children: [
+          Container(
+            height: widget.height,
+            width: widget.height,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle
+            ),
+          ),
+          Row(
+            children: [
+
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(widget.height),
+                        bottomLeft: Radius.circular(widget.height),
+                      ),
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.25),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(widget.height),
+                        bottomRight: Radius.circular(widget.height),
+                      )
+                  ),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
