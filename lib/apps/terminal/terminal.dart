@@ -139,7 +139,7 @@ class _TerminalState extends State<Terminal> {
       case "open":
         if (variable=="-a"||currentDir=="applications")
           {
-            switch (textWords[1]){
+            switch (textWords[currentDir=="applications"?0:1]){
               case "finder":
                 output="Opening Finder";
                 Provider.of<OnOff>(context, listen: false).openFinder();

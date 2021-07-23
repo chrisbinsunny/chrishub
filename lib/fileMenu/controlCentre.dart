@@ -1,5 +1,7 @@
 import 'dart:ui';
+import 'dart:math' as math;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../theme/theme.dart';
 import 'package:mac_dt/widgets.dart';
@@ -16,6 +18,8 @@ class ControlCentre extends StatefulWidget {
 }
 
 class _ControlCentreState extends State<ControlCentre> {
+
+  double _value=100;
 
   @override
   Widget build(BuildContext context) {
@@ -242,6 +246,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                     ),
                                                     Flexible(
                                                         child: MBPText(
+                                                          overflow: TextOverflow.clip,
                                                             text:
                                                                 "Dark Mode\n${themeNotifier.isDark() ? "On" : "Off"}", color: Theme.of(context).cardColor.withOpacity(1),))
                                                   ],
@@ -274,16 +279,50 @@ class _ControlCentreState extends State<ControlCentre> {
                                     child: Container(
                                       padding: EdgeInsets.symmetric(
                                           horizontal:
-                                              screenWidth(context, mulBy: 0.013),
+                                              screenWidth(context, mulBy: 0.005),
                                           vertical:
-                                              screenHeight(context, mulBy: 0.025)),
+                                              screenHeight(context, mulBy: 0.005)),
                                       height: screenHeight(context, mulBy: 0.075),
                                       width: screenWidth(
                                         context,
                                       ),
                                       decoration: ccDecoration,
-                                      child: Row(
-                                        children: [],
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          MBPText(
+                                            overflow: TextOverflow.clip,
+                                            text:
+                                            "Display", color: Theme.of(context).cardColor.withOpacity(1),),
+                                          // Expanded(child: Container(
+                                          //   color: Colors.green,
+                                          // ))
+                                          // SliderTheme(
+                                          //   data: SliderTheme.of(context).copyWith(
+                                          //     trackHeight: 15,
+                                          //     activeTrackColor: Colors.white,
+                                          //     thumbColor: Colors.white,
+                                          //     minThumbSeparation: 20,
+                                          //     trackShape: CustomTrackShape(
+                                          //     ),
+                                          //     inactiveTrackColor: Colors.white.withOpacity(0.25),
+                                          //       thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8.4),
+                                          //     overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0),
+                                          //   ),
+                                          //   child: Slider(
+                                          //     value: _value,
+                                          //     min: 0,
+                                          //     max: 100,
+                                          //
+                                          //     onChanged: (val) {
+                                          //       _value = val;
+                                          //       setState(() {});
+                                          //     },
+                                          //   ),
+                                          // ),
+                                         CCSlider(height: 16, width: screenWidth(context),),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -393,5 +432,21 @@ class BrdrContainer extends StatelessWidget {
       ),
       child: child,
     );
+  }
+}
+
+class CustomTrackShape extends RectangularSliderTrackShape {
+  Rect getPreferredRect({
+    @required RenderBox parentBox,
+    Offset offset = Offset.zero,
+    @required SliderThemeData sliderTheme,
+    bool isEnabled = false,
+    bool isDiscrete = false,
+  }) {
+    final double trackHeight = sliderTheme.trackHeight;
+    final double trackLeft = offset.dx;
+    final double trackTop = offset.dy + (parentBox.size.height - trackHeight) / 2;
+    final double trackWidth = parentBox.size.width;
+    return Rect.fromLTWH(trackLeft, trackTop, trackWidth, trackHeight);
   }
 }

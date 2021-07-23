@@ -8,7 +8,7 @@ class OnOff extends ChangeNotifier{
 
   String onTop="finder";
   String fs="";
-  bool ccOpen =false;
+  bool ccOpen =true;
   bool finderOpen =false;
   bool finderFS = false;
   bool safariOpen =false;
@@ -28,7 +28,7 @@ class OnOff extends ChangeNotifier{
   bool calendarOpen = false;
   bool calendarFS = false;
   bool calendarPan = false;
-  bool terminalOpen = true;
+  bool terminalOpen = false;
   bool terminalFS = false;
   bool terminalPan = false;
 
