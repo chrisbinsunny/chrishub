@@ -21,17 +21,18 @@ class FileMenu extends StatefulWidget {
 class _FileMenuState extends State<FileMenu> {
   var rand = new Random();
   DateTime now;
+  int num;
 
   @override
   void initState() {
     now = DateTime.now();
+    num= rand.nextInt(20);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
-    int num= rand.nextInt(20);
     String fs= Provider.of<OnOff>(context).getFS;
     return ClipRect(
       child: new BackdropFilter(

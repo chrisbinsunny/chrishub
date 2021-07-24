@@ -464,10 +464,10 @@ class _ControlCentreState extends State<ControlCentre> {
                                                 ignoring: true,
                                                 child: Row(
                                                   children: [
-                                                    SizedBox(width: 3,),
+                                                    SizedBox(width: 4,),
                                                     Image.asset(
                                                       "assets/icons/sound.png",
-                                                      height: 15,
+                                                      height: 13,
                                                       color: Colors.black.withOpacity(0.55),
                                                     ),
                                                   ],
