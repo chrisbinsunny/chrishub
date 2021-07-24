@@ -3,6 +3,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mac_dt/providers.dart';
 import '../theme/theme.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
@@ -19,10 +20,19 @@ class ControlCentre extends StatefulWidget {
 
 class _ControlCentreState extends State<ControlCentre> {
 
-  double _value=100;
+  double _value;
+
+  @override
+  void initState() {
+    _value=95.98;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    _value=Provider.of<BackBone>(context).getBrightness;
+
     BoxDecoration ccDecoration = BoxDecoration(
         color: Theme.of(context).backgroundColor,
         border: Border.all(color: Theme.of(context).cardColor,width: .55),
@@ -295,33 +305,35 @@ class _ControlCentreState extends State<ControlCentre> {
                                             overflow: TextOverflow.clip,
                                             text:
                                             "Display", color: Theme.of(context).cardColor.withOpacity(1),),
-                                          // Expanded(child: Container(
-                                          //   color: Colors.green,
-                                          // ))
-                                          // SliderTheme(
-                                          //   data: SliderTheme.of(context).copyWith(
-                                          //     trackHeight: 15,
-                                          //     activeTrackColor: Colors.white,
-                                          //     thumbColor: Colors.white,
-                                          //     minThumbSeparation: 20,
-                                          //     trackShape: CustomTrackShape(
-                                          //     ),
-                                          //     inactiveTrackColor: Colors.white.withOpacity(0.25),
-                                          //       thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8.4),
-                                          //     overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0),
-                                          //   ),
-                                          //   child: Slider(
-                                          //     value: _value,
-                                          //     min: 0,
-                                          //     max: 100,
-                                          //
-                                          //     onChanged: (val) {
-                                          //       _value = val;
-                                          //       setState(() {});
-                                          //     },
-                                          //   ),
-                                          // ),
-                                         CCSlider(height: 16, width: screenWidth(context),),
+                                          SliderTheme(
+                                            data: SliderTheme.of(context).copyWith(
+                                              trackHeight: 15,
+                                              activeTrackColor: Colors.white,
+                                              thumbColor: Colors.white,
+                                              minThumbSeparation: 20,
+                                              trackShape: RoundedRectSliderTrackShape(),
+                                              inactiveTrackColor: Colors.white.withOpacity(0.25),
+                                                thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8.4),
+                                              overlayShape: SliderComponentShape.noOverlay,
+                                            ),
+                                            child: Slider(
+                                              value: _value,
+                                              min: 0,
+                                              max: 100,
+
+                                              onChanged: (val) {
+                                                if(val>95.98)
+                                                  val=95.98;
+                                                else if(val<6.7)
+                                                  val=6.7;
+                                                setState(() {
+                                                  _value = val;
+                                                  Provider.of<BackBone>(context, listen: false).setBrightness(_value);
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                         //CCSlider(height: 16, width: screenWidth(context),),
                                         ],
                                       ),
                                     ),

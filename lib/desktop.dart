@@ -7,6 +7,7 @@ import 'package:mac_dt/apps/feedback/feedback.dart';
 import 'package:mac_dt/apps/terminal/terminal.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
+import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/safari/safariWindow.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bool fbOpen = Provider.of<OnOff>(context).getFeedBack;
     bool calendarOpen = Provider.of<OnOff>(context).getCalendar;
     bool terminalOpen = Provider.of<OnOff>(context).getTerminal;
+    double brightness = Provider.of<BackBone>(context).getBrightness;
 
     return Scaffold(
       body: Center(
@@ -78,6 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //docker bar
             Docker(),
 
+            //Click to dismiss Control Centre
             ccOpen?InkWell(
               onTap: (){
                 Provider.of<OnOff>(context, listen: false).offCc();
@@ -86,6 +89,8 @@ class _MyHomePageState extends State<MyHomePage> {
               height: screenHeight(context),
               width: screenWidth(context),
             ),):Container(),
+
+
             //Control Centre
             Positioned(
               top: screenHeight(context,mulBy: 0.035),
@@ -97,6 +102,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: screenHeight(context)-(screenHeight(context, mulBy: 0.140)),
                   width: screenWidth(context),
                   child: ControlCentre()
+              ),
+            ),
+
+            //Control Brightness
+            IgnorePointer(
+              ignoring: true,
+              child: Opacity(
+                opacity: 1-(brightness/95.98),
+                child: Container(
+                  width: screenWidth(context),
+                  height: screenHeight(context),
+                  color: Colors.black.withOpacity(0.7),
+                ),
               ),
             ),
           ],
