@@ -92,7 +92,7 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openFinder() {
+  void maxFinder() {
     finderOpen= true;
     notifyListeners();
   }
@@ -150,7 +150,7 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openSafari() {
+  void maxSafari() {
     safariOpen= true;
     notifyListeners();
   }
@@ -208,7 +208,7 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openVS() {
+  void maxVS() {
     vsOpen= true;
     notifyListeners();
   }
@@ -266,7 +266,7 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openSpotify() {
+  void maxSpotify() {
     spotifyOpen= true;
     notifyListeners();
   }
@@ -324,7 +324,7 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openCalendar() {
+  void maxCalendar() {
     calendarOpen= true;
     notifyListeners();
   }
@@ -382,7 +382,7 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openTerminal() {
+  void maxTerminal() {
     terminalOpen= true;
     notifyListeners();
   }
@@ -440,7 +440,7 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openFeedBack() {
+  void maxFeedBack() {
     feedBackOpen= true;
     notifyListeners();
   }

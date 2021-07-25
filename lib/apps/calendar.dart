@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:provider/provider.dart';
+import '../openApps.dart';
 import '../sizes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -141,8 +142,7 @@ class _CalendarState extends State<Calendar> {
                             ),
                           ),
                           onTap: () {
-                            Provider.of<OnOff>(context, listen: false)
-                                .toggleCalendar();
+                            Provider.of<Apps>(context, listen: false).closeApp("calendar");
                             Provider.of<OnOff>(context, listen: false)
                                 .offCalendarFS();
                           },
@@ -151,6 +151,10 @@ class _CalendarState extends State<Calendar> {
                           width: screenWidth(context, mulBy: 0.005),
                         ),
                         InkWell(
+                          onTap: (){
+                            Provider.of<OnOff>(context, listen: false).toggleCalendar();
+                            Provider.of<OnOff>(context, listen: false).offCalendarFS();
+                          },
                           child: Container(
                             height: 11.5,
                             width: 11.5,

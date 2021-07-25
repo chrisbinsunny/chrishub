@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
+import '../../openApps.dart';
 import '../../sizes.dart';
 import 'dart:ui' as ui;
 
@@ -142,11 +143,11 @@ class _TerminalState extends State<Terminal> {
             switch (textWords[currentDir=="applications"?0:1]){
               case "finder":
                 output="Opening Finder";
-                Provider.of<OnOff>(context, listen: false).openFinder();
+                Provider.of<OnOff>(context, listen: false).maxFinder();
                 break;
               case "safari":
                 output="Opening Safari";
-                Provider.of<OnOff>(context, listen: false).openSafari();
+                Provider.of<OnOff>(context, listen: false).maxSafari();
                 break;
               case "messages":
                 output="Opening Messages";
@@ -158,15 +159,15 @@ class _TerminalState extends State<Terminal> {
                 break;
               case "spotify":
                 output="Opening Spotify";
-                Provider.of<OnOff>(context, listen: false).openSpotify();
+                Provider.of<OnOff>(context, listen: false).maxSpotify();
                 break;
               case "terminal":
                 output="Opening Terminal";
-                Provider.of<OnOff>(context, listen: false).openTerminal();
+                Provider.of<OnOff>(context, listen: false).maxTerminal();
                 break;
               case "vscode":
                 output="Opening Visual Studio Code";
-                Provider.of<OnOff>(context, listen: false).openVS();
+                Provider.of<OnOff>(context, listen: false).maxVS();
                 break;
               case "photos":
                 output="Opening Photos";
@@ -174,7 +175,7 @@ class _TerminalState extends State<Terminal> {
                 break;
               case "calendar":
                 output="Opening Calendar";
-                Provider.of<OnOff>(context, listen: false).openCalendar();
+                Provider.of<OnOff>(context, listen: false).maxCalendar();
                 break;
               case "notes":
                 output="Opening Notes";
@@ -182,7 +183,7 @@ class _TerminalState extends State<Terminal> {
                 break;
               case "feedback":
                 output="Opening Feedback";
-                Provider.of<OnOff>(context, listen: false).openFeedBack();
+                Provider.of<OnOff>(context, listen: false).maxFeedBack();
                 break;
               default:
                 output="Application not found or Installed.";
@@ -429,8 +430,7 @@ class _TerminalState extends State<Terminal> {
                           ),
                           onTap: () {
                             directory="/~";
-                            Provider.of<OnOff>(context, listen: false)
-                                .toggleTerminal();
+                            Provider.of<Apps>(context, listen: false).closeApp("terminal");
                             Provider.of<OnOff>(context, listen: false)
                                 .offTerminalFS();
                           },
@@ -439,6 +439,10 @@ class _TerminalState extends State<Terminal> {
                           width: screenWidth(context, mulBy: 0.005),
                         ),
                         InkWell(
+                          onTap: (){
+                            Provider.of<OnOff>(context, listen: false).toggleTerminal();
+                            Provider.of<OnOff>(context, listen: false).offTerminalFS();
+                          },
                           child: Container(
                             height: 11.5,
                             width: 11.5,

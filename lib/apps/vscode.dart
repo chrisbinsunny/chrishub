@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
+import '../openApps.dart';
 import '../sizes.dart';
 import '../widgets.dart';
 import 'dart:html' as html;
@@ -148,8 +149,7 @@ class _VSCodeState extends State<VSCode> {
                             ),
                           ),
                           onTap: () {
-                            Provider.of<OnOff>(context, listen: false)
-                                .toggleVS();
+                            Provider.of<Apps>(context, listen: false).closeApp("vscode");
                             Provider.of<OnOff>(context, listen: false)
                                 .offVSFS();
                           },
@@ -158,6 +158,10 @@ class _VSCodeState extends State<VSCode> {
                           width: screenWidth(context, mulBy: 0.005),
                         ),
                         InkWell(
+                          onTap: (){
+                            Provider.of<OnOff>(context, listen: false).toggleVS();
+                            Provider.of<OnOff>(context, listen: false).offVSFS();
+                          },
                           child: Container(
                             height: 11.5,
                             width: 11.5,

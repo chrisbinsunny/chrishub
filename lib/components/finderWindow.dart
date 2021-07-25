@@ -614,6 +614,8 @@ class _FinderState extends State<Finder> {
                             InkWell(
                               onTap: (){
                                 Provider.of<OnOff>(context, listen: false).toggleFinder();
+                                Provider.of<OnOff>(context, listen: false).offFinderFS();
+
                               },
                               child: Container(
                                 height: 11.5,

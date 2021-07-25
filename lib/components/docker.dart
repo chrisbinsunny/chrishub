@@ -104,13 +104,16 @@ class _DockerState extends State<Docker> {
                             _animate = !_animate;
                           });
                           Provider.of<OnOff>(context, listen: false)
-                              .openFinder();
+                              .maxFinder();
                           Provider.of<Apps>(context, listen: false).openApp(
                               Finder(
                                   key: ObjectKey("finder"),
                                   initPos: Offset(
                                       screenWidth(context, mulBy: 0.2),
-                                      screenHeight(context, mulBy: 0.18))));
+                                      screenHeight(context, mulBy: 0.18))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxFinder()
+                          );
                         },
                         child: DockerItem(
                           iName: "finder",
@@ -124,13 +127,16 @@ class _DockerState extends State<Docker> {
                       InkWell(
                         onTap: () {
                           Provider.of<OnOff>(context, listen: false)
-                              .openSafari();
+                              .maxSafari();
                           Provider.of<Apps>(context, listen: false).openApp(
                               Safari(
                                   key: ObjectKey("safari"),
                                   initPos: Offset(
                                       screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))));
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxSafari()
+                          );
                         },
                         child: DockerItem(
                           iName: "safari",
@@ -148,13 +154,16 @@ class _DockerState extends State<Docker> {
                       InkWell(
                         onTap: () {
                           Provider.of<OnOff>(context, listen: false)
-                              .openSpotify();
+                              .maxSpotify();
                           Provider.of<Apps>(context, listen: false).openApp(
                               Spotify(
                                   key: ObjectKey("spotify"),
                                   initPos: Offset(
                                       screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))));
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxSpotify()
+                          );
                         },
                         child: DockerItem(
                           iName: "spotify",
@@ -164,13 +173,16 @@ class _DockerState extends State<Docker> {
                       InkWell(
                         onTap: () {
                           Provider.of<OnOff>(context, listen: false)
-                              .openTerminal();
+                              .maxTerminal();
                           Provider.of<Apps>(context, listen: false).openApp(
                               Terminal(
                                   key: ObjectKey("terminal"),
                                   initPos: Offset(
                                       screenWidth(context, mulBy: 0.28),
-                                      screenHeight(context, mulBy: 0.2))));
+                                      screenHeight(context, mulBy: 0.2))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxTerminal()
+                          );
                         },
                         child: DockerItem(
                           iName: "terminal",
@@ -179,13 +191,15 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
-                          Provider.of<OnOff>(context, listen: false).openVS();
+                          Provider.of<OnOff>(context, listen: false).maxVS();
                           Provider.of<Apps>(context, listen: false).openApp(
                               VSCode(
                                   key: ObjectKey("vscode"),
                                   initPos: Offset(
                                       screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))));
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false).maxVS()
+                          );
                         },
                         child: DockerItem(
                           iName: "vscode",
@@ -203,13 +217,16 @@ class _DockerState extends State<Docker> {
                       InkWell(
                         onTap: () {
                           Provider.of<OnOff>(context, listen: false)
-                              .openCalendar();
+                              .maxCalendar();
                           Provider.of<Apps>(context, listen: false).openApp(
                               Calendar(
                                   key: ObjectKey("calendar"),
                                   initPos: Offset(
                                       screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))));
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxCalendar()
+                          );
                         },
                         child: MouseRegion(
                           cursor: SystemMouseCursors.click,
@@ -294,13 +311,16 @@ class _DockerState extends State<Docker> {
                       InkWell(
                         onTap: () {
                           Provider.of<OnOff>(context, listen: false)
-                              .openFeedBack();
+                              .maxFeedBack();
                           Provider.of<Apps>(context, listen: false).openApp(
                               FeedBack(
                                   key: ObjectKey("feedback"),
                                   initPos: Offset(
                                       screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))));
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxFeedBack()
+                          );
                         },
                         child: DockerItem(
                           iName: "feedback",
