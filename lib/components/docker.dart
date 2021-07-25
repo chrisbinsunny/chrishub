@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../componentsOnOff.dart';
+import '../openApps.dart';
 import '../widgets.dart';
 import 'hoverDock.dart';
 
@@ -246,9 +247,16 @@ class _DockerState extends State<Docker> {
                           on: fbOpen,
                         ),
                       ),
-                      DockerItem(
-                        iName: "system-preferences",
-                        on: false,
+                      InkWell(
+                        onTap: (){
+                          setState(() {
+                            appVar.bringToTop(ObjectKey("finder"));
+                          });
+                        },
+                        child: DockerItem(
+                          iName: "system-preferences",
+                          on: false,
+                        ),
                       ),
                     ],
                   ),
