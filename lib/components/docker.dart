@@ -164,6 +164,7 @@ class _DockerState extends State<Docker> {
                               Provider.of<OnOff>(context, listen: false)
                                   .maxSpotify()
                           );
+
                         },
                         child: DockerItem(
                           iName: "spotify",
@@ -183,6 +184,7 @@ class _DockerState extends State<Docker> {
                               Provider.of<OnOff>(context, listen: false)
                                   .maxTerminal()
                           );
+
                         },
                         child: DockerItem(
                           iName: "terminal",
@@ -200,6 +202,7 @@ class _DockerState extends State<Docker> {
                                       screenHeight(context, mulBy: 0.1))),
                               Provider.of<OnOff>(context, listen: false).maxVS()
                           );
+
                         },
                         child: DockerItem(
                           iName: "vscode",
@@ -227,6 +230,7 @@ class _DockerState extends State<Docker> {
                               Provider.of<OnOff>(context, listen: false)
                                   .maxCalendar()
                           );
+
                         },
                         child: MouseRegion(
                           cursor: SystemMouseCursors.click,

@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 
 class OnOff extends ChangeNotifier{
 
-  String onTop="finder";
   String fs="";
   bool ccOpen =false;
   bool finderMax =false;
@@ -44,14 +43,6 @@ class OnOff extends ChangeNotifier{
   return fsAni;
 }
 
-  String get getTop {
-    return onTop;
-  }
-
-  set setTop(top) {
-    onTop=top;
-    notifyListeners();
-  }
 
   bool get getFinder {
     return finderMax;

@@ -17,11 +17,14 @@ class Apps extends ChangeNotifier{
 
   Widget temp;
   List<Widget> apps= [];
+  String onTop="Finder";
+
 
   void bringToTop(ObjectKey appKey){
     temp= apps.singleWhere((element) => element.key==appKey);
     apps.removeWhere((element) => element.key==appKey);
     apps.add(temp);
+    setTop();
     notifyListeners();
   }
 
@@ -32,6 +35,7 @@ class Apps extends ChangeNotifier{
   void openApp(Widget app, void minMax){
     if(!apps.any((element) => element.key==app.key)) {
       apps.add(app);
+      setTop();
       notifyListeners();
     }
     else {
@@ -44,10 +48,37 @@ class Apps extends ChangeNotifier{
 
     apps.removeWhere((element) => element.key==ObjectKey(appKey));
     notifyListeners();
+    setTop();
   }
 
   bool isOpen(ObjectKey appKey){
     return apps.any((element) => element.key==appKey);
+  }
+
+  String get getTop {
+    return onTop;
+  }
+
+  void setTop() {
+    //onTop=top;
+    if(apps.isEmpty)
+      onTop="Finder";
+    else if(apps.last.key==ObjectKey("finder"))
+     onTop="Finder";
+    else if(apps.last.key==ObjectKey("safari"))
+      onTop="Safari";
+    else if(apps.last.key==ObjectKey("spotify"))
+      onTop="Spotify";
+    else if(apps.last.key==ObjectKey("terminal"))
+      onTop="Terminal";
+    else if(apps.last.key==ObjectKey("vscode"))
+      onTop="VS Code";
+    else if(apps.last.key==ObjectKey("calendar"))
+      onTop="Calendar";
+    else if(apps.last.key==ObjectKey("feedback"))
+      onTop="Feedback";
+
+    notifyListeners();
   }
 
 }
