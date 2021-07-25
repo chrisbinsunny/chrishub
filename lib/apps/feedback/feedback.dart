@@ -127,13 +127,14 @@ class _FeedBackState extends State<FeedBack> {
   }
 
   AnimatedContainer feedbackWindow(BuildContext context) {
+    String topApp = Provider.of<Apps>(context).getTop;
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: feedbackFS
           ? screenWidth(context, mulBy: 1)
           : screenWidth(context, mulBy: 0.7),
       height: feedbackFS
-          ? screenHeight(context, mulBy: 0.863)
+          ?screenHeight(context, mulBy: 0.966)
           : screenHeight(context, mulBy: 0.75),
       decoration: BoxDecoration(
         border: Border.all(
@@ -1484,6 +1485,22 @@ class _FeedBackState extends State<FeedBack> {
               ],
             ),
           ),
+
+
+    Visibility(
+    visible: topApp != "Feedback",
+    child: InkWell(
+    onTap: (){
+    Provider.of<Apps>(context, listen: false)
+        .bringToTop(ObjectKey("feedback"));
+    },
+    child: Container(
+    width: screenWidth(context,),
+    height: screenHeight(context,),
+    color: Colors.transparent,
+    ),
+    ),
+    ),
         ],
       ),
     );

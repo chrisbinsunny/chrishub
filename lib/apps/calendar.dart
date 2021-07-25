@@ -7,8 +7,6 @@ import '../openApps.dart';
 import '../sizes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-//TODO Goto May 2021 and resize the window to see the error
-
 
 class Calendar extends StatefulWidget {
   final Offset initPos;
@@ -49,6 +47,7 @@ class _CalendarState extends State<Calendar> {
   }
 
   AnimatedContainer calendarWindow(BuildContext context) {
+    String topApp = Provider.of<Apps>(context).getTop;
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: calendarFS
@@ -72,332 +71,353 @@ class _CalendarState extends State<Calendar> {
           ),
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Stack(
         children: [
-          Stack(
-            alignment: Alignment.centerRight,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                height: calendarFS
-                    ? screenHeight(context, mulBy: 0.059)
-                    : screenHeight(context, mulBy: 0.06),
-                decoration: BoxDecoration(
-                    color: Theme.of(context).hintColor.withOpacity(1),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        topLeft: Radius.circular(10))),
-              ),
-              GestureDetector(
-                onPanUpdate: (tapInfo) {
-                  if (!calendarFS) {
-                    setState(() {
-                      position = Offset(position.dx + tapInfo.delta.dx,
-                          position.dy + tapInfo.delta.dy);
-                    });
-                  }
-                },
-                onPanStart: (details) {
-                  Provider.of<OnOff>(context, listen: false).onCalendarPan();
-                },
-                onPanEnd: (details) {
-                  Provider.of<OnOff>(context, listen: false).offCalendarPan();
-                },
-                onDoubleTap: () {
-                  Provider.of<OnOff>(context, listen: false).toggleCalendarFS();
-                },
-                child: Container(
-                  alignment: Alignment.topRight,
-                  width: calendarFS
-                      ? screenWidth(context, mulBy: 0.95)
-                      : screenWidth(context, mulBy: 0.7),
-                  height: calendarFS
-                      ? screenHeight(context, mulBy: 0.059)
-                      : screenHeight(context, mulBy: 0.06),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
+              Stack(
+                alignment: Alignment.centerRight,
+                children: [
+                  Container(
+                    height: calendarFS
+                        ? screenHeight(context, mulBy: 0.059)
+                        : screenHeight(context, mulBy: 0.06),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).hintColor.withOpacity(1),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            topLeft: Radius.circular(10))),
                   ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth(context, mulBy: 0.013),
-                    vertical: screenHeight(context, mulBy: 0.01)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
+                  GestureDetector(
+                    onPanUpdate: (tapInfo) {
+                      if (!calendarFS) {
+                        setState(() {
+                          position = Offset(position.dx + tapInfo.delta.dx,
+                              position.dy + tapInfo.delta.dy);
+                        });
+                      }
+                    },
+                    onPanStart: (details) {
+                      Provider.of<OnOff>(context, listen: false).onCalendarPan();
+                    },
+                    onPanEnd: (details) {
+                      Provider.of<OnOff>(context, listen: false).offCalendarPan();
+                    },
+                    onDoubleTap: () {
+                      Provider.of<OnOff>(context, listen: false).toggleCalendarFS();
+                    },
+                    child: Container(
+                      alignment: Alignment.topRight,
+                      width: calendarFS
+                          ? screenWidth(context, mulBy: 0.95)
+                          : screenWidth(context, mulBy: 0.7),
+                      height: calendarFS
+                          ? screenHeight(context, mulBy: 0.059)
+                          : screenHeight(context, mulBy: 0.06),
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth(context, mulBy: 0.013),
+                        vertical: screenHeight(context, mulBy: 0.01)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        InkWell(
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.redAccent,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
+                        Row(
+                          children: [
+                            InkWell(
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.redAccent,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          onTap: () {
-                            Provider.of<Apps>(context, listen: false).closeApp("calendar");
-                            Provider.of<OnOff>(context, listen: false)
-                                .offCalendarFS();
-                            Provider.of<OnOff>(context, listen: false).toggleCalendar();
+                              onTap: () {
+                                Provider.of<Apps>(context, listen: false).closeApp("calendar");
+                                Provider.of<OnOff>(context, listen: false)
+                                    .offCalendarFS();
+                                Provider.of<OnOff>(context, listen: false).toggleCalendar();
 
-                          },
-                        ),
-                        SizedBox(
-                          width: screenWidth(context, mulBy: 0.005),
-                        ),
-                        InkWell(
-                          onTap: (){
-                            Provider.of<OnOff>(context, listen: false).toggleCalendar();
-                            Provider.of<OnOff>(context, listen: false).offCalendarFS();
-                          },
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.amber,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
+                              },
+                            ),
+                            SizedBox(
+                              width: screenWidth(context, mulBy: 0.005),
+                            ),
+                            InkWell(
+                              onTap: (){
+                                Provider.of<OnOff>(context, listen: false).toggleCalendar();
+                                Provider.of<OnOff>(context, listen: false).offCalendarFS();
+                              },
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: screenWidth(context, mulBy: 0.005),
-                        ),
-                        InkWell(
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
-                              ),
+                            SizedBox(
+                              width: screenWidth(context, mulBy: 0.005),
                             ),
-                          ),
-                          onTap: () {
-                            Provider.of<OnOff>(context, listen: false)
-                                .toggleCalendarFS();
-                          },
-                        )
+                            InkWell(
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Provider.of<OnOff>(context, listen: false)
+                                    .toggleCalendarFS();
+                              },
+                            )
+                          ],
+                        ),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10)),
-              child: Container(
-                height: screenHeight(context, mulBy: 0.14),
-                width: screenWidth(
-                  context,
-                ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).hintColor.withOpacity(1),
-                ),
-                child: TableCalendar(
-                  firstDay: DateTime.utc(1999, 07, 10),
-                  lastDay: DateTime.utc(2200, 4, 28),
-                  focusedDay: focusedDay,
-                  calendarFormat: format,
-                  onFormatChanged: (CalendarFormat _format) {
-                    setState(() {
-                      format = _format;
-                    });
-                  },
-                  onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                    setState(() {
-                      selectedDay = selectDay;
-                      focusedDay = focusDay;
-                    });
-                  },
-                  selectedDayPredicate: (DateTime date) {
-                    return isSameDay(selectedDay, date);
-                  },
-                  weekendDays: [DateTime.sunday],
-                  calendarStyle: CalendarStyle(
-                    isTodayHighlighted: true,
-                    todayDecoration: BoxDecoration(
-                        color: Color(0xffff453a), shape: BoxShape.circle),
-                    defaultTextStyle: TextStyle(
-                        color: Theme.of(context).cardColor.withOpacity(1),
-                        fontWeight:
-                            Theme.of(context).textTheme.headline4.fontWeight,
-                        fontFamily: "HN"),
-                    weekendTextStyle: TextStyle(
-                        color: Theme.of(context).cardColor.withOpacity(0.6),
-                        fontWeight:
-                            Theme.of(context).textTheme.headline4.fontWeight,
-                        fontFamily: "HN"),
-                    outsideTextStyle: TextStyle(
-                        color: Theme.of(context).cardColor.withOpacity(0.3),
-                        fontWeight:
-                            Theme.of(context).textTheme.headline4.fontWeight,
-                        fontFamily: "HN"),
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10)),
+                  child: Container(
+                    height: screenHeight(context, mulBy: 0.14),
+                    width: screenWidth(
+                      context,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).hintColor.withOpacity(1),
+                    ),
+                    child: TableCalendar(
+                      firstDay: DateTime.utc(1999, 07, 10),
+                      lastDay: DateTime.utc(2200, 4, 28),
+                      focusedDay: focusedDay,
+                      calendarFormat: format,
+                      onFormatChanged: (CalendarFormat _format) {
+                        setState(() {
+                          format = _format;
+                        });
+                      },
+                      onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                        setState(() {
+                          selectedDay = selectDay;
+                          focusedDay = focusDay;
+                        });
+                      },
+                      selectedDayPredicate: (DateTime date) {
+                        return isSameDay(selectedDay, date);
+                      },
+                      weekendDays: [DateTime.sunday],
+                      calendarStyle: CalendarStyle(
+                        isTodayHighlighted: true,
+                        todayDecoration: BoxDecoration(
+                            color: Color(0xffff453a), shape: BoxShape.circle),
+                        defaultTextStyle: TextStyle(
+                            color: Theme.of(context).cardColor.withOpacity(1),
+                            fontWeight:
+                                Theme.of(context).textTheme.headline4.fontWeight,
+                            fontFamily: "HN"),
+                        weekendTextStyle: TextStyle(
+                            color: Theme.of(context).cardColor.withOpacity(0.6),
+                            fontWeight:
+                                Theme.of(context).textTheme.headline4.fontWeight,
+                            fontFamily: "HN"),
+                        outsideTextStyle: TextStyle(
+                            color: Theme.of(context).cardColor.withOpacity(0.3),
+                            fontWeight:
+                                Theme.of(context).textTheme.headline4.fontWeight,
+                            fontFamily: "HN"),
 
-                  ),
-                 // rowHeight: screenHeight(context, mulBy: 0.07  ),
-                  headerStyle: HeaderStyle(
-                    formatButtonVisible: false,
-                  ),
-                  calendarBuilders:
-                      CalendarBuilders(
-                        headerTitleBuilder: (context, dateTime) {
-                    return Row(
-                      children: [
-                        Text(
-                          "${DateFormat("LLLL").format(dateTime)}",
-                          style: TextStyle(
-                              color: Theme.of(context).cardColor.withOpacity(1),
-                              fontWeight: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  .fontWeight,
-                              fontSize: 25,
-                              fontFamily: "HN"),
-                        ),
-                        Text(
-                          " ${DateFormat("y").format(dateTime)}",
-                          style: TextStyle(
-                              color: Theme.of(context).cardColor.withOpacity(1),
-                              fontWeight: Theme.of(context)
-                                  .textTheme
-                                  .headline2
-                                  .fontWeight,
-                              fontSize: 25,
-                              fontFamily: "HN"),
-                        ),
-                      ],
-                    );
-                  },
-                          defaultBuilder: (context, dateTime, event) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
-                          border: Border.all(
-                              color:
-                                  Theme.of(context).cardColor.withOpacity(0.5),
-                              width: 0.1)),
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: Container(
-                            padding: EdgeInsets.all(6),
-                          child: Text(
-                            (dateTime.day==1)?"${DateFormat("d LLL").format(dateTime)}":"${DateFormat("d").format(dateTime)}",
-                            style: TextStyle(
-                                color: Theme.of(context).cardColor.withOpacity(1),
-                                fontWeight: Theme.of(context)
-                                    .textTheme
-                                    .headline2
-                                    .fontWeight,
-                                fontSize: 14,
-                                fontFamily: "HN"),
-                          ),
-                        ),
                       ),
-                    );
-                  },
-                        todayBuilder: (context, dateTime, event) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
-                                border: Border.all(
-                                    color:
-                                    Theme.of(context).cardColor.withOpacity(0.5),
-                                    width: 0.1)),
-                            child: Align(
-                              alignment: Alignment.topRight,
-                              child: Container(
-                                height: 25,
-                                width: 25,
-                                margin: EdgeInsets.all(3),
-                                decoration: BoxDecoration(
-                                  color: Color(0xffff453a),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                      "${DateFormat("d").format(dateTime)}",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: Theme.of(context)
-                                            .textTheme
-                                            .headline2
-                                            .fontWeight,
-                                        fontSize: 12.5,
-                                        fontFamily: "HN"),
-                                  ),
-                                ),
-                              ),
-                            )
-                          );
-                        },
-                        selectedBuilder: (context, dateTime, event) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
-
-                                border: Border.all(
-                                    color:
-                                    Theme.of(context).cardColor.withOpacity(0.5),
-                                    width: 0.1)),
-                            child: Align(
-                              alignment: Alignment.topRight,
-                              child: Container(
-                                height: 25,
-                                width: 25,
-                                margin: EdgeInsets.all(3),
-                                decoration: BoxDecoration(
-                                  color: Colors.blueGrey,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "${DateFormat("d").format(dateTime)}",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: Theme.of(context)
-                                            .textTheme
-                                            .headline2
-                                            .fontWeight,
-                                        fontSize: 12.5,
-                                        fontFamily: "HN"),
-                                  ),
-                                ),
+                     // rowHeight: screenHeight(context, mulBy: 0.07  ),
+                      headerStyle: HeaderStyle(
+                        formatButtonVisible: false,
+                      ),
+                      calendarBuilders:
+                          CalendarBuilders(
+                            headerTitleBuilder: (context, dateTime) {
+                        return Row(
+                          children: [
+                            Text(
+                              "${DateFormat("LLLL").format(dateTime)}",
+                              style: TextStyle(
+                                  color: Theme.of(context).cardColor.withOpacity(1),
+                                  fontWeight: Theme.of(context)
+                                      .textTheme
+                                      .headline1
+                                      .fontWeight,
+                                  fontSize: 25,
+                                  fontFamily: "HN"),
+                            ),
+                            Text(
+                              " ${DateFormat("y").format(dateTime)}",
+                              style: TextStyle(
+                                  color: Theme.of(context).cardColor.withOpacity(1),
+                                  fontWeight: Theme.of(context)
+                                      .textTheme
+                                      .headline2
+                                      .fontWeight,
+                                  fontSize: 25,
+                                  fontFamily: "HN"),
+                            ),
+                          ],
+                        );
+                      },
+                              defaultBuilder: (context, dateTime, event) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
+                              border: Border.all(
+                                  color:
+                                      Theme.of(context).cardColor.withOpacity(0.5),
+                                  width: 0.1)),
+                          child: Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                                padding: EdgeInsets.all(6),
+                              child: Text(
+                                (dateTime.day==1)?"${DateFormat("d LLL").format(dateTime)}":"${DateFormat("d").format(dateTime)}",
+                                style: TextStyle(
+                                    color: Theme.of(context).cardColor.withOpacity(1),
+                                    fontWeight: Theme.of(context)
+                                        .textTheme
+                                        .headline2
+                                        .fontWeight,
+                                    fontSize: 14,
+                                    fontFamily: "HN"),
                               ),
                             ),
-                          );
-                        },
-                        outsideBuilder: (context, dateTime, event) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
-                                border: Border.all(
-                                    color:
-                                    Theme.of(context).cardColor.withOpacity(0.5),
-                                    width: 0.1)),
-                            child: Align(
-                              alignment: Alignment.topRight,
-                              child: Container(
-                                padding: EdgeInsets.all(6),
+                          ),
+                        );
+                      },
+                            todayBuilder: (context, dateTime, event) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
+                                    border: Border.all(
+                                        color:
+                                        Theme.of(context).cardColor.withOpacity(0.5),
+                                        width: 0.1)),
+                                child: Align(
+                                  alignment: Alignment.topRight,
+                                  child: Container(
+                                    height: 25,
+                                    width: 25,
+                                    margin: EdgeInsets.all(3),
+                                    decoration: BoxDecoration(
+                                      color: Color(0xffff453a),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                          "${DateFormat("d").format(dateTime)}",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: Theme.of(context)
+                                                .textTheme
+                                                .headline2
+                                                .fontWeight,
+                                            fontSize: 12.5,
+                                            fontFamily: "HN"),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              );
+                            },
+                            selectedBuilder: (context, dateTime, event) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
+
+                                    border: Border.all(
+                                        color:
+                                        Theme.of(context).cardColor.withOpacity(0.5),
+                                        width: 0.1)),
+                                child: Align(
+                                  alignment: Alignment.topRight,
+                                  child: Container(
+                                    height: 25,
+                                    width: 25,
+                                    margin: EdgeInsets.all(3),
+                                    decoration: BoxDecoration(
+                                      color: Colors.blueGrey,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "${DateFormat("d").format(dateTime)}",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: Theme.of(context)
+                                                .textTheme
+                                                .headline2
+                                                .fontWeight,
+                                            fontSize: 12.5,
+                                            fontFamily: "HN"),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            outsideBuilder: (context, dateTime, event) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    color: (dateTime.weekday==DateTime.sunday)?Theme.of(context).cardColor.withOpacity(0.08):Colors.transparent,
+                                    border: Border.all(
+                                        color:
+                                        Theme.of(context).cardColor.withOpacity(0.5),
+                                        width: 0.1)),
+                                child: Align(
+                                  alignment: Alignment.topRight,
+                                  child: Container(
+                                    padding: EdgeInsets.all(6),
+                                    child: Text(
+                                      (dateTime==1)?"${DateFormat("d LLL").format(dateTime)}": "${DateFormat("d").format(dateTime)}",
+                                      style: TextStyle(
+                                          color: Theme.of(context).cardColor.withOpacity(0.3),
+                                          fontWeight: Theme.of(context)
+                                              .textTheme
+                                              .headline2
+                                              .fontWeight,
+                                          fontSize: 14,
+                                          fontFamily: "HN"),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                            dowBuilder: (context, dateTime){
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 8),
                                 child: Text(
-                                  (dateTime==1)?"${DateFormat("d LLL").format(dateTime)}": "${DateFormat("d").format(dateTime)}",
+                                  "${DateFormat("E").format(dateTime)}",
+                                  textAlign: TextAlign.end,
                                   style: TextStyle(
-                                      color: Theme.of(context).cardColor.withOpacity(0.3),
+                                      color: Theme.of(context).cardColor.withOpacity(1),
                                       fontWeight: Theme.of(context)
                                           .textTheme
                                           .headline2
@@ -405,33 +425,32 @@ class _CalendarState extends State<Calendar> {
                                       fontSize: 14,
                                       fontFamily: "HN"),
                                 ),
-                              ),
-                            ),
-                          );
-                        },
-                        dowBuilder: (context, dateTime){
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: Text(
-                              "${DateFormat("E").format(dateTime)}",
-                              textAlign: TextAlign.end,
-                              style: TextStyle(
-                                  color: Theme.of(context).cardColor.withOpacity(1),
-                                  fontWeight: Theme.of(context)
-                                      .textTheme
-                                      .headline2
-                                      .fontWeight,
-                                  fontSize: 14,
-                                  fontFamily: "HN"),
-                            ),
-                          ); 
-                        },
+                              );
+                            },
 
-                      ),
+                          ),
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
+
+
+    Visibility(
+      visible: topApp != "Calendar",
+      child: InkWell(
+        onTap: (){
+          Provider.of<Apps>(context, listen: false)
+              .bringToTop(ObjectKey("calendar"));
+        },
+        child: Container(
+          width: screenWidth(context,),
+          height: screenHeight(context,),
+          color: Colors.transparent,
+        ),
+      ),
+    ),
         ],
       ),
     );
