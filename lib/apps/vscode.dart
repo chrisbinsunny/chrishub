@@ -54,7 +54,7 @@ class _VSCodeState extends State<VSCode> {
   }
 
   AnimatedContainer vsWindow(BuildContext context) {
-
+    String topApp = Provider.of<Apps>(context).getTop;
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: vsFS
@@ -76,155 +76,175 @@ class _VSCodeState extends State<VSCode> {
           ),
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Stack(
         children: [
-          Stack(
-            alignment: Alignment.centerRight,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                height: vsFS
-                    ? screenHeight(context, mulBy: 0.059)
-                    : screenHeight(context, mulBy: 0.06),
-                decoration: BoxDecoration(
-                    color: Color(0xff252526),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        topLeft: Radius.circular(10))),
-              ),
-              GestureDetector(
-                onPanUpdate: (tapInfo) {
-                  if (!vsFS) {
-                    setState(() {
-                      position = Offset(position.dx + tapInfo.delta.dx,
-                          position.dy + tapInfo.delta.dy);
-                    });
-                  }
-                },
-                onPanStart: (details) {
-                  Provider.of<OnOff>(context, listen: false).onVSPan();
-                },
-                onPanEnd: (details) {
-                  Provider.of<OnOff>(context, listen: false).offVSPan();
-                },
-                onDoubleTap: () {
-                  Provider.of<OnOff>(context, listen: false).toggleVSFS();
-                },
-                child: Container(
-                  alignment: Alignment.topRight,
-                  width: vsFS
-                      ? screenWidth(context, mulBy: 0.95)
-                      : screenWidth(context, mulBy: 0.7),
-                  height: vsFS
-                      ? screenHeight(context, mulBy: 0.059)
-                      : screenHeight(context, mulBy: 0.06),
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border(
-                          bottom: BorderSide(
-                              color: Colors.black.withOpacity(0.5),
-                              width: 0.8))),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth(context, mulBy: 0.013),
-                    vertical: screenHeight(context, mulBy: 0.01)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
+              Stack(
+                alignment: Alignment.centerRight,
+                children: [
+                  Container(
+                    height: vsFS
+                        ? screenHeight(context, mulBy: 0.059)
+                        : screenHeight(context, mulBy: 0.06),
+                    decoration: BoxDecoration(
+                        color: Color(0xff252526),
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            topLeft: Radius.circular(10))),
+                  ),
+                  GestureDetector(
+                    onPanUpdate: (tapInfo) {
+                      if (!vsFS) {
+                        setState(() {
+                          position = Offset(position.dx + tapInfo.delta.dx,
+                              position.dy + tapInfo.delta.dy);
+                        });
+                      }
+                    },
+                    onPanStart: (details) {
+                      Provider.of<OnOff>(context, listen: false).onVSPan();
+                    },
+                    onPanEnd: (details) {
+                      Provider.of<OnOff>(context, listen: false).offVSPan();
+                    },
+                    onDoubleTap: () {
+                      Provider.of<OnOff>(context, listen: false).toggleVSFS();
+                    },
+                    child: Container(
+                      alignment: Alignment.topRight,
+                      width: vsFS
+                          ? screenWidth(context, mulBy: 0.95)
+                          : screenWidth(context, mulBy: 0.7),
+                      height: vsFS
+                          ? screenHeight(context, mulBy: 0.059)
+                          : screenHeight(context, mulBy: 0.06),
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border(
+                              bottom: BorderSide(
+                                  color: Colors.black.withOpacity(0.5),
+                                  width: 0.8))),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth(context, mulBy: 0.013),
+                        vertical: screenHeight(context, mulBy: 0.01)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        InkWell(
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.redAccent,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
+                        Row(
+                          children: [
+                            InkWell(
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.redAccent,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          onTap: () {
-                            Provider.of<Apps>(context, listen: false).closeApp("vscode");
-                            Provider.of<OnOff>(context, listen: false)
-                                .offVSFS();
-                            Provider.of<OnOff>(context, listen: false).toggleVS();
+                              onTap: () {
+                                Provider.of<Apps>(context, listen: false).closeApp("vscode");
+                                Provider.of<OnOff>(context, listen: false)
+                                    .offVSFS();
+                                Provider.of<OnOff>(context, listen: false).toggleVS();
 
-                          },
-                        ),
-                        SizedBox(
-                          width: screenWidth(context, mulBy: 0.005),
-                        ),
-                        InkWell(
-                          onTap: (){
-                            Provider.of<OnOff>(context, listen: false).toggleVS();
-                            Provider.of<OnOff>(context, listen: false).offVSFS();
-                          },
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.amber,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
+                              },
+                            ),
+                            SizedBox(
+                              width: screenWidth(context, mulBy: 0.005),
+                            ),
+                            InkWell(
+                              onTap: (){
+                                Provider.of<OnOff>(context, listen: false).toggleVS();
+                                Provider.of<OnOff>(context, listen: false).offVSFS();
+                              },
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: screenWidth(context, mulBy: 0.005),
-                        ),
-                        InkWell(
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
-                              ),
+                            SizedBox(
+                              width: screenWidth(context, mulBy: 0.005),
                             ),
-                          ),
-                          onTap: () {
-                            Provider.of<OnOff>(context, listen: false)
-                                .toggleVSFS();
-                          },
-                        )
+                            InkWell(
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Provider.of<OnOff>(context, listen: false)
+                                    .toggleVSFS();
+                              },
+                            )
+                          ],
+                        ),
                       ],
                     ),
-                  ],
+                  ),
+                ],
+              ),
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)),
+                  child: BackdropFilter(
+                    filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+                    child: Container(
+                      height: screenHeight(context, mulBy: 0.14),
+                      width: screenWidth(
+                        context,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Color(0xff1e1e1e).withOpacity(0.9),
+                      ),
+                      child: HtmlElementView(
+                        viewType: 'vsIframe',
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10)),
-              child: BackdropFilter(
-                filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
-                child: Container(
-                  height: screenHeight(context, mulBy: 0.14),
-                  width: screenWidth(
-                    context,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Color(0xff1e1e1e).withOpacity(0.9),
-                  ),
-                  child: HtmlElementView(
-                    viewType: 'vsIframe',
-                  ),
-                ),
-              ),
-            ),
-          ),
+
+
+    Visibility(
+      visible: topApp != "VS Code",
+      child: InkWell(
+        onTap: (){
+          Provider.of<Apps>(context, listen: false)
+              .bringToTop(ObjectKey("vscode"));
+        },
+        child: Container(
+          width: screenWidth(context,),
+          height: screenHeight(context,),
+          color: Colors.transparent,
+        ),
+      ),
+    ),
         ],
       ),
     );

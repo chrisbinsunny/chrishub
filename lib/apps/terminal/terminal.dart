@@ -320,6 +320,7 @@ class _TerminalState extends State<Terminal> {
   }
 
   AnimatedContainer terminalWindow(BuildContext context) {
+    String topApp = Provider.of<Apps>(context).getTop;
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: terminalFS
@@ -343,171 +344,191 @@ class _TerminalState extends State<Terminal> {
           ),
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      child: Stack(
         children: [
-          Stack(
-            alignment: Alignment.centerRight,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                height: terminalFS
-                    ? screenHeight(context, mulBy: 0.04)
-                    : screenHeight(context, mulBy: 0.04),
-                decoration: BoxDecoration(
-                    color: Theme.of(context).disabledColor,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        topLeft: Radius.circular(10))),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    MBPText(
-                      text:
-                          "chrisbin -- -zsh -- ${terminalFS ? screenWidth(context, mulBy: .1).floor() : screenWidth(context, mulBy: 0.04).floor()}x${terminalFS ? screenHeight(context, mulBy: 0.0966).floor() : screenHeight(context, mulBy: 0.05).floor()}",
-                      fontFamily: "HN",
-                      color: Theme.of(context).cardColor.withOpacity(1),
-                      weight: Theme.of(context).textTheme.headline4.fontWeight,
-                    )
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onPanUpdate: (tapInfo) {
-                  if (!terminalFS) {
-                    setState(() {
-                      position = Offset(position.dx + tapInfo.delta.dx,
-                          position.dy + tapInfo.delta.dy);
-                    });
-                  }
-                },
-                onPanStart: (details) {
-                  Provider.of<OnOff>(context, listen: false).onTerminalPan();
-                },
-                onPanEnd: (details) {
-                  Provider.of<OnOff>(context, listen: false).offTerminalPan();
-                },
-                onDoubleTap: () {
-                  Provider.of<OnOff>(context, listen: false).toggleTerminalFS();
-                },
-                child: Container(
-                  alignment: Alignment.topRight,
-                  width: terminalFS
-                      ? screenWidth(context, mulBy: 0.95)
-                      : screenWidth(context, mulBy: 0.7),
-                  height: terminalFS
-                      ? screenHeight(context, mulBy: 0.04)
-                      : screenHeight(context, mulBy: 0.04),
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      border: Border(
-                          bottom: BorderSide(
-                              color: Colors.black.withOpacity(0.9),
-                              width: 0.2))),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth(context, mulBy: 0.013),
-                    vertical: screenHeight(context, mulBy: 0.01)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
+              Stack(
+                alignment: Alignment.centerRight,
+                children: [
+                  Container(
+                    height: terminalFS
+                        ? screenHeight(context, mulBy: 0.04)
+                        : screenHeight(context, mulBy: 0.04),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).disabledColor,
+                        borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(10),
+                            topLeft: Radius.circular(10))),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        InkWell(
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.redAccent,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
-                              ),
-                            ),
-                          ),
-                          onTap: () {
-                            directory="/~";
-                            Provider.of<Apps>(context, listen: false).closeApp("terminal");
-                            Provider.of<OnOff>(context, listen: false)
-                                .offTerminalFS();
-                            Provider.of<OnOff>(context, listen: false).toggleTerminal();
-                          },
-                        ),
-                        SizedBox(
-                          width: screenWidth(context, mulBy: 0.005),
-                        ),
-                        InkWell(
-                          onTap: (){
-                            Provider.of<OnOff>(context, listen: false).toggleTerminal();
-                            Provider.of<OnOff>(context, listen: false).offTerminalFS();
-                          },
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.amber,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: screenWidth(context, mulBy: 0.005),
-                        ),
-                        InkWell(
-                          child: Container(
-                            height: 11.5,
-                            width: 11.5,
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Colors.black.withOpacity(0.2),
-                              ),
-                            ),
-                          ),
-                          onTap: () {
-                            Provider.of<OnOff>(context, listen: false)
-                                .toggleTerminalFS();
-                          },
+                        MBPText(
+                          text:
+                              "chrisbin -- -zsh -- ${terminalFS ? screenWidth(context, mulBy: .1).floor() : screenWidth(context, mulBy: 0.04).floor()}x${terminalFS ? screenHeight(context, mulBy: 0.0966).floor() : screenHeight(context, mulBy: 0.05).floor()}",
+                          fontFamily: "HN",
+                          color: Theme.of(context).cardColor.withOpacity(1),
+                          weight: Theme.of(context).textTheme.headline4.fontWeight,
                         )
                       ],
                     ),
-                  ],
+                  ),
+                  GestureDetector(
+                    onPanUpdate: (tapInfo) {
+                      if (!terminalFS) {
+                        setState(() {
+                          position = Offset(position.dx + tapInfo.delta.dx,
+                              position.dy + tapInfo.delta.dy);
+                        });
+                      }
+                    },
+                    onPanStart: (details) {
+                      Provider.of<OnOff>(context, listen: false).onTerminalPan();
+                    },
+                    onPanEnd: (details) {
+                      Provider.of<OnOff>(context, listen: false).offTerminalPan();
+                    },
+                    onDoubleTap: () {
+                      Provider.of<OnOff>(context, listen: false).toggleTerminalFS();
+                    },
+                    child: Container(
+                      alignment: Alignment.topRight,
+                      width: terminalFS
+                          ? screenWidth(context, mulBy: 0.95)
+                          : screenWidth(context, mulBy: 0.7),
+                      height: terminalFS
+                          ? screenHeight(context, mulBy: 0.04)
+                          : screenHeight(context, mulBy: 0.04),
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border(
+                              bottom: BorderSide(
+                                  color: Colors.black.withOpacity(0.9),
+                                  width: 0.2))),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth(context, mulBy: 0.013),
+                        vertical: screenHeight(context, mulBy: 0.01)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            InkWell(
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.redAccent,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                directory="/~";
+                                Provider.of<Apps>(context, listen: false).closeApp("terminal");
+                                Provider.of<OnOff>(context, listen: false)
+                                    .offTerminalFS();
+                                Provider.of<OnOff>(context, listen: false).toggleTerminal();
+                              },
+                            ),
+                            SizedBox(
+                              width: screenWidth(context, mulBy: 0.005),
+                            ),
+                            InkWell(
+                              onTap: (){
+                                Provider.of<OnOff>(context, listen: false).toggleTerminal();
+                                Provider.of<OnOff>(context, listen: false).offTerminalFS();
+                              },
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: screenWidth(context, mulBy: 0.005),
+                            ),
+                            InkWell(
+                              child: Container(
+                                height: 11.5,
+                                width: 11.5,
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.black.withOpacity(0.2),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Provider.of<OnOff>(context, listen: false)
+                                    .toggleTerminalFS();
+                              },
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)),
+                  child: Container(
+                    height: screenHeight(context, mulBy: 0.14),
+                    width: screenWidth(
+                      context,
+                    ),
+                    padding: EdgeInsets.only(left: 6, right: 6, bottom: 5),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).dialogBackgroundColor,
+                    ),
+                    child: ListView.builder(
+                      controller: _scrollController,
+                      shrinkWrap: true,
+                      itemCount: commandCards.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return commandCards[index];
+                      },
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(10),
-                  bottomLeft: Radius.circular(10)),
-              child: Container(
-                height: screenHeight(context, mulBy: 0.14),
-                width: screenWidth(
-                  context,
-                ),
-                padding: EdgeInsets.only(left: 6, right: 6, bottom: 5),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).dialogBackgroundColor,
-                ),
-                child: ListView.builder(
-                  controller: _scrollController,
-                  shrinkWrap: true,
-                  itemCount: commandCards.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return commandCards[index];
-                  },
-                ),
-              ),
-            ),
-          ),
+
+
+    Visibility(
+      visible: topApp != "Terminal",
+      child: InkWell(
+        onTap: (){
+          Provider.of<Apps>(context, listen: false)
+              .bringToTop(ObjectKey("terminal"));
+        },
+        child: Container(
+          width: screenWidth(context,),
+          height: screenHeight(context,),
+          color: Colors.transparent,
+        ),
+      ),
+    ),
         ],
       ),
     );
