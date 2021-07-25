@@ -606,6 +606,7 @@ class _FinderState extends State<Finder> {
                               onTap: (){
                                 Provider.of<OnOff>(context, listen: false).offFinderFS();
                                 Provider.of<Apps>(context, listen: false).closeApp("finder");
+                                Provider.of<OnOff>(context, listen: false).toggleFinder();
                               },
                             ),
                             SizedBox(

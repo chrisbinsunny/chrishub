@@ -13,26 +13,26 @@ class OnOff extends ChangeNotifier{
   String onTop="finder";
   String fs="";
   bool ccOpen =false;
-  bool finderOpen =false;
+  bool finderMax =false;
   bool finderFS = false;
-  bool safariOpen =false;
+  bool safariMax =false;
   bool safariFS = false;
   bool safariPan = false;
   bool finderPan = false;
-  bool vsOpen = false;
+  bool vsMax = false;
   bool vsFS = false;
   bool vsPan = false;
-  bool spotifyOpen = false;
+  bool spotifyMax = false;
   bool spotifyFS = false;
   bool spotifyPan = false;
   bool fsAni= false;
   bool feedBackOpen = false;
   bool feedBackFS = false;
   bool feedBackPan = false;
-  bool calendarOpen = false;
+  bool calendarMax = false;
   bool calendarFS = false;
   bool calendarPan = false;
-  bool terminalOpen = false;
+  bool terminalMax = false;
   bool terminalFS = false;
   bool terminalPan = false;
 
@@ -54,7 +54,7 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getFinder {
-    return finderOpen;
+    return finderMax;
   }
 
   bool get getFinderFS {
@@ -62,7 +62,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleFinder() {
-    finderOpen= !finderOpen;
+    finderMax= !finderMax;
     notifyListeners();
   }
 
@@ -93,7 +93,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void maxFinder() {
-    finderOpen= true;
+    finderMax= true;
     notifyListeners();
   }
 
@@ -112,7 +112,7 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getSafari {
-    return safariOpen;
+    return safariMax;
   }
 
   bool get getSafariFS {
@@ -120,7 +120,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleSafari() {
-    safariOpen= !safariOpen;
+    safariMax= !safariMax;
     notifyListeners();
   }
 
@@ -151,7 +151,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void maxSafari() {
-    safariOpen= true;
+    safariMax= true;
     notifyListeners();
   }
 
@@ -170,7 +170,7 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getVS {
-    return vsOpen;
+    return vsMax;
   }
 
   bool get getVSFS {
@@ -178,7 +178,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleVS() {
-    vsOpen= !vsOpen;
+    vsMax= !vsMax;
     notifyListeners();
   }
 
@@ -209,7 +209,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void maxVS() {
-    vsOpen= true;
+    vsMax= true;
     notifyListeners();
   }
 
@@ -228,7 +228,7 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getSpotify {
-    return spotifyOpen;
+    return spotifyMax;
   }
 
   bool get getSpotifyFS {
@@ -236,7 +236,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleSpotify() {
-    spotifyOpen= !spotifyOpen;
+    spotifyMax= !spotifyMax;
     notifyListeners();
   }
 
@@ -267,7 +267,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void maxSpotify() {
-    spotifyOpen= true;
+    spotifyMax= true;
     notifyListeners();
   }
 
@@ -286,7 +286,7 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getCalendar {
-    return calendarOpen;
+    return calendarMax;
   }
 
   bool get getCalendarFS {
@@ -294,7 +294,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleCalendar() {
-    calendarOpen= !calendarOpen;
+    calendarMax= !calendarMax;
     notifyListeners();
   }
 
@@ -325,7 +325,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void maxCalendar() {
-    calendarOpen= true;
+    calendarMax= true;
     notifyListeners();
   }
 
@@ -344,7 +344,7 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getTerminal {
-    return terminalOpen;
+    return terminalMax;
   }
 
   bool get getTerminalFS {
@@ -352,7 +352,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleTerminal() {
-    terminalOpen= !terminalOpen;
+    terminalMax= !terminalMax;
     notifyListeners();
   }
 
@@ -383,7 +383,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void maxTerminal() {
-    terminalOpen= true;
+    terminalMax= true;
     notifyListeners();
   }
 

@@ -433,6 +433,7 @@ class _TerminalState extends State<Terminal> {
                             Provider.of<Apps>(context, listen: false).closeApp("terminal");
                             Provider.of<OnOff>(context, listen: false)
                                 .offTerminalFS();
+                            Provider.of<OnOff>(context, listen: false).toggleTerminal();
                           },
                         ),
                         SizedBox(

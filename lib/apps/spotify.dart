@@ -154,6 +154,8 @@ class _SpotifyState extends State<Spotify> {
                             Provider.of<OnOff>(context, listen: false)
                                 .offSpotifyFS();
                             Provider.of<Apps>(context, listen: false).closeApp("spotify");
+                            Provider.of<OnOff>(context, listen: false).toggleSpotify();
+
 
                           },
                         ),

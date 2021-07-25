@@ -9,6 +9,8 @@ import '../widgets.dart';
 import 'dart:html' as html;
 import 'dart:ui' as ui;
 
+//TODO: BUG Found>> After opening youtube all searches redirects to youtube.
+
 class Safari extends StatefulWidget {
   final Offset initPos;
   const Safari({this.initPos, Key key}) : super(key: key);
@@ -209,6 +211,7 @@ class _SafariState extends State<Safari> {
                             Provider.of<OnOff>(context, listen: false)
                                 .offSafariFS();
                             Provider.of<Apps>(context, listen: false).closeApp("safari");
+                            Provider.of<OnOff>(context, listen: false).toggleSafari();
                             url = "";
                             urlController.text = "";
                           },

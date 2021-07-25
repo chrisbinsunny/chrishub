@@ -42,14 +42,14 @@ class _DockerState extends State<Docker> {
 
   @override
   Widget build(BuildContext context) {
-    bool safariOpen = Provider.of<OnOff>(context).getSafari;
-    bool vsOpen = Provider.of<OnOff>(context).getVS;
-    bool spotifyOpen = Provider.of<OnOff>(context).getSpotify;
+    bool safariOpen = Provider.of<Apps>(context).isOpen(ObjectKey("safari"));
+    bool vsOpen = Provider.of<Apps>(context).isOpen(ObjectKey("vscode"));
+    bool spotifyOpen = Provider.of<Apps>(context).isOpen(ObjectKey("spotify"));
     String fs = Provider.of<OnOff>(context).getFS;
     bool fsAni = Provider.of<OnOff>(context).getFSAni;
-    bool fbOpen = Provider.of<OnOff>(context).getFeedBack;
-    bool calendarOpen = Provider.of<OnOff>(context).getCalendar;
-    bool terminalOpen = Provider.of<OnOff>(context).getTerminal;
+    bool fbOpen = Provider.of<Apps>(context).isOpen(ObjectKey("feedback"));
+    bool calendarOpen = Provider.of<Apps>(context).isOpen(ObjectKey("calendar"));
+    bool terminalOpen = Provider.of<Apps>(context).isOpen(ObjectKey("terminal"));
 
     return AnimatedPositioned(
       duration: Duration(milliseconds: (fsAni) ? 400 : 0),

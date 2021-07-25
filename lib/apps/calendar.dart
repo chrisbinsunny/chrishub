@@ -145,6 +145,8 @@ class _CalendarState extends State<Calendar> {
                             Provider.of<Apps>(context, listen: false).closeApp("calendar");
                             Provider.of<OnOff>(context, listen: false)
                                 .offCalendarFS();
+                            Provider.of<OnOff>(context, listen: false).toggleCalendar();
+
                           },
                         ),
                         SizedBox(

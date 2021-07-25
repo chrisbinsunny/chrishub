@@ -152,6 +152,8 @@ class _VSCodeState extends State<VSCode> {
                             Provider.of<Apps>(context, listen: false).closeApp("vscode");
                             Provider.of<OnOff>(context, listen: false)
                                 .offVSFS();
+                            Provider.of<OnOff>(context, listen: false).toggleVS();
+
                           },
                         ),
                         SizedBox(

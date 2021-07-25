@@ -46,4 +46,8 @@ class Apps extends ChangeNotifier{
     notifyListeners();
   }
 
+  bool isOpen(ObjectKey appKey){
+    return apps.any((element) => element.key==appKey);
+  }
+
 }
