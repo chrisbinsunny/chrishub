@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
+import '../../openApps.dart';
 import '../../sizes.dart';
 import '../../widgets.dart';
 import 'dart:html' as html;
@@ -126,13 +127,14 @@ class _FeedBackState extends State<FeedBack> {
   }
 
   AnimatedContainer feedbackWindow(BuildContext context) {
+    String topApp = Provider.of<Apps>(context).getTop;
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: feedbackFS
           ? screenWidth(context, mulBy: 1)
           : screenWidth(context, mulBy: 0.7),
       height: feedbackFS
-          ? screenHeight(context, mulBy: 0.863)
+          ?screenHeight(context, mulBy: 0.966)
           : screenHeight(context, mulBy: 0.75),
       decoration: BoxDecoration(
         border: Border.all(
@@ -1436,12 +1438,17 @@ class _FeedBackState extends State<FeedBack> {
                   onTap: () {
                     Provider.of<OnOff>(context, listen: false).toggleFeedBack();
                     Provider.of<OnOff>(context, listen: false).offFeedBackFS();
+                    Provider.of<Apps>(context, listen: false).closeApp("feedback");
                   },
                 ),
                 SizedBox(
                   width: screenWidth(context, mulBy: 0.005),
                 ),
                 InkWell(
+                  onTap: (){
+                    Provider.of<OnOff>(context, listen: false).toggleFeedBack();
+                    Provider.of<OnOff>(context, listen: false).offFeedBackFS();
+                  },
                   child: Container(
                     height: 11.5,
                     width: 11.5,
@@ -1478,6 +1485,22 @@ class _FeedBackState extends State<FeedBack> {
               ],
             ),
           ),
+
+
+    Visibility(
+    visible: topApp != "Feedback",
+    child: InkWell(
+    onTap: (){
+    Provider.of<Apps>(context, listen: false)
+        .bringToTop(ObjectKey("feedback"));
+    },
+    child: Container(
+    width: screenWidth(context,),
+    height: screenHeight(context,),
+    color: Colors.transparent,
+    ),
+    ),
+    ),
         ],
       ),
     );

@@ -5,10 +5,21 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../componentsOnOff.dart';
+import '../openApps.dart';
 import '../widgets.dart';
+import 'finderWindow.dart';
 import 'hoverDock.dart';
 
 import '../sizes.dart';
+import 'package:flutter/scheduler.dart';
+
+import '../apps/calendar.dart';
+import '../apps/feedback/feedback.dart';
+import '../apps/spotify.dart';
+import '../apps/terminal/terminal.dart';
+import '../apps/vscode.dart';
+import '../components/finderWindow.dart';
+import '../safari/safariWindow.dart';
 
 class Docker extends StatefulWidget {
   const Docker({
@@ -21,7 +32,7 @@ class Docker extends StatefulWidget {
 
 class _DockerState extends State<Docker> {
   DateTime now;
-  bool _animate=false;
+  bool _animate = false;
 
   @override
   void initState() {
@@ -31,18 +42,20 @@ class _DockerState extends State<Docker> {
 
   @override
   Widget build(BuildContext context) {
-    bool safariOpen = Provider.of<OnOff>(context).getSafari;
-    bool vsOpen = Provider.of<OnOff>(context).getVS;
-    bool spotifyOpen = Provider.of<OnOff>(context).getSpotify;
-    String fs= Provider.of<OnOff>(context).getFS;
-    bool fsAni= Provider.of<OnOff>(context).getFSAni;
-    bool fbOpen = Provider.of<OnOff>(context).getFeedBack;
-    bool calendarOpen = Provider.of<OnOff>(context).getCalendar;
-    bool terminalOpen = Provider.of<OnOff>(context).getTerminal;
+    bool safariOpen = Provider.of<Apps>(context).isOpen(ObjectKey("safari"));
+    bool vsOpen = Provider.of<Apps>(context).isOpen(ObjectKey("vscode"));
+    bool spotifyOpen = Provider.of<Apps>(context).isOpen(ObjectKey("spotify"));
+    String fs = Provider.of<OnOff>(context).getFS;
+    bool fsAni = Provider.of<OnOff>(context).getFSAni;
+    bool fbOpen = Provider.of<Apps>(context).isOpen(ObjectKey("feedback"));
+    bool calendarOpen = Provider.of<Apps>(context).isOpen(ObjectKey("calendar"));
+    bool terminalOpen = Provider.of<Apps>(context).isOpen(ObjectKey("terminal"));
 
     return AnimatedPositioned(
-      duration: Duration(milliseconds: (fsAni)?400:0),
-      top: (fs=="")?screenHeight(context, mulBy: 0.9):screenHeight(context, mulBy: 1.05),
+      duration: Duration(milliseconds: (fsAni) ? 400 : 0),
+      top: (fs == "")
+          ? screenHeight(context, mulBy: 0.9)
+          : screenHeight(context, mulBy: 1.05),
       left: screenWidth(context, mulBy: 0.15),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -50,17 +63,15 @@ class _DockerState extends State<Docker> {
           Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(15)),
-              boxShadow: [
-                CustomBoxShadow(
-                  color: Theme.of(context).accentColor,
-                    //color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 10,
-                    blurRadius: 15,
-                    offset: Offset(0, 8),
-                    blurStyle: BlurStyle.normal
-              ),
-              ]
-            ),
+                boxShadow: [
+                  CustomBoxShadow(
+                      color: Theme.of(context).accentColor,
+                      //color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 10,
+                      blurRadius: 15,
+                      offset: Offset(0, 8),
+                      blurStyle: BlurStyle.normal),
+                ]),
             child: Stack(
               children: [
                 ClipRRect(
@@ -93,7 +104,16 @@ class _DockerState extends State<Docker> {
                             _animate = !_animate;
                           });
                           Provider.of<OnOff>(context, listen: false)
-                              .openFinder();
+                              .maxFinder();
+                          Provider.of<Apps>(context, listen: false).openApp(
+                              Finder(
+                                  key: ObjectKey("finder"),
+                                  initPos: Offset(
+                                      screenWidth(context, mulBy: 0.2),
+                                      screenHeight(context, mulBy: 0.18))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxFinder()
+                          );
                         },
                         child: DockerItem(
                           iName: "finder",
@@ -105,9 +125,18 @@ class _DockerState extends State<Docker> {
                         on: false,
                       ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           Provider.of<OnOff>(context, listen: false)
-                              .openSafari();
+                              .maxSafari();
+                          Provider.of<Apps>(context, listen: false).openApp(
+                              Safari(
+                                  key: ObjectKey("safari"),
+                                  initPos: Offset(
+                                      screenWidth(context, mulBy: 0.14),
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxSafari()
+                          );
                         },
                         child: DockerItem(
                           iName: "safari",
@@ -123,9 +152,19 @@ class _DockerState extends State<Docker> {
                         on: false,
                       ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           Provider.of<OnOff>(context, listen: false)
-                              .openSpotify();
+                              .maxSpotify();
+                          Provider.of<Apps>(context, listen: false).openApp(
+                              Spotify(
+                                  key: ObjectKey("spotify"),
+                                  initPos: Offset(
+                                      screenWidth(context, mulBy: 0.14),
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxSpotify()
+                          );
+
                         },
                         child: DockerItem(
                           iName: "spotify",
@@ -133,18 +172,37 @@ class _DockerState extends State<Docker> {
                         ),
                       ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           Provider.of<OnOff>(context, listen: false)
-                              .openTerminal();
+                              .maxTerminal();
+                          Provider.of<Apps>(context, listen: false).openApp(
+                              Terminal(
+                                  key: ObjectKey("terminal"),
+                                  initPos: Offset(
+                                      screenWidth(context, mulBy: 0.28),
+                                      screenHeight(context, mulBy: 0.2))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxTerminal()
+                          );
+
                         },
                         child: DockerItem(
-                        iName: "terminal",
-                        on: terminalOpen,
-                      ),),
+                          iName: "terminal",
+                          on: terminalOpen,
+                        ),
+                      ),
                       InkWell(
-                        onTap: (){
-                          Provider.of<OnOff>(context, listen: false)
-                              .openVS();
+                        onTap: () {
+                          Provider.of<OnOff>(context, listen: false).maxVS();
+                          Provider.of<Apps>(context, listen: false).openApp(
+                              VSCode(
+                                  key: ObjectKey("vscode"),
+                                  initPos: Offset(
+                                      screenWidth(context, mulBy: 0.14),
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false).maxVS()
+                          );
+
                         },
                         child: DockerItem(
                           iName: "vscode",
@@ -160,9 +218,19 @@ class _DockerState extends State<Docker> {
                         on: false,
                       ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           Provider.of<OnOff>(context, listen: false)
-                              .openCalendar();
+                              .maxCalendar();
+                          Provider.of<Apps>(context, listen: false).openApp(
+                              Calendar(
+                                  key: ObjectKey("calendar"),
+                                  initPos: Offset(
+                                      screenWidth(context, mulBy: 0.14),
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxCalendar()
+                          );
+
                         },
                         child: MouseRegion(
                           cursor: SystemMouseCursors.click,
@@ -179,8 +247,10 @@ class _DockerState extends State<Docker> {
                                     Positioned(
                                       top: screenHeight(context, mulBy: 0.01),
                                       child: Container(
-                                        height: screenHeight(context, mulBy: 0.02),
-                                        width: screenWidth(context, mulBy: 0.03),
+                                        height:
+                                            screenHeight(context, mulBy: 0.02),
+                                        width:
+                                            screenWidth(context, mulBy: 0.03),
                                         color: Colors.transparent,
                                         child: FittedBox(
                                           fit: BoxFit.fitHeight,
@@ -200,16 +270,18 @@ class _DockerState extends State<Docker> {
                                     Positioned(
                                       top: screenHeight(context, mulBy: 0.026),
                                       child: Container(
-                                        height: screenHeight(context, mulBy: 0.047),
-                                        width: screenWidth(context, mulBy: 0.03),
+                                        height:
+                                            screenHeight(context, mulBy: 0.047),
+                                        width:
+                                            screenWidth(context, mulBy: 0.03),
                                         color: Colors.transparent,
                                         child: FittedBox(
                                           fit: BoxFit.fitHeight,
                                           child: Text(
                                             "${DateFormat('d').format(now).toUpperCase()}",
                                             style: TextStyle(
-                                                color:
-                                                    Colors.black87.withOpacity(0.8),
+                                                color: Colors.black87
+                                                    .withOpacity(0.8),
                                                 fontFamily: 'SF',
                                                 fontWeight: FontWeight.w400,
                                                 fontSize: 28),
@@ -224,7 +296,11 @@ class _DockerState extends State<Docker> {
                                 height: 4,
                                 width: 4,
                                 decoration: BoxDecoration(
-                                  color: calendarOpen ? Theme.of(context).cardColor.withOpacity(1) : Colors.transparent,
+                                  color: calendarOpen
+                                      ? Theme.of(context)
+                                          .cardColor
+                                          .withOpacity(1)
+                                      : Colors.transparent,
                                   shape: BoxShape.circle,
                                 ),
                               ),
@@ -237,18 +313,35 @@ class _DockerState extends State<Docker> {
                         on: false,
                       ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           Provider.of<OnOff>(context, listen: false)
-                              .openFeedBack();
+                              .maxFeedBack();
+                          Provider.of<Apps>(context, listen: false).openApp(
+                              FeedBack(
+                                  key: ObjectKey("feedback"),
+                                  initPos: Offset(
+                                      screenWidth(context, mulBy: 0.14),
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxFeedBack()
+                          );
                         },
                         child: DockerItem(
                           iName: "feedback",
                           on: fbOpen,
                         ),
                       ),
-                      DockerItem(
-                        iName: "system-preferences",
-                        on: false,
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            Provider.of<Apps>(context, listen: false)
+                                .bringToTop(ObjectKey("finder"));
+                          });
+                        },
+                        child: DockerItem(
+                          iName: "system-preferences",
+                          on: false,
+                        ),
                       ),
                     ],
                   ),
@@ -293,7 +386,9 @@ class _DockerItemState extends State<DockerItem> {
             height: 4,
             width: 4,
             decoration: BoxDecoration(
-              color: widget.on ? Theme.of(context).cardColor.withOpacity(1): Colors.transparent,
+              color: widget.on
+                  ? Theme.of(context).cardColor.withOpacity(1)
+                  : Colors.transparent,
               shape: BoxShape.circle,
             ),
           )

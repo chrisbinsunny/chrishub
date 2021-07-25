@@ -4,31 +4,34 @@ import 'package:flutter/material.dart';
 // var finderOpen = Provider.of<OnOff>(context).getFinder;
 // Provider.of<OnOff>(context, listen: false).toggleFinder();
 
+/// toggle{App}() toggles between the minimized and regular view of the app. Opening
+/// the app is managed by Apps state management.
+
+
 class OnOff extends ChangeNotifier{
 
-  String onTop="finder";
   String fs="";
-  bool ccOpen =true;
-  bool finderOpen =false;
+  bool ccOpen =false;
+  bool finderMax =false;
   bool finderFS = false;
-  bool safariOpen =false;
+  bool safariMax =false;
   bool safariFS = false;
   bool safariPan = false;
   bool finderPan = false;
-  bool vsOpen = false;
+  bool vsMax = false;
   bool vsFS = false;
   bool vsPan = false;
-  bool spotifyOpen = false;
+  bool spotifyMax = false;
   bool spotifyFS = false;
   bool spotifyPan = false;
   bool fsAni= false;
   bool feedBackOpen = false;
   bool feedBackFS = false;
   bool feedBackPan = false;
-  bool calendarOpen = false;
+  bool calendarMax = false;
   bool calendarFS = false;
   bool calendarPan = false;
-  bool terminalOpen = false;
+  bool terminalMax = false;
   bool terminalFS = false;
   bool terminalPan = false;
 
@@ -40,17 +43,9 @@ class OnOff extends ChangeNotifier{
   return fsAni;
 }
 
-  String get getTop {
-    return onTop;
-  }
-
-  set setTop(top) {
-    onTop=top;
-    notifyListeners();
-  }
 
   bool get getFinder {
-    return finderOpen;
+    return finderMax;
   }
 
   bool get getFinderFS {
@@ -58,7 +53,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleFinder() {
-    finderOpen= !finderOpen;
+    finderMax= !finderMax;
     notifyListeners();
   }
 
@@ -88,8 +83,8 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openFinder() {
-    finderOpen= true;
+  void maxFinder() {
+    finderMax= true;
     notifyListeners();
   }
 
@@ -108,7 +103,7 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getSafari {
-    return safariOpen;
+    return safariMax;
   }
 
   bool get getSafariFS {
@@ -116,7 +111,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleSafari() {
-    safariOpen= !safariOpen;
+    safariMax= !safariMax;
     notifyListeners();
   }
 
@@ -146,8 +141,8 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openSafari() {
-    safariOpen= true;
+  void maxSafari() {
+    safariMax= true;
     notifyListeners();
   }
 
@@ -166,7 +161,7 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getVS {
-    return vsOpen;
+    return vsMax;
   }
 
   bool get getVSFS {
@@ -174,7 +169,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleVS() {
-    vsOpen= !vsOpen;
+    vsMax= !vsMax;
     notifyListeners();
   }
 
@@ -204,8 +199,8 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openVS() {
-    vsOpen= true;
+  void maxVS() {
+    vsMax= true;
     notifyListeners();
   }
 
@@ -224,7 +219,7 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getSpotify {
-    return spotifyOpen;
+    return spotifyMax;
   }
 
   bool get getSpotifyFS {
@@ -232,7 +227,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleSpotify() {
-    spotifyOpen= !spotifyOpen;
+    spotifyMax= !spotifyMax;
     notifyListeners();
   }
 
@@ -262,8 +257,8 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openSpotify() {
-    spotifyOpen= true;
+  void maxSpotify() {
+    spotifyMax= true;
     notifyListeners();
   }
 
@@ -282,7 +277,7 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getCalendar {
-    return calendarOpen;
+    return calendarMax;
   }
 
   bool get getCalendarFS {
@@ -290,7 +285,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleCalendar() {
-    calendarOpen= !calendarOpen;
+    calendarMax= !calendarMax;
     notifyListeners();
   }
 
@@ -320,8 +315,8 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openCalendar() {
-    calendarOpen= true;
+  void maxCalendar() {
+    calendarMax= true;
     notifyListeners();
   }
 
@@ -340,7 +335,7 @@ class OnOff extends ChangeNotifier{
   }
 
   bool get getTerminal {
-    return terminalOpen;
+    return terminalMax;
   }
 
   bool get getTerminalFS {
@@ -348,7 +343,7 @@ class OnOff extends ChangeNotifier{
   }
 
   void toggleTerminal() {
-    terminalOpen= !terminalOpen;
+    terminalMax= !terminalMax;
     notifyListeners();
   }
 
@@ -378,8 +373,8 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openTerminal() {
-    terminalOpen= true;
+  void maxTerminal() {
+    terminalMax= true;
     notifyListeners();
   }
 
@@ -436,7 +431,7 @@ class OnOff extends ChangeNotifier{
     });
   }
 
-  void openFeedBack() {
+  void maxFeedBack() {
     feedBackOpen= true;
     notifyListeners();
   }
