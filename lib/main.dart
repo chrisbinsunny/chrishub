@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mac_dt/providers.dart';
+import 'openApps.dart';
 import 'theme/theme.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<BackBone>(
           create: (context) => BackBone(),
+        ),
+        ChangeNotifierProvider<Apps>(
+          create: (context) => Apps(),
         ),
       ],
       child: MaterialApp(

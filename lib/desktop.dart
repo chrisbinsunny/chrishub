@@ -30,31 +30,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   bool finderOpen = true;
-
-
-  //List<Widget> apps= [];
-
-
-@override
-  void initState() {
-    super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      setState(() {
-        appVar.apps.add(Finder(key: ObjectKey("finder"), initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))));
-        appVar.apps.add(Safari(key: ObjectKey("safari"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))));
-        //VSCodeWindow
-        appVar.apps.add(VSCode(key: ObjectKey("vscode"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))));
-        //SpotifyWindow
-        appVar.apps.add(Spotify(key: ObjectKey("spotify"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))));
-        //FeedBack Window
-        appVar.apps.add(FeedBack(initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))));
-        //Calendar Window
-        appVar.apps.add(Calendar(key: ObjectKey("calendar"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))));
-        //Terminal Window
-        appVar.apps.add(Terminal(key: ObjectKey("terminal"), initPos: Offset(screenWidth(context,mulBy:0.28),screenHeight(context,mulBy: 0.2))));
-      });
-    });
-  }
+  
 
 
   @override
@@ -69,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bool calendarOpen = Provider.of<OnOff>(context).getCalendar;
     bool terminalOpen = Provider.of<OnOff>(context).getTerminal;
     double brightness = Provider.of<BackBone>(context).getBrightness;
+    List<Widget> apps= Provider.of<Apps>(context).getApps;
 
     return Scaffold(
       body: Center(
@@ -81,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Image.asset(themeNotifier.isDark()?"assets/wallpapers/bigsur_dark.jpg":"assets/wallpapers/bigsur_light.jpg",  fit: BoxFit.cover,)),
 
             Stack(
-              children: appVar.apps,
+              children: apps,
             ),
 
             //FinderWindow
