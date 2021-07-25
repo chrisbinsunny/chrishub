@@ -6,6 +6,7 @@ import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../components/windowWidgets.dart';
+import '../openApps.dart';
 import '../sizes.dart';
 import '../widgets.dart';
 
@@ -603,14 +604,17 @@ class _FinderState extends State<Finder> {
                                 ),
                               ),
                               onTap: (){
-                                Provider.of<OnOff>(context, listen: false).toggleFinder();
                                 Provider.of<OnOff>(context, listen: false).offFinderFS();
+                                Provider.of<Apps>(context, listen: false).closeApp("finder");
                               },
                             ),
                             SizedBox(
                               width: screenWidth(context, mulBy: 0.005),
                             ),
                             InkWell(
+                              onTap: (){
+                                Provider.of<OnOff>(context, listen: false).toggleFinder();
+                              },
                               child: Container(
                                 height: 11.5,
                                 width: 11.5,

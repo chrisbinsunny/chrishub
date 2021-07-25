@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 // var finderOpen = Provider.of<OnOff>(context).getFinder;
 // Provider.of<OnOff>(context, listen: false).toggleFinder();
 
+/// toggle{App}() toggles between the minimized and regular view of the app. Opening
+/// the app is managed by Apps state management.
+
+
 class OnOff extends ChangeNotifier{
 
   String onTop="finder";

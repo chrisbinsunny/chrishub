@@ -28,12 +28,17 @@ class Apps extends ChangeNotifier{
   }
 
   void openApp(Widget app){
-    apps.add(app);
-    notifyListeners();
+    if(!apps.any((element) => element.key==app.key)) {
+      apps.add(app);
+      notifyListeners();
+    }
+    else
+      bringToTop(app.key);
   }
 
-  void closeApp(ObjectKey appKey){
-    apps.removeWhere((element) => element.key==appKey);
+  void closeApp(String appKey){
+
+    apps.removeWhere((element) => element.key==ObjectKey(appKey));
     notifyListeners();
   }
 
