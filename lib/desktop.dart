@@ -1,25 +1,17 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mac_dt/apps/calendar.dart';
-import 'package:mac_dt/apps/feedback/feedback.dart';
-import 'package:mac_dt/apps/terminal/terminal.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
 import 'package:mac_dt/providers.dart';
-import 'package:mac_dt/safari/safariWindow.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
-import 'apps/maps.dart';
-import 'apps/spotify.dart';
-import 'apps/vscode.dart';
 import 'openApps.dart';
 import 'theme/theme.dart';
 import 'components/docker.dart';
-import 'components/finderWindow.dart';
 import 'fileMenu/fileMenu.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -38,12 +30,6 @@ class _MyHomePageState extends State<MyHomePage> {
     var size= MediaQuery.of(context).size;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen= Provider.of<OnOff>(context).getCc;
-    bool safariOpen = Provider.of<OnOff>(context).getSafari;
-    bool vsOpen = Provider.of<OnOff>(context).getVS;
-    bool spotifyOpen = Provider.of<OnOff>(context).getSpotify;
-    bool fbOpen = Provider.of<OnOff>(context).getFeedBack;
-    bool calendarOpen = Provider.of<OnOff>(context).getCalendar;
-    bool terminalOpen = Provider.of<OnOff>(context).getTerminal;
     double brightness = Provider.of<BackBone>(context).getBrightness;
     List<Widget> apps= Provider.of<Apps>(context).getApps;
 
@@ -60,21 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
             Stack(
               children: apps,
             ),
-
-            //FinderWindow
-            //Finder(key: ObjectKey("finder"), initPos: Offset(screenWidth(context,mulBy:0.2),screenHeight(context,mulBy: 0.18))),
-            //SafariWindow
-           //  Safari(key: ObjectKey("safari"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
-           //  //VSCodeWindow
-           //  VSCode(key: ObjectKey("vscode"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
-           //  //SpotifyWindow
-           //  Spotify(key: ObjectKey("spotify"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
-           //  //FeedBack Window
-           //  FeedBack(initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
-           //  //Calendar Window
-           //  Calendar(key: ObjectKey("calendar"), initPos: Offset(screenWidth(context,mulBy:0.14),screenHeight(context,mulBy: 0.1))),
-           //  //Terminal Window
-           // Visibility(visible: terminalOpen,child: Terminal(key: ObjectKey("terminal"), initPos: Offset(screenWidth(context,mulBy:0.28),screenHeight(context,mulBy: 0.2)))),
 
             // file menu
             FileMenu(),

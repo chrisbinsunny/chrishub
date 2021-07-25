@@ -122,7 +122,14 @@ packages:
       name: pedantic
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.11.0"
+    version: "1.11.1"
+  pointer_interceptor:
+    dependency: "direct main"
+    description:
+      name: pointer_interceptor
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.0+1"
   provider:
     dependency: "direct main"
     description:
@@ -176,7 +183,7 @@ packages:
       name: table_calendar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   term_glyph:
     dependency: transitive
     description:
