@@ -3,9 +3,9 @@ import 'package:flutter/rendering.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
-import '../openApps.dart';
-import '../sizes.dart';
-import '../widgets.dart';
+import '../../openApps.dart';
+import '../../sizes.dart';
+import '../../widgets.dart';
 import 'dart:html' as html;
 import 'dart:ui' as ui;
 
