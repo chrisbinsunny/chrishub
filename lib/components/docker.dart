@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
+import 'package:mac_dt/apps/messages.dart';
 import 'package:provider/provider.dart';
 import '../componentsOnOff.dart';
 import '../openApps.dart';
@@ -19,7 +20,7 @@ import '../apps/spotify.dart';
 import '../apps/terminal/terminal.dart';
 import '../apps/vscode.dart';
 import '../components/finderWindow.dart';
-import '../safari/safariWindow.dart';
+import '../apps/safari/safariWindow.dart';
 
 class Docker extends StatefulWidget {
   const Docker({
@@ -143,9 +144,24 @@ class _DockerState extends State<Docker> {
                           on: safariOpen,
                         ),
                       ),
-                      DockerItem(
-                        iName: "messages",
-                        on: false,
+                      InkWell(
+                        onTap: () {
+                          Provider.of<OnOff>(context, listen: false)
+                              .maxMessages();
+                          Provider.of<Apps>(context, listen: false).openApp(
+                              Messages(
+                                  key: ObjectKey("messages"),
+                                  initPos: Offset(
+                                      screenWidth(context, mulBy: 0.14),
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxMessages()
+                          );
+                        },
+                        child: DockerItem(
+                          iName: "messages",
+                          on: false,
+                        ),
                       ),
                       DockerItem(
                         iName: "maps",

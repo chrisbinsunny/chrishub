@@ -34,6 +34,9 @@ class OnOff extends ChangeNotifier{
   bool terminalMax = false;
   bool terminalFS = false;
   bool terminalPan = false;
+  bool messagesMax = true;
+  bool messagesFS = false;
+  bool messagesPan = false;
 
   String get getFS {
     return fs;
@@ -389,6 +392,62 @@ class OnOff extends ChangeNotifier{
 
   void onTerminalPan() {
     terminalPan= true;
+    notifyListeners();
+  }
+
+  bool get getMessages {
+    return messagesMax;
+  }
+
+  bool get getMessagesFS {
+    return messagesFS;
+  }
+
+  void toggleMessages() {
+    messagesMax= !messagesMax;
+    notifyListeners();
+  }
+
+  void toggleMessagesFS() {
+    bool localFs= fsAni;
+    messagesFS= !messagesFS;
+    if(!localFs){
+      fsAni = true;
+    }
+    notifyListeners();
+    if(localFs){
+      Future.delayed(Duration(milliseconds: 400), () {
+        fsAni = false;
+        notifyListeners();
+      });
+    }
+  }
+
+  void offMessagesFS() {
+    messagesFS= false;
+    notifyListeners();
+    Future.delayed(Duration(milliseconds: 400),(){
+      fsAni=false;
+      notifyListeners();
+    });
+  }
+
+  void maxMessages() {
+    messagesMax= true;
+    notifyListeners();
+  }
+
+  bool get getMessagesPan {
+    return messagesPan;
+  }
+
+  void offMessagesPan() {
+    messagesPan= false;
+    notifyListeners();
+  }
+
+  void onMessagesPan() {
+    messagesPan= true;
     notifyListeners();
   }
 

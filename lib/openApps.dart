@@ -1,16 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:provider/provider.dart';
-
-import 'apps/calendar.dart';
-import 'apps/feedback/feedback.dart';
-import 'apps/spotify.dart';
-import 'apps/terminal/terminal.dart';
-import 'apps/vscode.dart';
-import 'components/finderWindow.dart';
-import 'componentsOnOff.dart';
-import 'safari/safariWindow.dart';
-import 'sizes.dart';
 
 
 class Apps extends ChangeNotifier{
@@ -77,6 +65,8 @@ class Apps extends ChangeNotifier{
       onTop="Calendar";
     else if(apps.last.key==ObjectKey("feedback"))
       onTop="Feedback";
+    else if(apps.last.key==ObjectKey("messages"))
+      onTop="Messages";
 
     notifyListeners();
   }
