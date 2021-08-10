@@ -169,6 +169,7 @@ class _MessagesState extends State<Messages> {
                         SizedBox(
                           height: screenHeight(context, mulBy: 0.028),
                         ),
+                        //Search Box (Fake)
                         Container(
                           height: screenHeight(context, mulBy: 0.035),
                           padding: EdgeInsets.symmetric(
@@ -182,16 +183,11 @@ class _MessagesState extends State<Messages> {
                               width: 0.5
                             )
                           ),
-                          child: Column(
+                          child: Row(
                             children: [
-                              Row(
-                                children: [
-                                  Image.asset("assets/icons/spotlight.png", height: 12, color: Theme.of(context).cardColor.withOpacity(0.3),),
-                                  SizedBox(width: screenWidth(context, mulBy: 0.002),),
-                                  MBPText(text: "Search", color: Theme.of(context).cardColor.withOpacity(0.3),fontFamily: 'HN')
-                                ],
-                              ),
-
+                              Image.asset("assets/icons/spotlight.png", height: 12, color: Theme.of(context).cardColor.withOpacity(0.3),),
+                              SizedBox(width: screenWidth(context, mulBy: 0.002),),
+                              MBPText(text: "Search", color: Theme.of(context).cardColor.withOpacity(0.3),fontFamily: 'HN')
                             ],
                           ),
                         ),
