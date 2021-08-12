@@ -1,1 +1,0 @@
-enum BubbleType { sendBubble, receiverBubble }
