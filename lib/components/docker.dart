@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:mac_dt/apps/messages.dart';
+import 'package:mac_dt/apps/messages/messages.dart';
 import 'package:provider/provider.dart';
 import '../componentsOnOff.dart';
 import '../openApps.dart';
