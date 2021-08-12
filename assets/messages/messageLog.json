@@ -1,0 +1,51 @@
+[
+{
+  "messages": {
+    "sender": [
+      "Hey, Chrisbin",
+      "I have a work for you.",
+      "Can you do it in 1 week?",
+      "Thanks a lot man.."
+    ],
+    "me": [
+      "Hello, Sir",
+      "Can you explain a bit?",
+      "I guess I can do it sir",
+      "You're welcome, sir"
+    ]
+  },
+  "senderName": "Elon Musk",
+  "senderPhoto": "",
+  "dates": [
+    "Mon, 3 May, 11:56 PM"
+  ],
+  "dateStops": [
+    0
+  ]
+},
+  {
+    "messages": {
+      "sender": [
+        "Hey, Chrisbin",
+        "I have a work for you.",
+        "Can you do it in 1 week?",
+        "Thanks a lot man.."
+      ],
+      "me": [
+        "Hello, Sir",
+        "Can you explain a bit?",
+        "I guess I can do it sir",
+        "You're welcome, sir"
+      ]
+    },
+    "senderName": "Steve Jobs",
+    "senderPhoto": "",
+    "dates": [
+      "Mon, 3 May, 11:56 PM"
+    ],
+    "dateStops": [
+      0
+    ]
+  }
+]
+
