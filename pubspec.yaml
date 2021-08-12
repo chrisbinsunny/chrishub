@@ -55,6 +55,7 @@ flutter:
     - assets/icons/
     - assets/apps/
     - assets/caches/
+    - assets/messages/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -80,6 +81,11 @@ flutter:
         weight: 700
       - asset: assets/fonts/SFUIDisplay-Black.otf
         weight: 900
+
+    - family: SFR
+      fonts:
+      - asset: assets/fonts/SFRounded.ttf
+        weight: 500
     - family: Helvetica
       fonts:
       - asset: assets/fonts/Helvetica.ttf
