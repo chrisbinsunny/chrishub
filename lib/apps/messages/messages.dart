@@ -6,12 +6,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:mac_dt/apps/messages/clipper.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../../openApps.dart';
 import '../../sizes.dart';
 import '../../widgets.dart';
+import 'chat_bubble.dart';
+import 'types.dart';
 
 class Messages extends StatefulWidget {
   final Offset initPos;
@@ -401,11 +404,65 @@ class _MessagesState extends State<Messages> {
                               ),
                               Container(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: screenWidth(context, mulBy: 0.013),
-                                    vertical: screenHeight(context, mulBy: 0.03)),
+                                    horizontal: screenWidth(context, mulBy: 0.009),),
                                 height: screenHeight(context,mulBy: 0.52),
                                 decoration: BoxDecoration(
-                                  color: Colors.green
+                                ),
+                                child: ListView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  itemCount: snapshot.data[selectedChat].messages.sender.length,
+                                  controller: scrollController,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      // onTap: () {
+                                      //   setState(() {
+                                      //     selectedChat = index;
+                                      //   });
+                                      // },
+                                      child: Column(
+                                        children: [
+
+                                          ChatBubble(
+                                            clipper: iMessageClipper(type: BubbleType.receiverBubble),
+                                            margin: EdgeInsets.only(top: 5),
+                                            backGroundColor: Color(0xff3b3b3d),
+                                            child: Container(
+                                              constraints: BoxConstraints(
+                                                maxWidth: screenWidth(context,mulBy: 0.15),
+                                              ),
+                                              child: Text(
+                                                "${snapshot.data[selectedChat].messages.sender[index]}",
+                                                style: TextStyle(color: Colors.white,
+                                                fontFamily: 'HN',
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          ChatBubble(
+                                            clipper: iMessageClipper(type: BubbleType.sendBubble),
+                                            alignment: Alignment.topRight,
+                                            margin: EdgeInsets.only(top: 5),
+                                            backGroundColor: Colors.blue,
+                                            child: Container(
+                                              constraints: BoxConstraints(
+                                                maxWidth: screenWidth(context,mulBy: 0.15),
+                                              ),
+                                              child: Text(
+                                                "${snapshot.data[selectedChat].messages.me[index]}",
+                                                style: TextStyle(color: Colors.white,
+                                                    fontFamily: 'HN',
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 12
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
 
