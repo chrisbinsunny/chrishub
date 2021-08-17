@@ -70,3 +70,27 @@ extension StringExtension on String {
 }
 
 
+showAlertDialog(BuildContext context) {
+
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () { },
+  );
+
+  AlertDialog alert = AlertDialog(
+
+    title: Text("My title"),
+    content: Text("This is my message."),
+    actions: [
+      okButton,
+    ],
+  );
+
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}

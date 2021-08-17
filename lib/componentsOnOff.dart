@@ -411,6 +411,7 @@ class OnOff extends ChangeNotifier{
   void toggleMessagesFS() {
     bool localFs= fsAni;
     messagesFS= !messagesFS;
+    fs=(fs=="")?"Messages":"";
     if(!localFs){
       fsAni = true;
     }

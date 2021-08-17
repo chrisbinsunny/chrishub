@@ -34,6 +34,7 @@ class ThemeNotifier with ChangeNotifier {
     dividerColor: Colors.white, // Safari Window color
     dialogBackgroundColor: Colors.white, //feedback body color
     disabledColor: Colors.white, //terminal top color
+    errorColor: Colors.white, //iMessages color
 
 
     primaryTextTheme: TextTheme(
@@ -83,6 +84,7 @@ class ThemeNotifier with ChangeNotifier {
       hintColor: Color(0xff242127).withOpacity(0.3), //window transparency Color
       dialogBackgroundColor: Color(0xff1e1f23), //feedback body color
       disabledColor: Color(0xff39373b), //terminal top color
+      errorColor: Color(0xff1e1e1e), //iMessages color
       primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey[200],
