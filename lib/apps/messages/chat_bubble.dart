@@ -43,9 +43,9 @@ class ChatBubble extends StatelessWidget {
   EdgeInsets setPadding() {
     if (clipper is iMessageClipper) {
       if ((clipper as iMessageClipper).type == BubbleType.sendBubble) {
-        return EdgeInsets.only(top: 8, bottom: 8, left: 10, right: 20);
+        return EdgeInsets.only(top: 6, bottom: 6, left: 10, right: 16);
       } else {
-        return EdgeInsets.only(top: 8, bottom: 8, left: 20, right: 10);
+        return EdgeInsets.only(top: 6, bottom: 6, left: 16, right: 10);
       }
     }
 

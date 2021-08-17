@@ -9,7 +9,7 @@ class iMessageClipper extends CustomClipper<Path> {
   final double radius;
   final double nipSize;
 
-  iMessageClipper({this.type, this.radius = 15, this.nipSize = 7});
+  iMessageClipper({this.type, this.radius = 13, this.nipSize = 4});
 
   @override
   Path getClip(Size size) {
