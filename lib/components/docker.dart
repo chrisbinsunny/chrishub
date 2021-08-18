@@ -45,6 +45,7 @@ class _DockerState extends State<Docker> {
   Widget build(BuildContext context) {
     bool safariOpen = Provider.of<Apps>(context).isOpen(ObjectKey("safari"));
     bool vsOpen = Provider.of<Apps>(context).isOpen(ObjectKey("vscode"));
+    bool messageOpen = Provider.of<Apps>(context).isOpen(ObjectKey("messages"));
     bool spotifyOpen = Provider.of<Apps>(context).isOpen(ObjectKey("spotify"));
     String fs = Provider.of<OnOff>(context).getFS;
     bool fsAni = Provider.of<OnOff>(context).getFSAni;
@@ -160,7 +161,7 @@ class _DockerState extends State<Docker> {
                         },
                         child: DockerItem(
                           iName: "messages",
-                          on: false,
+                          on: messageOpen,
                         ),
                       ),
                       DockerItem(

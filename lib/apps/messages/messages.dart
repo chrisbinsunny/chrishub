@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:html';
 import 'dart:ui';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -49,18 +50,6 @@ class _MessagesState extends State<Messages> {
     messageRecords = readMessages();
     selectedChat = 0;
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_)  {
-      print("yoyo1");
-
-      if(chatScrollController.hasClients) {
-        print("yoyo2");
-        chatScrollController.jumpTo(
-          chatScrollController.position.maxScrollExtent,
-        );
-      }
-      print("yoyo3");
-
-    });
   }
 
   @override
@@ -477,10 +466,15 @@ class _MessagesState extends State<Messages> {
                                           size: 12,
                                         ),
                                         Spacer(),
-                                        Icon(
-                                          Icons.info_outline_rounded,
-                                          color: Color(0xff9b999b),
-                                          size: 20,
+                                        InkWell(
+                                          onTap: (){
+
+                                          },
+                                          child: Icon(
+                                            Icons.info_outline_rounded,
+                                            color: Color(0xff9b999b),
+                                            size: 20,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -707,6 +701,15 @@ class _MessagesState extends State<Messages> {
               )
             ],
           ),
+          // CustomPaint(
+          //   size: Size(250,(250*1.5625).toDouble()),
+          //   painter: RPSCustomPainter(),
+          // ),
+          Container(
+            decoration: ShapeDecoration(
+              shape: RPSCustomPainter()
+            ),
+          ),
           GestureDetector(
             onPanUpdate: (tapInfo) {
               if (!messagesFS) {
@@ -751,6 +754,7 @@ class _MessagesState extends State<Messages> {
               ),
             ),
           ),
+
         ],
       ),
     );
@@ -797,3 +801,46 @@ class MainMessage {
         sender: List<String>.from(json["sender"]));
   }
 }
+
+class RPSCustomPainter extends ShapeBorder{
+
+  @override
+  void paint(Canvas canvas, Size size) {
+
+
+
+    Paint paint_0 = new Paint()
+      ..color = Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1;
+
+
+    Path path_0 = Path();
+    path_0.moveTo(size.width*0.0531250,size.height*0.0720000);
+    path_0.quadraticBezierTo(size.width*0.0521250,size.height*0.0473000,size.width*0.0937500,size.height*0.0480000);
+    path_0.quadraticBezierTo(size.width*0.3445313,size.height*0.0477600,size.width*0.4335938,size.height*0.0472600);
+    path_0.cubicTo(size.width*0.4711250,size.height*0.0469400,size.width*0.4671875,size.height*0.0455800,size.width*0.4779063,size.height*0.0396200);
+    path_0.quadraticBezierTo(size.width*0.4812812,size.height*0.0367000,size.width*0.4993750,size.height*0.0233600);
+    path_0.quadraticBezierTo(size.width*0.5146875,size.height*0.0368000,size.width*0.5206250,size.height*0.0404000);
+    path_0.cubicTo(size.width*0.5328125,size.height*0.0485000,size.width*0.5372500,size.height*0.0457400,size.width*0.5621875,size.height*0.0470000);
+    path_0.cubicTo(size.width*0.6450781,size.height*0.0472500,size.width*0.8108594,size.height*0.0477500,size.width*0.8937500,size.height*0.0480000);
+    path_0.quadraticBezierTo(size.width*0.9511875,size.height*0.0447200,size.width*0.9468750,size.height*0.0760000);
+    path_0.quadraticBezierTo(size.width*0.9468750,size.height*0.7315000,size.width*0.9468750,size.height*0.9500000);
+    path_0.quadraticBezierTo(size.width*0.9474687,size.height*0.9778600,size.width*0.9062500,size.height*0.9740000);
+    path_0.quadraticBezierTo(size.width*0.2921875,size.height*0.9755000,size.width*0.0875000,size.height*0.9760000);
+    path_0.quadraticBezierTo(size.width*0.0496562,size.height*0.9752400,size.width*0.0531250,size.height*0.9480000);
+    path_0.quadraticBezierTo(size.width*0.0531250,size.height*0.7290000,size.width*0.0531250,size.height*0.0720000);
+    path_0.close();
+
+    canvas.drawPath(path_0, paint_0);
+
+
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
+}
+
