@@ -469,6 +469,7 @@ class _MessagesState extends State<Messages> {
                                           size: 12,
                                         ),
                                         Spacer(),
+                                        ///The info screen on/off function has been moved to outer stack.
                                         Icon(
                                           Icons.info_outline_rounded,
                                           color: Color(0xff9b999b),
@@ -715,7 +716,7 @@ class _MessagesState extends State<Messages> {
                     clipper: DetailsClipper(),
                     child: BackdropFilter(
                       filter: ImageFilter.blur(
-                          sigmaX: 15.0, sigmaY: 15.0),
+                          sigmaX: 25.0, sigmaY: 25.0),
                       child: CustomPaint(
                         size: Size(screenWidth(context, mulBy: 0.16),screenHeight(context, mulBy: .45)),
                         painter: DetailsPainter(context, false),
@@ -727,6 +728,52 @@ class _MessagesState extends State<Messages> {
                     size: Size(screenWidth(context, mulBy: 0.16),screenHeight(context, mulBy: .45)),
                     painter: DetailsPainter(context, true),
                     isComplex: true,
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: new LinearGradient(
+                                  colors: [
+                                    Color(0xff6d6d6d),
+                                    Color(0xff484848)
+                                  ],
+                                  begin:
+                                  const FractionalOffset(
+                                      0, 0),
+                                  end:
+                                  const FractionalOffset(
+                                      0, 1),
+                                  stops: [0.0, 1.0],
+                                  tileMode:
+                                  TileMode.clamp),
+                            ),
+                            height: screenHeight(
+                                context,
+                                mulBy: 0.055),
+                            width: screenHeight(
+                                context,
+                                mulBy: 0.055),
+                            padding: EdgeInsets.all(
+                                screenHeight(context,
+                                    mulBy: 0.01)),
+                            child: MBPText(
+                              text:
+                              "${snapshot.data[index].senderName.toString().getInitials().capitalize()}",
+                              color: Colors.white,
+                              fontFamily: "SFR",
+                              size: 25,
+                              weight: FontWeight.w500,
+                              overflow:
+                              TextOverflow.fade,
+                              maxLines: 1,
+                              softWrap: false,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
