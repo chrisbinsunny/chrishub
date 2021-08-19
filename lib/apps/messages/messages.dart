@@ -34,8 +34,9 @@ class _MessagesState extends State<Messages> {
   Future messageRecords;
   ScrollController chatScrollController = new ScrollController();
   ScrollController nameScrollController = new ScrollController();
-  int selectedChat;
+  int selectedChatIndex;
   bool info;
+  MessageContent selectedChat;
 
   Future<List<MessageContent>> readMessages() async {
     var data = json
@@ -49,7 +50,7 @@ class _MessagesState extends State<Messages> {
   void initState() {
     position = widget.initPos;
     messageRecords = readMessages();
-    selectedChat = 0;
+    selectedChatIndex = 0;
     info= false;
     super.initState();
   }
@@ -248,7 +249,8 @@ class _MessagesState extends State<Messages> {
                                         return InkWell(
                                           onTap: () {
                                             setState(() {
-                                              selectedChat = index;
+                                              selectedChatIndex = index;
+                                              selectedChat=  snapshot.data[index];
                                             });
                                           },
                                           child: Column(
@@ -265,7 +267,7 @@ class _MessagesState extends State<Messages> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5),
-                                                    color: selectedChat == index
+                                                    color: selectedChatIndex == index
                                                         ? Color(0xff0b84ff)
                                                         : Colors.transparent),
                                                 child: Row(
@@ -352,7 +354,7 @@ class _MessagesState extends State<Messages> {
                                                                       context)
                                                                   .cardColor
                                                                   .withOpacity(
-                                                                      selectedChat ==
+                                                                      selectedChatIndex ==
                                                                               index
                                                                           ? 1
                                                                           : .6),
@@ -378,9 +380,9 @@ class _MessagesState extends State<Messages> {
                                               ),
                                               Align(
                                                 child: Container(
-                                                  color: ((selectedChat ==
+                                                  color: ((selectedChatIndex ==
                                                               index) ||
-                                                          (selectedChat - 1 ==
+                                                          (selectedChatIndex - 1 ==
                                                               index))
                                                       ? Colors.transparent
                                                       : Theme.of(context)
@@ -413,6 +415,284 @@ class _MessagesState extends State<Messages> {
                   ),
                 ),
               ),
+              // (selectedChat!=null)?
+              // Expanded(
+              //   child: ClipRRect(
+              //     borderRadius: BorderRadius.only(
+              //         topRight: Radius.circular(10),
+              //         bottomRight: Radius.circular(10)),
+              //     child: Container(
+              //       decoration: BoxDecoration(
+              //         color: Theme.of(context).errorColor,
+              //         border: Border(
+              //             left: BorderSide(
+              //                 color: Colors.black, width: 0.8)),
+              //       ),
+              //       child: Stack(
+              //         alignment: Alignment.bottomCenter,
+              //         children: [
+              //           Column(
+              //             children: [
+              //               Container(
+              //                 height: screenHeight(context, mulBy: 0.07),
+              //                 width: double.infinity,
+              //                 padding: EdgeInsets.symmetric(
+              //                   horizontal:
+              //                   screenWidth(context, mulBy: 0.013),
+              //                   //vertical: screenHeight(context, mulBy: 0.03)
+              //                 ),
+              //                 decoration: BoxDecoration(
+              //                     color: Color(0xff3b393b),
+              //                     border: Border(
+              //                         bottom: BorderSide(
+              //                             color: Colors.black,
+              //                             width: 0.7))),
+              //                 child: Row(
+              //                   children: [
+              //                     MBPText(
+              //                       text: "To:",
+              //                       color: Color(0xff747374),
+              //                       fontFamily: "HN",
+              //                       weight: FontWeight.w500,
+              //                       size: 11,
+              //                     ),
+              //                     MBPText(
+              //                       text:
+              //                       " ${selectedChat.senderName}",
+              //                       color: Theme.of(context)
+              //                           .cardColor
+              //                           .withOpacity(1),
+              //                       fontFamily: 'HN',
+              //                       weight: FontWeight.w400,
+              //                       size: 12,
+              //                     ),
+              //                     Spacer(),
+              //                     ///The info screen on/off function has been moved to outer stack.
+              //                     Icon(
+              //                       Icons.info_outline_rounded,
+              //                       color: Color(0xff9b999b),
+              //                       size: 20,
+              //                     ),
+              //                   ],
+              //                 ),
+              //               ),
+              //               Expanded(
+              //                 child: Container(
+              //                   padding: EdgeInsets.symmetric(),
+              //                   decoration: BoxDecoration(),
+              //                   child: ScrollConfiguration(
+              //                     //TODO Scrollbar
+              //                     ///turned off scrollbar, coz of weird reverse scrollbar
+              //                     behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false ),
+              //                     child: ListView.builder(
+              //                       ///For viewing the last chat when the screen opens. Using index in reverse.
+              //                       reverse: selectedChat
+              //                           .messages.sender.length >
+              //                           7,
+              //                       padding: EdgeInsets.only(
+              //                         bottom: screenHeight(context,
+              //                             mulBy: 0.085),
+              //                         top: screenHeight(context,
+              //                             mulBy: 0.045),
+              //                         left: screenWidth(context, mulBy: 0.009),
+              //                         right: screenWidth(context, mulBy: 0.009),
+              //
+              //                       ),
+              //                       physics: BouncingScrollPhysics(),
+              //                       itemCount: selectedChat
+              //                           .messages.sender.length,
+              //                       controller: chatScrollController,
+              //                       itemBuilder: (context, index) {
+              //                         if (selectedChat
+              //                             .messages.sender.length >
+              //                             7)
+              //                           reversedIndex = selectedChat
+              //                               .messages
+              //                               .sender
+              //                               .length -
+              //                               1 -
+              //                               index;
+              //                         else
+              //                           reversedIndex = index;
+              //                         print(reversedIndex);
+              //                         return Column(
+              //                           children: [
+              //                             if (selectedChat
+              //                                 .dateStops
+              //                                 .contains(reversedIndex))
+              //                               MBPText(
+              //                                 text:
+              //                                 "${selectedChat.dates[selectedChat.dateStops.indexOf(reversedIndex)]}",
+              //                                 color: Theme.of(context)
+              //                                     .cardColor
+              //                                     .withOpacity(0.6),
+              //                                 fontFamily: "HN",
+              //                                 size: 10,
+              //                               ),
+              //                             ChatBubble(
+              //                               clipper: iMessageClipper(
+              //                                   type: BubbleType
+              //                                       .receiverBubble),
+              //                               margin:
+              //                               EdgeInsets.only(top: 5),
+              //                               backGroundColor:
+              //                               Color(0xff3b3b3d),
+              //                               child: Container(
+              //                                 constraints: BoxConstraints(
+              //                                   maxWidth: screenWidth(
+              //                                       context,
+              //                                       mulBy: 0.15),
+              //                                 ),
+              //                                 child: Text(
+              //                                   "${selectedChat.messages.sender[reversedIndex]}",
+              //                                   style: TextStyle(
+              //                                       color: Colors.white,
+              //                                       fontFamily: 'HN',
+              //                                       fontWeight:
+              //                                       FontWeight.w400,
+              //                                       fontSize: 12),
+              //                                 ),
+              //                               ),
+              //                             ),
+              //                             ChatBubble(
+              //                               clipper: iMessageClipper(
+              //                                   type: BubbleType
+              //                                       .sendBubble),
+              //                               alignment: Alignment.topRight,
+              //                               margin:
+              //                               EdgeInsets.only(top: 5),
+              //                               backGroundColor:
+              //                               Color(0xff1f8bff),
+              //                               child: Container(
+              //                                 constraints: BoxConstraints(
+              //                                   maxWidth: screenWidth(
+              //                                       context,
+              //                                       mulBy: 0.15),
+              //                                 ),
+              //                                 child: Text(
+              //                                   "${selectedChat.messages.me[reversedIndex]}",
+              //                                   style: TextStyle(
+              //                                       color: Colors.white,
+              //                                       fontFamily: 'HN',
+              //                                       fontWeight:
+              //                                       FontWeight.w400,
+              //                                       fontSize: 12),
+              //                                 ),
+              //                               ),
+              //                             ),
+              //                           ],
+              //                         );
+              //                       },
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //           ClipRect(
+              //             child: BackdropFilter(
+              //               filter: ImageFilter.blur(
+              //                   sigmaX: 15.0, sigmaY: 15.0),
+              //               child: Container(
+              //                 height: screenHeight(context, mulBy: 0.055),
+              //                 width: double.infinity,
+              //                 decoration: BoxDecoration(
+              //                   color: Theme.of(context)
+              //                       .scaffoldBackgroundColor
+              //                       .withOpacity(0.5),
+              //                 ),
+              //                 child: Row(
+              //                   mainAxisAlignment:
+              //                   MainAxisAlignment.spaceEvenly,
+              //                   children: [
+              //                     Image.asset(
+              //                       "assets/messages/store.png",
+              //                       height: 23,
+              //                     ),
+              //                     InkWell(
+              //                       //onTap: (){showAlertDialog(context);},
+              //                       child: AnimatedContainer(
+              //                         duration:
+              //                         Duration(milliseconds: 200),
+              //                         width: screenWidth(context,
+              //                             mulBy:
+              //                             messagesFS ? 0.73 : 0.27),
+              //                         height: screenHeight(context,
+              //                             mulBy: 0.032),
+              //                         padding: EdgeInsets.only(
+              //                             left: screenWidth(context,
+              //                                 mulBy: 0.008),
+              //                             right: screenWidth(context,
+              //                                 mulBy: 0.005)),
+              //                         decoration: BoxDecoration(
+              //                             color: Theme.of(context)
+              //                                 .scaffoldBackgroundColor,
+              //                             borderRadius:
+              //                             BorderRadius.circular(50),
+              //                             border: Border.all(
+              //                                 color: Theme.of(context)
+              //                                     .cardColor
+              //                                     .withOpacity(0.2))),
+              //                         child: Row(
+              //                           mainAxisAlignment:
+              //                           MainAxisAlignment
+              //                               .spaceBetween,
+              //                           children: [
+              //                             Padding(
+              //                               padding: EdgeInsets.symmetric(
+              //                                 vertical: screenHeight(
+              //                                     context,
+              //                                     mulBy: 0.0052),
+              //                               ),
+              //                               child: Text(
+              //                                 "iMessage",
+              //                                 style: TextStyle(
+              //                                     color: Theme.of(context)
+              //                                         .cardColor
+              //                                         .withOpacity(0.2),
+              //                                     fontFamily: 'HN',
+              //                                     fontWeight:
+              //                                     FontWeight.w400,
+              //                                     fontSize: 12),
+              //                               ),
+              //                             ),
+              //                             Image.asset(
+              //                               "assets/messages/voice.png",
+              //                               height: 23,
+              //                             ),
+              //                           ],
+              //                         ),
+              //                       ),
+              //                     ),
+              //                     Image.asset(
+              //                       "assets/messages/emoji.png",
+              //                       height: 23,
+              //                     ),
+              //                   ],
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ):
+              // Theme(
+              //     data: ThemeData(
+              //         cupertinoOverrideTheme:
+              //         CupertinoThemeData(brightness: Brightness.dark)),
+              //     child: Expanded(
+              //         child: Container(
+              //             decoration: BoxDecoration(
+              //               borderRadius: BorderRadius.only(
+              //                   topRight: Radius.circular(10),
+              //                   bottomRight: Radius.circular(10)),
+              //               color:
+              //               Theme.of(context).scaffoldBackgroundColor,
+              //             ),
+              //             child: Center(
+              //                 child: CupertinoActivityIndicator())))),
               FutureBuilder(
                 future: messageRecords,
                 builder: (context, snapshot) {
@@ -460,7 +740,7 @@ class _MessagesState extends State<Messages> {
                                         ),
                                         MBPText(
                                           text:
-                                              " ${snapshot.data[selectedChat].senderName}",
+                                              " ${snapshot.data[selectedChatIndex].senderName}",
                                           color: Theme.of(context)
                                               .cardColor
                                               .withOpacity(1),
@@ -488,7 +768,7 @@ class _MessagesState extends State<Messages> {
                                         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false ),
                                         child: ListView.builder(
                                           ///For viewing the last chat when the screen opens. Using index in reverse.
-                                          reverse: snapshot.data[selectedChat]
+                                          reverse: snapshot.data[selectedChatIndex]
                                                   .messages.sender.length >
                                               7,
                                           padding: EdgeInsets.only(
@@ -501,15 +781,15 @@ class _MessagesState extends State<Messages> {
 
                                           ),
                                           physics: BouncingScrollPhysics(),
-                                          itemCount: snapshot.data[selectedChat]
+                                          itemCount: snapshot.data[selectedChatIndex]
                                               .messages.sender.length,
                                           controller: chatScrollController,
                                           itemBuilder: (context, index) {
-                                            if (snapshot.data[selectedChat]
+                                            if (snapshot.data[selectedChatIndex]
                                                     .messages.sender.length >
                                                 7)
                                               reversedIndex = snapshot
-                                                      .data[selectedChat]
+                                                      .data[selectedChatIndex]
                                                       .messages
                                                       .sender
                                                       .length -
@@ -519,12 +799,12 @@ class _MessagesState extends State<Messages> {
                                               reversedIndex = index;
                                             return Column(
                                               children: [
-                                                if (snapshot.data[selectedChat]
+                                                if (snapshot.data[selectedChatIndex]
                                                     .dateStops
                                                     .contains(reversedIndex))
                                                   MBPText(
                                                     text:
-                                                        "${snapshot.data[selectedChat].dates[snapshot.data[selectedChat].dateStops.indexOf(reversedIndex)]}",
+                                                        "${snapshot.data[selectedChatIndex].dates[snapshot.data[selectedChatIndex].dateStops.indexOf(reversedIndex)]}",
                                                     color: Theme.of(context)
                                                         .cardColor
                                                         .withOpacity(0.6),
@@ -546,7 +826,7 @@ class _MessagesState extends State<Messages> {
                                                           mulBy: 0.15),
                                                     ),
                                                     child: Text(
-                                                      "${snapshot.data[selectedChat].messages.sender[reversedIndex]}",
+                                                      "${snapshot.data[selectedChatIndex].messages.sender[reversedIndex]}",
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontFamily: 'HN',
@@ -572,7 +852,7 @@ class _MessagesState extends State<Messages> {
                                                           mulBy: 0.15),
                                                     ),
                                                     child: Text(
-                                                      "${snapshot.data[selectedChat].messages.me[reversedIndex]}",
+                                                      "${snapshot.data[selectedChatIndex].messages.me[reversedIndex]}",
                                                       style: TextStyle(
                                                           color: Colors.white,
                                                           fontFamily: 'HN',
@@ -760,7 +1040,8 @@ class _MessagesState extends State<Messages> {
                                     mulBy: 0.01)),
                             child: MBPText(
                               text:
-                              "${snapshot.data[index].senderName.toString().getInitials().capitalize()}",
+                              // "${snapshot.data[index].senderName.toString().getInitials().capitalize()}",
+                              "Yo Mahn",
                               color: Colors.white,
                               fontFamily: "SFR",
                               size: 25,
