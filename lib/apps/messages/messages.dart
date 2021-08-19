@@ -35,6 +35,7 @@ class _MessagesState extends State<Messages> {
   ScrollController chatScrollController = new ScrollController();
   ScrollController nameScrollController = new ScrollController();
   int selectedChat;
+  bool info;
 
   Future<List<MessageContent>> readMessages() async {
     var data = json
@@ -49,6 +50,7 @@ class _MessagesState extends State<Messages> {
     position = widget.initPos;
     messageRecords = readMessages();
     selectedChat = 0;
+    info= false;
     super.initState();
   }
 
@@ -94,6 +96,7 @@ class _MessagesState extends State<Messages> {
       ),
       child: Stack(
         alignment: Alignment.topRight,
+        clipBehavior: Clip.none,
         children: [
           Row(
             children: [
@@ -466,15 +469,10 @@ class _MessagesState extends State<Messages> {
                                           size: 12,
                                         ),
                                         Spacer(),
-                                        InkWell(
-                                          onTap: (){
-
-                                          },
-                                          child: Icon(
-                                            Icons.info_outline_rounded,
-                                            color: Color(0xff9b999b),
-                                            size: 20,
-                                          ),
+                                        Icon(
+                                          Icons.info_outline_rounded,
+                                          color: Color(0xff9b999b),
+                                          size: 20,
                                         ),
                                       ],
                                     ),
@@ -705,9 +703,33 @@ class _MessagesState extends State<Messages> {
           //   size: Size(250,(250*1.5625).toDouble()),
           //   painter: RPSCustomPainter(),
           // ),
-          Container(
-            decoration: ShapeDecoration(
-              shape: RPSCustomPainter()
+
+          Visibility(
+            visible: info,
+            child: Positioned(
+              top: screenHeight(context, mulBy: 0.043),
+              right: screenWidth(context, mulBy: -0.06),
+              child: Stack(
+                children: [
+                  ClipPath(
+                    clipper: DetailsClipper(),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: 15.0, sigmaY: 15.0),
+                      child: CustomPaint(
+                        size: Size(screenWidth(context, mulBy: 0.16),screenHeight(context, mulBy: .45)),
+                        painter: DetailsPainter(context, false),
+                        isComplex: true,
+                      ),
+                    ),
+                  ),
+                  CustomPaint(
+                    size: Size(screenWidth(context, mulBy: 0.16),screenHeight(context, mulBy: .45)),
+                    painter: DetailsPainter(context, true),
+                    isComplex: true,
+                  ),
+                ],
+              ),
             ),
           ),
           GestureDetector(
@@ -736,9 +758,27 @@ class _MessagesState extends State<Messages> {
                 height: screenHeight(context, mulBy: 0.04),
                 color: Colors.transparent),
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+    horizontal:
+    screenWidth(context, mulBy: 0.013),
+    ),
+            child: InkWell(
+              onTap: (){
+                setState(() {
+                  info=!info;
+                });
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                height: screenHeight(context,mulBy: 0.06),
+                width: screenWidth(context,mulBy: 0.027),
+              ),
+            ),
+          ),
           Visibility(
             visible: topApp != "Messages",
-            child: InkWell(
+            child: GestureDetector(
               onTap: () {
                 Provider.of<Apps>(context, listen: false)
                     .bringToTop(ObjectKey("messages"));
@@ -802,18 +842,26 @@ class MainMessage {
   }
 }
 
-class RPSCustomPainter extends ShapeBorder{
+class DetailsPainter extends CustomPainter{
 
+  BuildContext context;
+  bool stroke;
+  DetailsPainter(this.context,this.stroke);
   @override
   void paint(Canvas canvas, Size size) {
 
 
 
     Paint paint_0 = new Paint()
-      ..color = Color.fromARGB(255, 33, 150, 243)
-      ..style = PaintingStyle.fill
+      ..color = Colors.white.withOpacity(0.3)
+      ..style = PaintingStyle.stroke
+      ..strokeJoin= StrokeJoin.round
       ..strokeWidth = 1;
 
+    Paint paint_1 = new Paint()
+      ..color = Theme.of(context).scaffoldBackgroundColor.withOpacity(0.2)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1;
 
     Path path_0 = Path();
     path_0.moveTo(size.width*0.0531250,size.height*0.0720000);
@@ -832,15 +880,43 @@ class RPSCustomPainter extends ShapeBorder{
     path_0.quadraticBezierTo(size.width*0.0531250,size.height*0.7290000,size.width*0.0531250,size.height*0.0720000);
     path_0.close();
 
-    canvas.drawPath(path_0, paint_0);
+    canvas.drawPath(path_0, stroke?paint_0:paint_1);
 
 
   }
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
+    return false;
   }
 
 }
 
+class DetailsClipper extends CustomClipper<Path> {
+  DetailsClipper({this.borderRadius = 15});
+  final double borderRadius;
+  @override
+  Path getClip(Size size) {
+
+    Path path_0 = Path();
+    path_0.moveTo(size.width*0.0531250,size.height*0.0720000);
+    path_0.quadraticBezierTo(size.width*0.0521250,size.height*0.0473000,size.width*0.0937500,size.height*0.0480000);
+    path_0.quadraticBezierTo(size.width*0.3445313,size.height*0.0477600,size.width*0.4335938,size.height*0.0472600);
+    path_0.cubicTo(size.width*0.4711250,size.height*0.0469400,size.width*0.4671875,size.height*0.0455800,size.width*0.4779063,size.height*0.0396200);
+    path_0.quadraticBezierTo(size.width*0.4812812,size.height*0.0367000,size.width*0.4993750,size.height*0.0233600);
+    path_0.quadraticBezierTo(size.width*0.5146875,size.height*0.0368000,size.width*0.5206250,size.height*0.0404000);
+    path_0.cubicTo(size.width*0.5328125,size.height*0.0485000,size.width*0.5372500,size.height*0.0457400,size.width*0.5621875,size.height*0.0470000);
+    path_0.cubicTo(size.width*0.6450781,size.height*0.0472500,size.width*0.8108594,size.height*0.0477500,size.width*0.8937500,size.height*0.0480000);
+    path_0.quadraticBezierTo(size.width*0.9511875,size.height*0.0447200,size.width*0.9468750,size.height*0.0760000);
+    path_0.quadraticBezierTo(size.width*0.9468750,size.height*0.7315000,size.width*0.9468750,size.height*0.9500000);
+    path_0.quadraticBezierTo(size.width*0.9474687,size.height*0.9778600,size.width*0.9062500,size.height*0.9740000);
+    path_0.quadraticBezierTo(size.width*0.2921875,size.height*0.9755000,size.width*0.0875000,size.height*0.9760000);
+    path_0.quadraticBezierTo(size.width*0.0496562,size.height*0.9752400,size.width*0.0531250,size.height*0.9480000);
+    path_0.quadraticBezierTo(size.width*0.0531250,size.height*0.7290000,size.width*0.0531250,size.height*0.0720000);
+    path_0.close();
+    return path_0;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+}
