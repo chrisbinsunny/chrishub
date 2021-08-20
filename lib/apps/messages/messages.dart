@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:mac_dt/apps/messages/clipper.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:provider/provider.dart';
@@ -262,7 +263,8 @@ class _MessagesState extends State<Messages> {
                                                     left: screenWidth(context,
                                                         mulBy: 0.01),
                                                     right: screenWidth(context,
-                                                        mulBy: 0.008)),
+                                                        mulBy: 0.008),
+                                                ),
                                                 decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -374,6 +376,23 @@ class _MessagesState extends State<Messages> {
                                                               mulBy: 0.01),
                                                         )
                                                       ],
+                                                    ),
+                                                    Spacer(),
+                                                    Align(
+                                                      alignment: Alignment.topCenter,
+                                                      child: Padding(
+                                                        padding: EdgeInsets.only(top: screenHeight(context,
+                                                            mulBy: 0.01),),
+                                                        child: MBPText(
+                                                          text:
+                                                          "${DateFormat("d/M/yy").format(DateTime.parse(snapshot.data[index].dates.last))}",
+                                                          color: Theme.of(context)
+                                                              .cardColor
+                                                              .withOpacity(0.6),
+                                                          fontFamily: "HN",
+                                                          size: 11.5,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -528,7 +547,7 @@ class _MessagesState extends State<Messages> {
                                                     .contains(reversedIndex))
                                                   MBPText(
                                                     text:
-                                                        "${snapshot.data[selectedChatIndex].dates[snapshot.data[selectedChatIndex].dateStops.indexOf(reversedIndex)]}",
+                                                        "${DateFormat("EEE, d MMM, hh:mm a").format(DateTime.parse(snapshot.data[selectedChatIndex].dates[snapshot.data[selectedChatIndex].dateStops.indexOf(reversedIndex)]))}",
                                                     color: Theme.of(context)
                                                         .cardColor
                                                         .withOpacity(0.6),
