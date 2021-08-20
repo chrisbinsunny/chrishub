@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
 import 'package:mac_dt/providers.dart';
+import 'package:mac_dt/rightClickMenu.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
@@ -37,26 +38,42 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Stack(
           children: <Widget>[
-            //wallpaper
-            Container(
-                height:size.height,
-                width: size.width,
-                child: Image.asset(themeNotifier.isDark()?"assets/wallpapers/bigsur_dark.jpg":"assets/wallpapers/bigsur_light.jpg",  fit: BoxFit.cover,)),
+            ///wallpaper
+            GestureDetector(
+              onSecondaryTap: (){
+                Provider.of<OnOff>(context, listen: false).offRCM();
+                Provider.of<OnOff>(context, listen: false).onRCM();
+              },
+              onTap: (){
+                Provider.of<OnOff>(context, listen: false).offRCM();
+              },
+              child: Container(
+                  height:size.height,
+                  width: size.width,
+                  child: Image.asset(themeNotifier.isDark()?"assets/wallpapers/bigsur_dark.jpg":"assets/wallpapers/bigsur_light.jpg",  fit: BoxFit.cover,)),
+            ),
 
+            ///Right Click Context Menu
+            RightClick(
+                initPos: Offset(
+                    screenWidth(context, mulBy: 0.14),
+                    screenHeight(context, mulBy: 0.1))),
+
+            ///Applications
             Stack(
               children: apps,
             ),
 
-            // file menu
+            /// file menu
             FileMenu(),
 
             //TODO State change of widgets under this will cause iFrame HTMLView to reload. Engine Fix required.
             /// Track the issue here: https://github.com/flutter/flutter/issues/80524
 
-            //docker bar
+            ///docker bar
             Docker(),
 
-            //Click to dismiss Control Centre
+           ///Click to dismiss Control Centre
             ccOpen?InkWell(
               onTap: (){
                 Provider.of<OnOff>(context, listen: false).offCc();
@@ -67,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),):Container(),
 
 
-            //Control Centre
+            ///Control Centre
             Positioned(
               top: screenHeight(context,mulBy: 0.035),
               child: Container(
@@ -81,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
-            //Control Brightness
+            ///Control Brightness
             IgnorePointer(
               ignoring: true,
               child: Opacity(
