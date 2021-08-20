@@ -37,6 +37,7 @@ class OnOff extends ChangeNotifier{
   bool messagesMax = true;
   bool messagesFS = false;
   bool messagesPan = false;
+  bool rightClickMenu = false;
 
   String get getFS {
     return fs;
@@ -521,6 +522,20 @@ class OnOff extends ChangeNotifier{
 
   void offCc() {
     ccOpen= false;
+    notifyListeners();
+  }
+
+  bool get getRCM {
+    return rightClickMenu;
+  }
+
+  void onRCM() {
+    rightClickMenu= true;
+    notifyListeners();
+  }
+
+  void offRCM() {
+    rightClickMenu= false;
     notifyListeners();
   }
 
