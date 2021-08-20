@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:mac_dt/providers.dart';
 import 'openApps.dart';
@@ -8,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'desktop.dart';
 
 void main() {
+  window.document.onContextMenu.listen((evt) => evt.preventDefault());
   runApp(ChangeNotifierProvider<ThemeNotifier>(
       create: (_) => ThemeNotifier(ThemeNotifier.darkTheme),
       child: MyApp()));
