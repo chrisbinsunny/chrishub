@@ -15,6 +15,9 @@ class ThemeNotifier with ChangeNotifier {
         fontWeight: FontWeight.w700,
         fontSize: 15,
       ),
+        headline3: TextStyle(
+          fontWeight: FontWeight.w600,
+        ),//iMessage info name
         headline2: TextStyle(                 //calendar heading
           fontWeight: FontWeight.w400,
           fontSize: 15,
@@ -34,7 +37,7 @@ class ThemeNotifier with ChangeNotifier {
     dividerColor: Colors.white, // Safari Window color
     dialogBackgroundColor: Colors.white, //feedback body color
     disabledColor: Colors.white, //terminal top color
-    errorColor: Colors.white, //iMessages color
+    errorColor: Colors.white.withOpacity(0.3), //iMessages color
 
 
     primaryTextTheme: TextTheme(
@@ -59,6 +62,9 @@ class ThemeNotifier with ChangeNotifier {
         fontSize: 12,
         fontFamily: "SF"
       ),
+        headline3: TextStyle(
+            fontWeight: FontWeight.w500,
+        ), //iMessage info name
         headline1: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 15,
@@ -84,7 +90,7 @@ class ThemeNotifier with ChangeNotifier {
       hintColor: Color(0xff242127).withOpacity(0.3), //window transparency Color
       dialogBackgroundColor: Color(0xff1e1f23), //feedback body color
       disabledColor: Color(0xff39373b), //terminal top color
-      errorColor: Color(0xff1e1e1e), //iMessages color
+      errorColor: Color(0xff1e1e1e).withOpacity(0.4), //iMessages color
       primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey[200],
