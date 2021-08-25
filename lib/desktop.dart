@@ -24,6 +24,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool finderOpen = true;
 
+  void _onTapDown(TapDownDetails details) {
+    Provider.of<BackBone>(context, listen: false).setPos(details?.globalPosition);
+  }
+
 
 
   @override
@@ -33,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bool ccOpen= Provider.of<OnOff>(context).getCc;
     double brightness = Provider.of<BackBone>(context).getBrightness;
     List<Widget> apps= Provider.of<Apps>(context).getApps;
+    var pointerPos = Provider.of<BackBone>(context).getPos;
 
     return Scaffold(
       body: Center(
@@ -43,7 +48,9 @@ class _MyHomePageState extends State<MyHomePage> {
               onSecondaryTap: (){
                 Provider.of<OnOff>(context, listen: false).offRCM();
                 Provider.of<OnOff>(context, listen: false).onRCM();
+                print(pointerPos);
               },
+              onSecondaryTapDown: _onTapDown,
               onTap: (){
                 Provider.of<OnOff>(context, listen: false).offRCM();
               },
@@ -55,9 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
             ///Right Click Context Menu
             RightClick(
-                initPos: Offset(
-                    screenWidth(context, mulBy: 0.14),
-                    screenHeight(context, mulBy: 0.1))),
+                initPos: pointerPos),
 
             ///Applications
             Stack(
