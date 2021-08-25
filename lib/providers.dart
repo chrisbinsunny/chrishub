@@ -9,6 +9,7 @@ class BackBone extends ChangeNotifier{
   String onTop="finder";
   String fs="";
   double brightness =95.98;
+  Offset pointerPos = new Offset(0, 0);
 
 
 
@@ -19,6 +20,16 @@ class BackBone extends ChangeNotifier{
 
   void setBrightness(double val) {
     brightness= val;
+    notifyListeners();
+  }
+
+  Offset get getPos {
+    return pointerPos;
+  }
+
+
+  void setPos(Offset val) {
+    pointerPos= val;
     notifyListeners();
   }
 
