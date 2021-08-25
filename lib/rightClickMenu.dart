@@ -36,8 +36,8 @@ class _RightClickState extends State<RightClick> {
     return Visibility(
       visible: rcmOpen,
           child: Positioned(
-      top: position.dy,
-      left:  position.dx,
+      top: widget.initPos.dy,
+      left:  widget.initPos.dx,
       child: RightClickMenu(context),
     ),
         );
