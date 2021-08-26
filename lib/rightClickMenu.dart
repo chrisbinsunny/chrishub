@@ -23,16 +23,20 @@ class _RightClickState extends State<RightClick> {
 
   Offset QFinder(){
     Offset offset=new Offset(0, 0);
-    if(widget.initPos.dx>screenWidth(context, mulBy: 0.5))
+    if(widget.initPos.dx+screenWidth(context, mulBy: 0.15)+1>=screenWidth(context))
       {
-        if(widget.initPos.dy>screenHeight(context, mulBy: 0.5))
-            offset=widget.initPos-Offset(screenWidth(context, mulBy: 0.15)+1,screenHeight(context, mulBy: 0.2)+1);
+        if(widget.initPos.dy+screenHeight(context, mulBy: 0.3)+1>=screenHeight(context)) {
+          offset =
+              widget.initPos - Offset(screenWidth(context, mulBy: 0.15) + 1, 0);
+          offset = Offset(offset.dx, screenHeight(context, mulBy: 0.7) - 1);
+        }
         else
           offset=widget.initPos-Offset(screenWidth(context, mulBy: 0.15)+1,0);
       }
     else{
-      if(widget.initPos.dy>screenHeight(context, mulBy: 0.5))
-        offset=widget.initPos-Offset(0,screenHeight(context, mulBy: 0.2)+1);
+      if(widget.initPos.dy+screenHeight(context, mulBy: 0.3)+1>=screenHeight(context)) {
+        offset = Offset(widget.initPos.dx, screenHeight(context, mulBy: 0.7) - 1);
+      }
       else
         offset=widget.initPos;
     }
@@ -99,7 +103,13 @@ class _RightClickState extends State<RightClick> {
               decoration: BoxDecoration(
                 color: Theme.of(context).focusColor
               ),
+              child: Column(
+                children: [
+
+                ],
+              ),
             ),
+
           ),
         ),
       ),
