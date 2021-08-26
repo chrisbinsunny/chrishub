@@ -141,11 +141,11 @@ class _MessagesState extends State<Messages> {
                                 ),
                                 onTap: () {
                                   Provider.of<OnOff>(context, listen: false)
-                                      .offFinderFS();
+                                      .offMessagesFS();
                                   Provider.of<Apps>(context, listen: false)
-                                      .closeApp("finder");
+                                      .closeApp("messages");
                                   Provider.of<OnOff>(context, listen: false)
-                                      .toggleFinder();
+                                      .toggleMessages();
                                 },
                               ),
                               SizedBox(
