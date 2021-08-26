@@ -48,7 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
               onSecondaryTap: (){
                 Provider.of<OnOff>(context, listen: false).offRCM();
                 Provider.of<OnOff>(context, listen: false).onRCM();
-                print(pointerPos);
               },
               onSecondaryTapDown: _onTapDown,
               onTap: (){

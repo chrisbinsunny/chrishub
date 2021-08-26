@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mac_dt/componentsOnOff.dart';
-import 'package:mac_dt/theme/theme.dart';
+import 'theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../openApps.dart';
 import '../sizes.dart';
@@ -19,9 +19,25 @@ class RightClick extends StatefulWidget {
 
 class _RightClickState extends State<RightClick> {
   Offset position = Offset(0.0, 0.0);
-  String thm;
+  var themeNotifier;
 
-
+  Offset QFinder(){
+    Offset offset=new Offset(0, 0);
+    if(widget.initPos.dx>screenWidth(context, mulBy: 0.5))
+      {
+        if(widget.initPos.dy>screenHeight(context, mulBy: 0.5))
+            offset=widget.initPos-Offset(screenWidth(context, mulBy: 0.15)+1,screenHeight(context, mulBy: 0.2)+1);
+        else
+          offset=widget.initPos-Offset(screenWidth(context, mulBy: 0.15)+1,0);
+      }
+    else{
+      if(widget.initPos.dy>screenHeight(context, mulBy: 0.5))
+        offset=widget.initPos-Offset(0,screenHeight(context, mulBy: 0.2)+1);
+      else
+        offset=widget.initPos;
+    }
+    return offset;
+  }
 
   @override
   void initState() {
@@ -32,12 +48,12 @@ class _RightClickState extends State<RightClick> {
   @override
   Widget build(BuildContext context) {
     var rcmOpen = Provider.of<OnOff>(context).getRCM;
-    thm = Provider.of<ThemeNotifier>(context).findThm;
+    themeNotifier = Provider.of<ThemeNotifier>(context);
     return Visibility(
       visible: rcmOpen,
           child: Positioned(
-      top: widget.initPos.dy,
-      left:  widget.initPos.dx,
+      top: QFinder().dy,
+      left:  QFinder().dx,
       child: RightClickMenu(context),
     ),
         );
@@ -67,7 +83,7 @@ class _RightClickState extends State<RightClick> {
           borderRadius: BorderRadius.all(Radius.circular(5)),
           border: Border.all(
             color: Colors.white.withOpacity(0.3),
-            width: thm=="B"?0.6:0
+            width: themeNotifier.isDark()?0.6:0
           ),
 
         ),
