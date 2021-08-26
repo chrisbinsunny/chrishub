@@ -71,15 +71,23 @@ flutter:
   fonts:
     - family: SF
       fonts:
-      - asset: assets/fonts/SFUIDisplay-Regular.otf
+      - asset: assets/fonts/SF/SFUltralight.otf
         weight: 100
-      - asset: assets/fonts/SFUIDisplay-Semibold.otf
+      - asset: assets/fonts/SF/SFLight.otf
+        weight: 300
+      - asset: assets/fonts/SF/SFThin.otf
+        weight: 200
+      - asset: assets/fonts/SF/SFRegular.otf
         weight: 400
-      - asset: assets/fonts/SFUIDisplay-Bold.ttf
+      - asset: assets/fonts/SF/SFMedium.otf
+        weight: 500
+      - asset: assets/fonts/SF/SFSemibold.otf
         weight: 600
-      - asset: assets/fonts/SFUIDisplay-Heavy.otf
+      - asset: assets/fonts/SF/SFBold.otf
         weight: 700
-      - asset: assets/fonts/SFUIDisplay-Black.otf
+      - asset: assets/fonts/SF/SFHeavy.otf
+        weight: 800
+      - asset: assets/fonts/SF/SFBlack.otf
         weight: 900
 
     - family: SFR
