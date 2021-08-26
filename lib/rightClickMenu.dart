@@ -100,18 +100,102 @@ class _RightClickState extends State<RightClick> {
               width: screenWidth(
                 context,
               ),
+              padding: EdgeInsets.symmetric(
+                  horizontal: screenWidth(context, mulBy: 0.0025),
+                vertical: screenHeight(context, mulBy: 0.003)
+              ),
               decoration: BoxDecoration(
-                color: Theme.of(context).focusColor
+                color: Theme.of(context).hoverColor
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-
+                  RCMItem(
+                    name: "New Folder",
+                    margin: EdgeInsets.only(
+                      bottom: screenHeight(context, mulBy: 0.006)
+                    ),
+                  ),
+                  Container(
+                    color: Theme.of(context)
+                        .cardColor
+                        .withOpacity(0.9),
+                    height: 0.25,
+                    width: screenWidth(context,
+                        mulBy: 0.13),
+                  ),
+                  RCMItem(
+                    name: "Get Info",
+                    margin: EdgeInsets.only(
+                        top: screenHeight(context, mulBy: 0.006)
+                    ),
+                  ),
+                  RCMItem(
+                    name: "Change Desktop Background...",
+                    margin: EdgeInsets.only(
+                        bottom: screenHeight(context, mulBy: 0.006)
+                    ),
+                  ),
+                  Container(
+                    color: Theme.of(context)
+                        .cardColor
+                        .withOpacity(0.9),
+                    height: 0.25,
+                    width: screenWidth(context,
+                        mulBy: 0.13),
+                  ),
+                  RCMItem(
+                    name: "Use Stacks",
+                    margin: EdgeInsets.only(
+                        top: screenHeight(context, mulBy: 0.006)
+                    ),
+                  ),
+                  RCMItem(
+                    name: "Group Stacks By",
+                  ),
+                  RCMItem(
+                    name: "Show View Options",
+                  ),
                 ],
               ),
             ),
 
           ),
         ),
+      ),
+    );
+  }
+}
+
+class RCMItem extends StatelessWidget {
+  final String name;
+  final EdgeInsets margin;
+  const RCMItem({
+    Key key,
+    this.name,
+    this.margin=EdgeInsets.zero,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: screenHeight(context, mulBy: 0.0275),
+      width: screenWidth(context),
+      alignment: Alignment.centerLeft,
+      padding: EdgeInsets.only(
+          left: screenWidth(context, mulBy: 0.0125),
+      ),
+      margin: margin,
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(3)
+      ),
+      child: MBPText(
+        text: name,
+        color: Theme.of(context).cardColor.withOpacity(1),
+        fontFamily: 'SF',
+        size: 13,
+        weight: FontWeight.w400,
       ),
     );
   }
