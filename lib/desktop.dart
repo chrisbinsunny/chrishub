@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bool ccOpen= Provider.of<OnOff>(context).getCc;
     double brightness = Provider.of<BackBone>(context).getBrightness;
     List<Widget> apps= Provider.of<Apps>(context).getApps;
-    List<Widget> folders= Provider.of<Folders>(context).getFolders;
+    List<FolderProps> folders= Provider.of<Folders>(context).getFolders;
     var pointerPos = Provider.of<BackBone>(context).getPos;
 
     return Scaffold(
@@ -61,9 +61,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Image.asset(themeNotifier.isDark()?"assets/wallpapers/bigsur_dark.jpg":"assets/wallpapers/bigsur_light.jpg",  fit: BoxFit.cover,)),
             ),
 
+            // Positioned(
+            //   top: 200,
+            //   left: 300,
+            //   child: Container(
+            //     width: screenWidth(context, mulBy: 0.06),
+            //     height: screenHeight(context, mulBy: 0.12),
+            //     color: Colors.red,
+            //
+            //
+            //   ),
+            // ),
             ///Desktop Items
             Stack(
-              children: folders,
+              children: folders.map((item) => Folder(name: item.name, renaming: item.renaming, initPos: item.initPos,)).toList(),
             ),
 
             ///Right Click Context Menu
