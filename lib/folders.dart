@@ -7,17 +7,26 @@ import 'sizes.dart';
 class Folders extends ChangeNotifier{
 
   Widget temp;
-  List<Folder> folders= [
-    Folder(name: "New Folder",)
+  List<FolderProps> folders= [
+    //Folder(name: "New Folder", initPos: Offset(200, 150))
   ];
 
 
-  List<Folder> get getFolders {
+  List<FolderProps> get getFolders {
     return folders;
   }
 
-  void createFolder(String name, bool renaming){
-    folders.add(Folder(name: name, renaming: renaming,));
+  void createFolder(context, {String name, bool renaming}){
+    Offset initPos=  Offset(200, 150);
+    int x,y;
+    if(folders.isEmpty)
+      initPos=Offset(screenWidth(context, mulBy: 0.92), screenHeight(context, mulBy: 0.085));
+    else{
+      x= (folders.length+1/7).toInt();
+      y= folders.length+1%7;
+      initPos=Offset((x+1)*screenWidth(context, mulBy: 0.92), (y+1)*screenHeight(context, mulBy: 0.085));
+    }
+    folders.add(FolderProps(name: name, renaming: renaming, initPos: initPos,));
     notifyListeners();
   }
 
@@ -30,35 +39,54 @@ class Folders extends ChangeNotifier{
 
 class Folder extends StatefulWidget {
   String name;
-  Offset location= new Offset(300, 150);
+  final Offset initPos;
   bool renaming;
-  Folder({Key key, this.name="", this.location, this.renaming= false});
+  Folder({Key key, this.name="", this.initPos, this.renaming= false});
 
   @override
   _FolderState createState() => _FolderState();
 }
 
 class _FolderState extends State<Folder> {
+  Offset position= Offset(200, 150);
+
+  @override
+  void initState() {
+    position=widget.initPos;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.1), width: screenWidth(context, mulBy: 0.7),),
-            MBPText(text: widget.name, color: Colors.white, fontFamily: "HN", weight: FontWeight.w500, size: 12,),
-          ],
+    return Positioned(
+      top: position.dy,
+      left: position.dx,
+      child: GestureDetector(
+        onPanUpdate: (tapInfo){
+          setState(() {
+            position = Offset(position.dx + tapInfo.delta.dx,
+                position.dy + tapInfo.delta.dy);
+          });
+        },
+        child: Container(
+          color: Colors.green,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.1), width: screenWidth(context, mulBy: 0.06),),
+              MBPText(text: widget.name, color: Colors.white, fontFamily: "HN", weight: FontWeight.w500, size: 12,),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-// class FolderProps{
-//   String name;
-//   Offset location= new Offset(0, 0);
-//   bool renaming;
-//
-//   FolderProps({this.name="", this.location, this.renaming= false});
-// }
+class FolderProps{
+  String name;
+  Offset initPos= new Offset(0, 0);
+  bool renaming;
+
+  FolderProps({this.name="", this.initPos, this.renaming= false});
+}
