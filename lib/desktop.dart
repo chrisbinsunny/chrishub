@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
+import 'package:mac_dt/folders.dart';
 import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/rightClickMenu.dart';
 import 'package:mac_dt/sizes.dart';
@@ -37,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bool ccOpen= Provider.of<OnOff>(context).getCc;
     double brightness = Provider.of<BackBone>(context).getBrightness;
     List<Widget> apps= Provider.of<Apps>(context).getApps;
+    List<Widget> folders= Provider.of<Folders>(context).getFolders;
     var pointerPos = Provider.of<BackBone>(context).getPos;
 
     return Scaffold(
@@ -57,6 +59,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   height:size.height,
                   width: size.width,
                   child: Image.asset(themeNotifier.isDark()?"assets/wallpapers/bigsur_dark.jpg":"assets/wallpapers/bigsur_light.jpg",  fit: BoxFit.cover,)),
+            ),
+
+            ///Desktop Items
+            Stack(
+              children: folders,
             ),
 
             ///Right Click Context Menu

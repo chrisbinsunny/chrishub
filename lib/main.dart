@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:mac_dt/folders.dart';
 import 'package:mac_dt/providers.dart';
 import 'openApps.dart';
 import 'theme/theme.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<Apps>(
           create: (context) => Apps(),
+        ),
+        ChangeNotifierProvider<Folders>(
+          create: (context) => Folders(),
         ),
       ],
       child: MaterialApp(
