@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mac_dt/componentsOnOff.dart';
@@ -115,6 +116,9 @@ class _RightClickState extends State<RightClick> {
                     margin: EdgeInsets.only(
                       bottom: screenHeight(context, mulBy: 0.006)
                     ),
+                    buttonFunc: (){
+                      print("New Folder Created");
+                    },
                   ),
                   Container(
                     color: Theme.of(context)
@@ -167,35 +171,60 @@ class _RightClickState extends State<RightClick> {
   }
 }
 
-class RCMItem extends StatelessWidget {
+class RCMItem extends StatefulWidget {
   final String name;
   final EdgeInsets margin;
-  const RCMItem({
+  VoidCallback buttonFunc=(){};
+
+  RCMItem({
     Key key,
     this.name,
     this.margin=EdgeInsets.zero,
+    this.buttonFunc,
   }) : super(key: key);
 
   @override
+  _RCMItemState createState() => _RCMItemState();
+}
+
+class _RCMItemState extends State<RCMItem> {
+  Color color;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: screenHeight(context, mulBy: 0.0275),
-      width: screenWidth(context),
-      alignment: Alignment.centerLeft,
-      padding: EdgeInsets.only(
-          left: screenWidth(context, mulBy: 0.0125),
-      ),
-      margin: margin,
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(3)
-      ),
-      child: MBPText(
-        text: name,
-        color: Theme.of(context).cardColor.withOpacity(1),
-        fontFamily: 'SF',
-        size: 13,
-        weight: FontWeight.w400,
+    return MouseRegion(
+      onHover: (event){
+        setState(() {
+          color= Colors.blue;
+        });
+      },
+      onExit: (event){
+        setState(() {
+          color= Colors.transparent;
+        });
+      },
+      child: InkWell(
+        onTap: widget.buttonFunc,
+        child: Container(
+          height: screenHeight(context, mulBy: 0.0275),
+          width: screenWidth(context),
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.only(
+              left: screenWidth(context, mulBy: 0.0125),
+          ),
+          margin: widget.margin,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(3)
+          ),
+          child: MBPText(
+            text: widget.name,
+            color: Theme.of(context).cardColor.withOpacity(1),
+            fontFamily: 'SF',
+            size: 12.5,
+            weight: FontWeight.w400,
+          ),
+        ),
       ),
     );
   }
