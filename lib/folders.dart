@@ -20,11 +20,16 @@ class Folders extends ChangeNotifier{
     Offset initPos=  Offset(200, 150);
     int x,y;
     if(folders.isEmpty)
-      initPos=Offset(screenWidth(context, mulBy: 0.92), screenHeight(context, mulBy: 0.085));
+      initPos=Offset(screenWidth(context, mulBy: 0.92), screenHeight(context, mulBy: 0.12));
     else{
-      x= (folders.length+1/7).toInt();
-      y= folders.length+1%7;
-      initPos=Offset((x+1)*screenWidth(context, mulBy: 0.92), (y+1)*screenHeight(context, mulBy: 0.085));
+      x= ((folders.length)/6).toInt();
+      y= (folders.length)%6;
+      print("$x, $y");
+      if(x==0)
+        initPos=Offset(screenWidth(context, mulBy: 0.92), (y+1)*screenHeight(context, mulBy: 0.12));
+      else
+        initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.06), (y+1)*screenHeight(context, mulBy: 0.12));
+
     }
     folders.add(FolderProps(name: name, renaming: renaming, initPos: initPos,));
     notifyListeners();
@@ -69,7 +74,6 @@ class _FolderState extends State<Folder> {
           });
         },
         child: Container(
-          color: Colors.green,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
