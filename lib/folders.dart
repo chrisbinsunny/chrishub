@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mac_dt/widgets.dart';
+import 'package:provider/provider.dart';
 
 import 'sizes.dart';
 
@@ -54,11 +55,18 @@ class Folder extends StatefulWidget {
 
 class _FolderState extends State<Folder> {
   Offset position= Offset(200, 150);
+  TextEditingController controller = new TextEditingController(text: "Untitled Folder");
+  final _focusNode = FocusNode();
 
   @override
   void initState() {
     position=widget.initPos;
     super.initState();
+    _focusNode.addListener(() {
+      if(_focusNode.hasFocus) {
+        controller.selection = TextSelection(baseOffset: 0, extentOffset: controller.text.length);
+      }
+    });
   }
 
   @override
@@ -78,7 +86,40 @@ class _FolderState extends State<Folder> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.1), width: screenWidth(context, mulBy: 0.06),),
-              MBPText(text: widget.name, color: Colors.white, fontFamily: "HN", weight: FontWeight.w500, size: 12,),
+              widget.renaming?
+                  Container(
+                    height: screenHeight(context, mulBy: 0.025),
+                    width: screenWidth(context, mulBy: 0.06),
+                    child: TextField(
+                      controller: controller,
+                      autofocus: true,
+                        focusNode: _focusNode,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.all(0),
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
+                        enabledBorder: InputBorder.none,
+                        errorBorder: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                      ),
+                      cursorColor: Colors.black,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "HN",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12
+                      ),
+                      onSubmitted: (s){
+                        setState(() {
+                          widget.renaming=false;
+                          widget.name=controller.text.toString();
+                        });
+                      },
+                    ),
+                  )
+              :MBPText(text: widget.name, color: Colors.white, fontFamily: "HN", weight: FontWeight.w500, size: 12,),
             ],
           ),
         ),
