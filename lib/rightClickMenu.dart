@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mac_dt/componentsOnOff.dart';
+import 'package:mac_dt/folders.dart';
 import 'theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../openApps.dart';
@@ -117,7 +118,8 @@ class _RightClickState extends State<RightClick> {
                       bottom: screenHeight(context, mulBy: 0.006)
                     ),
                     buttonFunc: (){
-                      print("New Folder Created");
+                      Provider.of<Folders>(context, listen: false).createFolder(context, renaming: true);
+                      Provider.of<OnOff>(context, listen: false).offRCM();
                     },
                   ),
                   Container(
@@ -133,12 +135,20 @@ class _RightClickState extends State<RightClick> {
                     margin: EdgeInsets.only(
                         top: screenHeight(context, mulBy: 0.006)
                     ),
+                    buttonFunc: (){
+                      print("Get Info Screen");
+                      Provider.of<OnOff>(context, listen: false).offRCM();
+                    },
                   ),
                   RCMItem(
                     name: "Change Desktop Background...",
                     margin: EdgeInsets.only(
                         bottom: screenHeight(context, mulBy: 0.006)
                     ),
+                    buttonFunc: (){
+                      print("Settings Screen");
+                      Provider.of<OnOff>(context, listen: false).offRCM();
+                    },
                   ),
                   Container(
                     color: Theme.of(context)
