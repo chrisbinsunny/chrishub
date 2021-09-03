@@ -38,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bool ccOpen= Provider.of<OnOff>(context).getCc;
     double brightness = Provider.of<BackBone>(context).getBrightness;
     List<Widget> apps= Provider.of<Apps>(context).getApps;
-    List<FolderProps> folders= Provider.of<Folders>(context).getFolders;
+    List<Folder> folders= Provider.of<Folders>(context).getFolders;
     var pointerPos = Provider.of<BackBone>(context).getPos;
 
     return Scaffold(
@@ -74,8 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // ),
             ///Desktop Items
             Stack(
-              children: folders.map((item) => Folder(name: item.name, renaming: item.renaming, initPos: item.initPos,)).toList(),
-            ),
+              children: folders),
 
             ///Right Click Context Menu
             RightClick(
