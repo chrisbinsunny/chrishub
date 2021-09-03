@@ -61,17 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Image.asset(themeNotifier.isDark()?"assets/wallpapers/bigsur_dark.jpg":"assets/wallpapers/bigsur_light.jpg",  fit: BoxFit.cover,)),
             ),
 
-            // Positioned(
-            //   top: 200,
-            //   left: 300,
-            //   child: Container(
-            //     width: screenWidth(context, mulBy: 0.06),
-            //     height: screenHeight(context, mulBy: 0.12),
-            //     color: Colors.red,
-            //
-            //
-            //   ),
-            // ),
+
             ///Desktop Items
             Stack(
               children: folders),

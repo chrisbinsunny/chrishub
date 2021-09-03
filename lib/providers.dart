@@ -10,6 +10,7 @@ class BackBone extends ChangeNotifier{
   String fs="";
   double brightness =95.98;
   Offset pointerPos = new Offset(0, 0);
+  bool deskClick= false;
 
 
 
