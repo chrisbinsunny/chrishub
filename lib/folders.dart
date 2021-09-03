@@ -56,7 +56,7 @@ class _FolderState extends State<Folder> {
   Offset position= Offset(200, 150);
   TextEditingController controller = new TextEditingController(text: "Untitled Folder");
   final _focusNode = FocusNode();
-  bool submit= false;
+  bool selected= false;
 
   @override
   void initState() {
@@ -75,6 +75,8 @@ class _FolderState extends State<Folder> {
 
   @override
   Widget build(BuildContext context) {
+    selected= false;
+    print
     return Positioned(
       top: position.dy,
       left: position.dx,
@@ -83,6 +85,11 @@ class _FolderState extends State<Folder> {
           setState(() {
             position = Offset(position.dx + tapInfo.delta.dx,
                 position.dy + tapInfo.delta.dy);
+          });
+        },
+        onTap: (){
+          setState(() {
+            selected=true;
           });
         },
         child: Container(
