@@ -24,15 +24,15 @@ class Folders extends ChangeNotifier{
     Offset initPos=  Offset(200, 150);
     int x,y;
     if(folders.isEmpty)
-      initPos=Offset(screenWidth(context, mulBy: 0.92), screenHeight(context, mulBy: 0.12));
+      initPos=Offset(screenWidth(context, mulBy: 0.92), screenHeight(context, mulBy: 0.129));
     else{
       x= ((folders.length)/6).toInt();
       y= (folders.length)%6;
       print("$x, $y");
       if(x==0)
-        initPos=Offset(screenWidth(context, mulBy: 0.92), (y+1)*screenHeight(context, mulBy: 0.12));
+        initPos=Offset(screenWidth(context, mulBy: 0.92), (y+1)*screenHeight(context, mulBy: 0.129));
       else
-        initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.06), (y+1)*screenHeight(context, mulBy: 0.12));
+        initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.06), (y+1)*screenHeight(context, mulBy: 0.129));
 
     }
     folders.add(Folder(name: name, renaming: renaming, initPos: initPos,));
@@ -94,8 +94,28 @@ class _FolderState extends State<Folder> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.1), width: screenWidth(context, mulBy: 0.06),),
-                    MBPText(text: widget.name, color: Colors.white, fontFamily: "HN", weight: FontWeight.w500, size: 12,),
+                    Container(
+                        height: screenHeight(context, mulBy: 0.1),
+                        width: screenWidth(context, mulBy: 0.048),
+                        decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.25),
+                            border: Border.all(
+                                color: Colors.grey.withOpacity(0.4),
+                                width: 2
+                            ),
+                            borderRadius: BorderRadius.circular(4)
+                        ),
+                        child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.095), width: screenWidth(context, mulBy: 0.059),)),
+                    SizedBox(height: screenHeight(context, mulBy: 0.005), ),
+                    Container(
+                      height: screenHeight(context, mulBy: 0.024),
+                      width: screenWidth(context, mulBy: 0.06),
+                      decoration: BoxDecoration(
+                          color: Color(0xff0058d0),
+                          borderRadius: BorderRadius.circular(3)
+                      ),
+                      child: MBPText(text: widget.name, color: Colors.white, fontFamily: "HN", weight: FontWeight.w500, size: 12,),
+                    )
                   ],
                 ),
               ),
@@ -131,12 +151,15 @@ class _FolderState extends State<Folder> {
               },
 
               child: Container(
+                width: screenWidth(context, mulBy: 0.06),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                        height: screenHeight(context, mulBy: 0.1),
-                        width: screenWidth(context, mulBy: 0.048),
+                       // height: screenHeight(context, mulBy: 0.09),
+                       // width: screenWidth(context, mulBy: 0.048),
                         decoration: widget.renaming?BoxDecoration(
                           color: Colors.black.withOpacity(0.25),
                             border: Border.all(
@@ -145,7 +168,7 @@ class _FolderState extends State<Folder> {
                             ),
                             borderRadius: BorderRadius.circular(4)
                         ):BoxDecoration(),
-                        child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.095), width: screenWidth(context, mulBy: 0.059),)),
+                        child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.09), width: screenWidth(context, mulBy: 0.045),)),
                     SizedBox(height: screenHeight(context, mulBy: 0.005), ),
                     widget.renaming?
                     Container(
@@ -191,7 +214,7 @@ class _FolderState extends State<Folder> {
                         ),
                       ),
                     )
-                        :MBPText(text: widget.name, color: Colors.white, fontFamily: "HN", weight: FontWeight.w500, size: 12,),
+                        :Text(widget.name, textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 2, overflow: TextOverflow.ellipsis,),
                   ],
                 ),
               ),
