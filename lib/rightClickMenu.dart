@@ -205,7 +205,7 @@ class _RCMItemState extends State<RCMItem> {
     return MouseRegion(
       onHover: (event){
         setState(() {
-          color= Colors.blue;
+          color= Color(0xff1a6cc4);
         });
       },
       onExit: (event){
