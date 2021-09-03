@@ -8,12 +8,12 @@ import 'sizes.dart';
 class Folders extends ChangeNotifier{
 
   Widget temp;
-  List<FolderProps> folders= [
+  List<Folder> folders= [
     //Folder(name: "New Folder", initPos: Offset(200, 150))
   ];
 
 
-  List<FolderProps> get getFolders {
+  List<Folder> get getFolders {
     return folders;
   }
 
@@ -32,7 +32,7 @@ class Folders extends ChangeNotifier{
         initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.06), (y+1)*screenHeight(context, mulBy: 0.12));
 
     }
-    folders.add(FolderProps(name: name, renaming: renaming, initPos: initPos,));
+    folders.add(Folder(name: name, renaming: renaming, initPos: initPos,));
     notifyListeners();
   }
 
@@ -48,7 +48,6 @@ class Folder extends StatefulWidget {
   final Offset initPos;
   bool renaming;
   Folder({Key key, this.name="", this.initPos, this.renaming= false});
-
   @override
   _FolderState createState() => _FolderState();
 }
@@ -57,11 +56,16 @@ class _FolderState extends State<Folder> {
   Offset position= Offset(200, 150);
   TextEditingController controller = new TextEditingController(text: "Untitled Folder");
   final _focusNode = FocusNode();
+  bool submit= false;
 
   @override
   void initState() {
     position=widget.initPos;
     super.initState();
+    selectAll();
+  }
+
+  void selectAll(){
     _focusNode.addListener(() {
       if(_focusNode.hasFocus) {
         controller.selection = TextSelection(baseOffset: 0, extentOffset: controller.text.length);
@@ -93,7 +97,7 @@ class _FolderState extends State<Folder> {
                     child: TextField(
                       controller: controller,
                       autofocus: true,
-                        focusNode: _focusNode,
+                      focusNode: _focusNode,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         isDense: true,
@@ -128,10 +132,10 @@ class _FolderState extends State<Folder> {
   }
 }
 
-class FolderProps{
-  String name;
-  Offset initPos= new Offset(0, 0);
-  bool renaming;
-
-  FolderProps({this.name="", this.initPos, this.renaming= false});
-}
+// class FolderProps{
+//   String name;
+//   Offset initPos= new Offset(0, 0);
+//   bool renaming;
+//
+//   FolderProps({this.name="", this.initPos, this.renaming= false});
+// }
