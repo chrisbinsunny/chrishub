@@ -7,13 +7,14 @@ import 'package:intl/intl.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
+import '../../folders.dart';
 import '../../openApps.dart';
 import '../../sizes.dart';
 import 'dart:ui' as ui;
 
 import 'commands.dart';
 
-//TODO Has an issue with cursor. Currently the issue is present in master branch og flutter.
+//TODO Has an issue with cursor. Currently the issue is present in master branch of flutter.
 /// GitHub Issue: https://github.com/flutter/flutter/issues/31661
 
 //TODO Clear command not working
@@ -92,6 +93,7 @@ class _TerminalState extends State<Terminal> {
   }
 
   processCommands(String text) {
+    String textOrg= text;
     text = text.toLowerCase();
     var textWords = text.split(" ");
     String command = textWords[0];
@@ -102,6 +104,8 @@ class _TerminalState extends State<Terminal> {
     switch (command) {
       case "":
         break;
+
+
       case "ls":
         String target;
         if (variable == "" || variable == null)
@@ -137,6 +141,8 @@ class _TerminalState extends State<Terminal> {
           output = "ls: $target: No such file or directory";
         }
         break;
+
+
       case "open":
         if (variable=="-a"||currentDir=="applications")
           {
@@ -193,6 +199,8 @@ class _TerminalState extends State<Terminal> {
           output="Can't open the application from this location. Try using \"open -a\".";
         }
         break;
+
+
       case "cd":
         if (variable == "") {
           currentDir = "~"; //TODO currently moves to root. should adjust as macos
@@ -225,6 +233,21 @@ class _TerminalState extends State<Terminal> {
         } else {
           output = "cd: $variable: No such file or directory";
         }
+        break;
+
+
+      case "mkdir":
+        if(variable=="") {
+          output = "usage: mkdir directory ...";
+          break;
+        } //TODO
+        if (textWords.length > 1) {
+          for(String name in textOrg.split(" ")..removeAt(0))
+            Provider.of<Folders>(context, listen: false).createFolder(context, renaming: false, name: name);
+          break;
+        }
+        Provider.of<Folders>(context, listen: false).createFolder(context, renaming: false, name: textOrg.split(" ")[1]);
+
         break;
       case "echo":
         output = textWords.join(" ");
