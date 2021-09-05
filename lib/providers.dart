@@ -10,7 +10,7 @@ class BackBone extends ChangeNotifier{
   String fs="";
   double brightness =95.98;
   Offset pointerPos = new Offset(0, 0);
-  bool deskClick= false;
+  bool clearSelection= true;
 
 
 
@@ -34,4 +34,13 @@ class BackBone extends ChangeNotifier{
     notifyListeners();
   }
 
+  bool get getClearSelection {
+    return clearSelection;
+  }
+
+
+  void deskClearSelection() {
+    clearSelection=true;
+    notifyListeners();
+  }
 }
