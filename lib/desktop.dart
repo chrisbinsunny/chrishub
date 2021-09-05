@@ -53,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               onSecondaryTapDown: _onTapDown,
               onTap: (){
+                Provider.of<Folders>(context, listen: false).deSelect();
                 Provider.of<OnOff>(context, listen: false).offRCM();
               },
               child: Container(
