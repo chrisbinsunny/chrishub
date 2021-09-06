@@ -11,14 +11,13 @@ import 'sizes.dart';
 class Folders extends ChangeNotifier{
 
   Widget temp;
-  List<Folder> folders= [
-    //Folder(name: "New Folder", initPos: Offset(200, 150))
-  ];
-
+  List<Folder> folders= [];
+  StreamController<int> _controller = StreamController<int>();
 
   List<Folder> get getFolders {
     return folders;
   }
+
 
   void createFolder(context, {String name, bool renaming}){
     Offset initPos=  Offset(200, 150);
@@ -35,7 +34,7 @@ class Folders extends ChangeNotifier{
         initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.06), (y+1)*screenHeight(context, mulBy: 0.129));
 
     }
-    folders.add(Folder(name: name, renaming: renaming, initPos: initPos,));
+    folders.add(Folder(name: name, renaming: renaming, initPos: initPos, stream: _controller.stream,));
     notifyListeners();
   }
 
@@ -44,13 +43,21 @@ class Folders extends ChangeNotifier{
     notifyListeners();
   }
 
+  void deSelectAll(){
+    folders.forEach((element) {
+      element.deSelectFolder();
+    });
+  }
 }
 
 class Folder extends StatefulWidget {
   String name;
   final Offset initPos;
   bool renaming;
-  Folder({Key key, this.name="", this.initPos, this.renaming= false});
+  bool selected;
+  final Stream<int> stream;
+  VoidCallback deSelectFolder;
+  Folder({Key key, this.name="", this.initPos, this.renaming= false, this.selected=false, @required this.stream});
   @override
   _FolderState createState() => _FolderState();
 }
@@ -61,16 +68,22 @@ class _FolderState extends State<Folder> {
   final _focusNode = FocusNode();
   bool pan= false;
   bool bgVisible= false;
+  //bool selected=true;
 
 
   @override
   void initState() {
     position=widget.initPos;
     super.initState();
-    selectAll();
+    selectText();
+    widget.deSelectFolder= (){
+      setState(() {
+        widget.selected=false;
+      });
+    };
   }
 
-  void selectAll(){
+  void selectText(){
     _focusNode.addListener(() {
       if(_focusNode.hasFocus) {
         controller.selection = TextSelection(baseOffset: 0, extentOffset: controller.text.length);
@@ -78,13 +91,21 @@ class _FolderState extends State<Folder> {
     });
   }
 
+  void deSelectFolder(){
+    setState(() {
+      widget.selected=false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    //selected= !Provider.of<BackBone>(context,).getClearSelection;
     return Container(
       height: screenHeight(context),
       width: screenWidth(context),
       child: Stack(
         children: [
+
           Visibility(
             visible: bgVisible,
             child: Positioned(
@@ -132,7 +153,7 @@ class _FolderState extends State<Folder> {
                       position.dy + tapInfo.delta.dy);
                 });
               },
-              onPanDown: (e){
+              onPanStart: (e){
                 setState(() {
                   widget.renaming=false;
                   widget.name=controller.text.toString();
@@ -150,6 +171,12 @@ class _FolderState extends State<Folder> {
                 });});
               },
 
+              onTap: (){
+                Provider.of<Folders>(context, listen: false).deSelectAll();
+                setState(() {
+                  widget.selected=true;
+                });
+              },
               child: Container(
                 width: screenWidth(context, mulBy: 0.06),
                 child: Column(
@@ -158,17 +185,17 @@ class _FolderState extends State<Folder> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                       // height: screenHeight(context, mulBy: 0.09),
-                       // width: screenWidth(context, mulBy: 0.048),
-                        decoration: widget.renaming?BoxDecoration(
-                          color: Colors.black.withOpacity(0.25),
+                        height: screenHeight(context, mulBy: 0.085),
+                        width: screenWidth(context, mulBy: 0.045),
+                        decoration: (widget.renaming||widget.selected)?BoxDecoration(
+                            color: Colors.black.withOpacity(0.25),
                             border: Border.all(
                                 color: Colors.grey.withOpacity(0.4),
-                              width: 2
+                                width: 2
                             ),
                             borderRadius: BorderRadius.circular(4)
                         ):BoxDecoration(),
-                        child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.09), width: screenWidth(context, mulBy: 0.045),)),
+                        child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045),)),
                     SizedBox(height: screenHeight(context, mulBy: 0.005), ),
                     widget.renaming?
                     Container(
