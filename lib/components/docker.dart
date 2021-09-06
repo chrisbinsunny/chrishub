@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:mac_dt/apps/messages/messages.dart';
 import 'package:provider/provider.dart';
 import '../componentsOnOff.dart';
+import '../folders.dart';
 import '../openApps.dart';
 import '../widgets.dart';
 import 'finderWindow.dart';
@@ -105,6 +106,7 @@ class _DockerState extends State<Docker> {
                           setState(() {
                             _animate = !_animate;
                           });
+                          Provider.of<Folders>(context, listen: false).deSelectAll();
                           Provider.of<OnOff>(context, listen: false)
                               .maxFinder();
                           Provider.of<Apps>(context, listen: false).openApp(
@@ -128,6 +130,7 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
+                          Provider.of<Folders>(context, listen: false).deSelectAll();
                           Provider.of<OnOff>(context, listen: false)
                               .maxSafari();
                           Provider.of<Apps>(context, listen: false).openApp(
@@ -147,6 +150,8 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
+                          Provider.of<Folders>(context, listen: false).deSelectAll();
+
                           Provider.of<OnOff>(context, listen: false)
                               .maxMessages();
                           Provider.of<Apps>(context, listen: false).openApp(
@@ -170,6 +175,8 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
+                          Provider.of<Folders>(context, listen: false).deSelectAll();
+
                           Provider.of<OnOff>(context, listen: false)
                               .maxSpotify();
                           Provider.of<Apps>(context, listen: false).openApp(
@@ -190,6 +197,8 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
+                          Provider.of<Folders>(context, listen: false).deSelectAll();
+
                           Provider.of<OnOff>(context, listen: false)
                               .maxTerminal();
                           Provider.of<Apps>(context, listen: false).openApp(
@@ -210,6 +219,8 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
+                          Provider.of<Folders>(context, listen: false).deSelectAll();
+
                           Provider.of<OnOff>(context, listen: false).maxVS();
                           Provider.of<Apps>(context, listen: false).openApp(
                               VSCode(
@@ -236,6 +247,8 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
+                          Provider.of<Folders>(context, listen: false).deSelectAll();
+
                           Provider.of<OnOff>(context, listen: false)
                               .maxCalendar();
                           Provider.of<Apps>(context, listen: false).openApp(
@@ -331,6 +344,8 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
+                          Provider.of<Folders>(context, listen: false).deSelectAll();
+
                           Provider.of<OnOff>(context, listen: false)
                               .maxFeedBack();
                           Provider.of<Apps>(context, listen: false).openApp(
@@ -350,6 +365,7 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
+                          Provider.of<Folders>(context, listen: false).deSelectAll();
                           setState(() {
                             Provider.of<Apps>(context, listen: false)
                                 .bringToTop(ObjectKey("finder"));
