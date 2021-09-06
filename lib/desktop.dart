@@ -48,12 +48,13 @@ class _MyHomePageState extends State<MyHomePage> {
             ///wallpaper
             GestureDetector(
               onSecondaryTap: (){
+                Provider.of<Folders>(context, listen: false).deSelectAll();
                 Provider.of<OnOff>(context, listen: false).offRCM();
                 Provider.of<OnOff>(context, listen: false).onRCM();
               },
               onSecondaryTapDown: _onTapDown,
               onTap: (){
-                Provider.of<Folders>(context, listen: false).deSelect();
+                Provider.of<Folders>(context, listen: false).deSelectAll();
                 Provider.of<OnOff>(context, listen: false).offRCM();
               },
               child: Container(
