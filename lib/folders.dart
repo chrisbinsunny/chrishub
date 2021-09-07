@@ -20,19 +20,30 @@ class Folders extends ChangeNotifier{
   }
 
 
-  void createFolder(context, {String name, bool renaming}){
+  void createFolder(context, {String name="untitled folder", bool renaming}){
     Offset initPos=  Offset(200, 150);
-    int x,y;
+    int x,y,i=0;
     if(folders.isEmpty)
-      initPos=Offset(screenWidth(context, mulBy: 0.92), screenHeight(context, mulBy: 0.11));
+      initPos=Offset(screenWidth(context, mulBy: 0.91), screenHeight(context, mulBy: 0.11));
     else{
+      folders.forEach((element) {
+        if(element.name==name) {
+          if(int.tryParse(element.name.split(" ").last)!=null) {
+            i = int.parse(element.name.split(" ").last) ?? i;
+            name = "${name.substring(0, name.lastIndexOf(" "))} ${++i}";
+          }
+          else{
+            name = "$name ${++i}";
+          }
+        }
+      });
       x= ((folders.length)/6).toInt();
       y= (folders.length)%6;
       print("$x, $y");
       if(x==0)
-        initPos=Offset(screenWidth(context, mulBy: 0.92), y*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.11));
+        initPos=Offset(screenWidth(context, mulBy: 0.91), y*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.11));
       else
-        initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.06), (y)*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.11));
+        initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.07), (y)*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.11));
 
     }
     folders.add(Folder(name: name, renaming: renaming, initPos: initPos, stream: _controller.stream,));
@@ -58,22 +69,23 @@ class Folder extends StatefulWidget {
   bool selected;
   final Stream<int> stream;
   VoidCallback deSelectFolder;
-  Folder({Key key, this.name="", this.initPos, this.renaming= false, this.selected=false, @required this.stream});
+  Folder({Key key, this.name, this.initPos, this.renaming= false, this.selected=false, @required this.stream});
   @override
   _FolderState createState() => _FolderState();
 }
 
 class _FolderState extends State<Folder> {
   Offset position= Offset(200, 150);
-  TextEditingController controller = new TextEditingController(text: "untitled folder");
+  TextEditingController controller;
   FocusNode _focusNode = FocusNode();
   bool pan= false;
   bool bgVisible= false;
-  //bool selected=true;
 
 
   @override
   void initState() {
+    controller = new TextEditingController(text: widget.name, );
+    controller.selection=TextSelection.fromPosition(TextPosition(offset: controller.text.length));
     position=widget.initPos;
     super.initState();
     selectText();
@@ -91,18 +103,6 @@ class _FolderState extends State<Folder> {
       if(_focusNode.hasFocus) {
         controller.selection = TextSelection(baseOffset: 0, extentOffset: controller.text.length);
       }
-    });
-  }
-
-  void deSelectFolder(){
-    setState(() {
-
-      FocusScope.of(context).unfocus();
-      new TextEditingController().clear();
-     // _focusNode.unfocus();
-      widget.renaming=false;
-      widget.name=controller.text.toString();
-      widget.selected=false;
     });
   }
 
@@ -221,7 +221,7 @@ class _FolderState extends State<Folder> {
                     widget.renaming?
                     Container(
                       height: screenHeight(context, mulBy: 0.024),
-                      width: screenWidth(context, mulBy: 0.06),
+                     // width: screenWidth(context, mulBy: 0.06),
                       decoration: BoxDecoration(
                         color: Color(0xff1a6cc4).withOpacity(0.7),
                         border: Border.all(

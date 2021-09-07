@@ -10,7 +10,7 @@ import 'package:mac_dt/rightClickMenu.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
-
+import 'package:flutter/rendering.dart';
 import 'openApps.dart';
 import 'theme/theme.dart';
 import 'components/docker.dart';
@@ -130,3 +130,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
+
+class Unfocuser extends StatelessWidget {
+  const Unfocuser({Key key, this.child}) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      onPointerUp: (e) {
+        final rb = context.findRenderObject() as RenderBox;
+        final result = BoxHitTestResult();
+        rb.hitTest(result, position: e.position);
+
+        for (final e in result.path) {
+          if (e.target is RenderEditable) {
+            return;
+          }
+        }
+
+        final primaryFocus = FocusManager.instance.primaryFocus;
+
+        if (primaryFocus.context.widget is EditableText) {
+          primaryFocus.unfocus();
+        }
+      },
+      child: child,
+    );
+  }
+}
