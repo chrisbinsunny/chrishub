@@ -8,6 +8,7 @@ import 'package:mac_dt/openApps.dart';
 import 'package:provider/provider.dart';
 
 import '../componentsOnOff.dart';
+import '../folders.dart';
 
 class FileMenu extends StatefulWidget {
 
@@ -86,6 +87,7 @@ class _FileMenuState extends State<FileMenu> {
                     SizedBox(width: size.width*0.014,),
                     InkWell(child: Image.asset("assets/icons/cc.png", height: 16,filterQuality: FilterQuality.low,),
                     onTap: (){
+                      Provider.of<Folders>(context, listen: false).deSelectAll();
                       Provider.of<OnOff>(context, listen: false).toggleCc();
                     },
                     ),

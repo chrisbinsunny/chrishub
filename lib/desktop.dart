@@ -65,17 +65,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
             ///Desktop Items
-            Stack(
-              children: folders),
+            ...folders,
+
 
             ///Right Click Context Menu
             RightClick(
                 initPos: pointerPos),
 
             ///Applications
-            Stack(
-              children: apps,
-            ),
+            ...apps,
 
             /// file menu
             FileMenu(),
