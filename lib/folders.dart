@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -23,15 +24,15 @@ class Folders extends ChangeNotifier{
     Offset initPos=  Offset(200, 150);
     int x,y;
     if(folders.isEmpty)
-      initPos=Offset(screenWidth(context, mulBy: 0.92), screenHeight(context, mulBy: 0.129));
+      initPos=Offset(screenWidth(context, mulBy: 0.92), screenHeight(context, mulBy: 0.11));
     else{
       x= ((folders.length)/6).toInt();
       y= (folders.length)%6;
       print("$x, $y");
       if(x==0)
-        initPos=Offset(screenWidth(context, mulBy: 0.92), (y+1)*screenHeight(context, mulBy: 0.129));
+        initPos=Offset(screenWidth(context, mulBy: 0.92), y*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.11));
       else
-        initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.06), (y+1)*screenHeight(context, mulBy: 0.129));
+        initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.06), (y)*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.11));
 
     }
     folders.add(Folder(name: name, renaming: renaming, initPos: initPos, stream: _controller.stream,));
@@ -65,7 +66,7 @@ class Folder extends StatefulWidget {
 class _FolderState extends State<Folder> {
   Offset position= Offset(200, 150);
   TextEditingController controller = new TextEditingController(text: "untitled folder");
-  final _focusNode = FocusNode();
+  FocusNode _focusNode = FocusNode();
   bool pan= false;
   bool bgVisible= false;
   //bool selected=true;
@@ -79,6 +80,8 @@ class _FolderState extends State<Folder> {
     widget.deSelectFolder= (){
       setState(() {
         widget.selected=false;
+        widget.renaming=false;
+        widget.name=controller.text.toString();
       });
     };
   }
@@ -93,6 +96,12 @@ class _FolderState extends State<Folder> {
 
   void deSelectFolder(){
     setState(() {
+
+      FocusScope.of(context).unfocus();
+      new TextEditingController().clear();
+     // _focusNode.unfocus();
+      widget.renaming=false;
+      widget.name=controller.text.toString();
       widget.selected=false;
     });
   }
@@ -130,12 +139,14 @@ class _FolderState extends State<Folder> {
                     SizedBox(height: screenHeight(context, mulBy: 0.005), ),
                     Container(
                       height: screenHeight(context, mulBy: 0.024),
-                      width: screenWidth(context, mulBy: 0.06),
+                      //width: screenWidth(context, mulBy: 0.06),
+
+                      alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color: Color(0xff0058d0),
                           borderRadius: BorderRadius.circular(3)
                       ),
-                      child: MBPText(text: widget.name, color: Colors.white, fontFamily: "HN", weight: FontWeight.w500, size: 12,),
+                      child: Text(widget.name??"", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 2, overflow: TextOverflow.ellipsis,),
                     )
                   ],
                 ),
@@ -156,6 +167,7 @@ class _FolderState extends State<Folder> {
               onPanStart: (e){
                 setState(() {
                   widget.renaming=false;
+                  widget.selected=true;
                   widget.name=controller.text.toString();
                   pan=true;
                   bgVisible=true;
@@ -178,15 +190,16 @@ class _FolderState extends State<Folder> {
                 });
               },
               child: Container(
-                width: screenWidth(context, mulBy: 0.06),
+                width: screenWidth(context, mulBy: 0.08),
+
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                        height: screenHeight(context, mulBy: 0.085),
-                        width: screenWidth(context, mulBy: 0.045),
+                         height: screenHeight(context, mulBy: 0.1),
+                      padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.0005)),
                         decoration: (widget.renaming||widget.selected)?BoxDecoration(
                             color: Colors.black.withOpacity(0.25),
                             border: Border.all(
@@ -194,9 +207,17 @@ class _FolderState extends State<Folder> {
                                 width: 2
                             ),
                             borderRadius: BorderRadius.circular(4)
-                        ):BoxDecoration(),
-                        child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045),)),
-                    SizedBox(height: screenHeight(context, mulBy: 0.005), ),
+                        ):BoxDecoration(
+                          border: Border.all(
+                              color: Colors.grey.withOpacity(0.0),
+                              width: 2
+                          ),
+                        ),
+                      child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045), ),
+                        ),
+
+
+            SizedBox(height: screenHeight(context, mulBy: 0.005), ),
                     widget.renaming?
                     Container(
                       height: screenHeight(context, mulBy: 0.024),
@@ -216,6 +237,9 @@ class _FolderState extends State<Folder> {
                           autofocus: true,
                           focusNode: _focusNode,
                           textAlign: TextAlign.center,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(18),
+                          ],
                           decoration: InputDecoration(
                             isDense: true,
                             contentPadding: EdgeInsets.only(top: 4.5, bottom: 0, left: 0, right: 0),
@@ -241,7 +265,22 @@ class _FolderState extends State<Folder> {
                         ),
                       ),
                     )
-                        :Text(widget.name, textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 2, overflow: TextOverflow.ellipsis,),
+                    :Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                            height: screenHeight(context, mulBy: 0.024),
+                          padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.005)),
+                          alignment: Alignment.center,
+                            decoration: widget.selected?BoxDecoration(
+                                color: Color(0xff0058d0),
+                                borderRadius: BorderRadius.circular(3)
+                            ):BoxDecoration(),
+                            child: Text(widget.name??"", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 1, overflow: TextOverflow.ellipsis, ),
+                          ),
+                      ],
+                    )
                   ],
                 ),
               ),
