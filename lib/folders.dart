@@ -22,31 +22,32 @@ class Folders extends ChangeNotifier{
 
   void createFolder(context, {String name="untitled folder", bool renaming}){
     Offset initPos=  Offset(200, 150);
-    int x,y,i=0;
+    int x,y,folderNum=0;
     if(folders.isEmpty)
-      initPos=Offset(screenWidth(context, mulBy: 0.91), screenHeight(context, mulBy: 0.11));
+      initPos=Offset(screenWidth(context, mulBy: 0.91), screenHeight(context, mulBy: 0.09));
     else{
-      folders.forEach((element) {
-        if(element.name==name) {
-          if(int.tryParse(element.name.split(" ").last)!=null) {
-            i = int.parse(element.name.split(" ").last) ?? i;
-            name = "${name.substring(0, name.lastIndexOf(" "))} ${++i}";
+        for(int element=0; element<folders.length; element++) {
+        if(folders[element].name==name) {
+          if(int.tryParse(folders[element].name.split(" ").last)!=null) { ///for not changing "untitled folder" to "untitled 1"
+            folderNum = int.parse(folders[element].name.split(" ").last) ?? folderNum;
+            name = "${name.substring(0, name.lastIndexOf(" "))} ${++folderNum}";
+            element=0;   ///for checking if changed name == name in already checked folders
           }
           else{
-            name = "$name ${++i}";
+            name = "$name ${++folderNum}";
           }
         }
-      });
+        }
       x= ((folders.length)/6).toInt();
       y= (folders.length)%6;
       print("$x, $y");
       if(x==0)
-        initPos=Offset(screenWidth(context, mulBy: 0.91), y*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.11));
+        initPos=Offset(screenWidth(context, mulBy: 0.91), y*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.09));
       else
-        initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.07), (y)*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.11));
+        initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.07), (y)*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.09));
 
     }
-    folders.add(Folder(name: name, renaming: renaming, initPos: initPos, stream: _controller.stream,));
+    folders.add(Folder(name: name, renaming: renaming, initPos: initPos, ));
     notifyListeners();
   }
 
@@ -67,9 +68,8 @@ class Folder extends StatefulWidget {
   final Offset initPos;
   bool renaming;
   bool selected;
-  final Stream<int> stream;
   VoidCallback deSelectFolder;
-  Folder({Key key, this.name, this.initPos, this.renaming= false, this.selected=false, @required this.stream});
+  Folder({Key key, this.name, this.initPos, this.renaming= false, this.selected=false,});
   @override
   _FolderState createState() => _FolderState();
 }
@@ -108,7 +108,6 @@ class _FolderState extends State<Folder> {
 
   @override
   Widget build(BuildContext context) {
-    //selected= !Provider.of<BackBone>(context,).getClearSelection;
     return Container(
       height: screenHeight(context),
       width: screenWidth(context),
@@ -121,32 +120,41 @@ class _FolderState extends State<Folder> {
               top: widget.initPos.dy,
               left: widget.initPos.dx,
               child: Container(
+                width: screenWidth(context, mulBy: 0.08),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Container(
-                        height: screenHeight(context, mulBy: 0.1),
-                        width: screenWidth(context, mulBy: 0.048),
-                        decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.25),
-                            border: Border.all(
-                                color: Colors.grey.withOpacity(0.4),
-                                width: 2
-                            ),
-                            borderRadius: BorderRadius.circular(4)
-                        ),
-                        child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.095), width: screenWidth(context, mulBy: 0.059),)),
-                    SizedBox(height: screenHeight(context, mulBy: 0.005), ),
-                    Container(
-                      height: screenHeight(context, mulBy: 0.024),
-                      //width: screenWidth(context, mulBy: 0.06),
-
-                      alignment: Alignment.center,
+                      height: screenHeight(context, mulBy: 0.1),
+                      padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.0005)),
                       decoration: BoxDecoration(
-                          color: Color(0xff0058d0),
-                          borderRadius: BorderRadius.circular(3)
+                          color: Colors.black.withOpacity(0.25),
+                          border: Border.all(
+                              color: Colors.grey.withOpacity(0.4),
+                              width: 2
+                          ),
+                          borderRadius: BorderRadius.circular(4)
                       ),
-                      child: Text(widget.name??"", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 2, overflow: TextOverflow.ellipsis,),
+                      child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045), ),
+                    ),
+                    SizedBox(height: screenHeight(context, mulBy: 0.005), ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: screenHeight(context, mulBy: 0.024),
+                          padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.005)),
+                          alignment: Alignment.center,
+                          decoration:BoxDecoration(
+                              color: Color(0xff0058d0),
+                              borderRadius: BorderRadius.circular(3)
+                          ),
+                          child: Text(widget.name??"", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 1, overflow: TextOverflow.ellipsis, ),
+                        ),
+                      ],
                     )
                   ],
                 ),
@@ -167,7 +175,7 @@ class _FolderState extends State<Folder> {
               onPanStart: (e){
                 setState(() {
                   widget.renaming=false;
-                  widget.selected=true;
+                  widget.selected=false;
                   widget.name=controller.text.toString();
                   pan=true;
                   bgVisible=true;
@@ -180,6 +188,7 @@ class _FolderState extends State<Folder> {
                 });
                 Timer(Duration(milliseconds: 200), (){setState(() {
                   bgVisible=false;
+                  widget.selected=true;
                 });});
               },
 
@@ -215,13 +224,11 @@ class _FolderState extends State<Folder> {
                         ),
                       child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045), ),
                         ),
-
-
             SizedBox(height: screenHeight(context, mulBy: 0.005), ),
                     widget.renaming?
                     Container(
                       height: screenHeight(context, mulBy: 0.024),
-                     // width: screenWidth(context, mulBy: 0.06),
+                      width: screenWidth(context, mulBy: 0.06),
                       decoration: BoxDecoration(
                         color: Color(0xff1a6cc4).withOpacity(0.7),
                         border: Border.all(
@@ -259,6 +266,8 @@ class _FolderState extends State<Folder> {
                           onSubmitted: (s){
                             setState(() {
                               widget.renaming=false;
+                              if(controller.text=="")    ///changes controller to sys found name if empty.
+                                controller.text=widget.name;
                               widget.name=controller.text.toString();
                             });
                           },
