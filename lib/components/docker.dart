@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 import '../componentsOnOff.dart';
 import '../folders.dart';
 import '../openApps.dart';
+import '../providers.dart';
 import '../widgets.dart';
+import 'alertDialog.dart';
 import 'finderWindow.dart';
 import 'hoverDock.dart';
 
@@ -106,7 +108,7 @@ class _DockerState extends State<Docker> {
                           setState(() {
                             _animate = !_animate;
                           });
-                          Provider.of<Folders>(context, listen: false).deSelectAll();
+                          tapFunctions(context);
                           Provider.of<OnOff>(context, listen: false)
                               .maxFinder();
                           Provider.of<Apps>(context, listen: false).openApp(
@@ -130,7 +132,7 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
-                          Provider.of<Folders>(context, listen: false).deSelectAll();
+                          tapFunctions(context);
                           Provider.of<OnOff>(context, listen: false)
                               .maxSafari();
                           Provider.of<Apps>(context, listen: false).openApp(
@@ -150,7 +152,7 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
-                          Provider.of<Folders>(context, listen: false).deSelectAll();
+                          tapFunctions(context);
 
                           Provider.of<OnOff>(context, listen: false)
                               .maxMessages();
@@ -175,7 +177,7 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
-                          Provider.of<Folders>(context, listen: false).deSelectAll();
+                          tapFunctions(context);
 
                           Provider.of<OnOff>(context, listen: false)
                               .maxSpotify();
@@ -197,7 +199,7 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
-                          Provider.of<Folders>(context, listen: false).deSelectAll();
+                          tapFunctions(context);
 
                           Provider.of<OnOff>(context, listen: false)
                               .maxTerminal();
@@ -219,7 +221,7 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
-                          Provider.of<Folders>(context, listen: false).deSelectAll();
+                          tapFunctions(context);
 
                           Provider.of<OnOff>(context, listen: false).maxVS();
                           Provider.of<Apps>(context, listen: false).openApp(
@@ -246,10 +248,9 @@ class _DockerState extends State<Docker> {
                         on: false,
                       ),
                       InkWell(
-                        onTap: () {
-                          Provider.of<Folders>(context, listen: false).deSelectAll();
+                        onTap: () {                tapFunctions(context);
 
-                          Provider.of<OnOff>(context, listen: false)
+                        Provider.of<OnOff>(context, listen: false)
                               .maxCalendar();
                           Provider.of<Apps>(context, listen: false).openApp(
                               Calendar(
@@ -344,7 +345,7 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
-                          Provider.of<Folders>(context, listen: false).deSelectAll();
+                          tapFunctions(context);
 
                           Provider.of<OnOff>(context, listen: false)
                               .maxFeedBack();
@@ -367,8 +368,25 @@ class _DockerState extends State<Docker> {
                         onTap: () {
                           Provider.of<Folders>(context, listen: false).deSelectAll();
                           setState(() {
-                            Provider.of<Apps>(context, listen: false)
-                                .bringToTop(ObjectKey("finder"));
+                             // showMacosAlertDialog(
+                             //    context: context,
+                             //    builder: (_) => MacosAlertDialog(
+                             //     appIcon: FlutterLogo(
+                             //       size: 56,
+                             //     ),
+                             //     title: Text(
+                             //       'Alert Dialog with Primary Action',
+                             //     ),
+                             //     message: Text(
+                             //       'This is an alert dialog with a primary action and no secondary action',
+                             //     ),
+                             //     primaryButton: MaterialButton(
+                             //       //buttonSize: ButtonSize.large,
+                             //       child: Text('Primary'),
+                             //       onPressed: Navigator.of(context).pop,
+                             //     ),
+                             //   ),
+                             // );
                           });
                         },
                         child: DockerItem(
