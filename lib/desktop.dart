@@ -25,21 +25,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool finderOpen = true;
 
-  void _onTapDown(TapDownDetails details) {
-    Provider.of<BackBone>(context, listen: false).setPos(details?.globalPosition);
-  }
-
-
-
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen= Provider.of<OnOff>(context).getCc;
-    double brightness = Provider.of<BackBone>(context).getBrightness;
+    double brightness = Provider.of<DataBus>(context).getBrightness;
     List<Widget> apps= Provider.of<Apps>(context).getApps;
     List<Folder> folders= Provider.of<Folders>(context).getFolders;
-    var pointerPos = Provider.of<BackBone>(context).getPos;
+    var pointerPos = Provider.of<DataBus>(context).getPos;
 
     return Scaffold(
       body: Center(
@@ -48,14 +42,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ///wallpaper
             GestureDetector(
               onSecondaryTap: (){
-                Provider.of<Folders>(context, listen: false).deSelectAll();
-                Provider.of<OnOff>(context, listen: false).offRCM();
                 Provider.of<OnOff>(context, listen: false).onRCM();
               },
-              onSecondaryTapDown: _onTapDown,
+              onSecondaryTapDown: (details){
+                tapFunctions(context);
+                Provider.of<DataBus>(context, listen: false).setPos(details?.globalPosition);
+              },
               onTap: (){
-                Provider.of<Folders>(context, listen: false).deSelectAll();
-                Provider.of<OnOff>(context, listen: false).offRCM();
+                tapFunctions(context);
               },
               child: Container(
                   height:size.height,
@@ -71,6 +65,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ///Right Click Context Menu
             RightClick(
                 initPos: pointerPos),
+
+            ///Folder Right Click Menu
+            FolderRightClick(
+              initPos: pointerPos,
+            ),
 
             ///Applications
             ...apps,
