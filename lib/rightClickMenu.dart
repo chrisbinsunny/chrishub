@@ -386,10 +386,6 @@ class _FolderRightClickState extends State<FolderRightClick> {
                     margin: EdgeInsets.only(
                         bottom: screenHeight(context, mulBy: 0.006)
                     ),
-                    buttonFunc: (){
-                      Provider.of<Folders>(context, listen: false).createFolder(context, renaming: true);
-                      Provider.of<OnOff>(context, listen: false).offRCM();
-                    },
                   ),
                   Container(
                     color: Theme.of(context)
@@ -401,15 +397,14 @@ class _FolderRightClickState extends State<FolderRightClick> {
                   ),
                   RCMItem(
                     folder: true,
-
                     name: "Move to Bin",
                     margin: EdgeInsets.only(
                         top: screenHeight(context, mulBy: 0.006),
                         bottom: screenHeight(context, mulBy: 0.006)
                     ),
                     buttonFunc: (){
-                      print("Get Info Screen");
-                      Provider.of<OnOff>(context, listen: false).offRCM();
+                      Provider.of<Folders>(context, listen: false).deleteFolder();
+                      Provider.of<OnOff>(context, listen: false).offFRCM();
                     },
                   ),
                   Container(
@@ -432,7 +427,6 @@ class _FolderRightClickState extends State<FolderRightClick> {
                     folder: true,
                     name: "Rename",
                     buttonFunc: (){
-                      print("yo");
                       Provider.of<Folders>(context, listen: false).renameFolder();
                       Provider.of<OnOff>(context, listen: false).offFRCM();
                     },

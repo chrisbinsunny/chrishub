@@ -51,8 +51,8 @@ class Folders extends ChangeNotifier{
     notifyListeners();
   }
 
-  void deleteFolder(String name){
-    folders.removeWhere((element) => element.name==name);
+  void deleteFolder(){
+    folders.removeWhere((element) => element.selected==true);
     notifyListeners();
   }
 
@@ -96,17 +96,19 @@ class _FolderState extends State<Folder> {
 
   @override
   void initState() {
+    super.initState();
     controller = new TextEditingController(text: widget.name, );
     controller.selection=TextSelection.fromPosition(TextPosition(offset: controller.text.length));
     position=widget.initPos;
-    super.initState();
     selectText();
     widget.renameFolder=(){
+      if (!mounted) return;
       setState(() {
         widget.renaming=true;
       });
     };
     widget.deSelectFolder= (){
+      if (!mounted) return;
       setState(() {
         widget.selected=false;
         widget.renaming=false;
@@ -114,6 +116,8 @@ class _FolderState extends State<Folder> {
       });
     };
   }
+
+
 
   void selectText(){
     _focusNode.addListener(() {
@@ -184,6 +188,7 @@ class _FolderState extends State<Folder> {
             left: position.dx,
             child: GestureDetector(
               onPanUpdate: (tapInfo){
+                if (!mounted) return;
                 setState(() {
                   position = Offset(position.dx + tapInfo.delta.dx,
                       position.dy + tapInfo.delta.dy);
@@ -191,6 +196,7 @@ class _FolderState extends State<Folder> {
               },
               onPanStart: (e){
                 tapFunctions(context);
+                if (!mounted) return;
                 setState(() {
                   widget.renaming=false;
                   widget.selected=false;
@@ -200,6 +206,7 @@ class _FolderState extends State<Folder> {
                 });
               },
               onPanEnd: (e){
+                if (!mounted) return;
                 setState(() {
                   pan=false;
                   position=widget.initPos;
@@ -212,12 +219,14 @@ class _FolderState extends State<Folder> {
 
               onTap: (){
                 tapFunctions(context);
+                if (!mounted) return;
                 setState(() {
                   widget.selected=true;
                 });
               },
 
               onSecondaryTap: (){
+                if (!mounted) return;
                 setState(() {
                   widget.selected=true;
                 });
@@ -293,6 +302,7 @@ class _FolderState extends State<Folder> {
                               fontSize: 12
                           ),
                           onSubmitted: (s){
+                            if (!mounted) return;
                             setState(() {
                               widget.renaming=false;
                               if(controller.text=="")    ///changes controller to sys found name if empty.
