@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'componentsOnOff.dart';
@@ -15,7 +14,6 @@ class Folders extends ChangeNotifier{
 
   Widget temp;
   List<Folder> folders= [];
-  StreamController<int> _controller = StreamController<int>();
 
   List<Folder> get getFolders {
     return folders;
@@ -58,11 +56,22 @@ class Folders extends ChangeNotifier{
     notifyListeners();
   }
 
+  void renameFolder(){
+    folders.forEach((element) {
+      if(element.selected==true) {
+
+        element.renameFolder();
+      }
+    });
+  }
+
   void deSelectAll(){
     folders.forEach((element) {
       element.deSelectFolder();
     });
   }
+
+
 }
 
 class Folder extends StatefulWidget {
@@ -71,6 +80,7 @@ class Folder extends StatefulWidget {
   bool renaming;
   bool selected;
   VoidCallback deSelectFolder;
+  VoidCallback renameFolder;
   Folder({Key key, this.name, this.initPos, this.renaming= false, this.selected=false,});
   @override
   _FolderState createState() => _FolderState();
@@ -91,6 +101,11 @@ class _FolderState extends State<Folder> {
     position=widget.initPos;
     super.initState();
     selectText();
+    widget.renameFolder=(){
+      setState(() {
+        widget.renaming=true;
+      });
+    };
     widget.deSelectFolder= (){
       setState(() {
         widget.selected=false;
@@ -110,6 +125,7 @@ class _FolderState extends State<Folder> {
 
   @override
   Widget build(BuildContext context) {
+    List<Folder> folders= Provider.of<Folders>(context).getFolders;
     return Container(
       height: screenHeight(context),
       width: screenWidth(context),
@@ -281,6 +297,19 @@ class _FolderState extends State<Folder> {
                               widget.renaming=false;
                               if(controller.text=="")    ///changes controller to sys found name if empty.
                                 controller.text=widget.name;
+                              int folderNum=0;
+                              for(int element=0; element<folders.length; element++) {
+                                if(folders[element].name==controller.text) {
+                                  if(int.tryParse(folders[element].name.split(" ").last)!=null) { ///for not changing "untitled folder" to "untitled 1"
+                                    folderNum = int.parse(folders[element].name.split(" ").last) ?? folderNum;
+                                    controller.text = "${controller.text.substring(0, controller.text.lastIndexOf(" "))} ${++folderNum}";
+                                    element=0;   ///for checking if changed name == name in already checked folders
+                                  }
+                                  else{
+                                    controller.text = "${controller.text} ${++folderNum}";
+                                  }
+                                }
+                              }
                               widget.name=controller.text.toString();
                             });
                           },
