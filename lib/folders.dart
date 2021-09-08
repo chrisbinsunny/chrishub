@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'componentsOnOff.dart';
+import 'providers.dart';
 import 'sizes.dart';
 
 
@@ -65,7 +67,7 @@ class Folders extends ChangeNotifier{
 
 class Folder extends StatefulWidget {
   String name;
-  final Offset initPos;
+  Offset initPos;
   bool renaming;
   bool selected;
   VoidCallback deSelectFolder;
@@ -113,7 +115,6 @@ class _FolderState extends State<Folder> {
       width: screenWidth(context),
       child: Stack(
         children: [
-
           Visibility(
             visible: bgVisible,
             child: Positioned(
@@ -173,6 +174,7 @@ class _FolderState extends State<Folder> {
                 });
               },
               onPanStart: (e){
+                tapFunctions(context);
                 setState(() {
                   widget.renaming=false;
                   widget.selected=false;
@@ -193,10 +195,21 @@ class _FolderState extends State<Folder> {
               },
 
               onTap: (){
-                Provider.of<Folders>(context, listen: false).deSelectAll();
+                tapFunctions(context);
                 setState(() {
                   widget.selected=true;
                 });
+              },
+
+              onSecondaryTap: (){
+                setState(() {
+                  widget.selected=true;
+                });
+                Provider.of<OnOff>(context, listen: false).onFRCM();
+              },
+              onSecondaryTapDown: (details){
+                tapFunctions(context);
+                Provider.of<DataBus>(context, listen: false).setPos(details?.globalPosition);
               },
               child: Container(
                 width: screenWidth(context, mulBy: 0.08),
