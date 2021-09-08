@@ -430,8 +430,12 @@ class _FolderRightClickState extends State<FolderRightClick> {
                   ),
                   RCMItem(
                     folder: true,
-
                     name: "Rename",
+                    buttonFunc: (){
+                      print("yo");
+                      Provider.of<Folders>(context, listen: false).renameFolder();
+                      Provider.of<OnOff>(context, listen: false).offFRCM();
+                    },
                   ),
                   RCMItem(
                     folder: true,
