@@ -47,3 +47,5 @@ app.*.map.json
 /android/app/release
 /Pics/
 /build/
+lib/components/alertDialog.dart
+lib/components/alertDialog.dart
