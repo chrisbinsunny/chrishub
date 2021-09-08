@@ -31,7 +31,7 @@ class _ControlCentreState extends State<ControlCentre> {
 
   @override
   Widget build(BuildContext context) {
-    brightness = Provider.of<BackBone>(context).getBrightness;
+    brightness = Provider.of<DataBus>(context).getBrightness;
 
     BoxDecoration ccDecoration = BoxDecoration(
       color: Theme.of(context).backgroundColor,
@@ -354,7 +354,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                     else if (val < 6.7) val = 6.7;
                                                     setState(() {
                                                       brightness = val;
-                                                      Provider.of<BackBone>(context,
+                                                      Provider.of<DataBus>(context,
                                                               listen: false)
                                                           .setBrightness(brightness);
                                                     });
@@ -552,7 +552,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                 else if (val < 6.7) val = 6.7;
                                                 setState(() {
                                                   brightness = val;
-                                                  Provider.of<BackBone>(context,
+                                                  Provider.of<DataBus>(context,
                                                       listen: false)
                                                       .setBrightness(brightness);
                                                 });

@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<OnOff>(
           create: (context) => OnOff(),
         ),
-        ChangeNotifierProvider<BackBone>(
-          create: (context) => BackBone(),
+        ChangeNotifierProvider<DataBus>(
+          create: (context) => DataBus(),
         ),
         ChangeNotifierProvider<Apps>(
           create: (context) => Apps(),
