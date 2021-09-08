@@ -93,7 +93,7 @@ class ThemeNotifier with ChangeNotifier {
       dialogBackgroundColor: Color(0xff1e1f23), //feedback body color
       disabledColor: Color(0xff39373b), //terminal top color
       errorColor: Color(0xff1e1e1e).withOpacity(0.4), //iMessages color
-      hoverColor: Color(0xff2b2424).withOpacity(0.4), // RCM color
+      hoverColor: Color(0xff110f0f).withOpacity(0.4), // RCM color
       primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey[200],

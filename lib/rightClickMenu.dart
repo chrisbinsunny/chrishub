@@ -225,7 +225,7 @@ class _RCMItemState extends State<RCMItem> {
           width: screenWidth(context),
           alignment: Alignment.centerLeft,
           padding: EdgeInsets.only(
-              left: screenWidth(context, mulBy: widget.folder?0.003:0.0125),
+              left: screenWidth(context, mulBy: widget.folder?0.004:0.0125),
             right: screenWidth(context, mulBy: 0.006),
 
           ),
@@ -338,7 +338,7 @@ class _FolderRightClickState extends State<FolderRightClick> {
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: screenWidth(context, mulBy: 0.15)+1,
-      height: screenHeight(context, mulBy: 0.63)+1,
+      height: screenHeight(context, mulBy: 0.54)+1,
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).shadowColor, width: 1),
         borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -353,7 +353,7 @@ class _FolderRightClickState extends State<FolderRightClick> {
       ),
       child: Container(
         width: screenWidth(context, mulBy: 0.15),
-        height: screenHeight(context, mulBy: 0.63),
+        height: screenHeight(context, mulBy: 0.54),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(5)),
           border: Border.all(
@@ -397,7 +397,7 @@ class _FolderRightClickState extends State<FolderRightClick> {
                         .withOpacity(0.9),
                     height: 0.25,
                     width: screenWidth(context,
-                        mulBy: 0.13),
+                        mulBy: 0.14),
                   ),
                   RCMItem(
                     folder: true,
@@ -418,7 +418,7 @@ class _FolderRightClickState extends State<FolderRightClick> {
                         .withOpacity(0.9),
                     height: 0.25,
                     width: screenWidth(context,
-                        mulBy: 0.13),
+                        mulBy: 0.14),
                   ),
                   RCMItem(
                     folder: true,
@@ -463,7 +463,7 @@ class _FolderRightClickState extends State<FolderRightClick> {
                         .withOpacity(0.9),
                     height: 0.25,
                     width: screenWidth(context,
-                        mulBy: 0.13),
+                        mulBy: 0.14),
                   ),
                   RCMItem(
                     folder: true,
@@ -487,7 +487,7 @@ class _FolderRightClickState extends State<FolderRightClick> {
                         .withOpacity(0.9),
                     height: 0.25,
                     width: screenWidth(context,
-                        mulBy: 0.15),
+                        mulBy: 0.14),
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -588,7 +588,7 @@ class _FolderRightClickState extends State<FolderRightClick> {
                         .withOpacity(0.9),
                     height: 0.25,
                     width: screenWidth(context,
-                        mulBy: 0.13),
+                        mulBy: 0.14),
                   ),
                   RCMItem(
                     folder: true,
@@ -605,7 +605,7 @@ class _FolderRightClickState extends State<FolderRightClick> {
                         .withOpacity(0.9),
                     height: 0.25,
                     width: screenWidth(context,
-                        mulBy: 0.13),
+                        mulBy: 0.14),
                   ),
                   RCMItem(
                     folder: true,
