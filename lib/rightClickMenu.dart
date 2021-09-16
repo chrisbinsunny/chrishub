@@ -403,7 +403,7 @@ class _FolderRightClickState extends State<FolderRightClick> {
                         bottom: screenHeight(context, mulBy: 0.006)
                     ),
                     buttonFunc: (){
-                      Provider.of<Folders>(context, listen: false).deleteFolder();
+                      Provider.of<Folders>(context, listen: false).deleteFolder(context);
                       Provider.of<OnOff>(context, listen: false).offFRCM();
                     },
                   ),
