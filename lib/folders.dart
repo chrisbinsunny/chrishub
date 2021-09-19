@@ -37,23 +37,39 @@ class Folders extends ChangeNotifier{
             name = "$name ${++folderNum}";
           }
         }
+
         }
       x= ((folders.length)/6).toInt();
       y= (folders.length)%6;
-      print("$x, $y");
       if(x==0)
         initPos=Offset(screenWidth(context, mulBy: 0.91), y*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.09));
       else
         initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.07), (y)*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.09));
 
+
     }
-    folders.add(Folder(name: name, renaming: renaming, initPos: initPos, ));
+    folders.add(Folder(name: name, renaming: renaming, initPos: initPos, key: ObjectKey(name),));
     notifyListeners();
   }
 
-  void deleteFolder(){
+  void deleteFolder(BuildContext context){
+    Offset posAfterDel=  Offset(200, 150);
+    int x,y;
     folders.removeWhere((element) => element.selected==true);
+    deSelectAll();
+    for(int i=0; i<folders.length; i++)
+    {
+      x= ((i+1)/6).toInt();
+      y= (i)%6;
+      if(x==0)
+        posAfterDel=Offset(screenWidth(context, mulBy: 0.91), y*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.09));
+      else
+        posAfterDel=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.07), (y)*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.09));
+      folders[i].initPos=posAfterDel;
+    }
+
     notifyListeners();
+
   }
 
   void renameFolder(){
@@ -66,6 +82,7 @@ class Folders extends ChangeNotifier{
   }
 
   void deSelectAll(){
+
     folders.forEach((element) {
       element.deSelectFolder();
     });
@@ -112,9 +129,10 @@ class _FolderState extends State<Folder> {
       setState(() {
         widget.selected=false;
         widget.renaming=false;
-        widget.name=controller.text.toString();
+       //widget.name=controller.text.toString();
       });
     };
+
   }
 
 
@@ -211,7 +229,9 @@ class _FolderState extends State<Folder> {
                   pan=false;
                   position=widget.initPos;
                 });
-                Timer(Duration(milliseconds: 200), (){setState(() {
+                Timer(Duration(milliseconds: 200), (){
+                  if (!mounted) return;
+                  setState(() {
                   bgVisible=false;
                   widget.selected=true;
                 });});

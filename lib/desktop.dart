@@ -49,6 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Provider.of<DataBus>(context, listen: false).setPos(details?.globalPosition);
               },
               onTap: (){
+                if (!mounted) return;
                 tapFunctions(context);
               },
               child: Container(
