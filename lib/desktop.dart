@@ -11,6 +11,7 @@ import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:flutter/rendering.dart';
+import 'components/notifiaction.dart';
 import 'openApps.dart';
 import 'theme/theme.dart';
 import 'components/docker.dart';
@@ -77,6 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
             /// file menu
             FileMenu(),
+
+            ///Notification
+            Notifications(),
 
             //TODO State change of widgets under this will cause iFrame HTMLView to reload. Engine Fix required.
             /// Track the issue here: https://github.com/flutter/flutter/issues/80524
