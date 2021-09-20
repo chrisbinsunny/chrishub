@@ -366,28 +366,7 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
-                          Provider.of<Folders>(context, listen: false).deSelectAll();
-                          setState(() {
-                             // showMacosAlertDialog(
-                             //    context: context,
-                             //    builder: (_) => MacosAlertDialog(
-                             //     appIcon: FlutterLogo(
-                             //       size: 56,
-                             //     ),
-                             //     title: Text(
-                             //       'Alert Dialog with Primary Action',
-                             //     ),
-                             //     message: Text(
-                             //       'This is an alert dialog with a primary action and no secondary action',
-                             //     ),
-                             //     primaryButton: MaterialButton(
-                             //       //buttonSize: ButtonSize.large,
-                             //       child: Text('Primary'),
-                             //       onPressed: Navigator.of(context).pop,
-                             //     ),
-                             //   ),
-                             // );
-                          });
+                          Provider.of<OnOff>(context, listen: false).onNotifications();
                         },
                         child: DockerItem(
                           iName: "system-preferences",
