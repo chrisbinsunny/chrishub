@@ -89,7 +89,7 @@ class _RightClickState extends State<RightClick> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(5)),
           border: Border.all(
-            color: Colors.white.withOpacity(0.3),
+            color: Colors.grey.withOpacity(0.9),
             width: themeNotifier.isDark()?0.6:0
           ),
 

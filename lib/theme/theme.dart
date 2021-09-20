@@ -85,7 +85,7 @@ class ThemeNotifier with ChangeNotifier {
       splashColor: Colors.black.withOpacity(0.4), //Control Center border
       shadowColor: Colors.black.withOpacity(0.3), //Control Center outer border
       accentColor: Colors.black.withOpacity(.2), //shadow color
-      focusColor: Color(0xff3e3232).withOpacity(0.2), //docker color
+      focusColor: Color(0xff393232).withOpacity(0.2), //docker color
       canvasColor: Colors.black.withOpacity(0.3), //fileMenu Color
       scaffoldBackgroundColor: Color(0xff242127), //Finder window Color
       dividerColor: Color(0xff3a383e), // Window top color
