@@ -14,6 +14,12 @@ class DataBus extends ChangeNotifier{
   String fs="";
   double brightness =95.98;
   Offset pointerPos = new Offset(0, 0);
+  Map<String, String> notification= {
+    "notification":"Welcome to Chrisbin's MacBook Pro",
+    "url":"https://github.com/chrisbinsunny",
+    "app":"apple",
+    "head":"Welcome"
+  };
 
 
 
@@ -37,11 +43,20 @@ class DataBus extends ChangeNotifier{
     notifyListeners();
   }
 
+  void setNotification(String noti, url, app, head){
+    notification["notification"]=noti;
+    notification["url"]=url;
+    notification["app"]=app;
+    notification["head"]=head;
+    notifyListeners();
+  }
 
+  get getNotification => notification;
 }
 
 void tapFunctions(BuildContext context){
   Provider.of<Folders>(context, listen: false).deSelectAll();
+  Provider.of<OnOff>(context, listen: false).offNotifications();
   Provider.of<OnOff>(context, listen: false).offFRCM();
   Provider.of<OnOff>(context, listen: false).offRCM();
 }

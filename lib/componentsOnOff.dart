@@ -39,6 +39,7 @@ class OnOff extends ChangeNotifier{
   bool messagesPan = false;
   bool rightClickMenu = false;
   bool folderRightClickMenu = false;
+  bool notificationOn =false;
 
   String get getFS {
     return fs;
@@ -553,4 +554,17 @@ class OnOff extends ChangeNotifier{
     folderRightClickMenu= false;
     notifyListeners();
   }
+
+  void onNotifications() {
+    notificationOn= true;
+    notifyListeners();
+  }
+
+  void offNotifications() {
+    notificationOn= false;
+    notifyListeners();
+  }
+
+  get getNotificationOn=> notificationOn;
+
 }

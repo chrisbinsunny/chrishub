@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/openApps.dart';
+import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
 
 import '../componentsOnOff.dart';
@@ -33,14 +34,13 @@ class _FileMenuState extends State<FileMenu> {
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
-    String fs= Provider.of<OnOff>(context).getFS;
     String topApp= Provider.of<Apps>(context).getTop;
     return ClipRect(
       child: new BackdropFilter(
         filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
         child: new Container(
-            height: size.height*0.035,
-            width: size.width,
+            height: screenHeight(context, mulBy: 0.035),
+            width: screenWidth(context,),
             padding: EdgeInsets.all(3),
             decoration: new BoxDecoration(
               color: Theme.of(context).canvasColor,
