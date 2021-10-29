@@ -126,9 +126,14 @@ class _DockerState extends State<Docker> {
                           on: true,
                         ),
                       ),
-                      DockerItem(
-                        iName: "launchpad",
-                        on: false,
+                      InkWell(
+                        onTap: () {
+                          Provider.of<OnOff>(context, listen: false).toggleLaunchPad();
+                        },
+                        child: DockerItem(
+                          iName: "launchpad",
+                          on: false,
+                        ),
                       ),
                       InkWell(
                         onTap: () {
