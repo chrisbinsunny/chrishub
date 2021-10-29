@@ -67,9 +67,11 @@ class _LaunchPadState extends State<LaunchPad> {
             child: BackdropFilter(
               filter: new ImageFilter.blur(sigmaX: 23.0, sigmaY: 23.0),
               child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth(context, mulBy: 0.12),
-                  vertical: screenHeight(context, mulBy: 0.1)
+                padding: EdgeInsets.only(
+                    left: screenWidth(context, mulBy: 0.12),
+                  right: screenWidth(context, mulBy: 0.12),
+                  bottom: screenHeight(context, mulBy: 0.17),
+                  top: screenHeight(context, mulBy: 0.1)
                 ),
                 child: Column(
                   children: [
@@ -78,8 +80,10 @@ class _LaunchPadState extends State<LaunchPad> {
                     ),
                     Expanded(
                       child: GridView(
+
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 6
+                          crossAxisCount: 6,
+                          mainAxisSpacing: screenHeight(context, mulBy: 0.001)
                         ),
                         children: [
                           InkWell(
@@ -360,6 +364,14 @@ class _LaunchPadState extends State<LaunchPad> {
                         ],
                       ),
                     ),
+                    Container(
+                      height: 8,
+                      width: 8,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -389,13 +401,14 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
           child: Image.asset(
             "assets/apps/${widget.iName.toLowerCase()}.png",
             fit: BoxFit.scaleDown,
           ),
-          height: 60,
+          width: 60,
         ),
         MBPText(
           text: widget.iName,
