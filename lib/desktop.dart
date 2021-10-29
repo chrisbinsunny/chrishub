@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
     bool ccOpen= Provider.of<OnOff>(context).getCc;
     double brightness = Provider.of<DataBus>(context).getBrightness;
     List<Widget> apps= Provider.of<Apps>(context).getApps;
-    List<Folder> folders= Provider.of<Folders>(context).getFolders;
+    List<Folder> folders= Provider.of<Folders>(context, listen: false).getFolders;
     var pointerPos = Provider.of<DataBus>(context).getPos;
 
     return Scaffold(

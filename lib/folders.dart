@@ -48,7 +48,7 @@ class Folders extends ChangeNotifier{
 
 
     }
-    folders.add(Folder(name: name, renaming: renaming, initPos: initPos, key: ObjectKey(name),));
+    folders.add(Folder( key: UniqueKey(), name: name, renaming: renaming, initPos: initPos, ));
     notifyListeners();
   }
 
@@ -60,6 +60,7 @@ class Folders extends ChangeNotifier{
     int x,y;
     folders.removeWhere((element) => element.selected==true);
     deSelectAll();
+
     for(int i=0; i<folders.length; i++)
     {
       x= ((i+1)/6).toInt();
@@ -105,7 +106,7 @@ class Folder extends StatefulWidget {
   bool selected;
   VoidCallback deSelectFolder;
   VoidCallback renameFolder;
-  Folder({Key key, this.name, this.initPos, this.renaming= false, this.selected=false,});
+  Folder({Key key, this.name, this.initPos, this.renaming= false, this.selected=false,}): super(key: key);
   @override
   _FolderState createState() => _FolderState();
 }
@@ -116,7 +117,6 @@ class _FolderState extends State<Folder> {
   FocusNode _focusNode = FocusNode();
   bool pan= false;
   bool bgVisible= false;
-
 
   @override
   void initState() {
@@ -139,10 +139,7 @@ class _FolderState extends State<Folder> {
        //widget.name=controller.text.toString();
       });
     };
-
   }
-
-
 
   void selectText(){
     _focusNode.addListener(() {
@@ -155,6 +152,8 @@ class _FolderState extends State<Folder> {
   @override
   Widget build(BuildContext context) {
     List<Folder> folders= Provider.of<Folders>(context).getFolders;
+    if(!pan)
+    position=widget.initPos;
     return Container(
       height: screenHeight(context),
       width: screenWidth(context),
