@@ -52,9 +52,6 @@ class Folders extends ChangeNotifier{
     notifyListeners();
   }
 
-  ///Following function is not working as expected for some unknown reason.
-  ///The folder gets deleted, but the name reappears on the next tap or pan. And the new folder
-  ///at the deleted folder's position stays selected.
   void deleteFolder(BuildContext context){
     Offset posAfterDel=  Offset(200, 150);
     int x,y;
@@ -73,10 +70,6 @@ class Folders extends ChangeNotifier{
     }
 
     notifyListeners();
-
-  }
-
-  void deleteNotification() {
 
   }
 
