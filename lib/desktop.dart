@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mac_dt/apps/launchpad.dart';
 import 'package:mac_dt/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
 import 'package:mac_dt/folders.dart';
@@ -84,6 +85,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
             //TODO State change of widgets under this will cause iFrame HTMLView to reload. Engine Fix required.
             /// Track the issue here: https://github.com/flutter/flutter/issues/80524
+
+
+            ///LaunchPad
+             LaunchPad(),
+
 
             ///docker bar
             Docker(),

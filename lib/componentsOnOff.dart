@@ -40,6 +40,7 @@ class OnOff extends ChangeNotifier{
   bool rightClickMenu = false;
   bool folderRightClickMenu = false;
   bool notificationOn =false;
+  bool launchPadOn=true;
 
   String get getFS {
     return fs;
@@ -565,6 +566,18 @@ class OnOff extends ChangeNotifier{
     notifyListeners();
   }
 
+
   get getNotificationOn=> notificationOn;
 
+  void toggleLaunchPad() {
+    launchPadOn= !launchPadOn;
+    notifyListeners();
+  }
+
+  void offLaunchPad() {
+    launchPadOn= false;
+    notifyListeners();
+  }
+
+  get getLaunchPad => launchPadOn;
 }
