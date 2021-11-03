@@ -67,6 +67,8 @@ class _LaunchPadState extends State<LaunchPad> {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 23.0, sigmaY: 23.0),
               child: Container(
+                height: screenHeight(context),
+                width: screenWidth(context),
                 padding: EdgeInsets.only(
                     left: screenWidth(context, mulBy: 0.12),
                   right: screenWidth(context, mulBy: 0.12),
@@ -74,276 +76,287 @@ class _LaunchPadState extends State<LaunchPad> {
                   top: screenHeight(context, mulBy: 0.1)
                 ),
                 color: Colors.black.withOpacity(0.15),
-                child: GridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 6,
-                      mainAxisSpacing: screenHeight(context, mulBy: 0.001)
-                  ),
+                child: Column(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          _animate = !_animate;
-                        });
-                        tapFunctions(context);
-                        Provider.of<OnOff>(context, listen: false)
-                            .maxFinder();
-                        Provider.of<Apps>(context, listen: false).openApp(
-                            Finder(
-                                key: ObjectKey("finder"),
-                                initPos: Offset(
-                                    screenWidth(context, mulBy: 0.2),
-                                    screenHeight(context, mulBy: 0.18))),
-                            Provider.of<OnOff>(context, listen: false)
-                                .maxFinder()
-                        );
-                      },
-                      child: LaunchPadItem(
-                        iName: "finder",
-                        on: true,
-                      ),
+                    SizedBox(
+                      height: screenHeight(context, mulBy: 0.1),
                     ),
-                    InkWell(
-                      onTap: () {
-                        Provider.of<OnOff>(context, listen: false).toggleLaunchPad();
-                      },
-                      child: LaunchPadItem(
-                        iName: "launchpad",
-                        on: false,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        tapFunctions(context);
-                        Provider.of<OnOff>(context, listen: false)
-                            .maxSafari();
-                        Provider.of<Apps>(context, listen: false).openApp(
-                            Safari(
-                                key: ObjectKey("safari"),
-                                initPos: Offset(
-                                    screenWidth(context, mulBy: 0.14),
-                                    screenHeight(context, mulBy: 0.1))),
-                            Provider.of<OnOff>(context, listen: false)
-                                .maxSafari()
-                        );
-                      },
-                      child: LaunchPadItem(
-                        iName: "safari",
-                        on: safariOpen,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        tapFunctions(context);
-
-                        Provider.of<OnOff>(context, listen: false)
-                            .maxMessages();
-                        Provider.of<Apps>(context, listen: false).openApp(
-                            Messages(
-                                key: ObjectKey("messages"),
-                                initPos: Offset(
-                                    screenWidth(context, mulBy: 0.14),
-                                    screenHeight(context, mulBy: 0.1))),
-                            Provider.of<OnOff>(context, listen: false)
-                                .maxMessages()
-                        );
-                      },
-                      child: LaunchPadItem(
-                        iName: "messages",
-                        on: messageOpen,
-                      ),
-                    ),
-                    LaunchPadItem(
-                      iName: "maps",
-                      on: false,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        tapFunctions(context);
-
-                        Provider.of<OnOff>(context, listen: false)
-                            .maxSpotify();
-                        Provider.of<Apps>(context, listen: false).openApp(
-                            Spotify(
-                                key: ObjectKey("spotify"),
-                                initPos: Offset(
-                                    screenWidth(context, mulBy: 0.14),
-                                    screenHeight(context, mulBy: 0.1))),
-                            Provider.of<OnOff>(context, listen: false)
-                                .maxSpotify()
-                        );
-
-                      },
-                      child: LaunchPadItem(
-                        iName: "spotify",
-                        on: spotifyOpen,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        tapFunctions(context);
-
-                        Provider.of<OnOff>(context, listen: false)
-                            .maxTerminal();
-                        Provider.of<Apps>(context, listen: false).openApp(
-                            Terminal(
-                                key: ObjectKey("terminal"),
-                                initPos: Offset(
-                                    screenWidth(context, mulBy: 0.28),
-                                    screenHeight(context, mulBy: 0.2))),
-                            Provider.of<OnOff>(context, listen: false)
-                                .maxTerminal()
-                        );
-
-                      },
-                      child: LaunchPadItem(
-                        iName: "terminal",
-                        on: terminalOpen,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        tapFunctions(context);
-
-                        Provider.of<OnOff>(context, listen: false).maxVS();
-                        Provider.of<Apps>(context, listen: false).openApp(
-                            VSCode(
-                                key: ObjectKey("vscode"),
-                                initPos: Offset(
-                                    screenWidth(context, mulBy: 0.14),
-                                    screenHeight(context, mulBy: 0.1))),
-                            Provider.of<OnOff>(context, listen: false).maxVS()
-                        );
-
-                      },
-                      child: LaunchPadItem(
-                        iName: "vscode",
-                        on: vsOpen,
-                      ),
-                    ),
-                    LaunchPadItem(
-                      iName: "photos",
-                      on: false,
-                    ),
-                    LaunchPadItem(
-                      iName: "contacts",
-                      on: false,
-                    ),
-                    InkWell(
-                      onTap: () {                tapFunctions(context);
-
-                      Provider.of<OnOff>(context, listen: false)
-                          .maxCalendar();
-                      Provider.of<Apps>(context, listen: false).openApp(
-                          Calendar(
-                              key: ObjectKey("calendar"),
-                              initPos: Offset(
-                                  screenWidth(context, mulBy: 0.14),
-                                  screenHeight(context, mulBy: 0.1))),
-                          Provider.of<OnOff>(context, listen: false)
-                              .maxCalendar()
-                      );
-
-                      },
-                      child: Column(
+                    Expanded(
+                      child: GridView(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 6,
+                            childAspectRatio: 6/3,
+                            mainAxisSpacing: screenHeight(context, mulBy: 0.05)
+                        ),
+                        shrinkWrap: true,
+    physics: BouncingScrollPhysics(),
                         children: [
-                          Container(
-                              child: Stack(
-                                alignment: Alignment.topCenter,
-                                children: [
-                                  SizedBox(
-                                    width: 60,
-                                    child: Image.asset(
-                                      "assets/apps/calendar.png",
-                                      fit: BoxFit.scaleDown,
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: screenHeight(context, mulBy: 0.01),
-                                    child: Container(
-                                      height:
-                                      screenHeight(context, mulBy: 0.02),
-                                      width:
-                                      screenWidth(context, mulBy: 0.03),
-                                      color: Colors.transparent,
-                                      child: FittedBox(
-                                        fit: BoxFit.fitHeight,
-                                        child: Text(
-                                          "${DateFormat('LLL').format(now).toUpperCase()}",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'SF',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 11,
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                _animate = !_animate;
+                              });
+                              tapFunctions(context);
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxFinder();
+                              Provider.of<Apps>(context, listen: false).openApp(
+                                  Finder(
+                                      key: ObjectKey("finder"),
+                                      initPos: Offset(
+                                          screenWidth(context, mulBy: 0.2),
+                                          screenHeight(context, mulBy: 0.18))),
+                                  Provider.of<OnOff>(context, listen: false)
+                                      .maxFinder()
+                              );
+                            },
+                            child: LaunchPadItem(
+                              iName: "Finder",
+                              on: true,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              tapFunctions(context);
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxSafari();
+                              Provider.of<Apps>(context, listen: false).openApp(
+                                  Safari(
+                                      key: ObjectKey("safari"),
+                                      initPos: Offset(
+                                          screenWidth(context, mulBy: 0.14),
+                                          screenHeight(context, mulBy: 0.1))),
+                                  Provider.of<OnOff>(context, listen: false)
+                                      .maxSafari()
+                              );
+                            },
+                            child: LaunchPadItem(
+                              iName: "Safari",
+                              on: safariOpen,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              tapFunctions(context);
+
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxMessages();
+                              Provider.of<Apps>(context, listen: false).openApp(
+                                  Messages(
+                                      key: ObjectKey("messages"),
+                                      initPos: Offset(
+                                          screenWidth(context, mulBy: 0.14),
+                                          screenHeight(context, mulBy: 0.1))),
+                                  Provider.of<OnOff>(context, listen: false)
+                                      .maxMessages()
+                              );
+                            },
+                            child: LaunchPadItem(
+                              iName: "Messages",
+                              on: messageOpen,
+                            ),
+                          ),
+                          LaunchPadItem(
+                            iName: "Maps",
+                            on: false,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              tapFunctions(context);
+
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxSpotify();
+                              Provider.of<Apps>(context, listen: false).openApp(
+                                  Spotify(
+                                      key: ObjectKey("spotify"),
+                                      initPos: Offset(
+                                          screenWidth(context, mulBy: 0.14),
+                                          screenHeight(context, mulBy: 0.1))),
+                                  Provider.of<OnOff>(context, listen: false)
+                                      .maxSpotify()
+                              );
+
+                            },
+                            child: LaunchPadItem(
+                              iName: "Spotify",
+                              on: spotifyOpen,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              tapFunctions(context);
+
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxTerminal();
+                              Provider.of<Apps>(context, listen: false).openApp(
+                                  Terminal(
+                                      key: ObjectKey("terminal"),
+                                      initPos: Offset(
+                                          screenWidth(context, mulBy: 0.28),
+                                          screenHeight(context, mulBy: 0.2))),
+                                  Provider.of<OnOff>(context, listen: false)
+                                      .maxTerminal()
+                              );
+
+                            },
+                            child: LaunchPadItem(
+                              iName: "Terminal",
+                              on: terminalOpen,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              tapFunctions(context);
+
+                              Provider.of<OnOff>(context, listen: false).maxVS();
+                              Provider.of<Apps>(context, listen: false).openApp(
+                                  VSCode(
+                                      key: ObjectKey("vscode"),
+                                      initPos: Offset(
+                                          screenWidth(context, mulBy: 0.14),
+                                          screenHeight(context, mulBy: 0.1))),
+                                  Provider.of<OnOff>(context, listen: false).maxVS()
+                              );
+
+                            },
+                            child: LaunchPadItem(
+                              iName: "Visual Studio Code",
+                              on: vsOpen,
+                            ),
+                          ),
+                          LaunchPadItem(
+                            iName: "Photos",
+                            on: false,
+                          ),
+                          LaunchPadItem(
+                            iName: "Contacts",
+                            on: false,
+                          ),
+                          InkWell(
+                            onTap: () {                tapFunctions(context);
+
+                            Provider.of<OnOff>(context, listen: false)
+                                .maxCalendar();
+                            Provider.of<Apps>(context, listen: false).openApp(
+                                Calendar(
+                                    key: ObjectKey("calendar"),
+                                    initPos: Offset(
+                                        screenWidth(context, mulBy: 0.14),
+                                        screenHeight(context, mulBy: 0.1))),
+                                Provider.of<OnOff>(context, listen: false)
+                                    .maxCalendar()
+                            );
+
+                            },
+                            child: Column(
+                              children: [
+                                Container(
+                                    child: Stack(
+                                      alignment: Alignment.topCenter,
+                                      children: [
+                                        SizedBox(
+                                          width: screenWidth(context, mulBy: 0.045),
+                                          child: Image.asset(
+                                            "assets/apps/calendar.png",
+                                            fit: BoxFit.scaleDown,
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: screenHeight(context, mulBy: 0.026),
-                                    child: Container(
-                                      height:
-                                      screenHeight(context, mulBy: 0.047),
-                                      width:
-                                      screenWidth(context, mulBy: 0.03),
-                                      color: Colors.transparent,
-                                      child: FittedBox(
-                                        fit: BoxFit.fitHeight,
-                                        child: Text(
-                                          "${DateFormat('d').format(now).toUpperCase()}",
-                                          style: TextStyle(
-                                              color: Colors.black87
-                                                  .withOpacity(0.8),
-                                              fontFamily: 'SF',
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 28),
+                                        Positioned(
+                                          top: screenHeight(context, mulBy: 0.013),
+                                          child: Container(
+                                            height:
+                                            screenHeight(context, mulBy: 0.02),
+                                            width:
+                                            screenWidth(context, mulBy: 0.03),
+                                            color: Colors.transparent,
+                                            child: FittedBox(
+                                              fit: BoxFit.fitHeight,
+                                              child: Text(
+                                                "${DateFormat('LLL').format(now).toUpperCase()}",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: "SF",
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 11,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )),
-                          MBPText(
-                              text: "Calendar",
-                              color: Colors.white
-                          )
+                                        Positioned(
+                                          top: screenHeight(context, mulBy: 0.032),
+                                          child: Container(
+                                            height:
+                                            screenHeight(context, mulBy: 0.047),
+                                            width:
+                                            screenWidth(context, mulBy: 0.03),
+                                            color: Colors.transparent,
+                                            child: FittedBox(
+                                              fit: BoxFit.fitHeight,
+                                              child: Text(
+                                                "${DateFormat('d').format(now).toUpperCase()}",
+                                                style: TextStyle(
+                                                    color: Colors.black87
+                                                        .withOpacity(0.8),
+                                                    fontFamily: 'SF',
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 28),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                                MBPText(
+                                    text: "Calendar",
+                                    color: Colors.white
+                                )
+                              ],
+                            ),
+                          ),
+                          LaunchPadItem(
+                            iName: "Notes",
+                            on: false,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              tapFunctions(context);
+
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxFeedBack();
+                              Provider.of<Apps>(context, listen: false).openApp(
+                                  FeedBack(
+                                      key: ObjectKey("feedback"),
+                                      initPos: Offset(
+                                          screenWidth(context, mulBy: 0.14),
+                                          screenHeight(context, mulBy: 0.1))),
+                                  Provider.of<OnOff>(context, listen: false)
+                                      .maxFeedBack()
+                              );
+                            },
+                            child: LaunchPadItem(
+                              iName: "Feedback",
+                              on: fbOpen,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Provider.of<OnOff>(context, listen: false).onNotifications();
+                            },
+                            child: LaunchPadItem(
+                              iName: "System Preferences",
+                              on: false,
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    LaunchPadItem(
-                      iName: "notes",
-                      on: false,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        tapFunctions(context);
-
-                        Provider.of<OnOff>(context, listen: false)
-                            .maxFeedBack();
-                        Provider.of<Apps>(context, listen: false).openApp(
-                            FeedBack(
-                                key: ObjectKey("feedback"),
-                                initPos: Offset(
-                                    screenWidth(context, mulBy: 0.14),
-                                    screenHeight(context, mulBy: 0.1))),
-                            Provider.of<OnOff>(context, listen: false)
-                                .maxFeedBack()
-                        );
-                      },
-                      child: LaunchPadItem(
-                        iName: "feedback",
-                        on: fbOpen,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Provider.of<OnOff>(context, listen: false).onNotifications();
-                      },
-                      child: LaunchPadItem(
-                        iName: "system-preferences",
-                        on: false,
+                    Container(
+                      height: 8,
+                      width: 8,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
                       ),
                     ),
                   ],
@@ -375,6 +388,7 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         SizedBox(
@@ -382,7 +396,7 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
             "assets/apps/${widget.iName.toLowerCase()}.png",
             fit: BoxFit.scaleDown,
           ),
-          width: 60,
+          width: screenWidth(context, mulBy: 0.045),
         ),
         MBPText(
           text: widget.iName,
