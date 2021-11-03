@@ -122,7 +122,7 @@ class _DockerState extends State<Docker> {
                           );
                         },
                         child: DockerItem(
-                          iName: "finder",
+                          iName: "Finder",
                           on: true,
                         ),
                       ),
@@ -131,7 +131,7 @@ class _DockerState extends State<Docker> {
                           Provider.of<OnOff>(context, listen: false).toggleLaunchPad();
                         },
                         child: DockerItem(
-                          iName: "launchpad",
+                          iName: "Launchpad",
                           on: false,
                         ),
                       ),
@@ -151,7 +151,7 @@ class _DockerState extends State<Docker> {
                           );
                         },
                         child: DockerItem(
-                          iName: "safari",
+                          iName: "Safari",
                           on: safariOpen,
                         ),
                       ),
@@ -172,12 +172,12 @@ class _DockerState extends State<Docker> {
                           );
                         },
                         child: DockerItem(
-                          iName: "messages",
+                          iName: "Messages",
                           on: messageOpen,
                         ),
                       ),
                       DockerItem(
-                        iName: "maps",
+                        iName: "Maps",
                         on: false,
                       ),
                       InkWell(
@@ -198,7 +198,7 @@ class _DockerState extends State<Docker> {
 
                         },
                         child: DockerItem(
-                          iName: "spotify",
+                          iName: "Spotify",
                           on: spotifyOpen,
                         ),
                       ),
@@ -220,7 +220,7 @@ class _DockerState extends State<Docker> {
 
                         },
                         child: DockerItem(
-                          iName: "terminal",
+                          iName: "Terminal",
                           on: terminalOpen,
                         ),
                       ),
@@ -240,16 +240,16 @@ class _DockerState extends State<Docker> {
 
                         },
                         child: DockerItem(
-                          iName: "vscode",
+                          iName: "Visual Studio Code",
                           on: vsOpen,
                         ),
                       ),
                       DockerItem(
-                        iName: "photos",
+                        iName: "Photos",
                         on: false,
                       ),
                       DockerItem(
-                        iName: "contacts",
+                        iName: "Contacts",
                         on: false,
                       ),
                       InkWell(
@@ -345,7 +345,7 @@ class _DockerState extends State<Docker> {
                         ),
                       ),
                       DockerItem(
-                        iName: "notes",
+                        iName: "Notes",
                         on: false,
                       ),
                       InkWell(
@@ -365,7 +365,7 @@ class _DockerState extends State<Docker> {
                           );
                         },
                         child: DockerItem(
-                          iName: "feedback",
+                          iName: "Feedback",
                           on: fbOpen,
                         ),
                       ),
@@ -374,7 +374,7 @@ class _DockerState extends State<Docker> {
                           Provider.of<OnOff>(context, listen: false).onNotifications();
                         },
                         child: DockerItem(
-                          iName: "system-preferences",
+                          iName: "System Preferences",
                           on: false,
                         ),
                       ),
@@ -415,7 +415,7 @@ class _DockerItemState extends State<DockerItem> {
           Expanded(
               child: Container(
                   child: Image.asset(
-            "assets/apps/${widget.iName}.png",
+            "assets/apps/${widget.iName.toLowerCase()}.png",
           )).moveUpOnHover),
           Container(
             height: 4,
