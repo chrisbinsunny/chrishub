@@ -258,21 +258,17 @@ class _LaunchPadState extends State<LaunchPad> {
                                           child: Stack(
                                             alignment: Alignment.topCenter,
                                             children: [
-                                              SizedBox(
-                                                width: screenWidth(context, mulBy: 0.045),
-                                                child: Image.asset(
-                                                  "assets/apps/calendar.png",
-                                                ),
+                                              Image.asset(
+                                                "assets/apps/calendar.png",
                                               ),
                                               Positioned(
-                                                // top: screenHeight(context, mulBy: 0.013),
-                                                top: cont.smallest.height * .05,
+                                                top: cont.smallest.height * .13,
                                                 child: Container(
                                                   height:
-                                                  cont.maxHeight*0.2,
+                                                  cont.maxHeight*0.23,
                                                   width:
                                                   screenWidth(context, mulBy: 0.03),
-                                                  color: Colors.green,
+                                                  //color: Colors.green,
                                                   child: FittedBox(
                                                     fit: BoxFit.fitHeight,
                                                     child: Text(
@@ -289,10 +285,10 @@ class _LaunchPadState extends State<LaunchPad> {
                                                 ),
                                               ),
                                               Positioned(
-                                                top: screenHeight(context, mulBy: 0.032),
+                                                top: cont.smallest.height * .35,
                                                 child: Container(
                                                   height:
-                                                  screenHeight(context, mulBy: 0.047),
+                                                  cont.maxHeight*0.5,
                                                   width:
                                                   screenWidth(context, mulBy: 0.03),
                                                   //color:Colors.green,
