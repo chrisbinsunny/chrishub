@@ -128,6 +128,10 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: () {
+                          Provider.of<Folders>(context, listen: false).deSelectAll();
+                          Provider.of<OnOff>(context, listen: false).offNotifications();
+                          Provider.of<OnOff>(context, listen: false).offFRCM();
+                          Provider.of<OnOff>(context, listen: false).offRCM();
                           Provider.of<OnOff>(context, listen: false).toggleLaunchPad();
                         },
                         child: DockerItem(
