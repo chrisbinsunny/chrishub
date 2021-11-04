@@ -64,16 +64,20 @@ class _LaunchPadState extends State<LaunchPad> {
                     left: screenWidth(context, mulBy: 0.12),
                   right: screenWidth(context, mulBy: 0.12),
                   bottom: screenHeight(context, mulBy: 0.17),
-                  top: screenHeight(context, mulBy: 0.1)
+                  top: screenHeight(context, mulBy: 0.08)
                 ),
                 color: Colors.black.withOpacity(0.15),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-
+                      height: screenHeight(context, mulBy: 0.035),
+                      width: screenWidth(context, mulBy: 0.17),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).cardColor,
+                        borderRadius: BorderRadius.circular(7)
+                      ),
                     ),
-
+                    Spacer(flex: 1,),
                     AnimatedScale(
                       duration: Duration(milliseconds: 150),
                       scale: launchPadOpen?1:1.5,
@@ -336,6 +340,7 @@ class _LaunchPadState extends State<LaunchPad> {
                         ),
                       ),
                     ),
+                    Spacer(flex: 3,),
                     Container(
                       height: 8,
                       width: 8,
