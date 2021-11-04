@@ -251,67 +251,62 @@ class _LaunchPadState extends State<LaunchPad> {
                             child: Column(
                               children: [
                                 Expanded(
-                                  child: Container(
-                                      child: LayoutBuilder(builder: (context, cont) {
-                                        return AspectRatio(
-                                          aspectRatio: MediaQuery.of(context).size.aspectRatio,
-                                          child: Stack(
-                                            alignment: Alignment.topCenter,
-                                            children: [
-                                              Image.asset(
-                                                "assets/apps/calendar.png",
-                                              ),
-                                              Positioned(
-                                                top: cont.smallest.height * .13,
-                                                child: Container(
-                                                  height:
-                                                  cont.maxHeight*0.23,
-                                                  width:
-                                                  screenWidth(context, mulBy: 0.03),
-                                                  //color: Colors.green,
-                                                  child: FittedBox(
-                                                    fit: BoxFit.fitHeight,
-                                                    child: Text(
-                                                      "${DateFormat('LLL').format(now).toUpperCase()}",
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontFamily: "SF",
-                                                        fontWeight: FontWeight.w500,
-                                                        fontSize: 11,
-                                                      ),
-                                                    ),
-                                                  ),
+                                  ///For setting the Text on the icon on position. Done by getting relative position.
+                                  child: LayoutBuilder(builder: (context, cont) {
+                                    return Stack(
+                                      alignment: Alignment.topCenter,
+                                      children: [
+                                        Image.asset(
+                                          "assets/apps/calendar.png",
+                                        ),
+                                        Positioned(
+                                          top: cont.smallest.height * .13,
+                                          child: Container(
+                                            height:
+                                            cont.maxHeight*0.23,
+                                            width:
+                                            screenWidth(context, mulBy: 0.03),
+                                            //color: Colors.green,
+                                            child: FittedBox(
+                                              fit: BoxFit.fitHeight,
+                                              child: Text(
+                                                "${DateFormat('LLL').format(now).toUpperCase()}",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: "SF",
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 11,
                                                 ),
                                               ),
-                                              Positioned(
-                                                top: cont.smallest.height * .35,
-                                                child: Container(
-                                                  height:
-                                                  cont.maxHeight*0.5,
-                                                  width:
-                                                  screenWidth(context, mulBy: 0.03),
-                                                  //color:Colors.green,
-
-//                                            color: Colors.transparent,
-                                                  child: FittedBox(
-                                                    fit: BoxFit.fitHeight,
-                                                    child: Text(
-                                                      "${DateFormat('d').format(now).toUpperCase()}",
-                                                      style: TextStyle(
-                                                          color: Colors.black87
-                                                              .withOpacity(0.8),
-                                                          fontFamily: 'SF',
-                                                          fontWeight: FontWeight.w400,
-                                                          fontSize: 28),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                            ),
                                           ),
-                                        );
-                                      },)),
+                                        ),
+                                        Positioned(
+                                          top: cont.smallest.height * .35,
+                                          child: Container(
+                                            height:
+                                            cont.maxHeight*0.5,
+                                            width:
+                                            screenWidth(context, mulBy: 0.03),
+                                            //color:Colors.green,
+                                            child: FittedBox(
+                                              fit: BoxFit.fitHeight,
+                                              child: Text(
+                                                "${DateFormat('d').format(now).toUpperCase()}",
+                                                style: TextStyle(
+                                                    color: Colors.black87
+                                                        .withOpacity(0.8),
+                                                    fontFamily: 'SF',
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 28),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },),
                                 ),
                                 MBPText(
                                     text: "Calendar",
