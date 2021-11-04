@@ -59,4 +59,5 @@ void tapFunctions(BuildContext context){
   Provider.of<OnOff>(context, listen: false).offNotifications();
   Provider.of<OnOff>(context, listen: false).offFRCM();
   Provider.of<OnOff>(context, listen: false).offRCM();
+  Provider.of<OnOff>(context, listen: false).offLaunchPad();
 }
