@@ -20,6 +20,9 @@ import 'spotify.dart';
 import 'terminal/terminal.dart';
 import 'vscode.dart';
 
+//TODO Has overflowing error when window is too small
+
+
 class LaunchPad extends StatefulWidget {
   const LaunchPad({Key key}) : super(key: key);
 
@@ -40,11 +43,11 @@ class _LaunchPadState extends State<LaunchPad> {
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool launchPadOpen= Provider.of<OnOff>(context).getLaunchPad;
-    return AnimatedOpacity(
+    return AnimatedSwitcher(
       duration: Duration(milliseconds: 200),
-      opacity: launchPadOpen?1:0,
-      curve: Curves.easeInOut,
-      child: Stack(
+      //opacity: launchPadOpen?1:0,
+      //curve: Curves.easeInOut,
+      child: launchPadOpen?Stack(
         children: [
           Container(
               height: screenHeight(context),
@@ -83,10 +86,17 @@ class _LaunchPadState extends State<LaunchPad> {
                             color: Colors.white.withOpacity(0.2)
                           )
                         ),
+
                        child: Row(
+                         mainAxisAlignment: MainAxisAlignment.center,
                          children: [
                            Icon(
-                             Icons.search
+                             Icons.search,
+                             size: 14,
+                             color: Colors.white.withOpacity(0.7),
+                           ),
+                           SizedBox(
+                             width: screenWidth(context, mulBy: 0.0035),
                            ),
                            MBPText(
                              text: "Search",
@@ -369,7 +379,7 @@ class _LaunchPadState extends State<LaunchPad> {
             ),
           ),
         ],
-      ),
+      ):Container(),
     );
   }
 }
