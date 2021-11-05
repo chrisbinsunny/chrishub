@@ -94,3 +94,23 @@ showAlertDialog(BuildContext context) {
     },
   );
 }
+
+class Minimiser extends StatefulWidget {
+  Minimiser({Key key, this.minimise=false,  this.child}) : super(key: key);
+
+  bool minimise;
+  Widget child;
+  @override
+  _MinimiserState createState() => _MinimiserState();
+}
+
+class _MinimiserState extends State<Minimiser> {
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedScale(
+        scale: widget.minimise?1:0,
+        duration: Duration(milliseconds: 200),
+      child: widget.child,
+    );
+  }
+}

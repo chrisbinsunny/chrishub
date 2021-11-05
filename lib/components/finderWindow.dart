@@ -36,14 +36,14 @@ class _FinderState extends State<Finder> {
     var finderOpen = Provider.of<OnOff>(context).getFinder;
     finderFS = Provider.of<OnOff>(context).getFinderFS;
     finderPan = Provider.of<OnOff>(context).getFinderPan;
-    return finderOpen
-        ? AnimatedPositioned(
+      return AnimatedPositioned(
             duration: Duration(milliseconds: finderPan ? 0 : 200),
             top: finderFS ? screenHeight(context, mulBy: 0.034) : position.dy,
             left: finderFS ? 0 : position.dx,
-            child: finderWindow(context),
-          )
-        : Container();
+            child: Minimiser(
+                minimise: finderOpen,
+                child: finderWindow(context)),
+          );
   }
 
   AnimatedContainer finderWindow(BuildContext context) {
@@ -375,7 +375,6 @@ class _FinderState extends State<Finder> {
                 height: screenHeight(context, mulBy: 0.04),
                 color: Colors.transparent),
           ),
-
           Visibility(
             visible: topApp != "Finder",
             child: InkWell(
