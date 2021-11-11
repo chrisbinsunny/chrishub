@@ -57,8 +57,10 @@ class DataBus extends ChangeNotifier{
 
   void toggleNS(){
     nightShift=!nightShift;
+    notifyListeners();
   }
 
+  get getNS => nightShift;
 }
 
 void tapFunctions(BuildContext context){
