@@ -107,9 +107,9 @@ class Minimiser extends StatefulWidget {
 class _MinimiserState extends State<Minimiser> {
   @override
   Widget build(BuildContext context) {
-    return AnimatedScale(
-        scale: widget.minimise?1:0,
-        duration: Duration(milliseconds: 200),
+    return Transform(
+
+
       child: widget.child,
     );
   }
