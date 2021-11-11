@@ -119,6 +119,20 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
+            ///Control Night Shift
+            IgnorePointer(
+              ignoring: true,
+              child: AnimatedOpacity(
+                duration: Duration(milliseconds: 200),
+                opacity: 1-(brightness/95.98),
+                child: Container(
+                  width: screenWidth(context),
+                  height: screenHeight(context),
+                  color: Colors.black.withOpacity(0.7),
+                ),
+              ),
+            ),
+
             ///Control Brightness
             IgnorePointer(
               ignoring: true,
