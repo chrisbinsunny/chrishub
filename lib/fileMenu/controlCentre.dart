@@ -160,20 +160,75 @@ class _ControlCentreState extends State<ControlCentre> {
                                               height: 0.08,
                                               width: 0.09,
                                               child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: screenWidth(
-                                                        context,
-                                                        mulBy: 0.013),
-                                                    vertical: screenHeight(
-                                                        context,
-                                                        mulBy: 0.025)),
                                                 height: screenHeight(context,
                                                     mulBy: 0.08),
                                                 width: screenWidth(context,
                                                     mulBy: 0.09),
                                                 decoration: ccDecoration,
                                                 child: Row(
-                                                  children: [],
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceEvenly,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        Provider.of<DataBus>(context, listen: false).toggleNS();
+                                                      },
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10)),
+                                                        child: BackdropFilter(
+                                                          filter:
+                                                          ImageFilter.blur(
+                                                              sigmaX: 15.0,
+                                                              sigmaY: 15.0),
+                                                          child: Container(
+                                                            height:
+                                                            screenHeight(
+                                                                context,
+                                                                mulBy:
+                                                                0.0456),
+                                                            width: screenWidth(
+                                                                context,
+                                                                mulBy: 0.0219),
+                                                            decoration:
+                                                            BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color: Theme.of(
+                                                                  context)
+                                                                  .buttonColor,
+                                                            ),
+                                                            child: Center(
+                                                              child:
+                                                              Image.asset(
+                                                                "assets/icons/darkBlack.png",
+                                                                height:
+                                                                screenHeight(
+                                                                    context,
+                                                                    mulBy:
+                                                                    0.032),
+                                                                fit: BoxFit
+                                                                    .fitHeight,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Flexible(
+                                                        child: MBPText(
+                                                          overflow:
+                                                          TextOverflow.clip,
+                                                          text:
+                                                          "Dark Mode\n${themeNotifier.isDark() ? "On" : "Off"}",
+                                                          color: Theme.of(context)
+                                                              .cardColor
+                                                              .withOpacity(1),
+                                                        ))
+                                                  ],
                                                 ),
                                               ),
                                             ),
