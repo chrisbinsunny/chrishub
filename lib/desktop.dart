@@ -36,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     List<Widget> apps= Provider.of<Apps>(context).getApps;
     List<Folder> folders= Provider.of<Folders>(context, listen: false).getFolders;
     var pointerPos = Provider.of<DataBus>(context).getPos;
+    bool NSOn = Provider.of<DataBus>(context, ).getNS;
 
     return Scaffold(
       body: Center(
@@ -123,12 +124,15 @@ class _MyHomePageState extends State<MyHomePage> {
             IgnorePointer(
               ignoring: true,
               child: AnimatedOpacity(
-                duration: Duration(milliseconds: 200),
-                opacity: 1-(brightness/95.98),
+                duration: Duration(milliseconds: 500),
+                opacity: NSOn?1:0,
                 child: Container(
                   width: screenWidth(context),
                   height: screenHeight(context),
-                  color: Colors.black.withOpacity(0.7),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.withOpacity(0.2),
+                    backgroundBlendMode: BlendMode.lighten
+                  ),
                 ),
               ),
             ),
