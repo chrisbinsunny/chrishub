@@ -24,10 +24,12 @@ class ThemeNotifier with ChangeNotifier {
         )
     ),
     fontFamily: "SF",
+    primarySwatch: Colors.blueGrey,
+    shadowColor: Colors.black.withOpacity(0.15), //Control Center outer border
+    accentColor: Colors.black.withOpacity(.15), //shadow color
     backgroundColor: Colors.white.withOpacity(0.15), //Control Center
     cardColor: Colors.black.withOpacity(0.0), //Control Center item border, font color
     splashColor: Colors.black.withOpacity(0.2), //Control Center border
-    shadowColor: Colors.black.withOpacity(0.15), //shadow color
     focusColor: Colors.white.withOpacity(0.4), //docker color
     canvasColor: Colors.blue.withOpacity(0.4), //fileMenu Color
     scaffoldBackgroundColor: Colors.white, //window Color
@@ -37,8 +39,8 @@ class ThemeNotifier with ChangeNotifier {
     disabledColor: Colors.white, //terminal top color
     errorColor: Colors.white.withOpacity(0.3), //iMessages color
     hoverColor: Colors.white.withOpacity(0.4), // RCM color
-
-
+    highlightColor:Colors.black.withOpacity(.13),//darkMode button
+    bottomAppBarColor: Colors.black.withOpacity(0.1), //CC Music Color
 
     primaryTextTheme: TextTheme(
       button: TextStyle(
@@ -49,9 +51,8 @@ class ThemeNotifier with ChangeNotifier {
         color: Colors.black,
       ),
     ),
-    bottomAppBarColor: Colors.blueGrey[900],
     iconTheme: IconThemeData(color: Colors.blueGrey),
-      highlightColor:Colors.black.withOpacity(.13),//darkMode button
+
 
   );
 
@@ -92,6 +93,7 @@ class ThemeNotifier with ChangeNotifier {
       disabledColor: Color(0xff39373b), //terminal top color
       errorColor: Color(0xff1e1e1e).withOpacity(0.4), //iMessages color
       hoverColor: Color(0xff110f0f).withOpacity(0.4), // RCM color
+    bottomAppBarColor: Colors.white.withOpacity(0.3), //CC Music Color
       primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey[200],
@@ -101,7 +103,6 @@ class ThemeNotifier with ChangeNotifier {
         color: Colors.blueGrey[300],
       ),
     ),
-    bottomAppBarColor: Colors.black,
     iconTheme: IconThemeData(color: Colors.blueGrey[200]),
       highlightColor: Colors.white, //darkMode button
   );
