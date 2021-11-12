@@ -33,6 +33,8 @@ class _ControlCentreState extends State<ControlCentre> {
   Widget build(BuildContext context) {
     brightness = Provider.of<DataBus>(context).getBrightness;
 
+    print(screenHeight(context));
+    print(screenWidth(context));
     BoxDecoration ccDecoration = BoxDecoration(
       color: Theme.of(context).backgroundColor,
       border: Border.all(color: Theme.of(context).cardColor, width: .55),
@@ -566,55 +568,57 @@ class _ControlCentreState extends State<ControlCentre> {
                                         context,
                                       ),
                                       decoration: ccDecoration,
-                                      child: Column(
+                                      child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.start,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                         children: [
+                                         Container(
+                                           height: screenHeight(context, mulBy: 0.059),
+                                           width: screenWidth(context, mulBy: 0.028),
+                                           decoration: BoxDecoration(
+                                             color: Theme.of(context)
+                                                 .bottomAppBarColor,
+                                             borderRadius: BorderRadius.circular(5)
+                                           ),
+                                           margin: EdgeInsets.only(right: screenWidth(context, mulBy: 0.005)),
+                                           child: Center(
+                                             child: Image.asset(
+                                               "assets/apps/itunes.png",
+                                               height:
+                                               screenHeight(
+                                                   context,
+                                                   mulBy:
+                                                   0.035),
+                                               fit: BoxFit
+                                                   .fitHeight,
+                                             ),
+                                           ),
+                                         ),
                                           MBPText(
                                             overflow: TextOverflow.clip,
-                                            text: "Display",
+                                            text: "Music",
                                             color: Theme.of(context)
                                                 .cardColor
                                                 .withOpacity(1),
                                           ),
-                                          SliderTheme(
-                                            data: SliderTheme.of(context)
-                                                .copyWith(
-                                              trackHeight: 15,
-                                              activeTrackColor: Colors.white,
-                                              thumbColor: Colors.white,
-                                              minThumbSeparation: 20,
-                                              trackShape: SliderTrackShape(),
-                                              inactiveTrackColor: Colors.white
-                                                  .withOpacity(0.25),
-                                              thumbShape: RoundSliderThumbShape(
-                                                  enabledThumbRadius: 8.4,
-                                                  elevation: 10,
-                                                  pressedElevation: 20
-                                              ),
-                                              overlayShape: SliderComponentShape
-                                                  .noOverlay,
-                                            ),
-                                            child: Slider(
-                                              value: brightness,
-                                              min: 0,
-                                              max: 100,
-                                              onChanged: (val) {
-                                                if (val > 95.98)
-                                                  val = 95.98;
-                                                else if (val < 6.7) val = 6.7;
-                                                setState(() {
-                                                  brightness = val;
-                                                  Provider.of<DataBus>(context,
-                                                      listen: false)
-                                                      .setBrightness(brightness);
-                                                });
-                                              },
-                                            ),
+                                          Spacer(),
+                                          Icon(
+                                            CupertinoIcons.play_arrow_solid,
+                                          size: 17,
+                                            color: Theme.of(context)
+                                                .bottomAppBarColor.withOpacity(0.5),
                                           ),
-                                          //CCSlider(height: 16, width: screenWidth(context),),
+                                          SizedBox(
+                                            width: screenWidth(context, mulBy: 0.005),
+                                          ),
+                                          Icon(
+                                            CupertinoIcons.forward_fill,
+                                            size: 16,
+                                            color: Theme.of(context)
+                                                .bottomAppBarColor.withOpacity(0.3),
+                                          )
                                         ],
                                       ),
                                     ),
