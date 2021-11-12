@@ -48,6 +48,9 @@ class _ControlCentreState extends State<ControlCentre> {
         blurStyle: BlurStyle.outer);
     var ccOpen = Provider.of<OnOff>(context).getCc;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+    bool NSOn = Provider.of<DataBus>(
+      context,
+    ).getNS;
     return ccOpen
         ? Container(
             child: Align(
@@ -159,22 +162,23 @@ class _ControlCentreState extends State<ControlCentre> {
                                             child: BrdrContainer(
                                               height: 0.08,
                                               width: 0.09,
-                                              child: Container(
-                                                height: screenHeight(context,
-                                                    mulBy: 0.08),
-                                                width: screenWidth(context,
-                                                    mulBy: 0.09),
-                                                decoration: ccDecoration,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceEvenly,
-                                                  children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                        Provider.of<DataBus>(context, listen: false).toggleNS();
-                                                      },
-                                                      child: ClipRRect(
+                                              child: InkWell(
+                                                mouseCursor: MouseCursor.defer,
+                                                onTap: () {
+                                                  Provider.of<DataBus>(context, listen: false).toggleNS();
+                                                },
+                                                child: Container(
+                                                  height: screenHeight(context,
+                                                      mulBy: 0.08),
+                                                  width: screenWidth(context,
+                                                      mulBy: 0.09),
+                                                  decoration: ccDecoration,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                    children: [
+                                                      ClipRRect(
                                                         borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(
@@ -197,38 +201,32 @@ class _ControlCentreState extends State<ControlCentre> {
                                                             BoxDecoration(
                                                               shape: BoxShape
                                                                   .circle,
-                                                              color: Theme.of(
-                                                                  context)
-                                                                  .buttonColor,
+                                                              color: NSOn? Colors.orange.withOpacity(0.8):Colors.black.withOpacity(.13),
                                                             ),
                                                             child: Center(
                                                               child:
-                                                              Image.asset(
-                                                                "assets/icons/darkBlack.png",
-                                                                height:
-                                                                screenHeight(
-                                                                    context,
-                                                                    mulBy:
-                                                                    0.032),
-                                                                fit: BoxFit
-                                                                    .fitHeight,
+                                                              Icon(
+                                                                CupertinoIcons.brightness_solid,
+                                                                color: Colors.white.withOpacity(0.7),
+                                                                size: 18,
                                                               ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Flexible(
-                                                        child: MBPText(
-                                                          overflow:
-                                                          TextOverflow.clip,
-                                                          text:
-                                                          "Dark Mode\n${themeNotifier.isDark() ? "On" : "Off"}",
-                                                          color: Theme.of(context)
-                                                              .cardColor
-                                                              .withOpacity(1),
-                                                        ))
-                                                  ],
+                                                      Flexible(
+                                                          child: MBPText(
+                                                            overflow:
+                                                            TextOverflow.visible,
+                                                            maxLines: 2,
+                                                            text:
+                                                            "Night Shift\n${NSOn ? "On" : "Off"}",
+                                                            color: Theme.of(context)
+                                                                .cardColor
+                                                                .withOpacity(1),
+                                                          ))
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -250,28 +248,29 @@ class _ControlCentreState extends State<ControlCentre> {
                                             child: BrdrContainer(
                                               height: 0.08,
                                               width: 0.09,
-                                              child: Container(
-                                                height: screenHeight(context,
-                                                    mulBy: 0.08),
-                                                width: screenWidth(context,
-                                                    mulBy: 0.09),
-                                                decoration: ccDecoration,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                        themeNotifier.isDark()
-                                                            ? themeNotifier.setTheme(
-                                                                ThemeNotifier
-                                                                    .lightTheme)
-                                                            : themeNotifier.setTheme(
-                                                                ThemeNotifier
-                                                                    .darkTheme);
-                                                      },
-                                                      child: ClipRRect(
+                                              child: InkWell(
+                                                mouseCursor: MouseCursor.defer,
+                                                onTap: () {
+                                                  themeNotifier.isDark()
+                                                      ? themeNotifier.setTheme(
+                                                      ThemeNotifier
+                                                          .lightTheme)
+                                                      : themeNotifier.setTheme(
+                                                      ThemeNotifier
+                                                          .darkTheme);
+                                                },
+                                                child: Container(
+                                                  height: screenHeight(context,
+                                                      mulBy: 0.08),
+                                                  width: screenWidth(context,
+                                                      mulBy: 0.09),
+                                                  decoration: ccDecoration,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      ClipRRect(
                                                         borderRadius:
                                                             BorderRadius.all(
                                                                 Radius.circular(
@@ -296,7 +295,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                                   .circle,
                                                               color: Theme.of(
                                                                       context)
-                                                                  .buttonColor,
+                                                                  .highlightColor,
                                                             ),
                                                             child: Center(
                                                               child:
@@ -314,18 +313,19 @@ class _ControlCentreState extends State<ControlCentre> {
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Flexible(
-                                                        child: MBPText(
-                                                      overflow:
-                                                          TextOverflow.clip,
-                                                      text:
-                                                          "Dark Mode\n${themeNotifier.isDark() ? "On" : "Off"}",
-                                                      color: Theme.of(context)
-                                                          .cardColor
-                                                          .withOpacity(1),
-                                                    ))
-                                                  ],
+                                                      Flexible(
+                                                          child: MBPText(
+                                                        overflow:
+                                                            TextOverflow.visible,
+                                                        maxLines: 2,
+                                                        text:
+                                                            "Dark Mode\n${themeNotifier.isDark() ? "On" : "Off"}",
+                                                        color: Theme.of(context)
+                                                            .cardColor
+                                                            .withOpacity(1),
+                                                      ))
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
