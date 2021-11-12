@@ -9,6 +9,7 @@ import 'package:mac_dt/folders.dart';
 import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/rightClickMenu.dart';
 import 'package:mac_dt/sizes.dart';
+import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:flutter/rendering.dart';
@@ -24,19 +25,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   bool finderOpen = true;
 
   @override
   Widget build(BuildContext context) {
-    var size= MediaQuery.of(context).size;
+    var size = MediaQuery.of(context).size;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
-    bool ccOpen= Provider.of<OnOff>(context).getCc;
+    bool ccOpen = Provider.of<OnOff>(context).getCc;
     double brightness = Provider.of<DataBus>(context).getBrightness;
-    List<Widget> apps= Provider.of<Apps>(context).getApps;
-    List<Folder> folders= Provider.of<Folders>(context, listen: false).getFolders;
+    List<Widget> apps = Provider.of<Apps>(context).getApps;
+    List<Folder> folders =
+        Provider.of<Folders>(context, listen: false).getFolders;
     var pointerPos = Provider.of<DataBus>(context).getPos;
-    bool NSOn = Provider.of<DataBus>(context, ).getNS;
+    bool NSOn = Provider.of<DataBus>(
+      context,
+    ).getNS;
 
     return Scaffold(
       body: Center(
@@ -44,31 +47,34 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             ///wallpaper
             GestureDetector(
-              onSecondaryTap: (){
+              onSecondaryTap: () {
                 Provider.of<OnOff>(context, listen: false).onRCM();
               },
-              onSecondaryTapDown: (details){
+              onSecondaryTapDown: (details) {
                 tapFunctions(context);
-                Provider.of<DataBus>(context, listen: false).setPos(details?.globalPosition);
+                Provider.of<DataBus>(context, listen: false)
+                    .setPos(details?.globalPosition);
               },
-              onTap: (){
+              onTap: () {
                 if (!mounted) return;
                 tapFunctions(context);
               },
               child: Container(
-                  height:size.height,
+                  height: size.height,
                   width: size.width,
-                  child: Image.asset(themeNotifier.isDark()?"assets/wallpapers/bigsur_dark.jpg":"assets/wallpapers/bigsur_light.jpg",  fit: BoxFit.cover,)),
+                  child: Image.asset(
+                    themeNotifier.isDark()
+                        ? "assets/wallpapers/bigsur_dark.jpg"
+                        : "assets/wallpapers/bigsur_light.jpg",
+                    fit: BoxFit.cover,
+                  )),
             ),
-
 
             ///Desktop Items
             ...folders,
 
-
             ///Right Click Context Menu
-            RightClick(
-                initPos: pointerPos),
+            RightClick(initPos: pointerPos),
 
             ///Folder Right Click Menu
             FolderRightClick(
@@ -87,53 +93,49 @@ class _MyHomePageState extends State<MyHomePage> {
             //TODO State change of widgets under this will cause iFrame HTMLView to reload. Engine Fix required.
             /// Track the issue here: https://github.com/flutter/flutter/issues/80524
 
-
             ///LaunchPad
-             LaunchPad(),
-
+            LaunchPad(),
 
             ///docker bar
             Docker(),
 
-           ///Click to dismiss Control Centre
-            ccOpen?InkWell(
-              onTap: (){
-                Provider.of<OnOff>(context, listen: false).offCc();
-              },
-              child: Container(
-              height: screenHeight(context),
-              width: screenWidth(context),
-            ),):Container(),
-
+            ///Click to dismiss Control Centre
+            ccOpen
+                ? InkWell(
+                    onTap: () {
+                      Provider.of<OnOff>(context, listen: false).offCc();
+                    },
+                    child: Container(
+                      height: screenHeight(context),
+                      width: screenWidth(context),
+                    ),
+                  )
+                : Container(),
 
             ///Control Centre
             Positioned(
-              top: screenHeight(context,mulBy: 0.035),
+              top: screenHeight(context, mulBy: 0.035),
               child: Container(
                   padding: EdgeInsets.symmetric(
-                      vertical: screenHeight(context,mulBy: 0.007),
-                    horizontal: screenWidth(context, mulBy: 0.005)
-                  ),
-                  height: screenHeight(context)-(screenHeight(context, mulBy: 0.140)),
+                      vertical: screenHeight(context, mulBy: 0.007),
+                      horizontal: screenWidth(context, mulBy: 0.005)),
+                  height: screenHeight(context) -
+                      (screenHeight(context, mulBy: 0.140)),
                   width: screenWidth(context),
-                  child: ControlCentre()
-              ),
+                  child: ControlCentre()),
             ),
 
             ///Control Night Shift
             IgnorePointer(
               ignoring: true,
-              child: AnimatedOpacity(
-                duration: Duration(milliseconds: 500),
-                opacity: NSOn?1:0,
-                child: Container(
+              child: BlendMask(
+                opacity: 1.0,
+                blendMode: BlendMode.colorBurn,
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 700),
                   width: screenWidth(context),
                   height: screenHeight(context),
-
-                  decoration: BoxDecoration(
-                    color: Colors.orange.withOpacity(0.2),
-                    backgroundBlendMode: BlendMode.colorBurn
-                  ),
+                  color: Colors.orange.withOpacity(NSOn ? 0.2 : 0),
                 ),
               ),
             ),
@@ -142,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
             IgnorePointer(
               ignoring: true,
               child: Opacity(
-                opacity: 1-(brightness/95.98),
+                opacity: 1 - (brightness / 95.98),
                 child: Container(
                   width: screenWidth(context),
                   height: screenHeight(context),
@@ -156,9 +158,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
-
 
 class Unfocuser extends StatelessWidget {
   const Unfocuser({Key key, this.child}) : super(key: key);
