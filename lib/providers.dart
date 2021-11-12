@@ -14,7 +14,7 @@ class DataBus extends ChangeNotifier{
   String fs="";
   double brightness =95.98;
   Offset pointerPos = new Offset(0, 0);
-  bool nightShift= true;
+  bool nightShift= false;
   Map<String, String> notification= {
     "notification":"Welcome to Chrisbin's MacBook Pro",
     "url":"https://github.com/chrisbinsunny",

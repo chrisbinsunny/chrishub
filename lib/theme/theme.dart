@@ -24,12 +24,10 @@ class ThemeNotifier with ChangeNotifier {
         )
     ),
     fontFamily: "SF",
-    primarySwatch: Colors.blueGrey,
     backgroundColor: Colors.white.withOpacity(0.15), //Control Center
     cardColor: Colors.black.withOpacity(0.0), //Control Center item border, font color
     splashColor: Colors.black.withOpacity(0.2), //Control Center border
-    shadowColor: Colors.black.withOpacity(0.15), //Control Center outer border
-    accentColor: Colors.black.withOpacity(.15), //shadow color
+    shadowColor: Colors.black.withOpacity(0.15), //shadow color
     focusColor: Colors.white.withOpacity(0.4), //docker color
     canvasColor: Colors.blue.withOpacity(0.4), //fileMenu Color
     scaffoldBackgroundColor: Colors.white, //window Color
@@ -53,7 +51,7 @@ class ThemeNotifier with ChangeNotifier {
     ),
     bottomAppBarColor: Colors.blueGrey[900],
     iconTheme: IconThemeData(color: Colors.blueGrey),
-    buttonColor: Colors.black.withOpacity(0.13), //darkMode button
+      highlightColor:Colors.black.withOpacity(.13),//darkMode button
 
   );
 
@@ -105,7 +103,7 @@ class ThemeNotifier with ChangeNotifier {
     ),
     bottomAppBarColor: Colors.black,
     iconTheme: IconThemeData(color: Colors.blueGrey[200]),
-      buttonColor: Colors.white //darkMode button
+      highlightColor: Colors.white, //darkMode button
   );
 
   ThemeData _themeData;
