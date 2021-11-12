@@ -129,9 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Container(
                   width: screenWidth(context),
                   height: screenHeight(context),
+
                   decoration: BoxDecoration(
                     color: Colors.orange.withOpacity(0.2),
-                    backgroundBlendMode: BlendMode.lighten
+                    backgroundBlendMode: BlendMode.colorBurn
                   ),
                 ),
               ),
