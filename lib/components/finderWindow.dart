@@ -40,9 +40,7 @@ class _FinderState extends State<Finder> {
             duration: Duration(milliseconds: finderPan ? 0 : 200),
             top: finderFS ? screenHeight(context, mulBy: 0.034) : position.dy,
             left: finderFS ? 0 : position.dx,
-            child: Minimiser(
-                minimise: finderOpen,
-                child: finderWindow(context)),
+            child: finderWindow(context),
           );
   }
 
