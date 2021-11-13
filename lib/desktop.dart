@@ -16,7 +16,7 @@ import 'package:flutter/rendering.dart';
 import 'components/notifiaction.dart';
 import 'openApps.dart';
 import 'theme/theme.dart';
-import 'components/docker.dart';
+import 'components/dockerNew.dart';
 import 'fileMenu/fileMenu.dart';
 
 class MyHomePage extends StatefulWidget {
