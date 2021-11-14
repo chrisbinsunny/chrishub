@@ -70,6 +70,7 @@ class _DockerState extends State<Docker> {
           child: DockerItem(
             iName: "Finder",
             on: true,
+            //dx: _getVariation(index + 0.5, _getOffset(), 3),
           ),
         ),
         InkWell(
@@ -333,10 +334,16 @@ class _DockerState extends State<Docker> {
   }
 
   double _getVariation(double x, double x0, double radius) {
+    x=(x)/100;
+    //print("$x, $_offset");
     if (_offset == 0) return 0;
-    var z = (x - x0) * (x - x0) - radius;
+    var z = (x - x0) * (x - x0) - 2;
     if (z > 0) return 0;
-    return sqrt(-z / radius);
+    return sqrt(-z / 2);
+  }
+
+  double _getOffset() {
+    return _offset / 100;
   }
 
   @override
@@ -410,7 +417,310 @@ class _DockerState extends State<Docker> {
                     height: screenHeight(context, mulBy: 0.09),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: dockItems
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              _animate = !_animate;
+                            });
+                            tapFunctions(context);
+                            Provider.of<OnOff>(context, listen: false)
+                                .maxFinder();
+                            Provider.of<Apps>(context, listen: false).openApp(
+                                Finder(
+                                    key: ObjectKey("finder"),
+                                    initPos: Offset(
+                                        screenWidth(context, mulBy: 0.2),
+                                        screenHeight(context, mulBy: 0.18))),
+                                Provider.of<OnOff>(context, listen: false)
+                                    .maxFinder()
+                            );
+                          },
+                          child: DockerItem(
+                            iName: "Finder",
+                            on: true,
+                            dx: _getVariation(screenWidth(context, mulBy: 0.025), _getOffset(), 3),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Provider.of<Folders>(context, listen: false).deSelectAll();
+                            Provider.of<OnOff>(context, listen: false).offNotifications();
+                            Provider.of<OnOff>(context, listen: false).offFRCM();
+                            Provider.of<OnOff>(context, listen: false).offRCM();
+                            Provider.of<OnOff>(context, listen: false).toggleLaunchPad();
+                          },
+                          child: DockerItem(
+                            iName: "Launchpad",
+                            on: false,
+                            dx: _getVariation(screenWidth(context, mulBy: 0.075), _getOffset(), 3),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            tapFunctions(context);
+                            Provider.of<OnOff>(context, listen: false)
+                                .maxSafari();
+                            Provider.of<Apps>(context, listen: false).openApp(
+                                Safari(
+                                    key: ObjectKey("safari"),
+                                    initPos: Offset(
+                                        screenWidth(context, mulBy: 0.14),
+                                        screenHeight(context, mulBy: 0.1))),
+                                Provider.of<OnOff>(context, listen: false)
+                                    .maxSafari()
+                            );
+                          },
+                          child: DockerItem(
+                            iName: "Safari",
+                            on: safariOpen,
+                            dx: _getVariation(screenWidth(context, mulBy: 0.125), _getOffset(), 3),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            tapFunctions(context);
+
+                            Provider.of<OnOff>(context, listen: false)
+                                .maxMessages();
+                            Provider.of<Apps>(context, listen: false).openApp(
+                                Messages(
+                                    key: ObjectKey("messages"),
+                                    initPos: Offset(
+                                        screenWidth(context, mulBy: 0.14),
+                                        screenHeight(context, mulBy: 0.1))),
+                                Provider.of<OnOff>(context, listen: false)
+                                    .maxMessages()
+                            );
+                          },
+                          child: DockerItem(
+                            iName: "Messages",
+                            on: messageOpen,
+                            dx: _getVariation(screenWidth(context, mulBy: 0.175), _getOffset(), 3),
+                          ),
+                        ),
+                        DockerItem(
+                          iName: "Maps",
+                          on: false,
+                          dx: _getVariation(screenWidth(context, mulBy: 0.225), _getOffset(), 3),
+
+                        ),
+                        InkWell(
+                          onTap: () {
+                            tapFunctions(context);
+
+                            Provider.of<OnOff>(context, listen: false)
+                                .maxSpotify();
+                            Provider.of<Apps>(context, listen: false).openApp(
+                                Spotify(
+                                    key: ObjectKey("spotify"),
+                                    initPos: Offset(
+                                        screenWidth(context, mulBy: 0.14),
+                                        screenHeight(context, mulBy: 0.1))),
+                                Provider.of<OnOff>(context, listen: false)
+                                    .maxSpotify()
+                            );
+
+                          },
+                          child: DockerItem(
+                            iName: "Spotify",
+                            on: spotifyOpen,
+                            dx: _getVariation(screenWidth(context, mulBy: 0.275), _getOffset(), 3),
+
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            tapFunctions(context);
+
+                            Provider.of<OnOff>(context, listen: false)
+                                .maxTerminal();
+                            Provider.of<Apps>(context, listen: false).openApp(
+                                Terminal(
+                                    key: ObjectKey("terminal"),
+                                    initPos: Offset(
+                                        screenWidth(context, mulBy: 0.28),
+                                        screenHeight(context, mulBy: 0.2))),
+                                Provider.of<OnOff>(context, listen: false)
+                                    .maxTerminal()
+                            );
+
+                          },
+                          child: DockerItem(
+                            iName: "Terminal",
+                            on: terminalOpen,
+                            dx: _getVariation(screenWidth(context, mulBy: 0.325), _getOffset(), 3),
+
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            tapFunctions(context);
+
+                            Provider.of<OnOff>(context, listen: false).maxVS();
+                            Provider.of<Apps>(context, listen: false).openApp(
+                                VSCode(
+                                    key: ObjectKey("vscode"),
+                                    initPos: Offset(
+                                        screenWidth(context, mulBy: 0.14),
+                                        screenHeight(context, mulBy: 0.1))),
+                                Provider.of<OnOff>(context, listen: false).maxVS()
+                            );
+
+                          },
+                          child: DockerItem(
+                            iName: "Visual Studio Code",
+                            on: vsOpen,
+                            dx: _getVariation(screenWidth(context, mulBy: 0.375), _getOffset(), 3),
+
+                          ),
+                        ),
+                        DockerItem(
+                          iName: "Photos",
+                          on: false,
+                          dx: _getVariation(screenWidth(context, mulBy: 0.425), _getOffset(), 3),
+
+                        ),
+                        DockerItem(
+                          iName: "Contacts",
+                          on: false,
+                          dx: _getVariation(screenWidth(context, mulBy: 0.475), _getOffset(), 3),
+
+                        ),
+                        InkWell(
+                          onTap: () {
+                            tapFunctions(context);
+
+                          Provider.of<OnOff>(context, listen: false)
+                              .maxCalendar();
+                          Provider.of<Apps>(context, listen: false).openApp(
+                              Calendar(
+                                  key: ObjectKey("calendar"),
+                                  initPos: Offset(
+                                      screenWidth(context, mulBy: 0.14),
+                                      screenHeight(context, mulBy: 0.1))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxCalendar()
+                          );
+
+                          },
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                      child: Stack(
+                                        alignment: Alignment.topCenter,
+                                        children: [
+                                          Image.asset(
+                                            "assets/apps/calendar.png",
+                                          ),
+                                          Positioned(
+                                            top: screenHeight(context, mulBy: 0.01),
+                                            child: Container(
+                                              height:
+                                              screenHeight(context, mulBy: 0.02),
+                                              width:
+                                              screenWidth(context, mulBy: 0.03),
+                                              color: Colors.transparent,
+                                              child: FittedBox(
+                                                fit: BoxFit.fitHeight,
+                                                child: Text(
+                                                  "${DateFormat('LLL').format(now).toUpperCase()}",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontFamily: 'SF',
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 11,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: screenHeight(context, mulBy: 0.026),
+                                            child: Container(
+                                              height:
+                                              screenHeight(context, mulBy: 0.047),
+                                              width:
+                                              screenWidth(context, mulBy: 0.03),
+                                              color: Colors.transparent,
+                                              child: FittedBox(
+                                                fit: BoxFit.fitHeight,
+                                                child: Text(
+                                                  "${DateFormat('d').format(now).toUpperCase()}",
+                                                  style: TextStyle(
+                                                      color: Colors.black87
+                                                          .withOpacity(0.8),
+                                                      fontFamily: 'SF',
+                                                      fontWeight: FontWeight.w400,
+                                                      fontSize: 28),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      )).moveUpOnHover,
+                                ),
+                                Container(
+                                  height: 4,
+                                  width: 4,
+                                  decoration: BoxDecoration(
+                                    color: calendarOpen
+                                        ? Theme.of(context)
+                                        .cardColor
+                                        .withOpacity(1)
+                                        : Colors.transparent,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        DockerItem(
+                          iName: "Notes",
+                          on: false,
+                          dx: _getVariation(screenWidth(context, mulBy: 0.475), _getOffset(), 3),
+
+                        ),
+                        InkWell(
+                          onTap: () {
+                            tapFunctions(context);
+
+                            Provider.of<OnOff>(context, listen: false)
+                                .maxFeedBack();
+                            Provider.of<Apps>(context, listen: false).openApp(
+                                FeedBack(
+                                    key: ObjectKey("feedback"),
+                                    initPos: Offset(
+                                        screenWidth(context, mulBy: 0.14),
+                                        screenHeight(context, mulBy: 0.1))),
+                                Provider.of<OnOff>(context, listen: false)
+                                    .maxFeedBack()
+                            );
+                          },
+                          child: DockerItem(
+                            iName: "Feedback",
+                            on: fbOpen,
+                            dx: _getVariation(screenWidth(context, mulBy: 0.525), _getOffset(), 3),
+
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Provider.of<OnOff>(context, listen: false).onNotifications();
+                          },
+                          child: DockerItem(
+                            iName: "System Preferences",
+                            on: false,
+                            dx: _getVariation(screenWidth(context, mulBy: 0.575), _getOffset(), 3),
+
+                          ),
+                        ),
+                      ]
                     ),
                   ),
                 ),
@@ -429,9 +739,11 @@ class _DockerState extends State<Docker> {
 class DockerItem extends StatefulWidget {
   final String iName;
   final bool on;
+  double dx;
   DockerItem({
     Key key,
     @required this.iName,
+    @required this.dx,
     this.on = false,
   }) : super(key: key);
 
@@ -442,22 +754,35 @@ class DockerItem extends StatefulWidget {
 class _DockerItemState extends State<DockerItem> {
 
   final nonHoverTransform = Matrix4.identity()..translate(0, 0, 0);
-  final hoverTransform = Matrix4.identity()..scale(1.2,1.2)..translate(-5, -25, 0, );
+  Matrix4 hoverTransform;
   bool _hovering = false;
+
+  @override
+  void initState() {
+    hoverTransform = Matrix4.identity()..scale(1.2,1.2)..translate(-5, -(widget.dx*10), 0, );
+    super.initState();
+  }
+  void _mouseEnter(bool hover) {
+    setState(() {
+      _hovering = hover;
+    });
+  }
 
 
   @override
   Widget build(BuildContext context) {
+    print("${widget.iName}: ${widget.dx}");
     return Container(
       child: Column(
         children: [
           Expanded(
               child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 140),
-                  transform: _hovering ? hoverTransform: nonHoverTransform,
+                  duration: const Duration(milliseconds: 50),
+                  transform: Matrix4.identity()..scale((.3*widget.dx)+1,(.3*widget.dx)+1)..translate(-5, -(widget.dx*40), 0, ),
+                  //padding: EdgeInsets.only(bottom: widget.dx*10),
                   child: Image.asset(
                     "assets/apps/${widget.iName.toLowerCase()}.png",
-                  )).moveUpOnHover),
+                  ))),
           Container(
             height: 4,
             width: 4,
