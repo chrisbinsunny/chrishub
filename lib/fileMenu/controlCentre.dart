@@ -33,8 +33,6 @@ class _ControlCentreState extends State<ControlCentre> {
   Widget build(BuildContext context) {
     brightness = Provider.of<DataBus>(context).getBrightness;
 
-    print(screenHeight(context));
-    print(screenWidth(context));
     BoxDecoration ccDecoration = BoxDecoration(
       color: Theme.of(context).backgroundColor,
       border: Border.all(color: Theme.of(context).cardColor, width: .55),
