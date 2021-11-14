@@ -47,9 +47,8 @@ class _DockerState extends State<Docker> {
     super.initState();
   }
 
-  double _getVariation(double x, double x0, double radius) {
+  double _getVariation(double x, double x0, ) {
     x=(x)/100;
-    //print("$x, $_offset");
     if (_offset == 0) return 0;
     var z = (x - x0) * (x - x0) - 2;
     if (z > 0) return 0;
@@ -75,11 +74,12 @@ class _DockerState extends State<Docker> {
     return AnimatedPositioned(
       duration: Duration(milliseconds: (fsAni) ? 400 : 0),
       top: (fs == "")
-          ? screenHeight(context, mulBy: 0.9)
+          ? screenHeight(context, mulBy: 0.5)
           : screenHeight(context, mulBy: 1.05),
       left: screenWidth(context, mulBy: 0.15),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
             decoration: BoxDecoration(
@@ -94,6 +94,8 @@ class _DockerState extends State<Docker> {
                       blurStyle: BlurStyle.normal),
                 ]),
             child: Stack(
+              alignment: Alignment.bottomCenter,
+              clipBehavior: Clip.none,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -112,22 +114,11 @@ class _DockerState extends State<Docker> {
                     ),
                   ),
                 ),
-                MouseRegion(
-                  onHover: (event) {
-                    setState(() {
-                      _offset = event.localPosition.dx;
-                    });
-                  },
-                  onExit: (event) {
-                    setState(() {
-                      _offset = 0;
-                    });
-                  },
-                  child: Container(
-                    padding: EdgeInsets.only(bottom: 2),
-                    width: screenWidth(context, mulBy: 0.7),
-                    height: screenHeight(context, mulBy: 0.2),
-                    child: Row(
+                Container(
+                  padding: EdgeInsets.only(bottom: 2),
+                  width: screenWidth(context, mulBy: 0.7),
+                  height: screenHeight(context, mulBy: 0.09),
+                  child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
@@ -151,7 +142,7 @@ class _DockerState extends State<Docker> {
                           child: DockerItem(
                             iName: "Finder",
                             on: true,
-                            dx: _getVariation(screenWidth(context, mulBy: 0.025), _getOffset(), 3),
+                            dx: _getVariation(screenWidth(context, mulBy: 0.025), _getOffset(),),
                           ),
                         ),
                         InkWell(
@@ -165,7 +156,7 @@ class _DockerState extends State<Docker> {
                           child: DockerItem(
                             iName: "Launchpad",
                             on: false,
-                            dx: _getVariation(screenWidth(context, mulBy: 0.075), _getOffset(), 3),
+                            dx: _getVariation(screenWidth(context, mulBy: 0.075), _getOffset(), ),
                           ),
                         ),
                         InkWell(
@@ -303,17 +294,17 @@ class _DockerState extends State<Docker> {
                           onTap: () {
                             tapFunctions(context);
 
-                          Provider.of<OnOff>(context, listen: false)
-                              .maxCalendar();
-                          Provider.of<Apps>(context, listen: false).openApp(
-                              Calendar(
-                                  key: ObjectKey("calendar"),
-                                  initPos: Offset(
-                                      screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))),
-                              Provider.of<OnOff>(context, listen: false)
-                                  .maxCalendar()
-                          );
+                            Provider.of<OnOff>(context, listen: false)
+                                .maxCalendar();
+                            Provider.of<Apps>(context, listen: false).openApp(
+                                Calendar(
+                                    key: ObjectKey("calendar"),
+                                    initPos: Offset(
+                                        screenWidth(context, mulBy: 0.14),
+                                        screenHeight(context, mulBy: 0.1))),
+                                Provider.of<OnOff>(context, listen: false)
+                                    .maxCalendar()
+                            );
 
                           },
                           child: MouseRegion(
@@ -395,7 +386,7 @@ class _DockerState extends State<Docker> {
                         DockerItem(
                           iName: "Notes",
                           on: false,
-                          dx: _getVariation(screenWidth(context, mulBy: 0.475), _getOffset(), 3),
+                          dx: _getVariation(screenWidth(context, mulBy: 0.575), _getOffset(), 3),
 
                         ),
                         InkWell(
@@ -417,7 +408,7 @@ class _DockerState extends State<Docker> {
                           child: DockerItem(
                             iName: "Feedback",
                             on: fbOpen,
-                            dx: _getVariation(screenWidth(context, mulBy: 0.525), _getOffset(), 3),
+                            dx: _getVariation(screenWidth(context, mulBy: 0.625), _getOffset(), 3),
 
                           ),
                         ),
@@ -428,12 +419,29 @@ class _DockerState extends State<Docker> {
                           child: DockerItem(
                             iName: "System Preferences",
                             on: false,
-                            dx: _getVariation(screenWidth(context, mulBy: 0.575), _getOffset(), 3),
+                            dx: _getVariation(screenWidth(context, mulBy: 0.675), _getOffset(), 3),
 
                           ),
                         ),
                       ]
-                    ),
+                  ),
+                ),
+                MouseRegion(
+                  onHover: (event) {
+                    setState(() {
+                      _offset = event.localPosition.dx;
+                    });
+                  },
+                  onExit: (event) {
+                    setState(() {
+                      _offset = 0;
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 2),
+                    width: screenWidth(context, mulBy: 0.7),
+                    height: screenHeight(context, mulBy: 0.165),
+                    color: Colors.green.withOpacity(0.5),
                   ),
                 ),
               ],
@@ -464,7 +472,7 @@ class DockerItem extends StatefulWidget {
 }
 
 class _DockerItemState extends State<DockerItem> {
-  
+
   @override
   Widget build(BuildContext context) {
     //print("${widget.iName}: ${widget.dx}");
