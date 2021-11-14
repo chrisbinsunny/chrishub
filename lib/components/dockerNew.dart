@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -331,6 +332,12 @@ class _DockerState extends State<Docker> {
     });
   }
 
+  double _getVariation(double x, double x0, double radius) {
+    if (_offset == 0) return 0;
+    var z = (x - x0) * (x - x0) - radius;
+    if (z > 0) return 0;
+    return sqrt(-z / radius);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -433,13 +440,21 @@ class DockerItem extends StatefulWidget {
 }
 
 class _DockerItemState extends State<DockerItem> {
+
+  final nonHoverTransform = Matrix4.identity()..translate(0, 0, 0);
+  final hoverTransform = Matrix4.identity()..scale(1.2,1.2)..translate(-5, -25, 0, );
+  bool _hovering = false;
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         children: [
           Expanded(
-              child: Container(
+              child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 140),
+                  transform: _hovering ? hoverTransform: nonHoverTransform,
                   child: Image.asset(
                     "assets/apps/${widget.iName.toLowerCase()}.png",
                   )).moveUpOnHover),
