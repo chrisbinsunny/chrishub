@@ -246,7 +246,10 @@ class _DockerState extends State<Docker> {
 
                         },
                       ),
-                      InkWell(
+                      DockerItem(
+                        iName: "Visual Studio Code",
+                        on: vsOpen,
+                        dx: _getPath(screenWidth(context, mulBy: 0.375), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
 
@@ -261,12 +264,6 @@ class _DockerState extends State<Docker> {
                           );
 
                         },
-                        child: DockerItem(
-                          iName: "Visual Studio Code",
-                          on: vsOpen,
-                          dx: _getPath(screenWidth(context, mulBy: 0.375), _getCursor(), ),
-
-                        ),
                       ),
                       DockerItem(
                         iName: "Photos",
@@ -281,22 +278,7 @@ class _DockerState extends State<Docker> {
 
                       ),
                       InkWell(
-                        onTap: () {
-                          tapFunctions(context);
 
-                          Provider.of<OnOff>(context, listen: false)
-                              .maxCalendar();
-                          Provider.of<Apps>(context, listen: false).openApp(
-                              Calendar(
-                                  key: ObjectKey("calendar"),
-                                  initPos: Offset(
-                                      screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))),
-                              Provider.of<OnOff>(context, listen: false)
-                                  .maxCalendar()
-                          );
-
-                        },
                         child: Column(
                           children: [
                             Expanded(
@@ -378,7 +360,10 @@ class _DockerState extends State<Docker> {
                         dx: _getPath(screenWidth(context, mulBy: 0.575), _getCursor(), ),
 
                       ),
-                      InkWell(
+                      DockerItem(
+                        iName: "Feedback",
+                        on: fbOpen,
+                        dx: _getPath(screenWidth(context, mulBy: 0.625), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
 
@@ -394,23 +379,14 @@ class _DockerState extends State<Docker> {
                                   .maxFeedBack()
                           );
                         },
-                        child: DockerItem(
-                          iName: "Feedback",
-                          on: fbOpen,
-                          dx: _getPath(screenWidth(context, mulBy: 0.625), _getCursor(), ),
-
-                        ),
                       ),
-                      InkWell(
+                      DockerItem(
+                        iName: "System Preferences",
+                        on: false,
+                        dx: _getPath(screenWidth(context, mulBy: 0.675), _getCursor(), ),
                         onTap: () {
                           Provider.of<OnOff>(context, listen: false).onNotifications();
                         },
-                        child: DockerItem(
-                          iName: "System Preferences",
-                          on: false,
-                          dx: _getPath(screenWidth(context, mulBy: 0.675), _getCursor(), ),
-
-                        ),
                       ),
                     ]
                 ),
@@ -469,6 +445,7 @@ class _DockerItemState extends State<DockerItem> {
     //print("${widget.iName}: ${widget.dx}");
     return InkWell(
       onTap: widget.onTap,
+      mouseCursor: MouseCursor.defer,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
