@@ -125,7 +125,10 @@ class _DockerState extends State<Docker> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      InkWell(
+                      DockerItem(
+                        iName: "Finder",
+                        on: true,
+                        dx: _getPath(screenWidth(context, mulBy: 0.025), _getCursor(),),
                         onTap: () {
                           setState(() {
                             _animate = !_animate;
@@ -143,13 +146,11 @@ class _DockerState extends State<Docker> {
                                   .maxFinder()
                           );
                         },
-                        child: DockerItem(
-                          iName: "Finder",
-                          on: true,
-                          dx: _getPath(screenWidth(context, mulBy: 0.025), _getCursor(),),
-                        ),
                       ),
-                      InkWell(
+                      DockerItem(
+                        iName: "Launchpad",
+                        on: false,
+                        dx: _getPath(screenWidth(context, mulBy: 0.075), _getCursor(), ),
                         onTap: () {
                           Provider.of<Folders>(context, listen: false).deSelectAll();
                           Provider.of<OnOff>(context, listen: false).offNotifications();
@@ -157,13 +158,11 @@ class _DockerState extends State<Docker> {
                           Provider.of<OnOff>(context, listen: false).offRCM();
                           Provider.of<OnOff>(context, listen: false).toggleLaunchPad();
                         },
-                        child: DockerItem(
-                          iName: "Launchpad",
-                          on: false,
-                          dx: _getPath(screenWidth(context, mulBy: 0.075), _getCursor(), ),
-                        ),
                       ),
-                      InkWell(
+                      DockerItem(
+                        iName: "Safari",
+                        on: safariOpen,
+                        dx: _getPath(screenWidth(context, mulBy: 0.125), _getCursor(),),
                         onTap: () {
                           tapFunctions(context);
                           Provider.of<OnOff>(context, listen: false)
@@ -178,13 +177,11 @@ class _DockerState extends State<Docker> {
                                   .maxSafari()
                           );
                         },
-                        child: DockerItem(
-                          iName: "Safari",
-                          on: safariOpen,
-                          dx: _getPath(screenWidth(context, mulBy: 0.125), _getCursor(),),
-                        ),
                       ),
-                      InkWell(
+                      DockerItem(
+                        iName: "Messages",
+                        on: messageOpen,
+                        dx: _getPath(screenWidth(context, mulBy: 0.175), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
 
@@ -200,11 +197,6 @@ class _DockerState extends State<Docker> {
                                   .maxMessages()
                           );
                         },
-                        child: DockerItem(
-                          iName: "Messages",
-                          on: messageOpen,
-                          dx: _getPath(screenWidth(context, mulBy: 0.175), _getCursor(), ),
-                        ),
                       ),
                       DockerItem(
                         iName: "Maps",
@@ -212,7 +204,10 @@ class _DockerState extends State<Docker> {
                         dx: _getPath(screenWidth(context, mulBy: 0.225), _getCursor(), ),
 
                       ),
-                      InkWell(
+                      DockerItem(
+                        iName: "Spotify",
+                        on: spotifyOpen,
+                        dx: _getPath(screenWidth(context, mulBy: 0.275), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
 
@@ -229,14 +224,11 @@ class _DockerState extends State<Docker> {
                           );
 
                         },
-                        child: DockerItem(
-                          iName: "Spotify",
-                          on: spotifyOpen,
-                          dx: _getPath(screenWidth(context, mulBy: 0.275), _getCursor(), ),
-
-                        ),
                       ),
-                      InkWell(
+                      DockerItem(
+                        iName: "Terminal",
+                        on: terminalOpen,
+                        dx: _getPath(screenWidth(context, mulBy: 0.325), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
 
@@ -253,12 +245,6 @@ class _DockerState extends State<Docker> {
                           );
 
                         },
-                        child: DockerItem(
-                          iName: "Terminal",
-                          on: terminalOpen,
-                          dx: _getPath(screenWidth(context, mulBy: 0.325), _getCursor(), ),
-
-                        ),
                       ),
                       InkWell(
                         onTap: () {
@@ -463,11 +449,13 @@ class DockerItem extends StatefulWidget {
   final String iName;
   final bool on;
   double dx;
+  VoidCallback onTap=(){};
   DockerItem({
     Key key,
     @required this.iName,
     @required this.dx,
     this.on = false,
+    this.onTap
   }) : super(key: key);
 
   @override
@@ -479,27 +467,30 @@ class _DockerItemState extends State<DockerItem> {
   @override
   Widget build(BuildContext context) {
     //print("${widget.iName}: ${widget.dx}");
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Expanded(
-            child: AnimatedContainer(
-                duration: const Duration(milliseconds: 80),
-                transform: Matrix4.identity()..scale((.25*widget.dx)+1,(.25*widget.dx)+1)..translate(-5, -(widget.dx*30), 0, ),
-                child: Image.asset(
-                  "assets/apps/${widget.iName.toLowerCase()}.png",
-                ))),
-        Container(
-          height: 4,
-          width: 4,
-          decoration: BoxDecoration(
-            color: widget.on
-                ? Theme.of(context).cardColor.withOpacity(1)
-                : Colors.transparent,
-            shape: BoxShape.circle,
-          ),
-        )
-      ],
+    return InkWell(
+      onTap: widget.onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+              child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 80),
+                  transform: Matrix4.identity()..scale((.25*widget.dx)+1,(.25*widget.dx)+1)..translate(-5, -(widget.dx*30), 0, ),
+                  child: Image.asset(
+                    "assets/apps/${widget.iName.toLowerCase()}.png",
+                  ))),
+          Container(
+            height: 4,
+            width: 4,
+            decoration: BoxDecoration(
+              color: widget.on
+                  ? Theme.of(context).cardColor.withOpacity(1)
+                  : Colors.transparent,
+              shape: BoxShape.circle,
+            ),
+          )
+        ],
+      ),
     );
   }
 }
