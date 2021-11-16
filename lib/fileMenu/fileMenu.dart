@@ -4,12 +4,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:mac_dt/openApps.dart';
+import 'package:mac_dt/system/openApps.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
 
-import '../componentsOnOff.dart';
-import '../folders.dart';
+import '../system/componentsOnOff.dart';
+import '../system/folders.dart';
 
 class FileMenu extends StatefulWidget {
 

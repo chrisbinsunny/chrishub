@@ -8,7 +8,7 @@ import '../theme/theme.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../componentsOnOff.dart';
+import '../system/componentsOnOff.dart';
 import '../sizes.dart';
 
 class ControlCentre extends StatefulWidget {
