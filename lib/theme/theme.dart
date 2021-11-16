@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mac_dt/platformFinder.dart';
 import 'sharedPref.dart';
 
 class ThemeNotifier with ChangeNotifier {

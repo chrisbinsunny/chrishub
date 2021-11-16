@@ -15,14 +15,14 @@ class PlatformFinder extends StatelessWidget {
 
 
   static bool isMobile(BuildContext context) =>
-      screenWidth(context) < 650;
+      MediaQuery.of(context).size.aspectRatio < 0.9;
 
   static bool isTablet(BuildContext context) =>
-      screenWidth(context) < 1100 &&
-          screenWidth(context) >= 650;
+      MediaQuery.of(context).size.aspectRatio >= 0.9 &&
+          MediaQuery.of(context).size.aspectRatio < 1.7;
 
   static bool isDesktop(BuildContext context) =>
-      screenWidth(context) >= 1100;
+      MediaQuery.of(context).size.aspectRatio >= 1.7;
 
   @override
   Widget build(BuildContext context) {
