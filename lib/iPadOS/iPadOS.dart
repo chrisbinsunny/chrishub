@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mac_dt/apps/launchpad.dart';
+import 'package:mac_dt/iPadOS/components/appGrid.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
 import 'package:mac_dt/system/folders.dart';
@@ -60,6 +61,10 @@ class _IPadOSState extends State<IPadOS> {
 
             ///Applications
             ...apps,
+
+            ///Apps Grid
+            AppMenu(),
+
 
             /// file menu
             FileMenu(),
