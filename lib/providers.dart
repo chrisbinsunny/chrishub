@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'componentsOnOff.dart';
-import 'folders.dart';
+import 'system/componentsOnOff.dart';
+import 'system/folders.dart';
 
 // var finderOpen = Provider.of<OnOff>(context).getFinder;
 // Provider.of<OnOff>(context, listen: false).toggleFinder();

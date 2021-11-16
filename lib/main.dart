@@ -1,18 +1,18 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:mac_dt/folders.dart';
+import 'package:mac_dt/system/folders.dart';
 import 'package:mac_dt/iOS.dart';
-import 'package:mac_dt/iPadOS.dart';
+import 'package:mac_dt/iPadOS/iPadOS.dart';
 import 'package:mac_dt/platformFinder.dart';
 import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/sizes.dart';
-import 'openApps.dart';
+import 'system/openApps.dart';
 import 'theme/theme.dart';
-import 'package:mac_dt/componentsOnOff.dart';
+import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:provider/provider.dart';
 
-import 'desktop.dart';
+import 'system/desktop.dart';
 import 'dart:html' as html;
 
 void main() {
