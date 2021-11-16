@@ -47,40 +47,16 @@ class _IPadOSState extends State<IPadOS> {
         child: Stack(
           children: <Widget>[
             ///wallpaper
-            GestureDetector(
-              onSecondaryTap: () {
-                Provider.of<OnOff>(context, listen: false).onRCM();
-              },
-              onSecondaryTapDown: (details) {
-                tapFunctions(context);
-                Provider.of<DataBus>(context, listen: false)
-                    .setPos(details?.globalPosition);
-              },
-              onTap: () {
-                if (!mounted) return;
-                tapFunctions(context);
-              },
-              child: Container(
-                  height: size.height,
-                  width: size.width,
-                  child: Image.asset(
-                    themeNotifier.isDark()
-                        ? "assets/wallpapers/iPadOS_dark.jpg"
-                        : "assets/wallpapers/iPadOS_light.jpg",
-                    fit: BoxFit.cover,
-                  )),
-            ),
+            Container(
+                height: size.height,
+                width: size.width,
+                child: Image.asset(
+                  themeNotifier.isDark()
+                      ? "assets/wallpapers/iPadOS_dark.jpg"
+                      : "assets/wallpapers/iPadOS_light.jpg",
+                  fit: BoxFit.cover,
+                )),
 
-            ///Desktop Items
-            ...folders,
-
-            ///Right Click Context Menu
-            RightClick(initPos: pointerPos),
-
-            ///Folder Right Click Menu
-            FolderRightClick(
-              initPos: pointerPos,
-            ),
 
             ///Applications
             ...apps,
@@ -93,9 +69,6 @@ class _IPadOSState extends State<IPadOS> {
 
             //TODO State change of widgets under this will cause iFrame HTMLView to reload. Engine Fix required.
             /// Track the issue here: https://github.com/flutter/flutter/issues/80524
-
-            ///LaunchPad
-            LaunchPad(),
 
             ///docker bar
             Docker(),
