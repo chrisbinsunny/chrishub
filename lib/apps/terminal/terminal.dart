@@ -4,11 +4,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:mac_dt/componentsOnOff.dart';
+import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
-import '../../folders.dart';
-import '../../openApps.dart';
+import '../../system/folders.dart';
+import '../../system/openApps.dart';
 import '../../sizes.dart';
 import 'dart:ui' as ui;
 

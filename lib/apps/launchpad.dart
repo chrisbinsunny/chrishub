@@ -8,8 +8,8 @@ import 'package:mac_dt/theme/theme.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../componentsOnOff.dart';
-import '../openApps.dart';
+import '../system/componentsOnOff.dart';
+import '../system/openApps.dart';
 import '../providers.dart';
 import '../sizes.dart';
 import 'calendar.dart';

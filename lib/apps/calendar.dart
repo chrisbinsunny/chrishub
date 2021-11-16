@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:mac_dt/componentsOnOff.dart';
+import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:provider/provider.dart';
-import '../openApps.dart';
+import '../system/openApps.dart';
 import '../sizes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
