@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'componentsOnOff.dart';
-import 'providers.dart';
-import 'sizes.dart';
+import '../providers.dart';
+import '../sizes.dart';
 
 
 class Folders extends ChangeNotifier{
