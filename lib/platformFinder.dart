@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mac_dt/sizes.dart';
 
-class Responsive extends StatelessWidget {
+class PlatformFinder extends StatelessWidget {
   final Widget iOS;
   final Widget ipadOS;
   final Widget macOS;
 
-  const Responsive({
+  const PlatformFinder({
     Key key,
     @required this.iOS,
     @required this.ipadOS,
@@ -27,16 +27,13 @@ class Responsive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      // If our width is more than 1100 then we consider it a desktop
       builder: (context, constraints) {
-        if (constraints.maxWidth >= 1100) {
+        if (MediaQuery.of(context).size.aspectRatio >= 1.7) {
           return macOS;
         }
-        // If width it less then 1100 and more then 650 we consider it as tablet
-        else if (constraints.maxWidth >= 650) {
+        else if (MediaQuery.of(context).size.aspectRatio >= 0.9) {
           return ipadOS;
         }
-        // Or less then that we called it mobile
         else {
           return iOS;
         }
