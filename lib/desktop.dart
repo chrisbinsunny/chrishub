@@ -19,16 +19,20 @@ import 'theme/theme.dart';
 import 'components/dock.dart';
 import 'fileMenu/fileMenu.dart';
 
-class MyHomePage extends StatefulWidget {
+class MacOS extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MacOSState createState() => _MacOSState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MacOSState extends State<MacOS> {
   bool finderOpen = true;
+
+
 
   @override
   Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size.aspectRatio);
+    print(screenWidth(context));
     var size = MediaQuery.of(context).size;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen = Provider.of<OnOff>(context).getCc;
@@ -40,7 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
     bool NSOn = Provider.of<DataBus>(
       context,
     ).getNS;
-
     return Scaffold(
       body: Center(
         child: Stack(
