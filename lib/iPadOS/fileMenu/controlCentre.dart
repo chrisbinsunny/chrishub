@@ -31,6 +31,8 @@ class _ControlCentreState extends State<ControlCentre> {
 
   @override
   Widget build(BuildContext context) {
+    print(screenHeight(context, mulBy: 0.059));
+    print(screenWidth(context, mulBy: 0.039));
     brightness = Provider.of<DataBus>(context).getBrightness;
 
     BoxDecoration ccDecoration = BoxDecoration(
@@ -58,11 +60,9 @@ class _ControlCentreState extends State<ControlCentre> {
       child: Align(
         alignment: Alignment.topRight,
         child: Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: screenWidth(context, mulBy: 0.007),
-              vertical: screenHeight(context, mulBy: 0.014)),
-          height: screenHeight(context, mulBy: 0.45),
-          width: screenWidth(context, mulBy: 0.2),
+         // color: Colors.green,
+          height: screenHeight(context, mulBy: 0.55),
+          width: screenWidth(context, mulBy: 0.24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -70,216 +70,165 @@ class _ControlCentreState extends State<ControlCentre> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    margin: EdgeInsets.zero,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth(context,
-                            mulBy: 0.013),
-                        vertical: screenHeight(context,
-                            mulBy: 0.025)),
-                    height: screenHeight(context,
-                        mulBy: 0.17),
-                    width:
-                    screenWidth(context, mulBy: 0.09),
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(10)),
-                      color: Colors.black.withOpacity(0.4)
+                  ClipRRect(
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(23)),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: 15.0, sigmaY: 15.0),
+                      child:  Container(
+                        margin: EdgeInsets.zero,
+                        height: screenHeight(context, mulBy: 0.18),
+                        width: screenWidth(context, mulBy: 0.11),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10)),
+                            color: Colors.black.withOpacity(0.4)
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white.withOpacity(0.2)
+                                  ),
+                                  height: screenHeight(context, mulBy: 0.059),
+                                  width: screenWidth(context, mulBy: 0.039),
+                                  alignment: Alignment.center,
+                                  child: Center(
+                                    child: Icon(
+                                      CupertinoIcons.airplane,
+                                      size: 25,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.blue
+                                  ),
+                                  height: screenHeight(context, mulBy: 0.059),
+                                  width: screenWidth(context, mulBy: 0.039),
+                                  alignment: Alignment.center,
+                                  child: Center(
+                                    child: Icon(
+                                      CupertinoIcons.antenna_radiowaves_left_right,
+                                      size: 25,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.blue
+                                  ),
+                                  height: screenHeight(context, mulBy: 0.059),
+                                  width: screenWidth(context, mulBy: 0.039),
+                                  alignment: Alignment.center,
+                                  child: Center(
+                                    child: Icon(
+                                      CupertinoIcons.wifi,
+                                      size: 25,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.blue
+                                  ),
+                                  height: screenHeight(context, mulBy: 0.059),
+                                  width: screenWidth(context, mulBy: 0.039),
+                                  alignment: Alignment.center,
+                                  child: Center(
+                                    child: Icon(
+                                      CupertinoIcons.bluetooth,
+                                      size: 25,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                  Container(
-                    height: screenHeight(context, mulBy: 0.17),
-                    width: screenWidth(context, mulBy: 0.09),
-                    child: Column(
-                      mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(10)),
-                            boxShadow: [ccShadow],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(10)),
-                            child: BackdropFilter(
-                              filter: ImageFilter.blur(
-                                  sigmaX: 15.0, sigmaY: 15.0),
-                              child: BrdrContainer(
-                                height: 0.08,
-                                width: 0.09,
-                                child: InkWell(
-                                  mouseCursor: MouseCursor.defer,
-                                  onTap: () {
-                                    Provider.of<DataBus>(context, listen: false).toggleNS();
-                                  },
-                                  child: Container(
-                                    height: screenHeight(context,
-                                        mulBy: 0.08),
-                                    width: screenWidth(context,
-                                        mulBy: 0.09),
-                                    decoration: ccDecoration,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment
-                                          .spaceEvenly,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.all(
-                                              Radius.circular(
-                                                  10)),
-                                          child: BackdropFilter(
-                                            filter:
-                                            ImageFilter.blur(
-                                                sigmaX: 15.0,
-                                                sigmaY: 15.0),
-                                            child: Container(
-                                              height:
-                                              screenHeight(
-                                                  context,
-                                                  mulBy:
-                                                  0.0456),
-                                              width: screenWidth(
-                                                  context,
-                                                  mulBy: 0.0219),
-                                              decoration:
-                                              BoxDecoration(
-                                                shape: BoxShape
-                                                    .circle,
-                                                color: NSOn? Colors.orange.withOpacity(0.8):Colors.black.withOpacity(.13),
-                                              ),
-                                              child: Center(
-                                                child:
-                                                Icon(
-                                                  CupertinoIcons.brightness_solid,
-                                                  color: Colors.white.withOpacity(0.7),
-                                                  size: 18,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Flexible(
-                                            child: MBPText(
-                                              overflow:
-                                              TextOverflow.visible,
-                                              maxLines: 2,
-                                              text:
-                                              "Night Shift\n${NSOn ? "On" : "Off"}",
-                                              color: Theme.of(context)
-                                                  .cardColor
-                                                  .withOpacity(1),
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                  ClipRRect(
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(23)),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: 15.0, sigmaY: 15.0),
+                      child:  Container(
+                        margin: EdgeInsets.zero,
+                        height: screenHeight(context, mulBy: 0.18),
+                        width: screenWidth(context, mulBy: 0.11),
+                        padding: EdgeInsets.only(
+                            left: screenWidth(context, mulBy: 0.008),
+                            right: screenWidth(context, mulBy: 0.008),
+                            bottom: screenHeight(context, mulBy: 0.04),
+                          top: screenHeight(context, mulBy: 0.01),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(10)),
-                            boxShadow: [ccShadow],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(10)),
-                            child: BackdropFilter(
-                              filter: ImageFilter.blur(
-                                  sigmaX: 15.0, sigmaY: 15.0),
-                              child: BrdrContainer(
-                                height: 0.08,
-                                width: 0.09,
-                                child: InkWell(
-                                  mouseCursor: MouseCursor.defer,
-                                  onTap: () {
-                                    themeNotifier.isDark()
-                                        ? themeNotifier.setTheme(
-                                        ThemeNotifier
-                                            .lightTheme)
-                                        : themeNotifier.setTheme(
-                                        ThemeNotifier
-                                            .darkTheme);
-                                  },
-                                  child: Container(
-                                    height: screenHeight(context,
-                                        mulBy: 0.08),
-                                    width: screenWidth(context,
-                                        mulBy: 0.09),
-                                    decoration: ccDecoration,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment
-                                              .spaceEvenly,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.all(
-                                                  Radius.circular(
-                                                      10)),
-                                          child: BackdropFilter(
-                                            filter:
-                                                ImageFilter.blur(
-                                                    sigmaX: 15.0,
-                                                    sigmaY: 15.0),
-                                            child: Container(
-                                              height:
-                                                  screenHeight(
-                                                      context,
-                                                      mulBy:
-                                                          0.0456),
-                                              width: screenWidth(
-                                                  context,
-                                                  mulBy: 0.0219),
-                                              decoration:
-                                                  BoxDecoration(
-                                                shape: BoxShape
-                                                    .circle,
-                                                color: Theme.of(
-                                                        context)
-                                                    .highlightColor,
-                                              ),
-                                              child: Center(
-                                                child:
-                                                    Image.asset(
-                                                  "assets/icons/darkBlack.png",
-                                                  height:
-                                                      screenHeight(
-                                                          context,
-                                                          mulBy:
-                                                              0.032),
-                                                  fit: BoxFit
-                                                      .fitHeight,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Flexible(
-                                            child: MBPText(
-                                          overflow:
-                                              TextOverflow.visible,
-                                          maxLines: 2,
-                                          text:
-                                              "Dark Mode\n${themeNotifier.isDark() ? "On" : "Off"}",
-                                          color: Theme.of(context)
-                                              .cardColor
-                                              .withOpacity(1),
-                                        ))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10)),
+                            color: Colors.black.withOpacity(0.4)
                         ),
-                      ],
+                        child: Column(
+                          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Align(
+                              child: Icon(
+                                CupertinoIcons.waveform_circle_fill,
+                                size: 25,
+                                color: Colors.white,
+                              ),
+                              alignment: Alignment.topRight,
+                            ),
+                            MBPText(
+                              text: "Not Playing",
+                              color: Colors.white.withOpacity(0.3),
+                              weight: FontWeight.w500,
+                              size: 17,
+                            ),
+                            Spacer(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Icon(
+                                  CupertinoIcons.backward_fill,
+                                  size: 23,
+                                  color: Colors.white.withOpacity(0.3),
+                                ),
+                                Icon(
+                                  CupertinoIcons.play_arrow_solid,
+                                  size: 25,
+                                  color: Colors.white,
+                                ),
+                                Icon(
+                                  CupertinoIcons.forward_fill,
+                                  size: 23,
+                                  color: Colors.white.withOpacity(0.3),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ],

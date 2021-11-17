@@ -55,13 +55,11 @@ class _IPadOSState extends State<IPadOS> {
                   fit: BoxFit.cover,
                 )),
 
-
-            ///Applications
-            ...apps,
-
             ///Apps Grid
             AppMenu(),
 
+            ///Applications
+            ...apps,
             ///Notification
             Notifications(),
 
