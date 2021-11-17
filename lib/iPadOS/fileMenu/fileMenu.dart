@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/sizes.dart';
+import 'package:mac_dt/system/componentsOnOff.dart';
+import 'package:mac_dt/system/folders.dart';
+import 'package:provider/provider.dart';
 
 class FileMenu extends StatefulWidget {
 
@@ -48,16 +51,22 @@ class _FileMenuState extends State<FileMenu> {
                         color: Colors.white),),);
               },),
             Spacer(),
-            Row(
-              children: [
-                Icon(CupertinoIcons.chart_bar_fill, size: 15,),
-                SizedBox(width: size.width*0.014,),
-                Image.asset("assets/icons/wifi.png", height: 13.5,),
-                SizedBox(width: size.width*0.014,),
-                FittedBox(fit: BoxFit.fitHeight, child:Text("${num+60}% ", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, fontSize: 12.5, color: Colors.white),),),
-                Image.asset("assets/icons/battery.png", height: 12, ),
-                SizedBox(width: size.width*0.014,),
-              ],
+            GestureDetector(
+              onHorizontalDragStart: (yoyo){
+                Provider.of<Folders>(context, listen: false).deSelectAll();
+                Provider.of<OnOff>(context, listen: false).toggleCc();
+              },
+              child: Row(
+                children: [
+                  Icon(CupertinoIcons.chart_bar_fill, size: 15,),
+                  SizedBox(width: size.width*0.014,),
+                  Image.asset("assets/icons/wifi.png", height: 13.5,),
+                  SizedBox(width: size.width*0.014,),
+                  FittedBox(fit: BoxFit.fitHeight, child:Text("${num+60}% ", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, fontSize: 12.5, color: Colors.white),),),
+                  Image.asset("assets/icons/battery.png", height: 12, ),
+                  SizedBox(width: size.width*0.014,),
+                ],
+              ),
             ),
           ],
         )

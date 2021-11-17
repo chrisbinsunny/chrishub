@@ -2,17 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mac_dt/apps/launchpad.dart';
 import 'package:mac_dt/iPadOS/components/appGrid.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
-import 'package:mac_dt/fileMenu/controlCentre.dart';
+import 'fileMenu/controlCentre.dart';
 import 'package:mac_dt/system/folders.dart';
 import 'package:mac_dt/providers.dart';
-import 'package:mac_dt/system/rightClickMenu.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:flutter/rendering.dart';
 import '../components/notifiaction.dart';
 import '../system/openApps.dart';
@@ -65,10 +62,6 @@ class _IPadOSState extends State<IPadOS> {
             ///Apps Grid
             AppMenu(),
 
-
-            /// file menu
-            FileMenu(),
-
             ///Notification
             Notifications(),
 
@@ -90,6 +83,9 @@ class _IPadOSState extends State<IPadOS> {
                   width: screenWidth(context),
                   child: ControlCentre()),
             ),
+
+            /// file menu
+            FileMenu(),
 
             ///Control Night Shift
             IgnorePointer(
