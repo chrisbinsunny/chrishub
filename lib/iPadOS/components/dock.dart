@@ -32,9 +32,6 @@ class Docker extends StatefulWidget {
 
 class _DockerState extends State<Docker> {
   DateTime now;
-  bool _animate = false;
-  var _offsetX = 0.0;
-  var _offsetY = 0.0;
   bool safariOpen, vsOpen, messageOpen,spotifyOpen, fbOpen, calendarOpen, terminalOpen;
 
   @override
@@ -43,25 +40,6 @@ class _DockerState extends State<Docker> {
     super.initState();
   }
 
-  ///This function gives the path of the arc which the apps should follow.
-  /// x : center of the Dock Item.
-  /// x0 : _getCursor = position of the cursor.
-  /// 2 :  we want the animation to affect 4 items centered in x0.
-
-
-  double _getPath(double x, double x0, ) {
-    x=(x)/100;
-    if (_offsetX == 0) return 0;
-    var z = (x - x0) * (x - x0) - 2;
-    if (z > 0) return 0;
-    if (_offsetY<screenHeight(context, mulBy: 0.075))
-      return sqrt(-z / 2)*(_offsetY/50);
-    return sqrt(-z / 2);
-  }
-
-  double _getCursor() {
-    return _offsetX / 100;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +93,6 @@ class _DockerState extends State<Docker> {
                             DockerItem(
                               iName: "Safari",
                               on: safariOpen,
-                              dx: _getPath(screenWidth(context, mulBy: 0.125), _getCursor(),),
                               onTap: () {
                                 tapFunctions(context);
                                 Provider.of<OnOff>(context, listen: false)
@@ -134,7 +111,6 @@ class _DockerState extends State<Docker> {
                             DockerItem(
                               iName: "Messages",
                               on: messageOpen,
-                              dx: _getPath(screenWidth(context, mulBy: 0.175), _getCursor(), ),
                               onTap: () {
                                 tapFunctions(context);
 
@@ -154,82 +130,76 @@ class _DockerState extends State<Docker> {
                             DockerItem(
                               iName: "Photos",
                               on: false,
-                              dx: _getPath(screenWidth(context, mulBy: 0.425), _getCursor(), ),
 
                             ),
                             DockerItem(
                               iName: "Contacts",
                               on: false,
-                              dx: _getPath(screenWidth(context, mulBy: 0.475), _getCursor(), ),
 
                             ),
                             InkWell(
-                              child: Expanded(
-                                child: Stack(
-                                  alignment: Alignment.topCenter,
-                                  children: [
-                                    Image.asset(
-                                      "assets/apps/calendar.png",
+                              child: Stack(
+                                alignment: Alignment.topCenter,
+                                children: [
+                                  Image.asset(
+                                    "assets/apps/calendar.png",
+                                  ),
+                                  Positioned(
+                                    top: screenHeight(context, mulBy: 0.01),
+                                    child: Container(
+                                      height:
+                                      screenHeight(context, mulBy: 0.02),
+                                      width:
+                                      screenWidth(context, mulBy: 0.03),
+                                      color: Colors.transparent,
+                                      child: FittedBox(
+                                        fit: BoxFit.fitHeight,
+                                        child: Text(
+                                          "${DateFormat('LLL').format(now).toUpperCase()}",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'SF',
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 11,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    Positioned(
-                                      top: screenHeight(context, mulBy: 0.01),
-                                      child: Container(
-                                        height:
-                                        screenHeight(context, mulBy: 0.02),
-                                        width:
-                                        screenWidth(context, mulBy: 0.03),
-                                        color: Colors.transparent,
-                                        child: FittedBox(
-                                          fit: BoxFit.fitHeight,
-                                          child: Text(
-                                            "${DateFormat('LLL').format(now).toUpperCase()}",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.white,
+                                  ),
+                                  Positioned(
+                                    top: screenHeight(context, mulBy: 0.026),
+                                    child: Container(
+                                      height:
+                                      screenHeight(context, mulBy: 0.047),
+                                      width:
+                                      screenWidth(context, mulBy: 0.03),
+                                      color: Colors.transparent,
+                                      child: FittedBox(
+                                        fit: BoxFit.fitHeight,
+                                        child: Text(
+                                          "${DateFormat('d').format(now).toUpperCase()}",
+                                          style: TextStyle(
+                                              color: Colors.black87
+                                                  .withOpacity(0.8),
                                               fontFamily: 'SF',
                                               fontWeight: FontWeight.w400,
-                                              fontSize: 11,
-                                            ),
-                                          ),
+                                              fontSize: 28),
                                         ),
                                       ),
                                     ),
-                                    Positioned(
-                                      top: screenHeight(context, mulBy: 0.026),
-                                      child: Container(
-                                        height:
-                                        screenHeight(context, mulBy: 0.047),
-                                        width:
-                                        screenWidth(context, mulBy: 0.03),
-                                        color: Colors.transparent,
-                                        child: FittedBox(
-                                          fit: BoxFit.fitHeight,
-                                          child: Text(
-                                            "${DateFormat('d').format(now).toUpperCase()}",
-                                            style: TextStyle(
-                                                color: Colors.black87
-                                                    .withOpacity(0.8),
-                                                fontFamily: 'SF',
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 28),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                             DockerItem(
                               iName: "Notes",
                               on: false,
-                              dx: _getPath(screenWidth(context, mulBy: 0.575), _getCursor(), ),
 
                             ),
                             DockerItem(
                               iName: "Feedback",
                               on: fbOpen,
-                              dx: _getPath(screenWidth(context, mulBy: 0.625), _getCursor(), ),
                               onTap: () {
                                 tapFunctions(context);
 
@@ -249,7 +219,6 @@ class _DockerState extends State<Docker> {
                             DockerItem(
                               iName: "System Preferences",
                               on: false,
-                              dx: _getPath(screenWidth(context, mulBy: 0.675), _getCursor(), ),
                               onTap: () {
                                 Provider.of<OnOff>(context, listen: false).onNotifications();
                               },
@@ -275,12 +244,10 @@ class _DockerState extends State<Docker> {
 class DockerItem extends StatefulWidget {
   final String iName;
   final bool on;
-  double dx;
   VoidCallback onTap=(){};
   DockerItem({
     Key key,
     @required this.iName,
-    @required this.dx,
     this.on = false,
     this.onTap
   }) : super(key: key);
@@ -297,10 +264,9 @@ class _DockerItemState extends State<DockerItem> {
     return InkWell(
       onTap: widget.onTap,
       mouseCursor: MouseCursor.defer,
-      child: Expanded(
-          child: Image.asset(
-            "assets/apps/${widget.iName.toLowerCase()}.png",
-          )),
+      child: Image.asset(
+        "assets/apps/${widget.iName.toLowerCase()}.png",
+      ),
     );
   }
 }
