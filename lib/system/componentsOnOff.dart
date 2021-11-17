@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 class OnOff extends ChangeNotifier{
 
   String fs="";
-  bool ccOpen =false;
+  bool ccOpen =true;
   bool finderMax =false;
   bool finderFS = false;
   bool safariMax =false;
