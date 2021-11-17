@@ -18,7 +18,7 @@ import '../components/notifiaction.dart';
 import '../system/openApps.dart';
 import '../theme/theme.dart';
 import 'components/dock.dart';
-import '../fileMenu/fileMenu.dart';
+import 'fileMenu/fileMenu.dart';
 
 class IPadOS extends StatefulWidget {
   @override
