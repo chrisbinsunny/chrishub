@@ -60,7 +60,7 @@ class _ControlCentreState extends State<ControlCentre> {
       child: Align(
         alignment: Alignment.topRight,
         child: Container(
-         // color: Colors.green,
+         color: Colors.green,
           height: screenHeight(context, mulBy: 0.55),
           width: screenWidth(context, mulBy: 0.24),
           child: Column(
@@ -201,7 +201,7 @@ class _ControlCentreState extends State<ControlCentre> {
                             ),
                             MBPText(
                               text: "Not Playing",
-                              color: Colors.white.withOpacity(0.3),
+                              color: Colors.white.withOpacity(0.5),
                               weight: FontWeight.w500,
                               size: 17,
                             ),
@@ -229,6 +229,172 @@ class _ControlCentreState extends State<ControlCentre> {
                           ],
                         ),
                       ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ClipRRect(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(15)),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(
+                                  sigmaX: 15.0, sigmaY: 15.0),
+                              child:  Container(
+                                margin: EdgeInsets.zero,
+                                height: screenHeight(context, mulBy: 0.081),
+                                width: screenWidth(context, mulBy: 0.0495),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                    color: Colors.white.withOpacity(0.8)
+                                ),
+                                child: Center(
+                                  child: Icon(
+                                    CupertinoIcons.lock_rotation,
+                                    size: 35,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          ClipRRect(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(15)),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(
+                                  sigmaX: 15.0, sigmaY: 15.0),
+                              child:  Container(
+                                margin: EdgeInsets.zero,
+                                height: screenHeight(context, mulBy: 0.081),
+                                width: screenWidth(context, mulBy: 0.0495),
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                    color: Colors.black.withOpacity(0.4)
+                                ),
+                                child: Center(
+                                  child: Icon(
+                                    CupertinoIcons.rectangle_on_rectangle,
+                                    size: 35,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth(context, mulBy: 0.01)
+                        ),
+                        height: screenHeight(context, mulBy: 0.081),
+                        width: screenWidth(context, mulBy: 0.11),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(15)),
+                            color: Colors.black.withOpacity(0.4)
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.white.withOpacity(0.2)
+                              ),
+                              height: screenHeight(context, mulBy: 0.059),
+                              width: screenWidth(context, mulBy: 0.039),
+                              alignment: Alignment.center,
+                              margin: EdgeInsets.only(
+                                  right: screenWidth(context, mulBy: 0.007)
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  CupertinoIcons.moon_fill,
+                                  size: 25,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            MBPText(
+                              text: "Focus",
+                              color: Colors.white.withOpacity(0.8),
+                              weight: FontWeight.w500,
+                              size: 17,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  SizedBox(
+                    width: screenWidth(context, mulBy: 0.11),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.zero,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth(context, mulBy: 0.01)
+                          ),
+                          height: screenHeight(context, mulBy: 0.18),
+                          width: screenWidth(context, mulBy: 0.0495),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(15)),
+                              color: Colors.black.withOpacity(0.4)
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.2)
+                            ),
+                            height: screenHeight(context, mulBy: 0.059),
+                            width: screenWidth(context, mulBy: 0.039),
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.only(
+                                right: screenWidth(context, mulBy: 0.007)
+                            ),
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.zero,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: screenWidth(context, mulBy: 0.01)
+                          ),
+                          height: screenHeight(context, mulBy: 0.18),
+                          width: screenWidth(context, mulBy: 0.0495),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(15)),
+                              color: Colors.black.withOpacity(0.4)
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.2)
+                            ),
+                            height: screenHeight(context, mulBy: 0.059),
+                            width: screenWidth(context, mulBy: 0.039),
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.only(
+                                right: screenWidth(context, mulBy: 0.007)
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -428,91 +594,6 @@ class _ControlCentreState extends State<ControlCentre> {
                             ),
 
                             //CCSlider(height: 16, width: screenWidth(context),),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(10)),
-                  boxShadow: [ccShadow],
-                ),
-                child: ClipRRect(
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(10)),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(
-                        sigmaX: 15.0, sigmaY: 15.0),
-                    child: BrdrContainer(
-                      height: 0.075,
-                      width: 1,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth(context,
-                                mulBy: 0.005),
-                            vertical: screenHeight(context,
-                                mulBy: 0.005)),
-                        height:
-                        screenHeight(context, mulBy: 0.075),
-                        width: screenWidth(
-                          context,
-                        ),
-                        decoration: ccDecoration,
-                        child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.start,
-                          crossAxisAlignment:
-                          CrossAxisAlignment.center,
-                          children: [
-                           Container(
-                             height: screenHeight(context, mulBy: 0.059),
-                             width: screenWidth(context, mulBy: 0.028),
-                             decoration: BoxDecoration(
-                               color: Theme.of(context)
-                                   .bottomAppBarColor,
-                               borderRadius: BorderRadius.circular(5)
-                             ),
-                             margin: EdgeInsets.only(right: screenWidth(context, mulBy: 0.005)),
-                             child: Center(
-                               child: Image.asset(
-                                 "assets/apps/itunes.png",
-                                 height:
-                                 screenHeight(
-                                     context,
-                                     mulBy:
-                                     0.035),
-                                 fit: BoxFit
-                                     .fitHeight,
-                               ),
-                             ),
-                           ),
-                            MBPText(
-                              overflow: TextOverflow.clip,
-                              text: "Music",
-                              color: Theme.of(context)
-                                  .cardColor
-                                  .withOpacity(1),
-                            ),
-                            Spacer(),
-                            Icon(
-                              CupertinoIcons.play_arrow_solid,
-                            size: 17,
-                              color: Theme.of(context)
-                                  .bottomAppBarColor.withOpacity(0.5),
-                            ),
-                            SizedBox(
-                              width: screenWidth(context, mulBy: 0.005),
-                            ),
-                            Icon(
-                              CupertinoIcons.forward_fill,
-                              size: 16,
-                              color: Theme.of(context)
-                                  .bottomAppBarColor.withOpacity(0.3),
-                            )
                           ],
                         ),
                       ),
