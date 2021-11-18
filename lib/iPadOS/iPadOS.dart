@@ -76,9 +76,8 @@ class _IPadOSState extends State<IPadOS> {
                   padding: EdgeInsets.symmetric(
                       vertical: screenHeight(context, mulBy: 0.007),
                       horizontal: screenWidth(context, mulBy: 0.005)),
-                  height: screenHeight(context) -
-                      (screenHeight(context, mulBy: 0.140)),
-                  width: screenWidth(context),
+                  height: screenHeight(context, mulBy: 0.55),
+                   width: screenWidth(context),
                   child: ControlCentre()),
             ),
 
