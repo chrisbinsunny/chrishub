@@ -503,7 +503,7 @@ class _ControlCentreState extends State<ControlCentre> {
                           ),
                           child: Center(
                             child: Icon(
-                              CupertinoIcons.rectangle_on_rectangle,
+                              CupertinoIcons.timer,
                               size: 35,
                               color: Colors.white,
                             ),
@@ -531,8 +531,8 @@ class _ControlCentreState extends State<ControlCentre> {
                           ),
                           child: Center(
                             child: Icon(
-                              CupertinoIcons.rectangle_on_rectangle,
-                              size: 35,
+                              CupertinoIcons.camera_fill,
+                              size: 32,
                               color: Colors.white,
                             ),
                           ),
@@ -576,7 +576,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                 screenHeight(
                                     context,
                                     mulBy:
-                                    0.032),
+                                    0.035),
                                 color: themeNotifier.isDark() ? Colors.black:Colors.white,
                                 fit: BoxFit
                                     .fitHeight,
