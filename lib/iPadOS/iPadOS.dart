@@ -72,13 +72,7 @@ class _IPadOSState extends State<IPadOS> {
             ///Control Centre
             Positioned(
               top: screenHeight(context, mulBy: 0.035),
-              child: Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: screenHeight(context, mulBy: 0.007),
-                      horizontal: screenWidth(context, mulBy: 0.005)),
-                  height: screenHeight(context, mulBy: 0.55),
-                   width: screenWidth(context),
-                  child: ControlCentre()),
+              child: ControlCentre(),
             ),
 
             /// file menu
