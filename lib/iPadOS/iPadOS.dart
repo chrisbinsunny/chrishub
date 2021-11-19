@@ -103,7 +103,7 @@ class _IPadOSState extends State<IPadOS> {
             IgnorePointer(
               ignoring: true,
               child: Opacity(
-                opacity: 1 - (brightness / 95.98),
+                opacity: 1 - brightness/100,
                 child: Container(
                   width: screenWidth(context),
                   height: screenHeight(context),
