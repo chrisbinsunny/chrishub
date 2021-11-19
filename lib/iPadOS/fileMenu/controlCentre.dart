@@ -55,14 +55,12 @@ class _ControlCentreState extends State<ControlCentre> {
     ).getNS;
     return ccOpen
         ? new BackdropFilter(
-      filter: new ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
-
+      filter: new ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0, tileMode: TileMode.decal),
       child: Align(
         alignment: Alignment.topRight,
         child: Container(
          // width: screenWidth(context, mulBy: 0.24),
          height: screenHeight(context, mulBy: 0.55),
-         color: Colors.green,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -414,7 +412,7 @@ class _ControlCentreState extends State<ControlCentre> {
                     ),
                   ),
                   SizedBox(
-                    width: screenWidth(context, mulBy: 0.0135),
+                    width: screenWidth(context, mulBy: 0.013),
                   ),
                   ClipRRect(
                     borderRadius:
@@ -476,6 +474,126 @@ class _ControlCentreState extends State<ControlCentre> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: screenHeight(context, mulBy: 0.015),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  ClipRRect(
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(15)),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: 15.0, sigmaY: 15.0),
+                      child:  Container(
+                        margin: EdgeInsets.zero,
+                        height: screenHeight(context, mulBy: 0.081),
+                        width: screenWidth(context, mulBy: 0.0495),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10)),
+                            color: Colors.black.withOpacity(0.4)
+                        ),
+                        child: Center(
+                          child: Icon(
+                            CupertinoIcons.rectangle_on_rectangle,
+                            size: 35,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: screenWidth(context, mulBy: 0.0135),
+                  ),
+
+                  ClipRRect(
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(15)),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: 15.0, sigmaY: 15.0),
+                      child:  Container(
+                        margin: EdgeInsets.zero,
+                        height: screenHeight(context, mulBy: 0.081),
+                        width: screenWidth(context, mulBy: 0.0495),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10)),
+                            color: Colors.black.withOpacity(0.4)
+                        ),
+                        child: Center(
+                          child: Icon(
+                            CupertinoIcons.rectangle_on_rectangle,
+                            size: 35,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: screenWidth(context, mulBy: 0.0135),
+                  ),
+
+                  ClipRRect(
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(15)),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: 15.0, sigmaY: 15.0),
+                      child:  Container(
+                        margin: EdgeInsets.zero,
+                        height: screenHeight(context, mulBy: 0.081),
+                        width: screenWidth(context, mulBy: 0.0495),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10)),
+                            color: Colors.black.withOpacity(0.4)
+                        ),
+                        child: Center(
+                          child: Icon(
+                            CupertinoIcons.rectangle_on_rectangle,
+                            size: 35,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: screenWidth(context, mulBy: 0.0135),
+                  ),
+
+                  ClipRRect(
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(15)),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(
+                          sigmaX: 15.0, sigmaY: 15.0),
+                      child:  Container(
+                        margin: EdgeInsets.zero,
+                        height: screenHeight(context, mulBy: 0.081),
+                        width: screenWidth(context, mulBy: 0.0495),
+                        decoration: BoxDecoration(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(10)),
+                            color: Colors.black.withOpacity(0.4)
+                        ),
+                        child: Center(
+                          child: Icon(
+                            CupertinoIcons.rectangle_on_rectangle,
+                            size: 35,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),
