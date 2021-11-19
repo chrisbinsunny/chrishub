@@ -64,7 +64,7 @@ class _ControlCentreState extends State<ControlCentre> {
          height: screenHeight(context, mulBy: 0.55),
          color: Colors.green,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
@@ -169,7 +169,7 @@ class _ControlCentreState extends State<ControlCentre> {
                     ),
                   ),
                   SizedBox(
-                    width: screenWidth(context, mulBy: 0.02),
+                    width: screenWidth(context, mulBy: 0.0135),
                   ),
                   ClipRRect(
                     borderRadius:
@@ -236,6 +236,9 @@ class _ControlCentreState extends State<ControlCentre> {
                     ),
                   ),
                 ],
+              ),
+              SizedBox(
+                height: screenHeight(context, mulBy: 0.015),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -347,169 +350,102 @@ class _ControlCentreState extends State<ControlCentre> {
                     ),
                   ),
                   SizedBox(
-                    width: screenWidth(context, mulBy: 0.02),
+                    width: screenWidth(context, mulBy: 0.0135),
                   ),
-                  SizedBox(
-                    width: screenWidth(context, mulBy: 0.11),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Container(
+                    margin: EdgeInsets.zero,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth(context, mulBy: 0.01)
+                    ),
+                    height: screenHeight(context, mulBy: 0.18),
+                    width: screenWidth(context, mulBy: 0.0495),
+                    decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(15)),
+                        color: Colors.black.withOpacity(0.4)
+                    ),
+                    child: Stack(
+                      clipBehavior: Clip.antiAlias,
+                      alignment: Alignment.bottomCenter,
                       children: [
-                        Container(
-                          margin: EdgeInsets.zero,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth(context, mulBy: 0.01)
-                          ),
-                          height: screenHeight(context, mulBy: 0.18),
-                          width: screenWidth(context, mulBy: 0.0495),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(15)),
-                              color: Colors.black.withOpacity(0.4)
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white.withOpacity(0.2)
+                        RotatedBox(
+                          quarterTurns: 3,
+                          child: SliderTheme(
+                            data: SliderTheme.of(context)
+                                .copyWith(
+                              trackHeight: screenWidth(context, mulBy: 0.0495),
+                              activeTrackColor: Colors.white,
+                              minThumbSeparation: 0,
+                              trackShape: SliderTrackShape(),
+                              inactiveTrackColor: Colors.black.withOpacity(0.4),
+                              thumbShape: RoundSliderThumbShape(),
+                              overlayShape: SliderComponentShape
+                                  .noOverlay,
                             ),
-                            height: screenHeight(context, mulBy: 0.059),
-                            width: screenWidth(context, mulBy: 0.039),
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(
-                                right: screenWidth(context, mulBy: 0.007)
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.zero,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: screenWidth(context, mulBy: 0.01)
-                          ),
-                          height: screenHeight(context, mulBy: 0.18),
-                          width: screenWidth(context, mulBy: 0.0495),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(15)),
-                              color: Colors.black.withOpacity(0.4)
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white.withOpacity(0.2)
-                            ),
-                            height: screenHeight(context, mulBy: 0.059),
-                            width: screenWidth(context, mulBy: 0.039),
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only(
-                                right: screenWidth(context, mulBy: 0.007)
+                            child: Slider(
+                              value: brightness,
+                              min: 0,
+                              max: 100,
+                              onChanged: (val) {
+                                if (val > 95.98)
+                                  val = 95.98;
+                                else if (val < 6.7) val = 6.7;
+                                setState(() {
+                                  brightness = val;
+                                  Provider.of<DataBus>(context,
+                                      listen: false)
+                                      .setBrightness(brightness);
+                                });
+                              },
+
                             ),
                           ),
                         ),
+                        IgnorePointer(
+                          ignoring: true,
+                          child: Row(
+                            children: [
+                              SizedBox(width: 2,),
+                              Image.asset(
+                                "assets/icons/brightness.png",
+                                height: 15,
+                                color: Colors.black.withOpacity(0.55),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
                   ),
-                ],
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(10)),
-                  boxShadow: [ccShadow],
-                ),
-                child: ClipRRect(
-                  borderRadius:
-                      BorderRadius.all(Radius.circular(10)),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(
-                        sigmaX: 15.0, sigmaY: 15.0),
-                    child: BrdrContainer(
-                      height: 0.08,
-                      width: 1,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth(context,
-                                mulBy: 0.005),
-                            vertical: screenHeight(context,
-                                mulBy: 0.005)),
-                        height:
-                            screenHeight(context, mulBy: 0.08),
-                        width: screenWidth(
-                          context,
-                        ),
-                        decoration: ccDecoration,
-                        child: Column(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                          children: [
-                            MBPText(
-                              overflow: TextOverflow.clip,
-                              text: "Display",
-                              color: Theme.of(context)
-                                  .cardColor
-                                  .withOpacity(1),
-                            ),
-                            Stack(
-                              clipBehavior: Clip.antiAlias,
-                              alignment: Alignment.centerLeft,
-                              children: [
-                                SliderTheme(
-                                  data: SliderTheme.of(context)
-                                      .copyWith(
-                                    trackHeight: 15,
-                                    activeTrackColor: Colors.white,
-                                    thumbColor: Colors.white,
-                                    minThumbSeparation: 20,
-                                    trackShape: SliderTrackShape(),
-                                    inactiveTrackColor: Colors.white
-                                        .withOpacity(0.25),
-                                    thumbShape: RoundSliderThumbShape(
-                                        enabledThumbRadius: 8.4,
-                                        elevation: 10,
-                                      pressedElevation: 20
-                                    ),
-                                    overlayShape: SliderComponentShape
-                                        .noOverlay,
-                                  ),
-                                  child: Slider(
-                                    value: brightness,
-                                    min: 0,
-                                    max: 100,
-                                    onChanged: (val) {
-                                      if (val > 95.98)
-                                        val = 95.98;
-                                      else if (val < 6.7) val = 6.7;
-                                      setState(() {
-                                        brightness = val;
-                                        Provider.of<DataBus>(context,
-                                                listen: false)
-                                            .setBrightness(brightness);
-                                      });
-                                    },
-                                  ),
-                                ),
-                                IgnorePointer(
-                                  ignoring: true,
-                                  child: Row(
-                                    children: [
-                                      SizedBox(width: 2,),
-                                      Image.asset(
-                                        "assets/icons/brightness.png",
-                                        height: 15,
-                                        color: Colors.black.withOpacity(0.55),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                            //CCSlider(height: 16, width: screenWidth(context),),
-                          ],
-                        ),
+                  SizedBox(
+                    width: screenWidth(context, mulBy: 0.0135),
+                  ),
+                  Container(
+                    margin: EdgeInsets.zero,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth(context, mulBy: 0.01)
+                    ),
+                    height: screenHeight(context, mulBy: 0.18),
+                    width: screenWidth(context, mulBy: 0.0495),
+                    decoration: BoxDecoration(
+                        borderRadius:
+                        BorderRadius.all(Radius.circular(15)),
+                        color: Colors.black.withOpacity(0.4)
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withOpacity(0.2)
+                      ),
+                      height: screenHeight(context, mulBy: 0.059),
+                      width: screenWidth(context, mulBy: 0.039),
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.only(
+                          right: screenWidth(context, mulBy: 0.007)
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
               Container(
                 decoration: BoxDecoration(
