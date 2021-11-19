@@ -206,7 +206,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                             child: Center(
                                                               child:
                                                               Icon(
-                                                                CupertinoIcons.brightness_solid,
+                                                                CupertinoIcons.brightness,
                                                                 color: Colors.white.withOpacity(0.7),
                                                                 size: 18,
                                                               ),

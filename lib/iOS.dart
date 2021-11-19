@@ -11,7 +11,6 @@ import 'package:mac_dt/system/rightClickMenu.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:flutter/rendering.dart';
 import 'components/notifiaction.dart';
 import 'system/openApps.dart';
