@@ -52,7 +52,8 @@ class _FileMenuState extends State<FileMenu> {
               },),
             Spacer(),
             GestureDetector(
-              onHorizontalDragStart: (yoyo){
+              onVerticalDragEnd: (yoyo){
+                if(yoyo.primaryVelocity>20)
                 Provider.of<Folders>(context, listen: false).deSelectAll();
                 Provider.of<OnOff>(context, listen: false).toggleCc();
               },
