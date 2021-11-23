@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mac_dt/apps/calendar.dart';
+import '../apps/calendar.dart';
 import 'package:mac_dt/apps/feedback/feedback.dart';
 import 'package:mac_dt/apps/launchpad.dart';
 import 'package:mac_dt/apps/messages/messages.dart';
