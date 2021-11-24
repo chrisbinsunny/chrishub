@@ -26,6 +26,7 @@ class ThemeNotifier with ChangeNotifier {
     ),
     fontFamily: "SF",
     primarySwatch: Colors.blueGrey,
+    indicatorColor: Colors.white,  //Calendar bg color
     shadowColor: Colors.black.withOpacity(0.15), //Control Center outer border
     accentColor: Colors.black.withOpacity(.15), //shadow color
     backgroundColor: Colors.white.withOpacity(0.15), //Control Center
@@ -81,7 +82,7 @@ class ThemeNotifier with ChangeNotifier {
     primarySwatch: Colors.deepOrange,
       backgroundColor: Color(0xff2b2b2b).withOpacity(.05), //Control Center
     cardColor: Colors.white.withOpacity(0.15), //Control Center item border, font color
-
+    indicatorColor: Colors.black,  //Calendar bg color
       splashColor: Colors.black.withOpacity(0.4), //Control Center border
       shadowColor: Colors.black.withOpacity(0.3), //Control Center outer border
       accentColor: Colors.black.withOpacity(.2), //shadow color

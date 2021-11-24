@@ -41,6 +41,16 @@ class OnOff extends ChangeNotifier{
   bool folderRightClickMenu = false;
   bool notificationOn =false;
   bool launchPadOn=false;
+  bool appOpen=false;
+
+  bool get getAppOpen {
+    return appOpen;
+  }
+
+  void toggleAppOpen(){
+    appOpen=!appOpen;
+    notifyListeners();
+  }
 
   String get getFS {
     return fs;
