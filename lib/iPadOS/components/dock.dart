@@ -43,13 +43,10 @@ class _DockerState extends State<Docker> {
   @override
   Widget build(BuildContext context) {
     bool appOpen = Provider.of<OnOff>(context).getAppOpen;
-    bool fsAni = Provider.of<OnOff>(context).getFSAni;
 
-    return AnimatedPositioned(
-      duration: Duration(milliseconds: (fsAni) ? 400 : 0),
-      top: (appOpen == false)
-          ? screenHeight(context, mulBy: 0.9)
-          : screenHeight(context, mulBy: 1.05),
+    return (appOpen == false)?
+    Positioned(
+      top: screenHeight(context, mulBy: 0.9),
       left: screenWidth(context, mulBy: 0.15),
       child: Column(
         children: [
@@ -84,7 +81,6 @@ class _DockerState extends State<Docker> {
                           children: [
                             DockerItem(
                               iName: "Safari",
-                              on: safariOpen,
                               onTap: () {
                                 tapFunctions(context);
                                 Provider.of<OnOff>(context, listen: false)
@@ -102,7 +98,6 @@ class _DockerState extends State<Docker> {
                             ),
                             DockerItem(
                               iName: "Messages",
-                              on: messageOpen,
                               onTap: () {
                                 tapFunctions(context);
 
@@ -121,12 +116,9 @@ class _DockerState extends State<Docker> {
                             ),
                             DockerItem(
                               iName: "Photos",
-                              on: false,
-
                             ),
                             DockerItem(
                               iName: "Contacts",
-                              on: false,
 
                             ),
                             InkWell(
@@ -186,12 +178,10 @@ class _DockerState extends State<Docker> {
                             ),
                             DockerItem(
                               iName: "Notes",
-                              on: false,
 
                             ),
                             DockerItem(
                               iName: "Feedback",
-                              on: fbOpen,
                               onTap: () {
                                 tapFunctions(context);
 
@@ -228,6 +218,18 @@ class _DockerState extends State<Docker> {
           )
         ],
       ),
+    ):
+    Positioned(
+        top: screenHeight(context, mulBy: 0.97),
+        left: screenWidth(context, mulBy: 0.4),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).cardColor.withOpacity(1),
+            borderRadius: BorderRadius.circular(10)
+          ),
+          height: 5,
+          width: screenWidth(context, mulBy: 0.2),
+        )
     );
   }
 }
