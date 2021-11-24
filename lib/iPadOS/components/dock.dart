@@ -32,7 +32,6 @@ class Docker extends StatefulWidget {
 
 class _DockerState extends State<Docker> {
   DateTime now;
-  bool safariOpen, vsOpen, messageOpen,spotifyOpen, fbOpen, calendarOpen, terminalOpen;
 
   @override
   void initState() {
@@ -43,19 +42,12 @@ class _DockerState extends State<Docker> {
 
   @override
   Widget build(BuildContext context) {
-    safariOpen = Provider.of<Apps>(context).isOpen(ObjectKey("safari"));
-    vsOpen = Provider.of<Apps>(context).isOpen(ObjectKey("vscode"));
-    messageOpen = Provider.of<Apps>(context).isOpen(ObjectKey("messages"));
-    spotifyOpen = Provider.of<Apps>(context).isOpen(ObjectKey("spotify"));
-    String fs = Provider.of<OnOff>(context).getFS;
+    bool appOpen = Provider.of<OnOff>(context).getAppOpen;
     bool fsAni = Provider.of<OnOff>(context).getFSAni;
-    fbOpen = Provider.of<Apps>(context).isOpen(ObjectKey("feedback"));
-    calendarOpen = Provider.of<Apps>(context).isOpen(ObjectKey("calendar"));
-    terminalOpen = Provider.of<Apps>(context).isOpen(ObjectKey("terminal"));
 
     return AnimatedPositioned(
       duration: Duration(milliseconds: (fsAni) ? 400 : 0),
-      top: (fs == "")
+      top: (appOpen == false)
           ? screenHeight(context, mulBy: 0.9)
           : screenHeight(context, mulBy: 1.05),
       left: screenWidth(context, mulBy: 0.15),
@@ -218,7 +210,6 @@ class _DockerState extends State<Docker> {
                             ),
                             DockerItem(
                               iName: "System Preferences",
-                              on: false,
                               onTap: () {
                                 Provider.of<OnOff>(context, listen: false).onNotifications();
                               },
@@ -243,12 +234,10 @@ class _DockerState extends State<Docker> {
 
 class DockerItem extends StatefulWidget {
   final String iName;
-  final bool on;
   VoidCallback onTap=(){};
   DockerItem({
     Key key,
     @required this.iName,
-    this.on = false,
     this.onTap
   }) : super(key: key);
 
