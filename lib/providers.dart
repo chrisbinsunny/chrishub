@@ -70,3 +70,7 @@ void tapFunctions(BuildContext context){
   Provider.of<OnOff>(context, listen: false).offRCM();
   Provider.of<OnOff>(context, listen: false).offLaunchPad();
 }
+
+void tapFunctionsIpad(BuildContext context){
+  Provider.of<OnOff>(context, listen: false).toggleAppOpen();
+}
