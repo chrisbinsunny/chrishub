@@ -32,6 +32,8 @@ class Docker extends StatefulWidget {
 
 class _DockerState extends State<Docker> {
   DateTime now;
+  Offset position = Offset(0.0, 0.0);
+  double dY= 0;
 
   @override
   void initState() {
@@ -219,21 +221,105 @@ class _DockerState extends State<Docker> {
         ],
       ),
     ):
-    Positioned(
-        top: screenHeight(context, mulBy: 0.97),
-        left: screenWidth(context, mulBy: 0.4),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor.withOpacity(1),
-            borderRadius: BorderRadius.circular(10)
-          ),
-          height: 5,
-          width: screenWidth(context, mulBy: 0.2),
-        )
+    Align(
+      alignment: Alignment.bottomCenter,
+      child: GestureDetector(
+        onVerticalDragStart: (details){
+          print(details.globalPosition.dy);
+        },
+        onVerticalDragUpdate: (tapInfo){
+          print(tapInfo.globalPosition.dy);
+          setState(() {
+            dY=dY+tapInfo.delta.dy;
+          });
+        },
+        onVerticalDragEnd: (tapInfo){
+          setState(() {
+            dY=0;
+          });
+        },
+
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              width: screenWidth(context),
+              height: screenHeight(context, mulBy: 0.1),
+              alignment: Alignment.bottomCenter,
+              color: Colors.green,
+              // padding: EdgeInsets.only(
+              //   bottom: screenHeight(context, mulBy: 0.03)
+              // ),
+            ),
+            AnimatedPositioned(
+              duration: Duration(milliseconds: 150),
+              bottom: screenHeight(context, mulBy: 0.03)-dY/2,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor.withOpacity(1),
+                    borderRadius: BorderRadius.circular(10)
+                ),
+                height: 5,
+                width: screenWidth(context, mulBy: 0.2),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
+    // Draggable(
+    //   child: Container(
+    //           width: screenWidth(context),
+    //           height: screenHeight(context, mulBy: 0.1),
+    //           alignment: Alignment.bottomCenter,
+    //           color: Colors.green,
+    //           padding: EdgeInsets.only(
+    //             bottom: screenHeight(context, mulBy: 0.03)
+    //           ),
+    //     child: Container(
+    //     decoration: BoxDecoration(
+    //         color: Theme.of(context).cardColor.withOpacity(1),
+    //         borderRadius: BorderRadius.circular(10)
+    //     ),
+    //     height: 5,
+    //     width: screenWidth(context, mulBy: 0.2),
+    // ),
+    //   ),
+    //   feedback: Container(
+    //     width: screenWidth(context),
+    //     height: screenHeight(context, mulBy: 0.1),
+    //     alignment: Alignment.bottomCenter,
+    //     color: Colors.green,
+    //     padding: EdgeInsets.only(
+    //         bottom: screenHeight(context, mulBy: 0.03)
+    //     ),
+    //     child: Container(
+    //       decoration: BoxDecoration(
+    //           color: Theme.of(context).cardColor.withOpacity(1),
+    //           borderRadius: BorderRadius.circular(10)
+    //       ),
+    //       height: 5,
+    //       width: screenWidth(context, mulBy: 0.2),
+    //     ),
+    //   ),
+    //   axis: Axis.vertical,
+    // );
   }
 }
 
+// Positioned(
+// top: screenHeight(context, mulBy: 0.97),
+// left: screenWidth(context, mulBy: 0.4),
+// child: Container(
+// decoration: BoxDecoration(
+// color: Theme.of(context).cardColor.withOpacity(1),
+// borderRadius: BorderRadius.circular(10)
+// ),
+// height: 5,
+// width: screenWidth(context, mulBy: 0.2),
+// )
+// ),
 class DockerItem extends StatefulWidget {
   final String iName;
   VoidCallback onTap=(){};
