@@ -64,7 +64,15 @@ class DataBus extends ChangeNotifier{
   get getNS => nightShift;
 
   void changeScale(double height){
-    scale=height;
+    if(height<0)
+    scale=0;
+    else if(height>1)
+      scale=1;
+    else
+      scale=height;
+    scale=scale;
+    print(scale);
+    //0.92
     notifyListeners();
   }
 
