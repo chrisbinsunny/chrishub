@@ -236,12 +236,12 @@ class _DockerState extends State<Docker> {
             setState(() {
               dY=dY+tapInfo.delta.dy;
             });
-          //print((screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03)-dY))/(screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03))));
           Provider.of<DataBus>(context, listen: false).changeScale((screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03)-dY))/(screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03))));
           },
         onVerticalDragEnd: (tapInfo){
           setState(() {
-            dY=0;
+            Provider.of<DataBus>(context, listen: false).changeScale(1);
+                dY=0;
           });
         },
         child: Stack(
@@ -258,7 +258,7 @@ class _DockerState extends State<Docker> {
               // ),
             ),
             AnimatedPositioned(
-              duration: Duration(milliseconds: 150),
+              duration: Duration(milliseconds: 50),
               bottom: screenHeight(context, mulBy: 0.03)-dY,
               child: Container(
                 decoration: BoxDecoration(
