@@ -15,6 +15,7 @@ class DataBus extends ChangeNotifier{
   double brightness =95.98;
   Offset pointerPos = new Offset(0, 0);
   bool nightShift= false;
+  double scale= 1;
   Map<String, String> notification= {
     "notification":"Welcome to Chrisbin's MacBook Pro",
     "url":"https://github.com/chrisbinsunny",
@@ -61,6 +62,14 @@ class DataBus extends ChangeNotifier{
   }
 
   get getNS => nightShift;
+
+  void changeScale(double height){
+    scale=height;
+    notifyListeners();
+  }
+
+  get getScale=>scale;
+
 }
 
 void tapFunctions(BuildContext context){
