@@ -228,17 +228,22 @@ class _DockerState extends State<Docker> {
           print(details.globalPosition.dy);
         },
         onVerticalDragUpdate: (tapInfo){
-          print(tapInfo.globalPosition.dy);
+          if((screenHeight(context, mulBy: 0.03)-dY<screenHeight(context, mulBy: 0.1))&&(tapInfo.delta.dy<0))
           setState(() {
             dY=dY+tapInfo.delta.dy;
           });
-        },
+          if((tapInfo.delta.dy>0)&&(screenHeight(context, mulBy: 0.03)-dY>=screenHeight(context, mulBy: 0.03)))
+            setState(() {
+              dY=dY+tapInfo.delta.dy;
+            });
+          print((screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03)-dY))/(screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03))));
+          Provider.of<OnOff>(context, listen: false).toggleFinder();
+          },
         onVerticalDragEnd: (tapInfo){
           setState(() {
             dY=0;
           });
         },
-
         child: Stack(
           alignment: Alignment.bottomCenter,
           clipBehavior: Clip.none,
@@ -254,7 +259,7 @@ class _DockerState extends State<Docker> {
             ),
             AnimatedPositioned(
               duration: Duration(milliseconds: 150),
-              bottom: screenHeight(context, mulBy: 0.03)-dY/2,
+              bottom: screenHeight(context, mulBy: 0.03)-dY,
               child: Container(
                 decoration: BoxDecoration(
                     color: Theme.of(context).cardColor.withOpacity(1),
