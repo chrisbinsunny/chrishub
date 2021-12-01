@@ -236,8 +236,8 @@ class _DockerState extends State<Docker> {
             setState(() {
               dY=dY+tapInfo.delta.dy;
             });
-          print((screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03)-dY))/(screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03))));
-          Provider.of<OnOff>(context, listen: false).toggleFinder();
+          //print((screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03)-dY))/(screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03))));
+          Provider.of<DataBus>(context, listen: false).changeScale((screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03)-dY))/(screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03))));
           },
         onVerticalDragEnd: (tapInfo){
           setState(() {
@@ -252,7 +252,7 @@ class _DockerState extends State<Docker> {
               width: screenWidth(context),
               height: screenHeight(context, mulBy: 0.1),
               alignment: Alignment.bottomCenter,
-              color: Colors.green,
+              color: Colors.transparent,
               // padding: EdgeInsets.only(
               //   bottom: screenHeight(context, mulBy: 0.03)
               // ),
