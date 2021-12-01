@@ -34,6 +34,7 @@ class _CalendarState extends State<Calendar> {
     var scale= Provider.of<DataBus>(context).getScale;
     return Transform.scale(
       scale: scale,
+
       alignment: Alignment.topCenter,
       child: Container(
         width: screenWidth(context, ),

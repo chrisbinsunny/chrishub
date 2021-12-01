@@ -70,9 +70,7 @@ class DataBus extends ChangeNotifier{
       scale=1;
     else
       scale=height;
-    scale=scale;
-    print(scale);
-    //0.92
+    scale=1-((1-scale)*0.08);
     notifyListeners();
   }
 
