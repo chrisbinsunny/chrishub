@@ -253,9 +253,6 @@ class _DockerState extends State<Docker> {
               height: screenHeight(context, mulBy: 0.1),
               alignment: Alignment.bottomCenter,
               color: Colors.transparent,
-              // padding: EdgeInsets.only(
-              //   bottom: screenHeight(context, mulBy: 0.03)
-              // ),
             ),
             AnimatedPositioned(
               duration: Duration(milliseconds: 50),

@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:provider/provider.dart';
-import '../../system/openApps.dart';
 import '../../sizes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -34,7 +33,6 @@ class _CalendarState extends State<Calendar> {
     var scale= Provider.of<DataBus>(context).getScale;
     return Transform.scale(
       scale: scale,
-
       alignment: Alignment.topCenter,
       child: Container(
         width: screenWidth(context, ),

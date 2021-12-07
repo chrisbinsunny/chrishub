@@ -5,6 +5,7 @@ class Apps extends ChangeNotifier{
 
   Widget temp;
   List<Widget> apps= [];
+  Widget iApp;
   String onTop="Finder";
 
 
@@ -18,6 +19,10 @@ class Apps extends ChangeNotifier{
 
   List<Widget> get getApps {
     return apps;
+  }
+
+  Widget get getIApp {
+    return iApp;
   }
 
   void openApp(Widget app, void minMax){
