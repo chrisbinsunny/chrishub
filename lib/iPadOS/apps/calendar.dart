@@ -22,11 +22,7 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    var calendarOpen = Provider.of<OnOff>(context).getCalendar;
-    return Visibility(
-      visible: calendarOpen,
-      child: calendarWindow(context),
-    );
+    return calendarWindow(context);
   }
 
   Widget calendarWindow(BuildContext context) {

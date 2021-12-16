@@ -167,11 +167,9 @@ class _AppMenuState extends State<AppMenu> {
             InkWell(
               onTap: () {
                 tapFunctionsIpad(context);
-                Provider.of<Apps>(context, listen: false).openApp(
+                Provider.of<Apps>(context, listen: false).openIApp(
                     Calendar(
                       key: ObjectKey("calendar"),),
-                    Provider.of<OnOff>(context, listen: false)
-                        .maxCalendar()
                 );
               },
               child: Column(
