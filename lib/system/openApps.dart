@@ -45,7 +45,7 @@ class Apps extends ChangeNotifier{
     setTop();
   }
 
-  void closeIApp(String appKey){
+  void closeIApp(){
     apps.clear();
     notifyListeners();
   }
