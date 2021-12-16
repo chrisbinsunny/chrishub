@@ -5,7 +5,6 @@ class Apps extends ChangeNotifier{
 
   Widget temp;
   List<Widget> apps= [];
-  Widget iApp;
   String onTop="Finder";
 
 
@@ -21,9 +20,6 @@ class Apps extends ChangeNotifier{
     return apps;
   }
 
-  Widget get getIApp {
-    return iApp;
-  }
 
   void openApp(Widget app, void minMax){
     if(!apps.any((element) => element.key==app.key)) {
@@ -37,12 +33,23 @@ class Apps extends ChangeNotifier{
     }
   }
 
+  void openIApp(Widget app,){
+    apps.add(app);
+    notifyListeners();
+  }
+
   void closeApp(String appKey){
 
     apps.removeWhere((element) => element.key==ObjectKey(appKey));
     notifyListeners();
     setTop();
   }
+
+  void closeIApp(String appKey){
+    apps.clear();
+    notifyListeners();
+  }
+
 
   bool isOpen(ObjectKey appKey){
     return apps.any((element) => element.key==appKey);

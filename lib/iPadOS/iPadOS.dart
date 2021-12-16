@@ -33,7 +33,7 @@ class _IPadOSState extends State<IPadOS> {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen = Provider.of<OnOff>(context).getCc;
     double brightness = Provider.of<DataBus>(context).getBrightness;
-    Widget app = Provider.of<Apps>(context).getIApp;
+    List<Widget> app = Provider.of<Apps>(context).getApps;
     List<Folder> folders =
         Provider.of<Folders>(context, listen: false).getFolders;
     var pointerPos = Provider.of<DataBus>(context).getPos;
@@ -59,7 +59,7 @@ class _IPadOSState extends State<IPadOS> {
             AppMenu(),
 
             ///Applications
-            app,
+            ...app,
             ///Notification
             Notifications(),
 
