@@ -181,7 +181,7 @@ class _AppMenuState extends State<AppMenu> {
                         alignment: Alignment.topCenter,
                         children: [
                           Image.asset(
-                            "assets/apps/calendar.png",
+                            "assets/apps/iOS/calendar.png",
                           ),
                           Positioned(
                             top: cont.smallest.height * .13,
@@ -194,13 +194,13 @@ class _AppMenuState extends State<AppMenu> {
                               child: FittedBox(
                                 fit: BoxFit.fitHeight,
                                 child: Text(
-                                  "${DateFormat('LLL').format(now).toUpperCase()}",
+                                  "${DateFormat('E').format(now).toUpperCase()}",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.redAccent,
                                     fontFamily: "SF",
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 11,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 10,
                                   ),
                                 ),
                               ),

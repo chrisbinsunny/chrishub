@@ -54,6 +54,7 @@ flutter:
     - assets/wallpapers/
     - assets/icons/
     - assets/apps/
+    - assets/apps/iOS/
     - assets/caches/
     - assets/messages/
 
