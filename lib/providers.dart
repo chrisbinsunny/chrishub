@@ -87,5 +87,6 @@ void tapFunctions(BuildContext context){
 }
 
 void tapFunctionsIpad(BuildContext context){
+  Provider.of<DataBus>(context, listen: false).changeScale(1);
   Provider.of<OnOff>(context, listen: false).toggleAppOpen();
 }

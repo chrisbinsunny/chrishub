@@ -33,7 +33,6 @@ class Docker extends StatefulWidget {
 class _DockerState extends State<Docker> {
   DateTime now;
   Offset position = Offset(0.0, 0.0);
-  double dY= 0;
 
   @override
   void initState() {
@@ -221,14 +220,37 @@ class _DockerState extends State<Docker> {
         ],
       ),
     ):
-    Align(
+   BottomWhiteLine();
+  }
+}
+
+
+class BottomWhiteLine extends StatefulWidget {
+  const BottomWhiteLine({Key key}) : super(key: key);
+
+  @override
+  _BottomWhiteLineState createState() => _BottomWhiteLineState();
+}
+
+class _BottomWhiteLineState extends State<BottomWhiteLine> {
+  double dY= 0;
+
+  @override
+  void initState() {
+    dY=0;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
       alignment: Alignment.bottomCenter,
       child: GestureDetector(
         onVerticalDragUpdate: (tapInfo){
           if((screenHeight(context, mulBy: 0.03)-dY<screenHeight(context, mulBy: 0.1))&&(tapInfo.delta.dy<0))
-          setState(() {
-            dY=dY+tapInfo.delta.dy;
-          });
+            setState(() {
+              dY=dY+tapInfo.delta.dy;
+            });
           if((tapInfo.delta.dy>0)&&(screenHeight(context, mulBy: 0.03)-dY>=screenHeight(context, mulBy: 0.03)))
             setState(() {
               dY=dY+tapInfo.delta.dy;
@@ -236,17 +258,13 @@ class _DockerState extends State<Docker> {
           if((screenHeight(context, mulBy: 0.03)-dY>=screenHeight(context, mulBy: 0.1))) {
             tapFunctionsIpad(context);
             Provider.of<Apps>(context, listen: false).closeIApp();
-            setState(() {
-              dY=0;
-              Provider.of<DataBus>(context, listen: false).changeScale(1);
-            });
-                }
-                Provider.of<DataBus>(context, listen: false).changeScale((screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03)-dY))/(screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03))));
-          },
+          }
+          Provider.of<DataBus>(context, listen: false).changeScale((screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03)-dY))/(screenHeight(context, mulBy: 0.1)-(screenHeight(context, mulBy: 0.03))));
+        },
         onVerticalDragEnd: (tapInfo){
           setState(() {
             Provider.of<DataBus>(context, listen: false).changeScale(1);
-                dY=0;
+            dY=0;
           });
         },
         child: Stack(
@@ -275,58 +293,9 @@ class _DockerState extends State<Docker> {
         ),
       ),
     );
-    // Draggable(
-    //   child: Container(
-    //           width: screenWidth(context),
-    //           height: screenHeight(context, mulBy: 0.1),
-    //           alignment: Alignment.bottomCenter,
-    //           color: Colors.green,
-    //           padding: EdgeInsets.only(
-    //             bottom: screenHeight(context, mulBy: 0.03)
-    //           ),
-    //     child: Container(
-    //     decoration: BoxDecoration(
-    //         color: Theme.of(context).cardColor.withOpacity(1),
-    //         borderRadius: BorderRadius.circular(10)
-    //     ),
-    //     height: 5,
-    //     width: screenWidth(context, mulBy: 0.2),
-    // ),
-    //   ),
-    //   feedback: Container(
-    //     width: screenWidth(context),
-    //     height: screenHeight(context, mulBy: 0.1),
-    //     alignment: Alignment.bottomCenter,
-    //     color: Colors.green,
-    //     padding: EdgeInsets.only(
-    //         bottom: screenHeight(context, mulBy: 0.03)
-    //     ),
-    //     child: Container(
-    //       decoration: BoxDecoration(
-    //           color: Theme.of(context).cardColor.withOpacity(1),
-    //           borderRadius: BorderRadius.circular(10)
-    //       ),
-    //       height: 5,
-    //       width: screenWidth(context, mulBy: 0.2),
-    //     ),
-    //   ),
-    //   axis: Axis.vertical,
-    // );
   }
 }
 
-// Positioned(
-// top: screenHeight(context, mulBy: 0.97),
-// left: screenWidth(context, mulBy: 0.4),
-// child: Container(
-// decoration: BoxDecoration(
-// color: Theme.of(context).cardColor.withOpacity(1),
-// borderRadius: BorderRadius.circular(10)
-// ),
-// height: 5,
-// width: screenWidth(context, mulBy: 0.2),
-// )
-// ),
 class DockerItem extends StatefulWidget {
   final String iName;
   VoidCallback onTap=(){};
