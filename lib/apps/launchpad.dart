@@ -413,9 +413,11 @@ class _LaunchPadState extends State<LaunchPad> {
 
 class LaunchPadItem extends StatefulWidget {
   final String iName;
+  final bool iOS;
   LaunchPadItem({
     Key key,
     @required this.iName,
+    this.iOS=false,
   }) : super(key: key);
 
   @override
@@ -431,8 +433,8 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
       children: [
         Expanded(
           child: Image.asset(
-            "assets/apps/${widget.iName.toLowerCase()}.png",
-           // fit: BoxFit.contain,
+            widget.iOS?"assets/apps/iOS/${widget.iName.toLowerCase()}.png":"assets/apps/${widget.iName.toLowerCase()}.png",
+            // fit: BoxFit.contain,
           ),
         ),
         MBPText(

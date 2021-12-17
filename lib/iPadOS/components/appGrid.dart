@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mac_dt/apps/launchpad.dart';
 import '../apps/calendar.dart';
 import 'package:mac_dt/apps/feedback/feedback.dart';
-import 'package:mac_dt/apps/launchpad.dart';
 import 'package:mac_dt/apps/messages/messages.dart';
 import 'package:mac_dt/apps/safari/safariWindow.dart';
 import 'package:mac_dt/apps/spotify.dart';
@@ -46,130 +46,17 @@ class _AppMenuState extends State<AppMenu> {
           shrinkWrap: true,
           physics: BouncingScrollPhysics(),
           children: [
-            InkWell(
-              onTap: () {
-                tapFunctions(context);
-                Future.delayed(const Duration(milliseconds: 200), () {
-                  Provider.of<OnOff>(context, listen: false)
-                      .maxSafari();
-                  Provider.of<Apps>(context, listen: false).openApp(
-                      Safari(
-                          key: ObjectKey("safari"),
-                          initPos: Offset(
-                              screenWidth(context, mulBy: 0.14),
-                              screenHeight(context, mulBy: 0.1))),
-                      Provider.of<OnOff>(context, listen: false)
-                          .maxSafari()
-                  );
-                });
-
-              },
-              child: LaunchPadItem(
-                iName: "Safari",
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                tapFunctions(context);
-                Future.delayed(const Duration(milliseconds: 200), () {
-                  Provider.of<OnOff>(context, listen: false)
-                      .maxMessages();
-                  Provider.of<Apps>(context, listen: false).openApp(
-                      Messages(
-                          key: ObjectKey("messages"),
-                          initPos: Offset(
-                              screenWidth(context, mulBy: 0.14),
-                              screenHeight(context, mulBy: 0.1))),
-                      Provider.of<OnOff>(context, listen: false)
-                          .maxMessages()
-                  );
-                });
-
-              },
-              child: LaunchPadItem(
-                iName: "Messages",
-              ),
-            ),
             LaunchPadItem(
-              iName: "Maps",
-            ),
-            InkWell(
-              onTap: () {
-                tapFunctions(context);
-                Future.delayed(const Duration(milliseconds: 200), () {
-                  Provider.of<OnOff>(context, listen: false)
-                      .maxSpotify();
-                  Provider.of<Apps>(context, listen: false).openApp(
-                      Spotify(
-                          key: ObjectKey("spotify"),
-                          initPos: Offset(
-                              screenWidth(context, mulBy: 0.14),
-                              screenHeight(context, mulBy: 0.1))),
-                      Provider.of<OnOff>(context, listen: false)
-                          .maxSpotify()
-                  );
-                });
-              },
-              child: LaunchPadItem(
-                iName: "Spotify",
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                tapFunctions(context);
-                Future.delayed(const Duration(milliseconds: 200), () {
-                  Provider.of<OnOff>(context, listen: false)
-                      .maxTerminal();
-                  Provider.of<Apps>(context, listen: false).openApp(
-                      Terminal(
-                          key: ObjectKey("terminal"),
-                          initPos: Offset(
-                              screenWidth(context, mulBy: 0.28),
-                              screenHeight(context, mulBy: 0.2))),
-                      Provider.of<OnOff>(context, listen: false)
-                          .maxTerminal()
-                  );
-                });
+              iName: "FaceTime",
+              iOS: true,
 
-
-              },
-              child: LaunchPadItem(
-                iName: "Terminal",
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                tapFunctions(context);
-                Future.delayed(const Duration(milliseconds: 200), () {
-                  Provider.of<OnOff>(context, listen: false).maxVS();
-                  Provider.of<Apps>(context, listen: false).openApp(
-                      VSCode(
-                          key: ObjectKey("vscode"),
-                          initPos: Offset(
-                              screenWidth(context, mulBy: 0.14),
-                              screenHeight(context, mulBy: 0.1))),
-                      Provider.of<OnOff>(context, listen: false).maxVS()
-                  );
-                });
-
-
-              },
-              child: LaunchPadItem(
-                iName: "Visual Studio Code",
-              ),
-            ),
-            LaunchPadItem(
-              iName: "Photos",
-            ),
-            LaunchPadItem(
-              iName: "Contacts",
             ),
             InkWell(
               onTap: () {
                 tapFunctionsIpad(context);
                 Provider.of<Apps>(context, listen: false).openIApp(
-                    Calendar(
-                      key: ObjectKey("calendar"),),
+                  Calendar(
+                    key: ObjectKey("calendar"),),
                 );
               },
               child: Column(
@@ -240,7 +127,71 @@ class _AppMenuState extends State<AppMenu> {
               ),
             ),
             LaunchPadItem(
+              iName: "Clock",
+              iOS: true,
+            ),
+            LaunchPadItem(
+              iName: "Home",
+              iOS: true,
+            ),
+            LaunchPadItem(
+              iName: "Photos",
+              iOS: false,
+            ),
+            LaunchPadItem(
+              iName: "Camera",
+              iOS: true,
+            ),
+
+            LaunchPadItem(
+              iName: "Reminders",
+              iOS: true,
+            ),
+            LaunchPadItem(
               iName: "Notes",
+              iOS: false,
+            ),
+            LaunchPadItem(
+              iName: "Voice Memos",
+              iOS: true,
+            ),
+
+            LaunchPadItem(
+              iName: "Contacts",
+              iOS: true,
+            ),
+            LaunchPadItem(
+              iName: "Maps",
+              iOS: false,
+            ),
+            LaunchPadItem(
+              iName: "Find My",
+              iOS: true,
+            ),
+
+            LaunchPadItem(
+              iName: "Appstore",
+              iOS: false,
+            ),
+            LaunchPadItem(
+              iName: "Books",
+              iOS: true,
+            ),
+            LaunchPadItem(
+              iName: "Podcasts",
+              iOS: true,
+            ),
+            LaunchPadItem(
+              iName: "TV",
+              iOS: true,
+            ),
+            LaunchPadItem(
+              iName: "Stocks",
+              iOS: true,
+            ),
+            LaunchPadItem(
+              iName: "Measure",
+              iOS: true,
             ),
             InkWell(
               onTap: () {
@@ -262,15 +213,18 @@ class _AppMenuState extends State<AppMenu> {
               },
               child: LaunchPadItem(
                 iName: "Feedback",
+                iOS: false,
               ),
             ),
-            InkWell(
-              onTap: () {
-                Provider.of<OnOff>(context, listen: false).onNotifications();
-              },
-              child: LaunchPadItem(
-                iName: "System Preferences",
-              ),
+
+            LaunchPadItem(
+              iName: "Spotify",
+              iOS: false,
+            ),
+
+            LaunchPadItem(
+              iName: "Settings",
+              iOS: true,
             ),
           ],
         ),

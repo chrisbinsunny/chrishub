@@ -71,7 +71,7 @@ class _DockerState extends State<Docker> {
                   child: BackdropFilter(
                     filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
                     child: Container(
-                      padding: EdgeInsets.only(bottom: 2),
+                      padding: EdgeInsets.symmetric(vertical: screenHeight(context, mulBy: 0.012)),
                       width: screenWidth(context, mulBy: 0.7),
                       height: screenHeight(context, mulBy: 0.09),
                       decoration: BoxDecoration(
@@ -81,129 +81,27 @@ class _DockerState extends State<Docker> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             DockerItem(
-                              iName: "Safari",
-                              onTap: () {
-                                tapFunctions(context);
-                                Provider.of<OnOff>(context, listen: false)
-                                    .maxSafari();
-                                Provider.of<Apps>(context, listen: false).openApp(
-                                    Safari(
-                                        key: ObjectKey("safari"),
-                                        initPos: Offset(
-                                            screenWidth(context, mulBy: 0.14),
-                                            screenHeight(context, mulBy: 0.1))),
-                                    Provider.of<OnOff>(context, listen: false)
-                                        .maxSafari()
-                                );
-                              },
-                            ),
-                            DockerItem(
                               iName: "Messages",
-                              onTap: () {
-                                tapFunctions(context);
-
-                                Provider.of<OnOff>(context, listen: false)
-                                    .maxMessages();
-                                Provider.of<Apps>(context, listen: false).openApp(
-                                    Messages(
-                                        key: ObjectKey("messages"),
-                                        initPos: Offset(
-                                            screenWidth(context, mulBy: 0.14),
-                                            screenHeight(context, mulBy: 0.1))),
-                                    Provider.of<OnOff>(context, listen: false)
-                                        .maxMessages()
-                                );
-                              },
                             ),
                             DockerItem(
-                              iName: "Photos",
+                              iName: "Safari",
+                            ),
+                            DockerItem(
+                              iName: "Music",
                             ),
                             DockerItem(
                               iName: "Contacts",
-
-                            ),
-                            InkWell(
-                              child: Stack(
-                                alignment: Alignment.topCenter,
-                                children: [
-                                  Image.asset(
-                                    "assets/apps/calendar.png",
-                                  ),
-                                  Positioned(
-                                    top: screenHeight(context, mulBy: 0.01),
-                                    child: Container(
-                                      height:
-                                      screenHeight(context, mulBy: 0.02),
-                                      width:
-                                      screenWidth(context, mulBy: 0.03),
-                                      color: Colors.transparent,
-                                      child: FittedBox(
-                                        fit: BoxFit.fitHeight,
-                                        child: Text(
-                                          "${DateFormat('LLL').format(now).toUpperCase()}",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontFamily: 'SF',
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 11,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: screenHeight(context, mulBy: 0.026),
-                                    child: Container(
-                                      height:
-                                      screenHeight(context, mulBy: 0.047),
-                                      width:
-                                      screenWidth(context, mulBy: 0.03),
-                                      color: Colors.transparent,
-                                      child: FittedBox(
-                                        fit: BoxFit.fitHeight,
-                                        child: Text(
-                                          "${DateFormat('d').format(now).toUpperCase()}",
-                                          style: TextStyle(
-                                              color: Colors.black87
-                                                  .withOpacity(0.8),
-                                              fontFamily: 'SF',
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 28),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              iOS: true,
                             ),
                             DockerItem(
-                              iName: "Notes",
-
+                              iName: "Files",
                             ),
                             DockerItem(
-                              iName: "Feedback",
-                              onTap: () {
-                                tapFunctions(context);
-
-                                Provider.of<OnOff>(context, listen: false)
-                                    .maxFeedBack();
-                                Provider.of<Apps>(context, listen: false).openApp(
-                                    FeedBack(
-                                        key: ObjectKey("feedback"),
-                                        initPos: Offset(
-                                            screenWidth(context, mulBy: 0.14),
-                                            screenHeight(context, mulBy: 0.1))),
-                                    Provider.of<OnOff>(context, listen: false)
-                                        .maxFeedBack()
-                                );
-                              },
+                              iName: "Mail",
+                              iOS: true,
                             ),
                             DockerItem(
-                              iName: "System Preferences",
-                              onTap: () {
-                                Provider.of<OnOff>(context, listen: false).onNotifications();
-                              },
+                              iName: "Settings",
                             ),
                           ]
                       ),
@@ -298,10 +196,12 @@ class _BottomWhiteLineState extends State<BottomWhiteLine> {
 
 class DockerItem extends StatefulWidget {
   final String iName;
+  final bool iOS;
   VoidCallback onTap=(){};
   DockerItem({
     Key key,
     @required this.iName,
+    this.iOS=true,
     this.onTap
   }) : super(key: key);
 
@@ -318,7 +218,7 @@ class _DockerItemState extends State<DockerItem> {
       onTap: widget.onTap,
       mouseCursor: MouseCursor.defer,
       child: Image.asset(
-        "assets/apps/${widget.iName.toLowerCase()}.png",
+        widget.iOS?"assets/apps/iOS/${widget.iName.toLowerCase()}.png":"assets/apps/${widget.iName.toLowerCase()}.png",
       ),
     );
   }
