@@ -294,7 +294,7 @@ class _LaunchPadState extends State<LaunchPad> {
                                           alignment: Alignment.topCenter,
                                           children: [
                                             Image.asset(
-                                              "assets/apps/calendar.png",
+                                              "assets/appsMac/calendar.png",
                                             ),
                                             Positioned(
                                               top: cont.smallest.height * .13,
@@ -433,7 +433,7 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
       children: [
         Expanded(
           child: Image.asset(
-            widget.iOS?"assets/apps/iOS/${widget.iName.toLowerCase()}.png":"assets/apps/${widget.iName.toLowerCase()}.png",
+            widget.iOS?"assets/appsiOS/${widget.iName.toLowerCase()}.png":"assets/appsMac/${widget.iName.toLowerCase()}.png",
             // fit: BoxFit.contain,
           ),
         ),
