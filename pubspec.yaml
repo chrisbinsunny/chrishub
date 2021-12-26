@@ -53,8 +53,8 @@ flutter:
   assets:
     - assets/wallpapers/
     - assets/icons/
-    - assets/apps/
-    - assets/apps/iOS/
+    - assets/appsMac/
+    - assets/appsiOS/
     - assets/caches/
     - assets/messages/
 
