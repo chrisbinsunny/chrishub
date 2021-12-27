@@ -98,7 +98,7 @@ class _NotificationsState extends State<Notifications> {
                               Container(
                                 height: screenHeight(context, mulBy: 0.027),
                                 child: Image.asset(
-                                  "assets/apps/${notification["app"]}.png",
+                                  "assets/appsMac/${notification["app"]}.png",
                                 ),
                               ),
                               SizedBox(

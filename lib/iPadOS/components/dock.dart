@@ -218,7 +218,7 @@ class _DockerItemState extends State<DockerItem> {
       onTap: widget.onTap,
       mouseCursor: MouseCursor.defer,
       child: Image.asset(
-        widget.iOS?"assets/apps/iOS/${widget.iName.toLowerCase()}.png":"assets/apps/${widget.iName.toLowerCase()}.png",
+        widget.iOS?"assets/appsiOS/${widget.iName.toLowerCase()}.png":"assets/appsMac/${widget.iName.toLowerCase()}.png",
       ),
     );
   }

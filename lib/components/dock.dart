@@ -289,7 +289,7 @@ class _DockerState extends State<Docker> {
                                     alignment: Alignment.topCenter,
                                     children: [
                                       Image.asset(
-                                        "assets/apps/calendar.png",
+                                        "assets/appsMac/calendar.png",
                                       ),
                                       Positioned(
                                         top: screenHeight(context, mulBy: 0.01),
@@ -454,7 +454,7 @@ class _DockerItemState extends State<DockerItem> {
                   duration: const Duration(milliseconds: 80),
                   transform: Matrix4.identity()..scale((.25*widget.dx)+1,(.25*widget.dx)+1)..translate(-5, -(widget.dx*30), 0, ),
                   child: Image.asset(
-                    "assets/apps/${widget.iName.toLowerCase()}.png",
+                    "assets/appsMac/${widget.iName.toLowerCase()}.png",
                   ))),
           Container(
             height: 4,
