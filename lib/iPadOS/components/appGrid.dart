@@ -68,7 +68,7 @@ class _AppMenuState extends State<AppMenu> {
                         alignment: Alignment.topCenter,
                         children: [
                           Image.asset(
-                            "assets/apps/iOS/calendar.png",
+                            "assets/appsiOS/calendar.png",
                           ),
                           Positioned(
                             top: cont.smallest.height * .13,

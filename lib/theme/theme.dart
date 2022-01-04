@@ -43,7 +43,7 @@ class ThemeNotifier with ChangeNotifier {
     hoverColor: Colors.white.withOpacity(0.4), // RCM color
     highlightColor:Colors.black.withOpacity(.13),//darkMode button
     bottomAppBarColor: Colors.black.withOpacity(0.1), //CC Music Color
-
+    selectedRowColor: Color(0xff111111).withOpacity(0.5),
     primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey,
@@ -96,6 +96,7 @@ class ThemeNotifier with ChangeNotifier {
       errorColor: Color(0xff1e1e1e).withOpacity(0.4), //iMessages color
       hoverColor: Color(0xff110f0f).withOpacity(0.4), // RCM color
     bottomAppBarColor: Colors.white.withOpacity(0.3), //CC Music Color
+    selectedRowColor: Color(0xffffffff).withOpacity(0.5),
       primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey[200],
