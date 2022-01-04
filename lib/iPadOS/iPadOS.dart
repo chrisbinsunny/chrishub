@@ -11,7 +11,7 @@ import 'package:mac_dt/sizes.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/rendering.dart';
-import '../components/notifiaction.dart';
+import 'components/notification.dart';
 import '../system/openApps.dart';
 import '../theme/theme.dart';
 import 'components/dock.dart';
@@ -60,6 +60,7 @@ class _IPadOSState extends State<IPadOS> {
 
             ///Applications
             ...app,
+
             ///Notification
             Notifications(),
 
