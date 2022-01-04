@@ -102,6 +102,9 @@ class _DockerState extends State<Docker> {
                             ),
                             DockerItem(
                               iName: "Settings",
+                              onTap: (){
+                                Provider.of<OnOff>(context, listen: false).onNotifications();
+                              },
                             ),
                           ]
                       ),

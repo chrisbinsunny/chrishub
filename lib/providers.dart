@@ -16,6 +16,7 @@ class DataBus extends ChangeNotifier{
   Offset pointerPos = new Offset(0, 0);
   bool nightShift= false;
   double scale= 1;
+  //TODO: Have to change default notification according to device
   Map<String, String> notification= {
     "notification":"Welcome to Chrisbin's MacBook Pro",
     "url":"https://github.com/chrisbinsunny",
