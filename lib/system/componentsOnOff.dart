@@ -568,6 +568,9 @@ class OnOff extends ChangeNotifier{
 
   void onNotifications() {
     notificationOn= true;
+    Future.delayed(Duration(seconds: 4), (){
+      offNotifications();
+    });
     notifyListeners();
   }
 

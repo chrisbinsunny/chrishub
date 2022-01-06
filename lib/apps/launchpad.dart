@@ -414,10 +414,12 @@ class _LaunchPadState extends State<LaunchPad> {
 class LaunchPadItem extends StatefulWidget {
   final String iName;
   final bool iOS;
+  VoidCallback onTap;
   LaunchPadItem({
     Key key,
     @required this.iName,
     this.iOS=false,
+    @required this.onTap
   }) : super(key: key);
 
   @override
@@ -427,21 +429,24 @@ class LaunchPadItem extends StatefulWidget {
 class _LaunchPadItemState extends State<LaunchPadItem> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Expanded(
-          child: Image.asset(
-            widget.iOS?"assets/appsiOS/${widget.iName.toLowerCase()}.png":"assets/appsMac/${widget.iName.toLowerCase()}.png",
-            // fit: BoxFit.contain,
+    return InkWell(
+      onTap: widget.onTap,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: Image.asset(
+              widget.iOS?"assets/appsiOS/${widget.iName.toLowerCase()}.png":"assets/appsMac/${widget.iName.toLowerCase()}.png",
+              // fit: BoxFit.contain,
+            ),
           ),
-        ),
-        MBPText(
-          text: widget.iName,
-            color: Colors.white
-        ),
-      ],
+          MBPText(
+            text: widget.iName,
+              color: Colors.white
+          ),
+        ],
+      ),
     );
   }
 }
