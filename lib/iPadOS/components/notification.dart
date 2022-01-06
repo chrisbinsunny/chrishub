@@ -55,7 +55,10 @@ class _NotificationsState extends State<Notifications> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.asset(
-                      "assets/appsMac/${notification["app"]}.png",
+                      "assets/apps/${notification["app"]}.png",
+                    ),
+                    SizedBox(
+                      width: screenWidth(context, mulBy: 0.01),
                     ),
                     Expanded(
                       child: Column(

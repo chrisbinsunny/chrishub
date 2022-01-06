@@ -52,8 +52,9 @@ class _AppMenuState extends State<AppMenu> {
                   Provider.of<DataBus>(context, listen: false).setNotification(
                       "App has not been installed",
                       "",
-                      "",
-                      "");
+                      "FaceTime",
+                      "FaceTime");
+                  Provider.of<OnOff>(context, listen: false).onNotifications();
               },
             ),
             InkWell(
@@ -133,56 +134,185 @@ class _AppMenuState extends State<AppMenu> {
             ),
             LaunchPadItem(
               iName: "Clock",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Clock",
+                    "Clock");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "Home",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Home",
+                    "Home");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "Photos",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Photos",
+                    "Photos");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "Camera",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Camera",
+                    "Camera");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
 
             LaunchPadItem(
               iName: "Reminders",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Reminders",
+                    "Reminders");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "Notes",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Notes",
+                    "Notes");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "Voice Memos",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Voice Memos",
+                    "Voice Memos");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
 
             LaunchPadItem(
               iName: "Contacts",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Contacts",
+                    "Contacts");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "Maps",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Maps",
+                    "Maps");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "Find My",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Find My",
+                    "Find My");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
 
             LaunchPadItem(
               iName: "Appstore",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Appstore",
+                    "Appstore");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "Books",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Books",
+                    "Books");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "Podcasts",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Podcasts",
+                    "Podcasts");
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "TV",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "TV",
+                  "TV",);
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "Stocks",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Stocks",
+                  "Stocks",);
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
             LaunchPadItem(
               iName: "Measure",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Measure",
+                  "Measure",);
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
-            InkWell(
+            LaunchPadItem(
+              iName: "Feedback",
               onTap: () {
                 tapFunctions(context);
                 Future.delayed(const Duration(milliseconds: 200), () {
@@ -200,17 +330,30 @@ class _AppMenuState extends State<AppMenu> {
                 });
 
               },
-              child: LaunchPadItem(
-                iName: "Feedback",
-              ),
             ),
 
             LaunchPadItem(
               iName: "Spotify",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Spotify",
+                  "Spotify",);
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
 
             LaunchPadItem(
               iName: "Settings",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed",
+                    "",
+                    "Settings",
+                  "Settings",);
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
             ),
           ],
         ),
