@@ -49,7 +49,17 @@ class _AppMenuState extends State<AppMenu> {
             LaunchPadItem(
               iName: "FaceTime",
               iOS: true,
-
+              onTap: (){
+                try {
+                  Provider.of<DataBus>(context, listen: false).setNotification(
+                      "App has not been installed",
+                      "",
+                      app,
+                      head);
+                } catch (e, s) {
+                  print(s);
+                }
+              },
             ),
             InkWell(
               onTap: () {

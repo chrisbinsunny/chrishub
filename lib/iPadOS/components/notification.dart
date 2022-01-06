@@ -31,75 +31,63 @@ class _NotificationsState extends State<Notifications> {
       curve: Curves.ease,
       left: screenWidth(context, mulBy: 0.315),
       top: notificationOn?screenHeight(context, mulBy: 0.03):-screenHeight(context, mulBy: 0.08),
-      child: MouseRegion(
-        onExit: (p){
-          setState(() {
-            hover=false;
-          });
-        },
-        onEnter: (p){
-          setState(() {
-            hover=true;
-          });
-        },
-        child: Container(
-          width: screenWidth(context, mulBy: 0.37),
-          height: screenHeight(context, mulBy: 0.07),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: BackdropFilter(
-              filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
-              child: Container(
-                  padding: EdgeInsets.only(
-                      left: screenWidth(context, mulBy: 0.005),
-                      right: screenWidth(context, mulBy: 0.01),
-                      top: screenHeight(context, mulBy: 0.01),
-                      bottom: screenHeight(context, mulBy: 0.01)
-                  ),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).selectedRowColor
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        "assets/appsMac/${notification["app"]}.png",
+      child: Container(
+        width: screenWidth(context, mulBy: 0.37),
+        height: screenHeight(context, mulBy: 0.07),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: BackdropFilter(
+            filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+            child: Container(
+                padding: EdgeInsets.only(
+                    left: screenWidth(context, mulBy: 0.005),
+                    right: screenWidth(context, mulBy: 0.01),
+                    top: screenHeight(context, mulBy: 0.01),
+                    bottom: screenHeight(context, mulBy: 0.01)
+                ),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).selectedRowColor
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      "assets/appsMac/${notification["app"]}.png",
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          MBPText(
+                            text: notification["head"],
+                            color: Theme.of(context).cardColor.withOpacity(1),
+                            size: 10.5,
+                            weight: Theme.of(context).textTheme.headline3.fontWeight,
+                            maxLines: 1,
+                          ),
+                          MBPText(
+                            text: notification["notification"],
+                            color: Theme.of(context).cardColor.withOpacity(1),
+                            size: 10.5,
+                            weight: Theme.of(context).textTheme.headline2.fontWeight,
+                            maxLines: 1,
+                          ),
+                        ],
                       ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            MBPText(
-                              text: notification["head"],
-                              color: Theme.of(context).cardColor.withOpacity(1),
-                              size: 10.5,
-                              weight: Theme.of(context).textTheme.headline3.fontWeight,
-                              maxLines: 1,
-                            ),
-                            MBPText(
-                              text: notification["notification"],
-                              color: Theme.of(context).cardColor.withOpacity(1),
-                              size: 10.5,
-                              weight: Theme.of(context).textTheme.headline2.fontWeight,
-                              maxLines: 1,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Spacer(),
-                      MBPText(text: "now",
-                        color: Theme.of(context).cardColor.withOpacity(.5),
-                        size: 10,
-                      )
-                    ],
-                  )
-              ),
-
+                    ),
+                    Spacer(),
+                    MBPText(text: "now",
+                      color: Theme.of(context).cardColor.withOpacity(.5),
+                      size: 10,
+                    )
+                  ],
+                )
             ),
+
           ),
         ),
       ),
