@@ -48,17 +48,12 @@ class _AppMenuState extends State<AppMenu> {
           children: [
             LaunchPadItem(
               iName: "FaceTime",
-              iOS: true,
               onTap: (){
-                try {
                   Provider.of<DataBus>(context, listen: false).setNotification(
                       "App has not been installed",
                       "",
-                      app,
-                      head);
-                } catch (e, s) {
-                  print(s);
-                }
+                      "",
+                      "");
               },
             ),
             InkWell(
@@ -138,70 +133,54 @@ class _AppMenuState extends State<AppMenu> {
             ),
             LaunchPadItem(
               iName: "Clock",
-              iOS: true,
             ),
             LaunchPadItem(
               iName: "Home",
-              iOS: true,
             ),
             LaunchPadItem(
               iName: "Photos",
-              iOS: false,
             ),
             LaunchPadItem(
               iName: "Camera",
-              iOS: true,
             ),
 
             LaunchPadItem(
               iName: "Reminders",
-              iOS: true,
             ),
             LaunchPadItem(
               iName: "Notes",
-              iOS: false,
             ),
             LaunchPadItem(
               iName: "Voice Memos",
-              iOS: true,
             ),
 
             LaunchPadItem(
               iName: "Contacts",
-              iOS: true,
             ),
             LaunchPadItem(
               iName: "Maps",
-              iOS: false,
             ),
             LaunchPadItem(
               iName: "Find My",
-              iOS: true,
             ),
 
             LaunchPadItem(
               iName: "Appstore",
-              iOS: false,
             ),
             LaunchPadItem(
               iName: "Books",
-              iOS: true,
             ),
             LaunchPadItem(
               iName: "Podcasts",
-              iOS: true,
             ),
             LaunchPadItem(
               iName: "TV",
-              iOS: true,
             ),
             LaunchPadItem(
               iName: "Stocks",
-              iOS: true,
             ),
             LaunchPadItem(
               iName: "Measure",
-              iOS: true,
             ),
             InkWell(
               onTap: () {
@@ -223,18 +202,15 @@ class _AppMenuState extends State<AppMenu> {
               },
               child: LaunchPadItem(
                 iName: "Feedback",
-                iOS: false,
               ),
             ),
 
             LaunchPadItem(
               iName: "Spotify",
-              iOS: false,
             ),
 
             LaunchPadItem(
               iName: "Settings",
-              iOS: true,
             ),
           ],
         ),

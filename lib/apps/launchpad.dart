@@ -294,7 +294,7 @@ class _LaunchPadState extends State<LaunchPad> {
                                           alignment: Alignment.topCenter,
                                           children: [
                                             Image.asset(
-                                              "assets/appsMac/calendar.png",
+                                              "assets/appsMac/calendar-Mac.png",
                                             ),
                                             Positioned(
                                               top: cont.smallest.height * .13,
@@ -413,12 +413,10 @@ class _LaunchPadState extends State<LaunchPad> {
 
 class LaunchPadItem extends StatefulWidget {
   final String iName;
-  final bool iOS;
   VoidCallback onTap;
   LaunchPadItem({
     Key key,
     @required this.iName,
-    this.iOS=false,
     @required this.onTap
   }) : super(key: key);
 
@@ -437,7 +435,7 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
         children: [
           Expanded(
             child: Image.asset(
-              widget.iOS?"assets/appsiOS/${widget.iName.toLowerCase()}.png":"assets/appsMac/${widget.iName.toLowerCase()}.png",
+              "assets/apps/${widget.iName.toLowerCase()}.png",
               // fit: BoxFit.contain,
             ),
           ),
