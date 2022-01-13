@@ -160,7 +160,7 @@ class _DockerState extends State<Docker> {
                         },
                       ),
                       DockerItem(
-                        iName: "Safari",
+                        iName: "Safari-Mac",
                         on: safariOpen,
                         dx: _getPath(screenWidth(context, mulBy: 0.125), _getCursor(),),
                         onTap: () {
@@ -179,7 +179,7 @@ class _DockerState extends State<Docker> {
                         },
                       ),
                       DockerItem(
-                        iName: "Messages",
+                        iName: "Messages-Mac",
                         on: messageOpen,
                         dx: _getPath(screenWidth(context, mulBy: 0.175), _getCursor(), ),
                         onTap: () {
@@ -272,7 +272,7 @@ class _DockerState extends State<Docker> {
 
                       ),
                       DockerItem(
-                        iName: "Contacts",
+                        iName: "Contacts-Mac",
                         on: false,
                         dx: _getPath(screenWidth(context, mulBy: 0.475), _getCursor(), ),
 
