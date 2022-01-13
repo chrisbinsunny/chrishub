@@ -123,7 +123,8 @@ class _LaunchPadState extends State<LaunchPad> {
                             shrinkWrap: true,
                             physics: BouncingScrollPhysics(),
                             children: [
-                              InkWell(
+                              LaunchPadItem(
+                                iName: "Finder",
                                 onTap: () {
                                   setState(() {
                                     _animate = !_animate;
@@ -144,33 +145,29 @@ class _LaunchPadState extends State<LaunchPad> {
                                   });
 
                                 },
-                                child: LaunchPadItem(
-                                  iName: "Finder",
-                                ),
                               ),
-                              InkWell(
+                              LaunchPadItem(
+                                iName: "Safari-Mac",
                                 onTap: () {
-                                  tapFunctions(context);
-                                  Future.delayed(const Duration(milliseconds: 200), () {
-                                    Provider.of<OnOff>(context, listen: false)
-                                        .maxSafari();
-                                    Provider.of<Apps>(context, listen: false).openApp(
-                                        Safari(
-                                            key: ObjectKey("safari"),
-                                            initPos: Offset(
-                                                screenWidth(context, mulBy: 0.14),
-                                                screenHeight(context, mulBy: 0.1))),
-                                        Provider.of<OnOff>(context, listen: false)
-                                            .maxSafari()
-                                    );
-                                  });
+                                tapFunctions(context);
+                                Future.delayed(const Duration(milliseconds: 200), () {
+                                  Provider.of<OnOff>(context, listen: false)
+                                      .maxSafari();
+                                  Provider.of<Apps>(context, listen: false).openApp(
+                                      Safari(
+                                          key: ObjectKey("safari"),
+                                          initPos: Offset(
+                                              screenWidth(context, mulBy: 0.14),
+                                              screenHeight(context, mulBy: 0.1))),
+                                      Provider.of<OnOff>(context, listen: false)
+                                          .maxSafari()
+                                  );
+                                });
 
-                                },
-                                child: LaunchPadItem(
-                                  iName: "Safari",
-                                ),
+                              },
                               ),
-                              InkWell(
+                              LaunchPadItem(
+                                iName: "Messages-Mac",
                                 onTap: () {
                                   tapFunctions(context);
                                   Future.delayed(const Duration(milliseconds: 200), () {
@@ -188,14 +185,13 @@ class _LaunchPadState extends State<LaunchPad> {
                                   });
 
                                 },
-                                child: LaunchPadItem(
-                                  iName: "Messages",
-                                ),
                               ),
                               LaunchPadItem(
                                 iName: "Maps",
+                                onTap: (){},
                               ),
-                              InkWell(
+                              LaunchPadItem(
+                                iName: "Spotify",
                                 onTap: () {
                                   tapFunctions(context);
                                   Future.delayed(const Duration(milliseconds: 200), () {
@@ -212,11 +208,9 @@ class _LaunchPadState extends State<LaunchPad> {
                                     );
                                   });
                                 },
-                                child: LaunchPadItem(
-                                  iName: "Spotify",
-                                ),
                               ),
-                              InkWell(
+                              LaunchPadItem(
+                                iName: "Terminal",
                                 onTap: () {
                                   tapFunctions(context);
                                   Future.delayed(const Duration(milliseconds: 200), () {
@@ -235,11 +229,9 @@ class _LaunchPadState extends State<LaunchPad> {
 
 
                                 },
-                                child: LaunchPadItem(
-                                  iName: "Terminal",
-                                ),
                               ),
-                              InkWell(
+                              LaunchPadItem(
+                                iName: "Visual Studio Code",
                                 onTap: () {
                                   tapFunctions(context);
                                   Future.delayed(const Duration(milliseconds: 200), () {
@@ -256,15 +248,14 @@ class _LaunchPadState extends State<LaunchPad> {
 
 
                                 },
-                                child: LaunchPadItem(
-                                  iName: "Visual Studio Code",
-                                ),
                               ),
                               LaunchPadItem(
                                 iName: "Photos",
+                                onTap: (){},
                               ),
                               LaunchPadItem(
-                                iName: "Contacts",
+                                iName: "Contacts-Mac",
+                                onTap: (){},
                               ),
                               InkWell(
                                 onTap: () {
@@ -354,8 +345,10 @@ class _LaunchPadState extends State<LaunchPad> {
                               ),
                               LaunchPadItem(
                                 iName: "Notes",
+                                onTap: (){},
                               ),
-                              InkWell(
+                              LaunchPadItem(
+                                iName: "Feedback",
                                 onTap: () {
                                   tapFunctions(context);
                                   Future.delayed(const Duration(milliseconds: 200), () {
@@ -373,17 +366,12 @@ class _LaunchPadState extends State<LaunchPad> {
                                   });
 
                                 },
-                                child: LaunchPadItem(
-                                  iName: "Feedback",
-                                ),
                               ),
-                              InkWell(
+                              LaunchPadItem(
+                                iName: "System Preferences",
                                 onTap: () {
                                   Provider.of<OnOff>(context, listen: false).onNotifications();
                                 },
-                                child: LaunchPadItem(
-                                  iName: "System Preferences",
-                                ),
                               ),
                             ],
                           ),
@@ -440,7 +428,7 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
             ),
           ),
           MBPText(
-            text: widget.iName,
+            text: widget.iName.split("-")[0],
               color: Colors.white
           ),
         ],
