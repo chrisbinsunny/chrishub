@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/apps/launchpad.dart';
+import 'package:mac_dt/iPadOS/apps/spotify.dart';
 import '../apps/calendar.dart';
 import 'package:mac_dt/apps/feedback/feedback.dart';
 import 'package:mac_dt/apps/messages/messages.dart';
 import 'package:mac_dt/apps/safari/safariWindow.dart';
-import 'package:mac_dt/apps/spotify.dart';
 import 'package:mac_dt/apps/terminal/terminal.dart';
 import 'package:mac_dt/apps/vscode.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
@@ -334,13 +334,12 @@ class _AppMenuState extends State<AppMenu> {
 
             LaunchPadItem(
               iName: "Spotify",
-              onTap: (){
-                Provider.of<DataBus>(context, listen: false).setNotification(
-                    "App has not been installed",
-                    "",
-                    "Spotify",
-                  "Spotify",);
-                Provider.of<OnOff>(context, listen: false).onNotifications();
+              onTap: () {
+                tapFunctionsIpad(context);
+                Provider.of<Apps>(context, listen: false).openIApp(
+                  Spotify(
+                    key: ObjectKey("spotify"),),
+                );
               },
             ),
 
