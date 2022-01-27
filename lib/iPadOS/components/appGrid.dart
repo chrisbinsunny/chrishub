@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/apps/launchpad.dart';
+import 'package:mac_dt/iPadOS/apps/feedback/feedback.dart';
 import 'package:mac_dt/iPadOS/apps/spotify.dart';
 import '../apps/calendar.dart';
-import 'package:mac_dt/apps/feedback/feedback.dart';
-import 'package:mac_dt/apps/messages/messages.dart';
-import 'package:mac_dt/apps/safari/safariWindow.dart';
-import 'package:mac_dt/apps/terminal/terminal.dart';
-import 'package:mac_dt/apps/vscode.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/system/openApps.dart';
 import 'package:provider/provider.dart';
@@ -318,14 +314,9 @@ class _AppMenuState extends State<AppMenu> {
                 Future.delayed(const Duration(milliseconds: 200), () {
                   Provider.of<OnOff>(context, listen: false)
                       .maxFeedBack();
-                  Provider.of<Apps>(context, listen: false).openApp(
+                  Provider.of<Apps>(context, listen: false).openIApp(
                       FeedBack(
-                          key: ObjectKey("feedback"),
-                          initPos: Offset(
-                              screenWidth(context, mulBy: 0.14),
-                              screenHeight(context, mulBy: 0.1))),
-                      Provider.of<OnOff>(context, listen: false)
-                          .maxFeedBack()
+                          key: ObjectKey("feedback"),),
                   );
                 });
 
