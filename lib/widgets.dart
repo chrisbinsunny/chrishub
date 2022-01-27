@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mac_dt/providers.dart';
+import 'package:provider/provider.dart';
 
 class MBPText extends StatelessWidget {
   final Color color;
@@ -60,6 +62,22 @@ class CustomBoxShadow extends BoxShadow {
     return result;
   }
 }
+
+class Scaler extends StatelessWidget {
+  Widget child;
+  Scaler({this.child, Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var scale= Provider.of<DataBus>(context).getScale;
+    return Transform.scale(
+      scale: scale,
+      alignment: Alignment.topCenter,
+      child: child
+    );
+  }
+}
+
 
 extension StringExtension on String {
   String capitalize() {
