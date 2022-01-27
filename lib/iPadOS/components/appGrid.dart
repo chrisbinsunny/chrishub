@@ -310,16 +310,11 @@ class _AppMenuState extends State<AppMenu> {
             LaunchPadItem(
               iName: "Feedback",
               onTap: () {
-                tapFunctions(context);
-                Future.delayed(const Duration(milliseconds: 200), () {
-                  Provider.of<OnOff>(context, listen: false)
-                      .maxFeedBack();
-                  Provider.of<Apps>(context, listen: false).openIApp(
-                      FeedBack(
-                          key: ObjectKey("feedback"),),
-                  );
-                });
-
+                tapFunctionsIpad(context);
+                Provider.of<Apps>(context, listen: false).openIApp(
+                  FeedBack(
+                    key: ObjectKey("feedback"),),
+                );
               },
             ),
 

@@ -41,72 +41,84 @@ class _IPadOSState extends State<IPadOS> {
       context,
     ).getNS;
     return Scaffold(
-      body: Center(
-        child: Stack(
-          children: <Widget>[
-            ///wallpaper
-            Container(
-                height: size.height,
-                width: size.width,
-                child: Image.asset(
-                  themeNotifier.isDark()
-                      ? "assets/wallpapers/iPadOS_dark.jpg"
-                      : "assets/wallpapers/iPadOS_light.jpg",
-                  fit: BoxFit.cover,
-                )),
+      //backgroundColor: Colors.black,
 
-            ///Apps Grid
-            AppMenu(),
+      body: Container(
+        color: Colors.black,
+        child: Center(
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: <Widget>[
+                ///wallpaper
+                Container(
+                    height: size.height,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50)
 
-            ///Applications
-            ...app,
+                    ),
+                    child: Image.asset(
+                      themeNotifier.isDark()
+                          ? "assets/wallpapers/iPadOS_dark.jpg"
+                          : "assets/wallpapers/iPadOS_light.jpg",
+                      fit: BoxFit.cover,
+                    )),
 
-            ///Notification
-            Notifications(),
+                ///Apps Grid
+                AppMenu(),
 
-            //TODO State change of widgets under this will cause iFrame HTMLView to reload. Engine Fix required.
-            /// Track the issue here: https://github.com/flutter/flutter/issues/80524
+                ///Applications
+                ...app,
 
-            ///docker bar
-            Docker(),
+                ///Notification
+                Notifications(),
 
-            ///Control Centre
-            Positioned(
-              top: screenHeight(context, mulBy: 0.035),
-              child: ControlCentre(),
-            ),
+                //TODO State change of widgets under this will cause iFrame HTMLView to reload. Engine Fix required.
+                /// Track the issue here: https://github.com/flutter/flutter/issues/80524
 
-            /// file menu
-            FileMenu(),
+                ///docker bar
+                Docker(),
 
-            ///Control Night Shift
-            IgnorePointer(
-              ignoring: true,
-              child: BlendMask(
-                opacity: 1.0,
-                blendMode: BlendMode.colorBurn,
-                child: AnimatedContainer(
-                  duration: Duration(milliseconds: 700),
-                  width: screenWidth(context),
-                  height: screenHeight(context),
-                  color: Colors.orange.withOpacity(NSOn ? 0.2 : 0),
+                ///Control Centre
+                Positioned(
+                  top: screenHeight(context, mulBy: 0.035),
+                  child: ControlCentre(),
                 ),
-              ),
-            ),
 
-            ///Control Brightness
-            IgnorePointer(
-              ignoring: true,
-              child: Opacity(
-                opacity: 1 - (brightness / 95.98),
-                child: Container(
-                  width: screenWidth(context),
-                  height: screenHeight(context),
-                  color: Colors.black.withOpacity(0.7),
+                /// file menu
+                FileMenu(),
+
+                ///Control Night Shift
+                IgnorePointer(
+                  ignoring: true,
+                  child: BlendMask(
+                    opacity: 1.0,
+                    blendMode: BlendMode.colorBurn,
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 700),
+                      width: screenWidth(context),
+                      height: screenHeight(context),
+                      color: Colors.orange.withOpacity(NSOn ? 0.2 : 0),
+                    ),
+                  ),
                 ),
-              ),
+
+                ///Control Brightness
+                IgnorePointer(
+                  ignoring: true,
+                  child: Opacity(
+                    opacity: 1 - (brightness / 95.98),
+                    child: Container(
+                      width: screenWidth(context),
+                      height: screenHeight(context),
+                      color: Colors.black.withOpacity(0.7),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
