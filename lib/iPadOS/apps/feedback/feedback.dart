@@ -319,14 +319,14 @@ class _FeedBackState extends State<FeedBack> {
                       ),
                       reportIssue
                           ? Container(
-                        color: Colors.green,
                               width: screenWidth(context,
                                   mulBy: 0.55),
+                              height: screenHeight(context, mulBy: 0.38),
                               child: Form(
                                 key: _formKey,
                                 child: Column(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment:
                                       CrossAxisAlignment.start,
                                   children: [
@@ -336,8 +336,7 @@ class _FeedBackState extends State<FeedBack> {
                                         Container(
                                           width: screenWidth(context,
                                               mulBy: 0.26),
-                                          height: screenHeight(context,
-                                              mulBy: 0.038), //0.038
+                                          //0.038
                                           child: TextFormField(
                                             cursorHeight: 16,
                                             controller: nameController,
@@ -354,6 +353,7 @@ class _FeedBackState extends State<FeedBack> {
                                             cursorColor: Theme.of(context)
                                                 .cardColor
                                                 .withOpacity(0.55),
+
                                             style: TextStyle(
                                               height: 1.5,
                                               color: Theme.of(context)
@@ -371,7 +371,7 @@ class _FeedBackState extends State<FeedBack> {
                                                     Color(0xff2f2e32),
                                                 contentPadding:
                                                     EdgeInsets.symmetric(
-                                                        vertical: 8,
+                                                        vertical: 12,
                                                         horizontal: 15),
                                                 hintText: "Name*",
                                                 hintStyle: TextStyle(
@@ -405,8 +405,6 @@ class _FeedBackState extends State<FeedBack> {
                                         Container(
                                           width: screenWidth(context,
                                               mulBy: 0.26),
-                                          height: screenHeight(context,
-                                              mulBy: 0.038), //0.038
                                           child: TextFormField(
                                             cursorHeight: 16,
                                             controller: emailController,
@@ -440,7 +438,7 @@ class _FeedBackState extends State<FeedBack> {
                                                     Color(0xff2f2e32),
                                                 contentPadding:
                                                     EdgeInsets.symmetric(
-                                                        vertical: 8,
+                                                        vertical: 12,
                                                         horizontal: 15),
                                                 hintText: "Email ID*",
                                                 hintStyle: TextStyle(
@@ -473,19 +471,12 @@ class _FeedBackState extends State<FeedBack> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: screenHeight(context,
-                                          mulBy: 0.025),
-                                    ),
                                     Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        AnimatedContainer(
-                                          duration:
-                                              Duration(milliseconds: 200),
+                                        Container(
                                           width: screenWidth(context,
-                                              mulBy: 0.22),
-                                          height: screenHeight(context,
-                                              mulBy: 0.038), //0.038
+                                              mulBy: 0.26),
                                           child: TextFormField(
                                             cursorHeight: 16,
                                             controller: mobileNoController,
@@ -521,7 +512,7 @@ class _FeedBackState extends State<FeedBack> {
                                                     Color(0xff2f2e32),
                                                 contentPadding:
                                                     EdgeInsets.symmetric(
-                                                        vertical: 8,
+                                                        vertical: 12,
                                                         horizontal: 15),
                                                 hintText: "Mobile Number",
                                                 hintStyle: TextStyle(
@@ -552,116 +543,108 @@ class _FeedBackState extends State<FeedBack> {
                                                 )),
                                           ),
                                         ),
-                                        AnimatedContainer(
-                                          duration:
-                                              Duration(milliseconds: 200),
+                                        Container(
                                           width: screenWidth(context,
-                                              mulBy:
-                                                   0.02),
-                                        ),
-                                        Row(
-                                          children: [
-                                            MBPText(
-                                              text: "Type:       ",
-                                              size: 12,
-                                              color: Theme.of(context)
-                                                  .cardColor
-                                                  .withOpacity(0.85),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  type = "Feedback";
-                                                });
-                                              },
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    height: 14,
-                                                    width: 14,
-                                                    margin: EdgeInsets.zero,
-                                                    padding:
-                                                        EdgeInsets.zero,
-                                                    decoration:
-                                                        BoxDecoration(
-                                                      color: Colors.white,
-                                                      shape:
-                                                          BoxShape.circle,
-                                                      border: (type !=
-                                                              "Feedback")
-                                                          ? Border.all(
-                                                              color: Colors
-                                                                  .black)
-                                                          : Border.all(
-                                                              width: 4,
-                                                              color: Colors
-                                                                  .blue),
-                                                    ),
-                                                  ),
-                                                  MBPText(
-                                                    text: "   Feedback",
-                                                    size: 12,
-                                                    color: Theme.of(context)
-                                                        .cardColor
-                                                        .withOpacity(0.75),
-                                                  ),
-                                                ],
+                                              mulBy: 0.26),
+                                          child: Row(
+                                            children: [
+                                              MBPText(
+                                                text: "Type:       ",
+                                                size: 12,
+                                                color: Theme.of(context)
+                                                    .cardColor
+                                                    .withOpacity(0.85),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              width: screenWidth(context,
-                                                  mulBy: 0.015),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  type = "Issue";
-                                                });
-                                              },
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    height: 14,
-                                                    width: 14,
-                                                    margin: EdgeInsets.zero,
-                                                    padding:
-                                                        EdgeInsets.zero,
-                                                    decoration:
-                                                        BoxDecoration(
-                                                      color: Colors.white,
-                                                      shape:
-                                                          BoxShape.circle,
-                                                      border: (type !=
-                                                              "Issue")
-                                                          ? Border.all(
-                                                              color: Colors
-                                                                  .black)
-                                                          : Border.all(
-                                                              width: 4,
-                                                              color: Colors
-                                                                  .blue),
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    type = "Feedback";
+                                                  });
+                                                },
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      height: 14,
+                                                      width: 14,
+                                                      margin: EdgeInsets.zero,
+                                                      padding:
+                                                          EdgeInsets.zero,
+                                                      decoration:
+                                                          BoxDecoration(
+                                                        color: Colors.white,
+                                                        shape:
+                                                            BoxShape.circle,
+                                                        border: (type !=
+                                                                "Feedback")
+                                                            ? Border.all(
+                                                                color: Colors
+                                                                    .black)
+                                                            : Border.all(
+                                                                width: 4,
+                                                                color: Colors
+                                                                    .blue),
+                                                      ),
                                                     ),
-                                                  ),
-                                                  MBPText(
-                                                    text: "   Issues",
-                                                    size: 12,
-                                                    color: Theme.of(context)
-                                                        .cardColor
-                                                        .withOpacity(0.75),
-                                                  ),
-                                                ],
+                                                    MBPText(
+                                                      text: "   Feedback",
+                                                      size: 12,
+                                                      color: Theme.of(context)
+                                                          .cardColor
+                                                          .withOpacity(0.75),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                              SizedBox(
+                                                width: screenWidth(context,
+                                                    mulBy: 0.015),
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    type = "Issue";
+                                                  });
+                                                },
+                                                child: Row(
+                                                  children: [
+                                                    Container(
+                                                      height: 14,
+                                                      width: 14,
+                                                      margin: EdgeInsets.zero,
+                                                      padding:
+                                                          EdgeInsets.zero,
+                                                      decoration:
+                                                          BoxDecoration(
+                                                        color: Colors.white,
+                                                        shape:
+                                                            BoxShape.circle,
+                                                        border: (type !=
+                                                                "Issue")
+                                                            ? Border.all(
+                                                                color: Colors
+                                                                    .black)
+                                                            : Border.all(
+                                                                width: 4,
+                                                                color: Colors
+                                                                    .blue),
+                                                      ),
+                                                    ),
+                                                    MBPText(
+                                                      text: "   Issues",
+                                                      size: 12,
+                                                      color: Theme.of(context)
+                                                          .cardColor
+                                                          .withOpacity(0.75),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         )
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: screenHeight(context,
-                                          mulBy: 0.025),
-                                    ),
-                                    AnimatedContainer(
-                                      duration: Duration(milliseconds: 200),
+                                    Container(
                                       width:
                                           screenWidth(context, mulBy: 0.35),
                                       height: screenHeight(context,
@@ -724,10 +707,6 @@ class _FeedBackState extends State<FeedBack> {
                                               borderSide: BorderSide(),
                                             )),
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: screenHeight(context,
-                                          mulBy: 0.025),
                                     ),
                                     Align(
                                       alignment: Alignment.centerRight,
