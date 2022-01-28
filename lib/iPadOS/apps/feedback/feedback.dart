@@ -738,20 +738,20 @@ class _FeedBackState extends State<FeedBack> {
                                 ),
                               ),
                             )
-                          : AnimatedContainer(
-                              duration: Duration(milliseconds: 200),
+                          : Container(
                               width: screenWidth(context,
-                                  mulBy:  0.46),
+                                  mulBy:  0.55),
+                        height: screenHeight(context, mulBy: 0.38),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment:
                                     CrossAxisAlignment.start,
                                 children: [
                                   Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       MBPText(
                                         text: "Name:",
@@ -762,19 +762,14 @@ class _FeedBackState extends State<FeedBack> {
                                             .cardColor
                                             .withOpacity(1),
                                       ),
-                                      AnimatedContainer(
-                                        duration:
-                                            Duration(milliseconds: 200),
+                                      Container(
                                         width: screenWidth(context,
-                                            mulBy: 0.01),
-                                      ),
-                                      AnimatedContainer(
-                                        duration:
-                                            Duration(milliseconds: 200),
-                                        width: screenWidth(context,
-                                            mulBy: 0.14),
+                                            mulBy: 0.2),
                                         height: screenHeight(context,
                                             mulBy: 0.038),
+                                        margin: EdgeInsets.only(
+                                          left: screenWidth(context,
+                                              mulBy: 0.013),),
                                         padding: EdgeInsets.only(
                                             left: screenWidth(context,
                                                 mulBy: 0.015),
@@ -804,12 +799,7 @@ class _FeedBackState extends State<FeedBack> {
                                           //maxLines: 6,
                                         ),
                                       ),
-                                      AnimatedContainer(
-                                        duration:
-                                            Duration(milliseconds: 200),
-                                        width: screenWidth(context,
-                                            mulBy: 0.03),
-                                      ),
+                                      Spacer(),
                                       MBPText(
                                         text: "Time:",
                                         size: 15,
@@ -819,17 +809,9 @@ class _FeedBackState extends State<FeedBack> {
                                             .cardColor
                                             .withOpacity(1),
                                       ),
-                                      AnimatedContainer(
-                                        duration:
-                                            Duration(milliseconds: 200),
+                                      Container(
                                         width: screenWidth(context,
-                                            mulBy: 0.01),
-                                      ),
-                                      AnimatedContainer(
-                                        duration:
-                                            Duration(milliseconds: 200),
-                                        width: screenWidth(context,
-                                            mulBy: 0.14),
+                                            mulBy: 0.2),
                                         height: screenHeight(context,
                                             mulBy: 0.038),
                                         padding: EdgeInsets.only(
@@ -839,6 +821,9 @@ class _FeedBackState extends State<FeedBack> {
                                                 mulBy: 0.015),
                                             top: screenHeight(context,
                                                 mulBy: 0.011)),
+                                        margin: EdgeInsets.only(
+                                            left: screenWidth(context,
+                                                mulBy: 0.013),),
                                         decoration: BoxDecoration(
                                             color: Color(0xff2f2e32),
                                             border: Border.all(
@@ -863,11 +848,6 @@ class _FeedBackState extends State<FeedBack> {
                                       ),
                                     ],
                                   ),
-                                  AnimatedContainer(
-                                    duration: Duration(milliseconds: 200),
-                                    height:
-                                        screenHeight(context, mulBy: 0.02),
-                                  ),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.start,
@@ -883,19 +863,14 @@ class _FeedBackState extends State<FeedBack> {
                                             .cardColor
                                             .withOpacity(1),
                                       ),
-                                      AnimatedContainer(
-                                        duration:
-                                            Duration(milliseconds: 200),
+                                      Container(
                                         width: screenWidth(context,
-                                            mulBy: 0.013),
-                                      ),
-                                      AnimatedContainer(
-                                        duration:
-                                            Duration(milliseconds: 200),
-                                        width: screenWidth(context,
-                                            mulBy: 0.35),
+                                            mulBy: 0.4),
                                         height: screenHeight(context,
-                                            mulBy: 0.13), //0.038
+                                            mulBy: 0.13),
+                                        margin: EdgeInsets.only(
+                                          left: screenWidth(context,
+                                              mulBy: 0.013),),
                                         padding: EdgeInsets.only(
                                           left: screenWidth(context,
                                               mulBy: 0.015),
@@ -912,6 +887,7 @@ class _FeedBackState extends State<FeedBack> {
                                             borderRadius:
                                                 BorderRadius.circular(10)),
                                         child: SingleChildScrollView(
+                                          physics: BouncingScrollPhysics(),
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
@@ -946,11 +922,6 @@ class _FeedBackState extends State<FeedBack> {
                                         ),
                                       ),
                                     ],
-                                  ),
-                                  AnimatedContainer(
-                                    duration: Duration(milliseconds: 200),
-                                    height:
-                                        screenHeight(context, mulBy: 0.02),
                                   ),
                                   MBPText(
                                     text:
