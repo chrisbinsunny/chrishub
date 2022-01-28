@@ -119,9 +119,7 @@ class _FeedBackState extends State<FeedBack> {
             Row(
               children: [
                 Expanded(
-                  child: AnimatedContainer(
-                    duration: Duration(milliseconds: 200),
-                    //width: screenWidth(context, mulBy: feedbackFS ? .5 : .35),
+                  child: Container(
                     decoration: BoxDecoration(
                         color: Theme.of(context).dialogBackgroundColor,
                         border: Border(
@@ -214,9 +212,7 @@ class _FeedBackState extends State<FeedBack> {
                                                   snapshot.data[index];
                                             });
                                           },
-                                          child: AnimatedContainer(
-                                            duration:
-                                                Duration(milliseconds: 200),
+                                          child: Container(
                                             height: screenHeight(context,
                                                 mulBy: 0.065),
                                             padding: EdgeInsets.only(
@@ -228,6 +224,11 @@ class _FeedBackState extends State<FeedBack> {
                                               color: index % 2 == 0
                                                   ? Color(0xff3b3b3b)
                                                   : Color(0xff2f2f2f),
+
+                                              border: Border.all(
+                                                color: feedbackItem==snapshot.data[index]?Color(0xffb558e1):Colors.transparent,
+                                                width: 2
+                                              )
                                             ),
                                             child: Column(
                                               mainAxisAlignment:
