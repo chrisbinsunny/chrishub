@@ -239,7 +239,6 @@ class _FeedBackState extends State<FeedBack> {
                             child: ClipRRect(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
-                              //TODO Change color of selected tile.
                               child: FutureBuilder(
                                 future: issues,
                                 builder: (context, snapshot) {
@@ -271,6 +270,10 @@ class _FeedBackState extends State<FeedBack> {
                                               color: index % 2 == 0
                                                   ? Color(0xff3b3b3b)
                                                   : Color(0xff2f2f2f),
+                                                border: Border.all(
+                                                    color: feedbackItem==snapshot.data[index]?Color(0xffb558e1):Colors.transparent,
+                                                    width: 2
+                                                )
                                             ),
                                             child: Column(
                                               mainAxisAlignment:

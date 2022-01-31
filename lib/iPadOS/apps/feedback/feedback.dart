@@ -194,7 +194,6 @@ class _FeedBackState extends State<FeedBack> {
                             child: ClipRRect(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
-                              //TODO Change color of selected tile.
                               child: FutureBuilder(
                                 future: issues,
                                 builder: (context, snapshot) {
@@ -980,125 +979,119 @@ class _FeedBackState extends State<FeedBack> {
                   error = true;
                 });
               },
-              child: AnimatedContainer(
-                  duration: Duration(milliseconds: 200),
-                  width: screenWidth(context,
-                      mulBy:  .5),
+              child: Container(
+                  width: screenWidth(context,),
                   //height: screenHeight(context),
-                  color: Colors.transparent),
+                  color: Colors.black.withOpacity(0.5)
+              ),
             )
                 : Container(),
-            AnimatedPositioned(
-              duration: Duration(milliseconds: valAni ? 400 : 200),
-              left: screenWidth(context,
-                  mulBy:  0.17),
-              top: error ? -(screenHeight(context, mulBy: 0.32)) : 0,
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 200),
-                width: screenWidth(context, mulBy: 0.16),
-                height:  screenHeight(context, mulBy: 0.3),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.2),
-                  ),
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: !error
-                          ? Colors.black.withOpacity(0.2)
-                          : Colors.transparent,
-                      spreadRadius: 10,
-                      blurRadius: 15,
-                      offset:
-                      Offset(0, 8), // changes position of shadow
+            Visibility(
+              visible: !error,
+              child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                  width: screenWidth(context, mulBy: 0.16),
+                  height:  screenHeight(context, mulBy: 0.3),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.2),
                     ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10)),
-                  child: BackdropFilter(
-                    filter:
-                    ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
-                    child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .dialogBackgroundColor
-                              .withOpacity(0.5),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                            screenWidth(context, mulBy: 0.02)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/apps/feedback.png",
-                              height: 50,
-                            ),
-                            MBPText(
-                              text: "Value Error",
-                              color: Theme.of(context)
-                                  .cardColor
-                                  .withOpacity(1),
-                              size: 18,
-                              weight: FontWeight.w600,
-                            ),
-                            SizedBox(
-                              height:
-                              screenHeight(context, mulBy: 0.01),
-                            ),
-                            MBPText(
-                              text:
-                              "Please check the values\nyou entered.",
-                              color: Theme.of(context)
-                                  .cardColor
-                                  .withOpacity(1),
-                              size: 11.5,
-                              weight: FontWeight.w300,
-                              fontFamily: "HN",
-                              maxLines: 2,
-                            ),
-                            SizedBox(
-                              height:
-                              screenHeight(context, mulBy: 0.035),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
-                                  error = true;
-                                  Future.delayed(
-                                      Duration(milliseconds: 400), () {
-                                    valAni = false;
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                        color: !error
+                            ? Colors.black.withOpacity(0.2)
+                            : Colors.transparent,
+                        spreadRadius: 10,
+                        blurRadius: 15,
+                        offset:
+                        Offset(0, 8), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: BackdropFilter(
+                      filter:
+                      ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .dialogBackgroundColor
+                                .withOpacity(0.5),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                              screenWidth(context, mulBy: 0.02)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/apps/feedback.png",
+                                height: 50,
+                              ),
+                              MBPText(
+                                text: "Value Error",
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(1),
+                                size: 18,
+                                weight: FontWeight.w600,
+                              ),
+                              SizedBox(
+                                height:
+                                screenHeight(context, mulBy: 0.01),
+                              ),
+                              MBPText(
+                                text:
+                                "Please check the values\nyou entered.",
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(1),
+                                size: 11.5,
+                                weight: FontWeight.w300,
+                                fontFamily: "HN",
+                                maxLines: 2,
+                              ),
+                              SizedBox(
+                                height:
+                                screenHeight(context, mulBy: 0.035),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    error = true;
+                                    Future.delayed(
+                                        Duration(milliseconds: 400), () {
+                                      valAni = false;
+                                    });
                                   });
-                                });
-                              },
-                              child: Container(
-                                decoration: new BoxDecoration(
-                                    gradient: new LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Color(0xff1473e8),
-                                        Color(0xff0c4382),
-                                      ],
-                                    ),
-                                    borderRadius:
-                                    BorderRadius.circular(5)),
-                                width: 65,
-                                height: 23,
-                                child: MBPText(
-                                  text: "Continue",
-                                  size: 11,
-                                  color: Colors.white,
+                                },
+                                child: Container(
+                                  decoration: new BoxDecoration(
+                                      gradient: new LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Color(0xff1473e8),
+                                          Color(0xff0c4382),
+                                        ],
+                                      ),
+                                      borderRadius:
+                                      BorderRadius.circular(5)),
+                                  width: 65,
+                                  height: 23,
+                                  child: MBPText(
+                                    text: "Continue",
+                                    size: 11,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        )),
+                            ],
+                          )),
+                    ),
                   ),
                 ),
               ),
@@ -1120,145 +1113,141 @@ class _FeedBackState extends State<FeedBack> {
                   });
                 }
               },
-              child: AnimatedContainer(
-                  duration: Duration(milliseconds: 200),
-                  width: screenWidth(context,
-                      mulBy: .5),
+              child: Container(
+                  width: screenWidth(context,),
                   //height: screenHeight(context),
-                  color: Colors.transparent),
+                  color: Colors.black.withOpacity(0.5)
+              ),
             )
                 : Container(),
-            AnimatedPositioned(
-              duration: Duration(milliseconds: valAni ? 400 : 200),
-              left: screenWidth(context,
-                  mulBy:  0.17),
-              top: !submitShow
-                  ? -(screenHeight(context, mulBy: 0.32))
-                  : 0,
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: 200),
-                width: screenWidth(context, mulBy: 0.16),
-                height:  screenHeight(context, mulBy: 0.3),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.2),
-                  ),
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: submitShow
-                          ? Colors.black.withOpacity(0.2)
-                          : Colors.transparent,
-                      spreadRadius: 10,
-                      blurRadius: 15,
-                      offset:
-                      Offset(0, 8), // changes position of shadow
+            Visibility(
+              visible: submitShow,
+              child: Align(
+                alignment: Alignment.center,
+                child: Container(
+                  width: screenWidth(context, mulBy: 0.16),
+                  height:  screenHeight(context, mulBy: 0.3),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.white.withOpacity(0.2),
                     ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10)),
-                  child: BackdropFilter(
-                    filter:
-                    ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
-                    child: Container(
-                        decoration: BoxDecoration(
-                          color: Theme.of(context)
-                              .dialogBackgroundColor
-                              .withOpacity(0.5),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal:
-                            screenWidth(context, mulBy: 0.02)),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/apps/feedback.png",
-                              height: 50,
-                            ),
-                            MBPText(
-                              text: submit == 0
-                                  ? "Please Wait"
-                                  : (submit == 1
-                                  ? "Submission Successful"
-                                  : "Submission Error"),
-                              color: Theme.of(context)
-                                  .cardColor
-                                  .withOpacity(1),
-                              size: 18,
-                              weight: FontWeight.w600,
-                            ),
-                            SizedBox(
-                              height:
-                              screenHeight(context, mulBy: 0.01),
-                            ),
-                            MBPText(
-                              text: submit == 0
-                                  ? "Your $type is being\nsubmitted"
-                                  : (submit == 1
-                                  ? "Your $type has been\nsuccessfully submitted"
-                                  : "Could not submit your $type.\nPlease try again."),
-                              color: Theme.of(context)
-                                  .cardColor
-                                  .withOpacity(1),
-                              size: 11.5,
-                              weight: FontWeight.w300,
-                              fontFamily: "HN",
-                              maxLines: 2,
-                            ),
-                            SizedBox(
-                              height:
-                              screenHeight(context, mulBy: 0.035),
-                            ),
-                            submit > 0
-                                ? InkWell(
-                              onTap: () {
-                                setState(() {
-                                  submit = 3;
-                                  submitShow = false;
-                                  Future.delayed(
-                                      Duration(milliseconds: 400),
-                                          () {
-                                        valAni = false;
-                                      });
-                                });
-                              },
-                              child: Container(
-                                decoration: new BoxDecoration(
-                                    gradient: new LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Color(0xff1473e8),
-                                        Color(0xff0c4382),
-                                      ],
-                                    ),
-                                    borderRadius:
-                                    BorderRadius.circular(5)),
-                                width: 65,
-                                height: 23,
-                                child: MBPText(
-                                  text: "Continue",
-                                  size: 11,
-                                  color: Colors.white,
-                                ),
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: submitShow
+                            ? Colors.black.withOpacity(0.2)
+                            : Colors.transparent,
+                        spreadRadius: 10,
+                        blurRadius: 15,
+                        offset:
+                        Offset(0, 8), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(10),
+                        bottomLeft: Radius.circular(10)),
+                    child: BackdropFilter(
+                      filter:
+                      ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(context)
+                                .dialogBackgroundColor
+                                .withOpacity(0.5),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal:
+                              screenWidth(context, mulBy: 0.02)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/apps/feedback.png",
+                                height: 50,
                               ),
-                            )
-                                : Theme(
-                                data: ThemeData(
-                                    cupertinoOverrideTheme:
-                                    CupertinoThemeData(
-                                        brightness:
-                                        Brightness.dark)),
-                                child:
-                                CupertinoActivityIndicator()),
-                          ],
-                        )),
+                              MBPText(
+                                text: submit == 0
+                                    ? "Please Wait"
+                                    : (submit == 1
+                                    ? "Submission Successful"
+                                    : "Submission Error"),
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(1),
+                                size: 18,
+                                weight: FontWeight.w600,
+                              ),
+                              SizedBox(
+                                height:
+                                screenHeight(context, mulBy: 0.01),
+                              ),
+                              MBPText(
+                                text: submit == 0
+                                    ? "Your $type is being\nsubmitted"
+                                    : (submit == 1
+                                    ? "Your $type has been\nsuccessfully submitted"
+                                    : "Could not submit your $type.\nPlease try again."),
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(1),
+                                size: 11.5,
+                                weight: FontWeight.w300,
+                                fontFamily: "HN",
+                                maxLines: 2,
+                              ),
+                              SizedBox(
+                                height:
+                                screenHeight(context, mulBy: 0.035),
+                              ),
+                              submit > 0
+                                  ? InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    submit = 3;
+                                    submitShow = false;
+                                    Future.delayed(
+                                        Duration(milliseconds: 400),
+                                            () {
+                                          valAni = false;
+                                        });
+                                  });
+                                },
+                                child: Container(
+                                  decoration: new BoxDecoration(
+                                      gradient: new LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Color(0xff1473e8),
+                                          Color(0xff0c4382),
+                                        ],
+                                      ),
+                                      borderRadius:
+                                      BorderRadius.circular(5)),
+                                  width: 65,
+                                  height: 23,
+                                  child: MBPText(
+                                    text: "Continue",
+                                    size: 11,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                                  : Theme(
+                                  data: ThemeData(
+                                      cupertinoOverrideTheme:
+                                      CupertinoThemeData(
+                                          brightness:
+                                          Brightness.dark)),
+                                  child:
+                                  CupertinoActivityIndicator()),
+                            ],
+                          )),
+                    ),
                   ),
                 ),
               ),
