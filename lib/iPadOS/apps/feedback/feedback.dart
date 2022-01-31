@@ -149,8 +149,8 @@ class _FeedBackState extends State<FeedBack> {
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    Color(0xff727272),
-                                    Color(0xff474747)
+                                    Theme.of(context).colorScheme.secondary
+                                     ,Theme.of(context).colorScheme.background,
 
                                   ],
                                 ),
@@ -169,7 +169,7 @@ class _FeedBackState extends State<FeedBack> {
                           height: screenHeight(context, mulBy: 0.05),
                         ),
                         MBPText(
-                          text: "Recent Issues",
+                          text: "Recent Issues Reported",
                           size: 18,
                           fontFamily: "HN",
                           weight: FontWeight.w600,
@@ -179,17 +179,16 @@ class _FeedBackState extends State<FeedBack> {
                           height: screenHeight(context, mulBy: 0.015),
                         ),
                         Expanded(
-                          child: AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
+                          child: Container(
                             width: screenWidth(context),
                             height: screenHeight(context),
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: Colors.white.withOpacity(0.5),
+                                color: Theme.of(context).cardColor.withOpacity(0.5),
                               ),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
-                              color: Color(0xff2f2f2f),
+                              color: Theme.of(context).colorScheme.background,
                             ),
                             child: ClipRRect(
                               borderRadius:
@@ -221,8 +220,8 @@ class _FeedBackState extends State<FeedBack> {
                                                     mulBy: 0.008)),
                                             decoration: BoxDecoration(
                                               color: index % 2 == 0
-                                                  ? Color(0xff3b3b3b)
-                                                  : Color(0xff2f2f2f),
+                                                  ? Theme.of(context).colorScheme.secondary
+                                                  : Theme.of(context).colorScheme.background,
 
                                               border: Border.all(
                                                 color: feedbackItem==snapshot.data[index]?Color(0xffb558e1):Colors.transparent,
@@ -285,11 +284,10 @@ class _FeedBackState extends State<FeedBack> {
                     ),
                   ),
                 ),
-                AnimatedContainer(
+                Container(
                   padding: EdgeInsets.symmetric(
                       horizontal: screenWidth(context, mulBy: 0.02),
                       vertical: screenHeight(context, mulBy: 0.05)),
-                  duration: Duration(milliseconds: 200),
                   width: screenWidth(context, mulBy: .67),
                   decoration: BoxDecoration(
                     color: Theme.of(context).dialogBackgroundColor,
@@ -367,8 +365,7 @@ class _FeedBackState extends State<FeedBack> {
                                             decoration: InputDecoration(
                                                 isDense: true,
                                                 filled: true,
-                                                fillColor:
-                                                    Color(0xff2f2e32),
+                                                fillColor: Theme.of(context).colorScheme.error,
                                                 contentPadding:
                                                     EdgeInsets.symmetric(
                                                         vertical: 12,
@@ -434,8 +431,7 @@ class _FeedBackState extends State<FeedBack> {
                                             decoration: InputDecoration(
                                                 isDense: true,
                                                 filled: true,
-                                                fillColor:
-                                                    Color(0xff2f2e32),
+                                                fillColor: Theme.of(context).colorScheme.error,
                                                 contentPadding:
                                                     EdgeInsets.symmetric(
                                                         vertical: 12,
@@ -508,8 +504,7 @@ class _FeedBackState extends State<FeedBack> {
                                             decoration: InputDecoration(
                                                 isDense: true,
                                                 filled: true,
-                                                fillColor:
-                                                    Color(0xff2f2e32),
+                                                fillColor: Theme.of(context).colorScheme.error,
                                                 contentPadding:
                                                     EdgeInsets.symmetric(
                                                         vertical: 12,
@@ -678,7 +673,7 @@ class _FeedBackState extends State<FeedBack> {
                                         decoration: InputDecoration(
                                             isDense: true,
                                             filled: true,
-                                            fillColor: Color(0xff2f2e32),
+                                            fillColor: Theme.of(context).colorScheme.error,
                                             contentPadding:
                                                 EdgeInsets.symmetric(
                                                     vertical: 8,
