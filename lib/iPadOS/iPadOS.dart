@@ -34,9 +34,6 @@ class _IPadOSState extends State<IPadOS> {
     bool ccOpen = Provider.of<OnOff>(context).getCc;
     double brightness = Provider.of<DataBus>(context).getBrightness;
     List<Widget> app = Provider.of<Apps>(context).getApps;
-    List<Folder> folders =
-        Provider.of<Folders>(context, listen: false).getFolders;
-    var pointerPos = Provider.of<DataBus>(context).getPos;
     bool NSOn = Provider.of<DataBus>(
       context,
     ).getNS;
