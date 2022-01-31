@@ -44,6 +44,11 @@ class ThemeNotifier with ChangeNotifier {
     highlightColor:Colors.black.withOpacity(.13),//darkMode button
     bottomAppBarColor: Colors.black.withOpacity(0.1), //CC Music Color
     selectedRowColor: Color(0xffffffff).withOpacity(0.5),
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+        secondary: Color(0xffbfbfbf), //feedback light color
+        background: Color(0xff898989),  //feedback dark color
+      error: Color(0xffcecece), //feedback textbox fill
+    ),
     primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey,
@@ -97,6 +102,11 @@ class ThemeNotifier with ChangeNotifier {
       hoverColor: Color(0xff110f0f).withOpacity(0.4), // RCM color
     bottomAppBarColor: Colors.white.withOpacity(0.3), //CC Music Color
     selectedRowColor: Color(0xff111111).withOpacity(0.7),
+    colorScheme: ColorScheme.fromSwatch().copyWith(
+      secondary: Color(0xff3b3b3b), //feedback light color
+      background: Color(0xff2f2f2f),  //feedback dark color
+        error: Color(0xff2f2e32), //feedback textbox fill
+    ),
       primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey[200],
