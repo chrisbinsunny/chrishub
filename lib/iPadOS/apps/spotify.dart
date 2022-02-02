@@ -44,30 +44,42 @@ class _SpotifyState extends State<Spotify> {
   }
 
   Widget spotifyWindow(BuildContext context) {
-    var scale= Provider.of<DataBus>(context).getScale;
-    return Transform.scale(
-      scale: scale,
-      alignment: Alignment.topCenter,
-      child: Container(
-        width: screenWidth(context, ),
-        height: screenHeight(context, ),
-        decoration: BoxDecoration(
-            color: Theme.of(context).indicatorColor
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: screenHeight(context, mulBy: 0.04),
-            ),
-            Expanded(
-              child: HtmlElementView(
-                viewType: 'spotifyIframe',
+    return Scaler(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(15),
+        child: Container(
+          width: screenWidth(context, ),
+          height: screenHeight(context, ),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xff516176),
+                Color(0xff0d0f12),
+              ]
+            )
+          ),
+
+          child: Column(
+            children: [
+
+              Container(
+                height: screenHeight(context, mulBy: 0.04),
+                color: Color(0xff516176),
               ),
-            ),
-            SizedBox(
-              height: screenHeight(context, mulBy: 0.05),
-            ),
-          ],
+              Expanded(
+                child: HtmlElementView(
+                  viewType: 'spotifyIframe',
+                ),
+              ),
+              Container(
+                height: screenHeight(context, mulBy: 0.05),
+                color: Color(0xff0d0f12),
+              ),
+            ],
+          ),
         ),
       ),
     );
