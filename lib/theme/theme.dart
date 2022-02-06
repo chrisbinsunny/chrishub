@@ -87,7 +87,7 @@ class ThemeNotifier with ChangeNotifier {
     primarySwatch: Colors.deepOrange,
       backgroundColor: Color(0xff2b2b2b).withOpacity(.05), //Control Center
     cardColor: Colors.white.withOpacity(0.15), //Control Center item border, font color
-    indicatorColor: Colors.black,  //Calendar bg color
+    indicatorColor: Colors.black,  //Calendar bg color, ipad messages left color
       splashColor: Colors.black.withOpacity(0.4), //Control Center border
       shadowColor: Colors.black.withOpacity(0.3), //Control Center outer border
       accentColor: Colors.black.withOpacity(.2), //shadow color
