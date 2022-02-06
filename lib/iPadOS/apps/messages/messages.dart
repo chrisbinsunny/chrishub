@@ -90,7 +90,7 @@ class _MessagesState extends State<Messages> {
                       height: screenHeight(context, mulBy: 0.03),
                     ),
                     Row(
-                      mainAxisAlignment: Main,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         MBPText(
                           text: "Edit",
@@ -103,6 +103,9 @@ class _MessagesState extends State<Messages> {
                           color: Theme.of(context).cardColor.withOpacity(1),
                           size: 18,
                         ),
+                        Icon(
+                          Icons.
+                        )
                       ],
                     ),
                     SizedBox(
