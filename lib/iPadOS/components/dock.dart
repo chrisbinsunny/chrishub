@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:mac_dt/apps/messages/messages.dart';
 import 'package:provider/provider.dart';
 import '../../system/componentsOnOff.dart';
 import '../../system/folders.dart';
@@ -18,6 +17,7 @@ import '../../apps/spotify.dart';
 import '../../apps/terminal/terminal.dart';
 import '../../apps/vscode.dart';
 import '../../apps/safari/safariWindow.dart';
+import '../apps/messages/messages.dart';
 
 //TODO: Icons are not clickable outside of Dock. Known issue of framework. Need to find a Workaround.
 
@@ -82,6 +82,13 @@ class _DockerState extends State<Docker> {
                           children: [
                             DockerItem(
                               iName: "Messages",
+                              onTap: (){
+                                tapFunctionsIpad(context);
+                                Provider.of<Apps>(context, listen: false).openIApp(
+                                  Messages(
+                                    key: ObjectKey("spotify"),),
+                                );
+                              },
                             ),
                             DockerItem(
                               iName: "Safari",
