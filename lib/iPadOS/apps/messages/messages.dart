@@ -76,7 +76,6 @@ class _MessagesState extends State<Messages> {
             children: [
               Container(
                 padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth(context, mulBy: 0.005),
                     vertical: screenHeight(context, mulBy: 0.025)),
                 height: screenHeight(context),
                 width: screenWidth(context, mulBy: 0.2),
@@ -86,68 +85,77 @@ class _MessagesState extends State<Messages> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: screenHeight(context, mulBy: 0.03),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        MBPText(
-                          text: "Edit",
-                          color: Color(0xff0b84ff),
-                          size: 18,
-                        ),
-                        MBPText(
-                          text: "Messages",
-                          weight: Theme.of(context).textTheme.headline3.fontWeight,
-                          color: Theme.of(context).cardColor.withOpacity(1),
-                          size: 18,
-                        ),
-                        Icon(
-                          Icons.
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: screenHeight(context, mulBy: 0.01),
-                    ),
-                    ///Search Box (Fake)
-                    Container(
-                      height: screenHeight(context, mulBy: 0.035),
+                    Padding(
                       padding: EdgeInsets.symmetric(
-                          horizontal: screenWidth(context, mulBy: 0.005)),
-                      decoration: BoxDecoration(
-                          color:
-                          Theme.of(context).cardColor.withOpacity(0.07),
-                          borderRadius: BorderRadius.circular(7),
-                          border: Border.all(
-                              color: Theme.of(context)
-                                  .cardColor
-                                  .withOpacity(0.15),
-                              width: 0.5)),
-                      child: Row(
+                          horizontal: screenWidth(context, mulBy: 0.01),),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Image.asset(
-                            "assets/icons/spotlight.png",
-                            height: 12,
-                            color: Theme.of(context)
-                                .cardColor
-                                .withOpacity(0.3),
+                          SizedBox(
+                            height: screenHeight(context, mulBy: 0.03),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              MBPText(
+                                text: "Edit",
+                                color: Color(0xff0b84ff),
+                                size: 17,
+                              ),
+                              Icon(
+                                CupertinoIcons.text_bubble,
+                                color: Color(0xff0b84ff),
+                                size: 20,
+                              )
+                            ],
                           ),
                           SizedBox(
-                            width: screenWidth(context, mulBy: 0.002),
+                            height: screenHeight(context, mulBy: 0.01),
                           ),
                           MBPText(
-                              text: "Search",
-                              color: Theme.of(context)
-                                  .cardColor
-                                  .withOpacity(0.3),
-                              fontFamily: 'HN')
+                            text: "Messages",
+                            weight: Theme.of(context).textTheme.headline1.fontWeight,
+                            color: Theme.of(context).cardColor.withOpacity(1),
+                            size: 26,
+                          ),
+                          SizedBox(
+                            height: screenHeight(context, mulBy: 0.01),
+                          ),
+                          ///Search Box (Fake)
+                          Container(
+                            height: screenHeight(context, mulBy: 0.035),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth(context, mulBy: 0.005)),
+                            decoration: BoxDecoration(
+                                color:
+                                Theme.of(context).cardColor.withOpacity(0.07),
+                                borderRadius: BorderRadius.circular(7),),
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  "assets/icons/spotlight.png",
+                                  height: 12,
+                                  color: Theme.of(context)
+                                      .cardColor
+                                      .withOpacity(0.3),
+                                ),
+                                SizedBox(
+                                  width: screenWidth(context, mulBy: 0.002),
+                                ),
+                                MBPText(
+                                    text: "Search",
+                                    color: Theme.of(context)
+                                        .cardColor
+                                        .withOpacity(0.3),
+                                    fontFamily: 'HN')
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: screenHeight(context, mulBy: 0.01),
+                          ),
                         ],
                       ),
-                    ),
-                    SizedBox(
-                      height: screenHeight(context, mulBy: 0.01),
                     ),
                     Expanded(
                       child: Container(
@@ -181,11 +189,8 @@ class _MessagesState extends State<Messages> {
                                                   mulBy: 0.008),
                                             ),
                                             decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    5),
                                                 color: selectedChatIndex == index
-                                                    ? Color(0xff0b84ff)
+                                                    ? Colors.grey.withOpacity(0.1)
                                                     : Colors.transparent),
                                             child: Row(
                                               children: [
@@ -363,164 +368,192 @@ class _MessagesState extends State<Messages> {
                         child: Stack(
                           alignment: Alignment.bottomCenter,
                           children: [
-                            Column(
-                              children: [
-                                Container(
-                                  height: screenHeight(context, mulBy: 0.07),
-                                  width: double.infinity,
-                                  padding: EdgeInsets.only(
-                                    left:
-                                    screenWidth(context, mulBy: 0.013),
-                                    right: screenWidth(context, mulBy: 0.088),
-                                    //vertical: screenHeight(context, mulBy: 0.03)
-                                  ),
-                                  decoration: BoxDecoration(
-                                      color: Color(0xff3b393b),
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Colors.black,
-                                              width: 0.7))),
-                                  child: Row(
-                                    children: [
-                                      MBPText(
-                                        text: "To:",
-                                        color: Color(0xff747374),
-                                        fontFamily: "HN",
-                                        weight: FontWeight.w500,
-                                        size: 11,
-                                      ),
-                                      MBPText(
-                                        text:
-                                        " ${snapshot.data[selectedChatIndex].senderName}",
-                                        color: Theme.of(context)
-                                            .cardColor
-                                            .withOpacity(1),
-                                        fontFamily: 'HN',
-                                        weight: FontWeight.w400,
-                                        size: 12,
-                                      ),
-                                      Spacer(),
-                                      ///The info screen on/off function has been moved to outer stack.
-                                      Icon(
-                                        CupertinoIcons.info,
-                                        color: Color(0xff9b999b),
-                                        size: 20,
-                                      ),
-                                    ],
+                            Expanded(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(),
+                                decoration: BoxDecoration(),
+                                child: ScrollConfiguration(
+                                  //TODO Scrollbar
+                                  ///turned off scrollbar, coz of weird reverse scrollbar
+                                  behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false ),
+                                  child: ListView.builder(
+                                    ///For viewing the last chat when the screen opens. Using index in reverse.
+                                    reverse: snapshot.data[selectedChatIndex]
+                                        .messages.sender.length >
+                                        7,
+                                    padding: EdgeInsets.only(
+                                      bottom: screenHeight(context,
+                                          mulBy: 0.085),
+                                      top: screenHeight(context, mulBy: 0.1),
+                                      left: screenWidth(context, mulBy: 0.009),
+                                      right: screenWidth(context, mulBy: 0.009),
+
+                                    ),
+                                    physics: BouncingScrollPhysics(),
+                                    itemCount: snapshot.data[selectedChatIndex]
+                                        .messages.sender.length,
+                                    controller: chatScrollController,
+                                    itemBuilder: (context, index) {
+                                      if (snapshot.data[selectedChatIndex]
+                                          .messages.sender.length >
+                                          7)
+                                        reversedIndex = snapshot
+                                            .data[selectedChatIndex]
+                                            .messages
+                                            .sender
+                                            .length -
+                                            1 -
+                                            index;
+                                      else
+                                        reversedIndex = index;
+                                      return Column(
+                                        children: [
+                                          if (snapshot.data[selectedChatIndex]
+                                              .dateStops
+                                              .contains(reversedIndex))
+                                            MBPText(
+                                              text:
+                                              "${DateFormat("EEE, d MMM, hh:mm a").format(DateTime.parse(snapshot.data[selectedChatIndex].dates[snapshot.data[selectedChatIndex].dateStops.indexOf(reversedIndex)]))}",
+                                              color: Theme.of(context)
+                                                  .cardColor
+                                                  .withOpacity(0.6),
+                                              fontFamily: "HN",
+                                              size: 10,
+                                            ),
+                                          ChatBubble(
+                                            clipper: iMessageClipper(
+                                                type: BubbleType
+                                                    .receiverBubble),
+                                            margin:
+                                            EdgeInsets.only(top: 5),
+                                            backGroundColor:
+                                            Color(0xff3b3b3d),
+                                            child: Container(
+                                              constraints: BoxConstraints(
+                                                maxWidth: screenWidth(
+                                                    context,
+                                                    mulBy: 0.15),
+                                              ),
+                                              child: Text(
+                                                "${snapshot.data[selectedChatIndex].messages.sender[reversedIndex]}",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontFamily: 'HN',
+                                                    fontWeight:
+                                                    FontWeight.w400,
+                                                    fontSize: 12),
+                                              ),
+                                            ),
+                                          ),
+                                          ChatBubble(
+                                            clipper: iMessageClipper(
+                                                type: BubbleType
+                                                    .sendBubble),
+                                            alignment: Alignment.topRight,
+                                            margin:
+                                            EdgeInsets.only(top: 5),
+                                            backGroundColor:
+                                            Color(0xff1f8bff),
+                                            child: Container(
+                                              constraints: BoxConstraints(
+                                                maxWidth: screenWidth(
+                                                    context,
+                                                    mulBy: 0.15),
+                                              ),
+                                              child: Text(
+                                                "${snapshot.data[selectedChatIndex].messages.me[reversedIndex]}",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontFamily: 'HN',
+                                                    fontWeight:
+                                                    FontWeight.w400,
+                                                    fontSize: 12),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                 ),
-                                Expanded(
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.topCenter,
+                              child: ClipRect(
+                                child: BackdropFilter(
+                                  filter: ImageFilter.blur(
+                                      sigmaX: 15.0, sigmaY: 15.0),
                                   child: Container(
-                                    padding: EdgeInsets.symmetric(),
-                                    decoration: BoxDecoration(),
-                                    child: ScrollConfiguration(
-                                      //TODO Scrollbar
-                                      ///turned off scrollbar, coz of weird reverse scrollbar
-                                      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false ),
-                                      child: ListView.builder(
-                                        ///For viewing the last chat when the screen opens. Using index in reverse.
-                                        reverse: snapshot.data[selectedChatIndex]
-                                            .messages.sender.length >
-                                            7,
-                                        padding: EdgeInsets.only(
-                                          bottom: screenHeight(context,
-                                              mulBy: 0.085),
-                                          top: screenHeight(context,
+                                    height: screenHeight(context, mulBy: 0.09),
+                                    width: double.infinity,
+                                    padding: EdgeInsets.only(
+                                      left:
+                                      screenWidth(context, mulBy: 0.013),
+                                      right: screenWidth(context, mulBy: 0.088),
+                                      //vertical: screenHeight(context, mulBy: 0.03)
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0.07),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            gradient: new LinearGradient(
+                                                colors: [
+                                                  Color(0xff6d6d6d),
+                                                  Color(0xff484848)
+                                                ],
+                                                begin:
+                                                const FractionalOffset(
+                                                    0, 0),
+                                                end:
+                                                const FractionalOffset(
+                                                    0, 1),
+                                                stops: [0.0, 1.0],
+                                                tileMode:
+                                                TileMode.clamp),
+                                          ),
+                                          height: screenHeight(
+                                              context,
                                               mulBy: 0.045),
-                                          left: screenWidth(context, mulBy: 0.009),
-                                          right: screenWidth(context, mulBy: 0.009),
-
+                                          width: screenHeight(
+                                              context,
+                                              mulBy: 0.045),
+                                          padding: EdgeInsets.all(
+                                              screenHeight(context,
+                                                  mulBy: 0.01)),
+                                          child: MBPText(
+                                            text:
+                                            "${snapshot.data[selectedChatIndex].senderName.toString().getInitials().capitalize()}",
+                                            color: Colors.white,
+                                            fontFamily: "SFR",
+                                            size: 25,
+                                            weight: FontWeight.w500,
+                                            overflow:
+                                            TextOverflow.fade,
+                                            maxLines: 1,
+                                            softWrap: false,
+                                          ),
                                         ),
-                                        physics: BouncingScrollPhysics(),
-                                        itemCount: snapshot.data[selectedChatIndex]
-                                            .messages.sender.length,
-                                        controller: chatScrollController,
-                                        itemBuilder: (context, index) {
-                                          if (snapshot.data[selectedChatIndex]
-                                              .messages.sender.length >
-                                              7)
-                                            reversedIndex = snapshot
-                                                .data[selectedChatIndex]
-                                                .messages
-                                                .sender
-                                                .length -
-                                                1 -
-                                                index;
-                                          else
-                                            reversedIndex = index;
-                                          return Column(
-                                            children: [
-                                              if (snapshot.data[selectedChatIndex]
-                                                  .dateStops
-                                                  .contains(reversedIndex))
-                                                MBPText(
-                                                  text:
-                                                  "${DateFormat("EEE, d MMM, hh:mm a").format(DateTime.parse(snapshot.data[selectedChatIndex].dates[snapshot.data[selectedChatIndex].dateStops.indexOf(reversedIndex)]))}",
-                                                  color: Theme.of(context)
-                                                      .cardColor
-                                                      .withOpacity(0.6),
-                                                  fontFamily: "HN",
-                                                  size: 10,
-                                                ),
-                                              ChatBubble(
-                                                clipper: iMessageClipper(
-                                                    type: BubbleType
-                                                        .receiverBubble),
-                                                margin:
-                                                EdgeInsets.only(top: 5),
-                                                backGroundColor:
-                                                Color(0xff3b3b3d),
-                                                child: Container(
-                                                  constraints: BoxConstraints(
-                                                    maxWidth: screenWidth(
-                                                        context,
-                                                        mulBy: 0.15),
-                                                  ),
-                                                  child: Text(
-                                                    "${snapshot.data[selectedChatIndex].messages.sender[reversedIndex]}",
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontFamily: 'HN',
-                                                        fontWeight:
-                                                        FontWeight.w400,
-                                                        fontSize: 12),
-                                                  ),
-                                                ),
-                                              ),
-                                              ChatBubble(
-                                                clipper: iMessageClipper(
-                                                    type: BubbleType
-                                                        .sendBubble),
-                                                alignment: Alignment.topRight,
-                                                margin:
-                                                EdgeInsets.only(top: 5),
-                                                backGroundColor:
-                                                Color(0xff1f8bff),
-                                                child: Container(
-                                                  constraints: BoxConstraints(
-                                                    maxWidth: screenWidth(
-                                                        context,
-                                                        mulBy: 0.15),
-                                                  ),
-                                                  child: Text(
-                                                    "${snapshot.data[selectedChatIndex].messages.me[reversedIndex]}",
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontFamily: 'HN',
-                                                        fontWeight:
-                                                        FontWeight.w400,
-                                                        fontSize: 12),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      ),
+                                        MBPText(
+                                          text:
+                                          " ${snapshot.data[selectedChatIndex].senderName} >",
+                                          color: Theme.of(context)
+                                              .cardColor
+                                              .withOpacity(0.7),
+                                          fontFamily: 'HN',
+                                          weight: FontWeight.w400,
+                                          size: 10,
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                             ClipRect(
                               child: BackdropFilter(
@@ -529,37 +562,43 @@ class _MessagesState extends State<Messages> {
                                 child: Container(
                                   height: screenHeight(context, mulBy: 0.055),
                                   width: double.infinity,
+                                  padding: EdgeInsets.symmetric(horizontal: screenWidth(context, mulBy: 0.01)),
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
-                                        .scaffoldBackgroundColor
-                                        .withOpacity(0.5),
+                                        .indicatorColor
+                                        .withOpacity(0.65),
                                   ),
                                   child: Row(
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                     children: [
+                                      Icon(
+                                        CupertinoIcons.camera_fill,
+                                        size: 22,
+                                        color: Colors.grey,
+                                      ),
                                       Image.asset(
                                         "assets/messages/store.png",
                                         height: 23,
                                       ),
+
                                       InkWell(
                                         //onTap: (){showAlertDialog(context);},
-                                        child: AnimatedContainer(
-                                          duration:
-                                          Duration(milliseconds: 200),
+                                        child: Container(
                                           width: screenWidth(context,
                                               mulBy:
-                                              0.73 ),
+                                              0.68 ),
                                           height: screenHeight(context,
                                               mulBy: 0.032),
                                           padding: EdgeInsets.only(
                                               left: screenWidth(context,
                                                   mulBy: 0.008),
                                               right: screenWidth(context,
-                                                  mulBy: 0.005)),
+                                                  mulBy: 0.001)),
                                           decoration: BoxDecoration(
                                               color: Theme.of(context)
-                                                  .scaffoldBackgroundColor,
+                                                  .indicatorColor
+                                                  .withOpacity(0.3),
                                               borderRadius:
                                               BorderRadius.circular(50),
                                               border: Border.all(
@@ -589,10 +628,11 @@ class _MessagesState extends State<Messages> {
                                                       fontSize: 12),
                                                 ),
                                               ),
-                                              Image.asset(
-                                                "assets/messages/voice.png",
-                                                height: 23,
-                                              ),
+                                              Icon(
+                                                CupertinoIcons.waveform_circle_fill,
+                                                size: 21,
+                                                color: Colors.grey,
+                                              )
                                             ],
                                           ),
                                         ),
