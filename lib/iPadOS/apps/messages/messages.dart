@@ -383,7 +383,7 @@ class _MessagesState extends State<Messages> {
                                         7,
                                     padding: EdgeInsets.only(
                                       bottom: screenHeight(context,
-                                          mulBy: 0.085),
+                                          mulBy: 0.135),
                                       top: screenHeight(context, mulBy: 0.1),
                                       left: screenWidth(context, mulBy: 0.009),
                                       right: screenWidth(context, mulBy: 0.009),
@@ -560,9 +560,10 @@ class _MessagesState extends State<Messages> {
                                 filter: ImageFilter.blur(
                                     sigmaX: 15.0, sigmaY: 15.0),
                                 child: Container(
-                                  height: screenHeight(context, mulBy: 0.055),
+                                  height: screenHeight(context, mulBy: 0.105),
                                   width: double.infinity,
-                                  padding: EdgeInsets.symmetric(horizontal: screenWidth(context, mulBy: 0.01)),
+                                  alignment: Alignment.topCenter,
+                                  padding: EdgeInsets.symmetric(horizontal: screenWidth(context, mulBy: 0.01), vertical: screenHeight(context, mulBy: 0.01),),
                                   decoration: BoxDecoration(
                                     color: Theme.of(context)
                                         .indicatorColor
@@ -587,9 +588,9 @@ class _MessagesState extends State<Messages> {
                                         child: Container(
                                           width: screenWidth(context,
                                               mulBy:
-                                              0.68 ),
+                                              0.7 ),
                                           height: screenHeight(context,
-                                              mulBy: 0.032),
+                                              mulBy: 0.04),
                                           padding: EdgeInsets.only(
                                               left: screenWidth(context,
                                                   mulBy: 0.008),
@@ -630,16 +631,12 @@ class _MessagesState extends State<Messages> {
                                               ),
                                               Icon(
                                                 CupertinoIcons.waveform_circle_fill,
-                                                size: 21,
+                                                size: 25,
                                                 color: Colors.grey,
                                               )
                                             ],
                                           ),
                                         ),
-                                      ),
-                                      Image.asset(
-                                        "assets/messages/emoji.png",
-                                        height: 23,
                                       ),
                                     ],
                                   ),
@@ -661,13 +658,12 @@ class _MessagesState extends State<Messages> {
                                 borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(10),
                                     bottomRight: Radius.circular(10)),
-                                color:
-                                Theme.of(context).scaffoldBackgroundColor,
+                                color: Theme.of(context).indicatorColor,
                               ),
                               child: Center(
                                   child: CupertinoActivityIndicator()))));
                 },
-              )
+              ),
             ],
           ),
           Visibility(
