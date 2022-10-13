@@ -37,7 +37,6 @@ class Folders extends ChangeNotifier{
             name = "$name ${++folderNum}";
           }
         }
-
         }
       x= ((folders.length)/6).toInt();
       y= (folders.length)%6;
@@ -45,8 +44,6 @@ class Folders extends ChangeNotifier{
         initPos=Offset(screenWidth(context, mulBy: 0.91), y*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.09));
       else
         initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.07), (y)*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.09));
-
-
     }
     folders.add(Folder( key: UniqueKey(), name: name, renaming: renaming, initPos: initPos, ));
     notifyListeners();
