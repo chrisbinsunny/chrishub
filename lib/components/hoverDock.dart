@@ -7,9 +7,9 @@ import 'package:mac_dt/sizes.dart';
 
 
 class TranslateOnHover extends StatefulWidget {
-  final Widget child;
+  final Widget? child;
   // You can also pass the translation in here if you want to
-  TranslateOnHover({Key key, this.child}) : super(key: key);
+  TranslateOnHover({Key? key, this.child}) : super(key: key);
 
   @override
   _TranslateOnHoverState createState() => _TranslateOnHoverState();
@@ -54,11 +54,11 @@ extension HoverExtensions on Widget {
       child: this,
       // When the mouse enters the widget set the cursor to pointer
       onHover: (event) {
-        appContainer.style.cursor = 'pointer';
+        appContainer!.style.cursor = 'pointer';
       },
       // When it exits set it back to default
       onExit: (event) {
-        appContainer.style.cursor = 'default';
+        appContainer!.style.cursor = 'default';
       },
     );
   }

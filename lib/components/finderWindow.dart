@@ -12,18 +12,18 @@ import '../widgets.dart';
 
 
 class Finder extends StatefulWidget {
-  final Offset initPos;
-  const Finder({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const Finder({this.initPos, Key? key}) : super(key: key);
 
   @override
   _FinderState createState() => _FinderState();
 }
 
 class _FinderState extends State<Finder> {
-  Offset position = Offset(0.0, 0.0);
+  Offset? position = Offset(0.0, 0.0);
   String selected = "Applications";
-  bool finderFS;
-  bool finderPan;
+  late bool finderFS;
+  late bool finderPan;
 
   @override
   void initState() {
@@ -38,8 +38,8 @@ class _FinderState extends State<Finder> {
     finderPan = Provider.of<OnOff>(context).getFinderPan;
       return AnimatedPositioned(
             duration: Duration(milliseconds: finderPan ? 0 : 200),
-            top: finderFS ? screenHeight(context, mulBy: 0.034) : position.dy,
-            left: finderFS ? 0 : position.dx,
+            top: finderFS ? screenHeight(context, mulBy: 0.034) : position!.dy,
+            left: finderFS ? 0 : position!.dx,
             child: finderWindow(context),
           );
   }
@@ -169,7 +169,7 @@ class _FinderState extends State<Finder> {
                           style: TextStyle(
                             fontWeight: Theme.of(context)
                                 .textTheme
-                                .headline1
+                                .headline1!
                                 .fontWeight,
                             fontFamily: "SF",
                             color: Theme.of(context).cardColor.withOpacity(.38),
@@ -297,7 +297,7 @@ class _FinderState extends State<Finder> {
                                   size: 15,
                                   weight: Theme.of(context)
                                       .textTheme
-                                      .headline1
+                                      .headline1!
                                       .fontWeight,
                                   color: Theme.of(context)
                                       .cardColor
@@ -351,8 +351,8 @@ class _FinderState extends State<Finder> {
             onPanUpdate: (tapInfo) {
               if (!finderFS) {
                 setState(() {
-                  position = Offset(position.dx + tapInfo.delta.dx,
-                      position.dy + tapInfo.delta.dy);
+                  position = Offset(position!.dx + tapInfo.delta.dx,
+                      position!.dy + tapInfo.delta.dy);
                 });
               }
             },

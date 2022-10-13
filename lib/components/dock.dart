@@ -25,7 +25,7 @@ import '../apps/safari/safariWindow.dart';
 
 class Docker extends StatefulWidget {
   const Docker({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -33,11 +33,11 @@ class Docker extends StatefulWidget {
 }
 
 class _DockerState extends State<Docker> {
-  DateTime now;
+  late DateTime now;
   bool _animate = false;
   var _offsetX = 0.0;
   var _offsetY = 0.0;
-  bool safariOpen, vsOpen, messageOpen,spotifyOpen, fbOpen, calendarOpen, terminalOpen;
+  bool? safariOpen, vsOpen, messageOpen,spotifyOpen, fbOpen, calendarOpen, terminalOpen;
 
   @override
   void initState() {
@@ -343,7 +343,7 @@ class _DockerState extends State<Docker> {
                               height: 4,
                               width: 4,
                               decoration: BoxDecoration(
-                                color: calendarOpen
+                                color: calendarOpen!
                                     ? Theme.of(context)
                                     .cardColor
                                     .withOpacity(1)
@@ -423,13 +423,13 @@ class _DockerState extends State<Docker> {
 
 class DockerItem extends StatefulWidget {
   final String iName;
-  final bool on;
+  final bool? on;
   double dx;
-  VoidCallback onTap=(){};
+  VoidCallback? onTap=(){};
   DockerItem({
-    Key key,
-    @required this.iName,
-    @required this.dx,
+    Key? key,
+    required this.iName,
+    required this.dx,
     this.on = false,
     this.onTap
   }) : super(key: key);
@@ -460,7 +460,7 @@ class _DockerItemState extends State<DockerItem> {
             height: 4,
             width: 4,
             decoration: BoxDecoration(
-              color: widget.on
+              color: widget.on!
                   ? Theme.of(context).cardColor.withOpacity(1)
                   : Colors.transparent,
               shape: BoxShape.circle,
