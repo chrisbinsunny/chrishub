@@ -10,17 +10,17 @@ import 'dart:html' as html;
 import 'dart:ui' as ui;
 
 class Spotify extends StatefulWidget {
-  final Offset initPos;
-  const Spotify({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const Spotify({this.initPos, Key? key}) : super(key: key);
 
   @override
   _SpotifyState createState() => _SpotifyState();
 }
 
 class _SpotifyState extends State<Spotify> {
-  Offset position = Offset(0.0, 0.0);
-  bool spotifyFS;
-  bool spotifyPan;
+  Offset? position = Offset(0.0, 0.0);
+  late bool spotifyFS;
+  late bool spotifyPan;
   final html.IFrameElement _iframeElementURL = html.IFrameElement();
 
 
@@ -47,8 +47,8 @@ class _SpotifyState extends State<Spotify> {
     return spotifyOpen
         ? AnimatedPositioned(
       duration: Duration(milliseconds: spotifyPan ? 0 : 200),
-      top: spotifyFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-      left: spotifyFS ? 0 : position.dx,
+      top: spotifyFS ? screenHeight(context, mulBy: 0.0335) : position!.dy,
+      left: spotifyFS ? 0 : position!.dx,
       child: spotifyWindow(context),
     )
         : Container();
@@ -100,8 +100,8 @@ class _SpotifyState extends State<Spotify> {
                     onPanUpdate: (tapInfo) {
                       if (!spotifyFS) {
                         setState(() {
-                          position = Offset(position.dx + tapInfo.delta.dx,
-                              position.dy + tapInfo.delta.dy);
+                          position = Offset(position!.dx + tapInfo.delta.dx,
+                              position!.dy + tapInfo.delta.dy);
                         });
                       }
                     },

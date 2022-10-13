@@ -10,17 +10,17 @@ import 'dart:html' as html;
 import 'dart:ui' as ui;
 
 class VSCode extends StatefulWidget {
-  final Offset initPos;
-  const VSCode({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const VSCode({this.initPos, Key? key}) : super(key: key);
 
   @override
   _VSCodeState createState() => _VSCodeState();
 }
 
 class _VSCodeState extends State<VSCode> {
-  Offset position = Offset(0.0, 0.0);
-  bool vsFS;
-  bool vsPan;
+  Offset? position = Offset(0.0, 0.0);
+  late bool vsFS;
+  late bool vsPan;
   final html.IFrameElement _iframeElementURL = html.IFrameElement();
 
   @override
@@ -46,8 +46,8 @@ class _VSCodeState extends State<VSCode> {
     return vsOpen
         ? AnimatedPositioned(
       duration: Duration(milliseconds: vsPan ? 0 : 200),
-      top: vsFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-      left: vsFS ? 0 : position.dx,
+      top: vsFS ? screenHeight(context, mulBy: 0.0335) : position!.dy,
+      left: vsFS ? 0 : position!.dx,
       child: vsWindow(context),
     )
         : Container();
@@ -98,8 +98,8 @@ class _VSCodeState extends State<VSCode> {
                     onPanUpdate: (tapInfo) {
                       if (!vsFS) {
                         setState(() {
-                          position = Offset(position.dx + tapInfo.delta.dx,
-                              position.dy + tapInfo.delta.dy);
+                          position = Offset(position!.dx + tapInfo.delta.dx,
+                              position!.dy + tapInfo.delta.dy);
                         });
                       }
                     },

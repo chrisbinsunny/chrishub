@@ -16,11 +16,11 @@ class FormController {
   /// Async function which saves feedback, parses [feedbackForm] parameters
   /// and sends HTTP GET request on [URL]. On successful response, [callback] is called.
   void submitForm(
-      FeedbackForm feedbackForm, void Function(String) callback) async {
+      FeedbackForm feedbackForm, void Function(String?) callback) async {
     try {
       await http.post(Uri.parse(URL), body: feedbackForm.toJson()).then((response) async {
         if (response.statusCode == 302) {
-          var url = response.headers['location'];
+          var url = response.headers['location']!;
           await http.get(Uri.parse(url)).then((response) {
             callback(convert.jsonDecode(response.body)['status']);
           });

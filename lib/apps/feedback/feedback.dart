@@ -17,18 +17,18 @@ import 'model.dart';
 //TODO Theming of  feedback
 
 class FeedBack extends StatefulWidget {
-  final Offset initPos;
-  const FeedBack({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const FeedBack({this.initPos, Key? key}) : super(key: key);
 
   @override
   _FeedBackState createState() => _FeedBackState();
 }
 
 class _FeedBackState extends State<FeedBack> {
-  Offset position = Offset(0.0, 0.0);
-  bool feedbackFS;
-  bool feedbackPan;
-  bool feedbackOpen;
+  Offset? position = Offset(0.0, 0.0);
+  late bool feedbackFS;
+  late bool feedbackPan;
+  late bool feedbackOpen;
   bool error = true;
   bool valAni = false;
   bool valid = false;
@@ -39,34 +39,34 @@ class _FeedBackState extends State<FeedBack> {
   /// 0=submitting, 1=success, 2=error, 3= free state
   bool submitShow = false;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController nameController;
-  TextEditingController emailController;
-  TextEditingController mobileNoController;
-  TextEditingController feedbackController;
+  TextEditingController? nameController;
+  TextEditingController? emailController;
+  TextEditingController? mobileNoController;
+  TextEditingController? feedbackController;
   String type = "Feedback";
-  FeedbackForm feedbackItem = new FeedbackForm(
+  FeedbackForm? feedbackItem = new FeedbackForm(
       "Name", "yoyo", "123", "io", "hihihi", "2021-06-13T09:23:06.469Z");
   ScrollController scrollController = new ScrollController();
 
   void _submitForm() {
-    if (nameController.text.isNotEmpty &&
-        emailController.text.contains("@") &&
-        (mobileNoController.text.isEmpty ||
-            (mobileNoController.text.length >= 10 &&
-                int.tryParse(mobileNoController.text) != null)) &&
+    if (nameController!.text.isNotEmpty &&
+        emailController!.text.contains("@") &&
+        (mobileNoController!.text.isEmpty ||
+            (mobileNoController!.text.length >= 10 &&
+                int.tryParse(mobileNoController!.text) != null)) &&
         type.isNotEmpty &&
-        feedbackController.text.isNotEmpty) {
+        feedbackController!.text.isNotEmpty) {
       valid = true;
     }
-    _formKey.currentState.validate();
+    _formKey.currentState!.validate();
     if (valid) {
       // If the form is valid, proceed.
       FeedbackForm feedbackForm = FeedbackForm(
-        nameController.text,
-        emailController.text,
-        mobileNoController.text,
+        nameController!.text,
+        emailController!.text,
+        mobileNoController!.text,
         type,
-        feedbackController.text,
+        feedbackController!.text,
         DateTime.now().toString(),
       );
 
@@ -77,16 +77,16 @@ class _FeedBackState extends State<FeedBack> {
         submit = 0;
       });
 
-      formController.submitForm(feedbackForm, (String response) {
+      formController.submitForm(feedbackForm, (String? response) {
         print("Response: $response");
         Future.delayed(Duration(seconds: 0), () {
           if (response == FormController.STATUS_SUCCESS) {
             setState(() {
               submit = 1;
-              nameController.clear();
-              emailController.clear();
-              mobileNoController.clear();
-              feedbackController.clear();
+              nameController!.clear();
+              emailController!.clear();
+              mobileNoController!.clear();
+              feedbackController!.clear();
               issues= FormController().getFeedbackList();
             });
           } else {
@@ -119,8 +119,8 @@ class _FeedBackState extends State<FeedBack> {
         ? AnimatedPositioned(
             duration: Duration(milliseconds: feedbackPan ? 0 : 200),
             top:
-                feedbackFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-            left: feedbackFS ? 0 : position.dx,
+                feedbackFS ? screenHeight(context, mulBy: 0.0335) : position!.dy,
+            left: feedbackFS ? 0 : position!.dx,
             child: feedbackWindow(context),
           )
         : Container();
@@ -398,7 +398,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 cursorHeight: 16,
                                                 controller: nameController,
                                                 validator: (value) {
-                                                  if (value.isEmpty) {
+                                                  if (value!.isEmpty) {
                                                     setState(() {
                                                       error = false;
                                                       valAni = true;
@@ -475,7 +475,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 cursorHeight: 16,
                                                 controller: emailController,
                                                 validator: (value) {
-                                                  if (!value.contains("@")) {
+                                                  if (!value!.contains("@")) {
                                                     setState(() {
                                                       error = false;
                                                       valAni = true;
@@ -553,7 +553,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 cursorHeight: 16,
                                                 controller: mobileNoController,
                                                 validator: (value) {
-                                                  if (value.isNotEmpty &&
+                                                  if (value!.isNotEmpty &&
                                                       value.length < 10 &&
                                                       int.tryParse(value) ==
                                                           null)
@@ -733,7 +733,7 @@ class _FeedBackState extends State<FeedBack> {
                                             controller: feedbackController,
                                             textAlign: TextAlign.start,
                                             validator: (value) {
-                                              if (value.isEmpty) {
+                                              if (value!.isEmpty) {
                                                 setState(() {
                                                   error = false;
                                                   valAni = true;
@@ -875,7 +875,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 borderRadius:
                                                     BorderRadius.circular(8)),
                                             child: Text(
-                                              "${feedbackItem.name}",
+                                              "${feedbackItem!.name}",
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: "HN",
@@ -932,7 +932,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 borderRadius:
                                                     BorderRadius.circular(8)),
                                             child: Text(
-                                              "${feedbackItem.dateTime}",
+                                              "${feedbackItem!.dateTime}",
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: "HN",
@@ -1007,7 +1007,7 @@ class _FeedBackState extends State<FeedBack> {
                                                         mulBy: 0.02),
                                                   ),
                                                   Text(
-                                                    "${feedbackItem.feedback}",
+                                                    "${feedbackItem!.feedback}",
                                                     style: TextStyle(
                                                       fontSize: 12,
                                                       fontFamily: "HN",
@@ -1389,8 +1389,8 @@ class _FeedBackState extends State<FeedBack> {
             onPanUpdate: (tapInfo) {
               if (!feedbackFS) {
                 setState(() {
-                  position = Offset(position.dx + tapInfo.delta.dx,
-                      position.dy + tapInfo.delta.dy);
+                  position = Offset(position!.dx + tapInfo.delta.dx,
+                      position!.dy + tapInfo.delta.dy);
                 });
               }
             },

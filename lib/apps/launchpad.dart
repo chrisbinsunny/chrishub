@@ -24,14 +24,14 @@ import 'vscode.dart';
 
 
 class LaunchPad extends StatefulWidget {
-  const LaunchPad({Key key}) : super(key: key);
+  const LaunchPad({Key? key}) : super(key: key);
 
   @override
   _LaunchPadState createState() => _LaunchPadState();
 }
 
 class _LaunchPadState extends State<LaunchPad> {
-  DateTime now;
+  late DateTime now;
   bool _animate = false;
   TextEditingController controller= new TextEditingController();
   @override
@@ -403,9 +403,9 @@ class LaunchPadItem extends StatefulWidget {
   final String iName;
   VoidCallback onTap;
   LaunchPadItem({
-    Key key,
-    @required this.iName,
-    @required this.onTap
+    Key? key,
+    required this.iName,
+    required this.onTap
   }) : super(key: key);
 
   @override

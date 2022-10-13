@@ -23,21 +23,21 @@ String output = "";
 String directory = "/~";
 
 class Terminal extends StatefulWidget {
-  final Offset initPos;
-  const Terminal({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const Terminal({this.initPos, Key? key}) : super(key: key);
 
   @override
   _TerminalState createState() => _TerminalState();
 }
 
 class _TerminalState extends State<Terminal> {
-  Offset position = Offset(0.0, 0.0);
-  bool terminalFS;
-  bool terminalPan;
+  Offset? position = Offset(0.0, 0.0);
+  late bool terminalFS;
+  late bool terminalPan;
   var commandTECs = <TextEditingController>[];
   var oldCommands = <String>[""];
   var commandCards = <Widget>[];
-  DateTime now;
+  late DateTime now;
   int updownIndex = 0;
   String currentDir = "~";
   Map<String, List<String>> contents = {
@@ -118,22 +118,22 @@ class _TerminalState extends State<Terminal> {
           break;
         }
         if (contents.containsKey(target)) {
-          if (contents[target].length < 10) {
+          if (contents[target]!.length < 10) {
             int maxLen = 0;
-            for (int i = 0; i < contents[target].length; i++) {
-              if (contents[target][i].length > maxLen)
-                maxLen = contents[target][i].length;
+            for (int i = 0; i < contents[target]!.length; i++) {
+              if (contents[target]![i].length > maxLen)
+                maxLen = contents[target]![i].length;
             }
             maxLen += 5;
-            for (int i = 0; i < contents[target].length; i++) {
-              output += "${contents[target][i].capitalize()}";
+            for (int i = 0; i < contents[target]!.length; i++) {
+              output += "${contents[target]![i].capitalize()}";
               if ((i + 1) % 3 == 0)
                 output += "\n";
               else
-                output += " " * (maxLen - contents[target][i].length);
+                output += " " * (maxLen - contents[target]![i].length);
             }
           } else
-            contents[target].forEach((item) {
+            contents[target]!.forEach((item) {
               output += "${item.capitalize()}\n";
             });
           break;
@@ -227,7 +227,7 @@ class _TerminalState extends State<Terminal> {
           output = "/$currentDir : Permission denied.";
           break;
         }
-        if (contents[currentDir].contains(variable)) {
+        if (contents[currentDir]!.contains(variable)) {
           directory = directory + "/" + variable;
           currentDir = variable;
         } else {
@@ -332,8 +332,8 @@ class _TerminalState extends State<Terminal> {
     terminalPan = Provider.of<OnOff>(context).getTerminalPan;
     return AnimatedPositioned(
       duration: Duration(milliseconds: terminalPan ? 0 : 200),
-      top: terminalFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-      left: terminalFS ? 0 : position.dx,
+      top: terminalFS ? screenHeight(context, mulBy: 0.0335) : position!.dy,
+      left: terminalFS ? 0 : position!.dx,
       child: RawKeyboardListener(
           autofocus: true,
           focusNode: FocusNode(),
@@ -393,7 +393,7 @@ class _TerminalState extends State<Terminal> {
                               "chrisbin -- -zsh -- ${terminalFS ? screenWidth(context, mulBy: .1).floor() : screenWidth(context, mulBy: 0.04).floor()}x${terminalFS ? screenHeight(context, mulBy: 0.0966).floor() : screenHeight(context, mulBy: 0.05).floor()}",
                           fontFamily: "HN",
                           color: Theme.of(context).cardColor.withOpacity(1),
-                          weight: Theme.of(context).textTheme.headline4.fontWeight,
+                          weight: Theme.of(context).textTheme.headline4!.fontWeight,
                         )
                       ],
                     ),
@@ -402,8 +402,8 @@ class _TerminalState extends State<Terminal> {
                     onPanUpdate: (tapInfo) {
                       if (!terminalFS) {
                         setState(() {
-                          position = Offset(position.dx + tapInfo.delta.dx,
-                              position.dy + tapInfo.delta.dy);
+                          position = Offset(position!.dx + tapInfo.delta.dx,
+                              position!.dy + tapInfo.delta.dy);
                         });
                       }
                     },
@@ -559,9 +559,9 @@ class _TerminalState extends State<Terminal> {
 }
 
 class TerminalCommand extends StatefulWidget {
-  final TextEditingController commandController;
-  final VoidCallback onSubmit;
-  TerminalCommand({Key key, this.commandController, this.onSubmit})
+  final TextEditingController? commandController;
+  final VoidCallback? onSubmit;
+  TerminalCommand({Key? key, this.commandController, this.onSubmit})
       : super(key: key);
 
   @override
@@ -611,14 +611,14 @@ class _TerminalCommandState extends State<TerminalCommand> {
                       setState(() {
                         submit = true;
                       });
-                      widget.onSubmit();
+                      widget.onSubmit!();
                     },
                     style: TextStyle(
                         color: Theme.of(context).cardColor.withOpacity(1),
                         fontFamily: "Menlo",
                         fontSize: 10,
                         fontWeight:
-                            Theme.of(context).textTheme.headline4.fontWeight
+                            Theme.of(context).textTheme.headline4!.fontWeight
                         // height: 1,
                         ),
                     decoration: new InputDecoration(
@@ -647,7 +647,7 @@ class _TerminalCommandState extends State<TerminalCommand> {
                 color: Theme.of(context).cardColor.withOpacity(1),
                 fontFamily: "Menlo",
                 fontSize: 10,
-                fontWeight: Theme.of(context).textTheme.headline4.fontWeight),
+                fontWeight: Theme.of(context).textTheme.headline4!.fontWeight),
           ),
         ),
       ],
