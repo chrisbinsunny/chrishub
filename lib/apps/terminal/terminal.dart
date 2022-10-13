@@ -108,7 +108,7 @@ class _TerminalState extends State<Terminal> {
 
       case "ls":
         String target;
-        if (variable == "" || variable == null)
+        if (variable == "")
           target = currentDir;
         else {
           target = textWords[0];
@@ -240,9 +240,10 @@ class _TerminalState extends State<Terminal> {
         if(variable=="") {
           output = "usage: mkdir directory ...";
           break;
-        } //TODO
+        }
+        //TODO
         if (textWords.length > 1) {
-          for(String name in textOrg.split(" ")..removeAt(0))
+          for(String name in textOrg.split(" ")..removeAt(0))  ///Org text used for for Upper and Lower org cases
             Provider.of<Folders>(context, listen: false).createFolder(context, renaming: false, name: name);
           break;
         }
