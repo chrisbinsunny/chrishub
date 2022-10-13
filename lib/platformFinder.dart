@@ -7,10 +7,10 @@ class PlatformFinder extends StatelessWidget {
   final Widget macOS;
 
   const PlatformFinder({
-    Key key,
-    @required this.iOS,
-    @required this.ipadOS,
-    @required this.macOS,
+    Key? key,
+    required this.iOS,
+    required this.ipadOS,
+    required this.macOS,
   }) : super(key: key);
 
 
