@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 
 class Apps extends ChangeNotifier{
 
-  Widget? temp;
-  List<Widget?> apps= [];
+  late Widget temp;
+  List<Widget> apps= [];
   String onTop="Finder";
 
 
   void bringToTop(ObjectKey? appKey){
-    temp= apps.singleWhere((element) => element!.key==appKey);
-    apps.removeWhere((element) => element!.key==appKey);
+    temp= apps.singleWhere((element) => element.key==appKey);
+    apps.removeWhere((element) => element.key==appKey);
     apps.add(temp);
     setTop();
     notifyListeners();
   }
 
-  List<Widget?> get getApps {
+  List<Widget> get getApps {
     return apps;
   }
 
 
   void openApp(Widget app, void minMax){
-    if(!apps.any((element) => element!.key==app.key)) {
+    if(!apps.any((element) => element.key==app.key)) {
       apps.add(app);
       setTop();
       notifyListeners();
