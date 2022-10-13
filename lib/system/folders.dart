@@ -250,7 +250,7 @@ class _FolderState extends State<Folder> {
               },
               onSecondaryTapDown: (details){
                 tapFunctions(context);
-                Provider.of<DataBus>(context, listen: false).setPos(details?.globalPosition);
+                Provider.of<DataBus>(context, listen: false).setPos(details.globalPosition);
               },
               child: Container(
                 width: screenWidth(context, mulBy: 0.08),
