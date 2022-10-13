@@ -36,7 +36,7 @@ class _MacOSState extends State<MacOS> {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen = Provider.of<OnOff>(context).getCc;
     double brightness = Provider.of<DataBus>(context).getBrightness!;
-    List<Widget?> apps = Provider.of<Apps>(context).getApps;
+    List<Widget> apps = Provider.of<Apps>(context).getApps;
     List<Folder> folders =
         Provider.of<Folders>(context, listen: false).getFolders;
     var pointerPos = Provider.of<DataBus>(context).getPos;
@@ -46,7 +46,7 @@ class _MacOSState extends State<MacOS> {
     return Scaffold(
       body: Center(
         child: Stack(
-          children: <Widget?>[
+          children: <Widget>[
             ///wallpaper
             GestureDetector(
               onSecondaryTap: () {
@@ -55,7 +55,7 @@ class _MacOSState extends State<MacOS> {
               onSecondaryTapDown: (details) {
                 tapFunctions(context);
                 Provider.of<DataBus>(context, listen: false)
-                    .setPos(details?.globalPosition);
+                    .setPos(details.globalPosition);
               },
               onTap: () {
                 if (!mounted) return;
