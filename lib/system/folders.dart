@@ -12,7 +12,7 @@ import '../sizes.dart';
 
 class Folders extends ChangeNotifier{
 
-  Widget temp;
+  Widget? temp;
   List<Folder> folders= [];
 
   List<Folder> get getFolders {
@@ -20,7 +20,7 @@ class Folders extends ChangeNotifier{
   }
 
 
-  void createFolder(context, {String name="untitled folder", bool renaming}){
+  void createFolder(context, {String name="untitled folder", bool? renaming}){
     Offset initPos=  Offset(200, 150);
     int x,y,folderNum=0;
     if(folders.isEmpty)
@@ -28,8 +28,8 @@ class Folders extends ChangeNotifier{
     else{
         for(int element=0; element<folders.length; element++) {
         if(folders[element].name==name) {
-          if(int.tryParse(folders[element].name.split(" ").last)!=null) { ///for not changing "untitled folder" to "untitled 1"
-            folderNum = int.parse(folders[element].name.split(" ").last) ?? folderNum;
+          if(int.tryParse(folders[element].name!.split(" ").last)!=null) { ///for not changing "untitled folder" to "untitled 1"
+            folderNum = int.parse(folders[element].name!.split(" ").last) ?? folderNum;
             name = "${name.substring(0, name.lastIndexOf(" "))} ${++folderNum}";
             element=0;   ///for checking if changed name == name in already checked folders
           }
@@ -90,20 +90,20 @@ class Folders extends ChangeNotifier{
 }
 
 class Folder extends StatefulWidget {
-  String name;
-  Offset initPos;
-  bool renaming;
+  String? name;
+  Offset? initPos;
+  bool? renaming;
   bool selected;
-  VoidCallback deSelectFolder;
-  VoidCallback renameFolder;
-  Folder({Key key, this.name, this.initPos, this.renaming= false, this.selected=false,}): super(key: key);
+  late VoidCallback deSelectFolder;
+  late VoidCallback renameFolder;
+  Folder({Key? key, this.name, this.initPos, this.renaming= false, this.selected=false,}): super(key: key);
   @override
   _FolderState createState() => _FolderState();
 }
 
 class _FolderState extends State<Folder> {
-  Offset position= Offset(200, 150);
-  TextEditingController controller;
+  Offset? position= Offset(200, 150);
+  TextEditingController? controller;
   FocusNode _focusNode = FocusNode();
   bool pan= false;
   bool bgVisible= false;
@@ -112,7 +112,7 @@ class _FolderState extends State<Folder> {
   void initState() {
     super.initState();
     controller = new TextEditingController(text: widget.name, );
-    controller.selection=TextSelection.fromPosition(TextPosition(offset: controller.text.length));
+    controller!.selection=TextSelection.fromPosition(TextPosition(offset: controller!.text.length));
     position=widget.initPos;
     selectText();
     widget.renameFolder=(){
@@ -134,7 +134,7 @@ class _FolderState extends State<Folder> {
   void selectText(){
     _focusNode.addListener(() {
       if(_focusNode.hasFocus) {
-        controller.selection = TextSelection(baseOffset: 0, extentOffset: controller.text.length);
+        controller!.selection = TextSelection(baseOffset: 0, extentOffset: controller!.text.length);
       }
     });
   }
@@ -152,8 +152,8 @@ class _FolderState extends State<Folder> {
           Visibility(
             visible: bgVisible,
             child: Positioned(
-              top: widget.initPos.dy,
-              left: widget.initPos.dx,
+              top: widget.initPos!.dy,
+              left: widget.initPos!.dx,
               child: Container(
                 width: screenWidth(context, mulBy: 0.08),
                 child: Column(
@@ -198,14 +198,14 @@ class _FolderState extends State<Folder> {
           ),
           AnimatedPositioned(
             duration: Duration(milliseconds: pan?0:200),
-            top: position.dy,
-            left: position.dx,
+            top: position!.dy,
+            left: position!.dx,
             child: GestureDetector(
               onPanUpdate: (tapInfo){
                 if (!mounted) return;
                 setState(() {
-                  position = Offset(position.dx + tapInfo.delta.dx,
-                      position.dy + tapInfo.delta.dy);
+                  position = Offset(position!.dx + tapInfo.delta.dx,
+                      position!.dy + tapInfo.delta.dy);
                 });
               },
               onPanStart: (e){
@@ -214,7 +214,7 @@ class _FolderState extends State<Folder> {
                 setState(() {
                   widget.renaming=false;
                   widget.selected=false;
-                  widget.name=controller.text.toString();
+                  widget.name=controller!.text.toString();
                   pan=true;
                   bgVisible=true;
                 });
@@ -263,7 +263,7 @@ class _FolderState extends State<Folder> {
                     Container(
                          height: screenHeight(context, mulBy: 0.1),
                       padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.0005)),
-                        decoration: (widget.renaming||widget.selected)?BoxDecoration(
+                        decoration: (widget.renaming!||widget.selected)?BoxDecoration(
                             color: Colors.black.withOpacity(0.25),
                             border: Border.all(
                                 color: Colors.grey.withOpacity(0.4),
@@ -279,7 +279,7 @@ class _FolderState extends State<Folder> {
                       child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045), ),
                         ),
             SizedBox(height: screenHeight(context, mulBy: 0.005), ),
-                    widget.renaming?
+                    widget.renaming!?
                     Container(
                       height: screenHeight(context, mulBy: 0.024),
                       width: screenWidth(context, mulBy: 0.06),
@@ -321,22 +321,22 @@ class _FolderState extends State<Folder> {
                             if (!mounted) return;
                             setState(() {
                               widget.renaming=false;
-                              if(controller.text=="")    ///changes controller to sys found name if empty.
-                                controller.text=widget.name;
+                              if(controller!.text=="")    ///changes controller to sys found name if empty.
+                                controller!.text=widget.name!;
                               int folderNum=0;
                               for(int element=0; element<folders.length; element++) {
-                                if(folders[element].name==controller.text) {
-                                  if(int.tryParse(folders[element].name.split(" ").last)!=null) { ///for not changing "untitled folder" to "untitled 1"
-                                    folderNum = int.parse(folders[element].name.split(" ").last) ?? folderNum;
-                                    controller.text = "${controller.text.substring(0, controller.text.lastIndexOf(" "))} ${++folderNum}";
+                                if(folders[element].name==controller!.text) {
+                                  if(int.tryParse(folders[element].name!.split(" ").last)!=null) { ///for not changing "untitled folder" to "untitled 1"
+                                    folderNum = int.parse(folders[element].name!.split(" ").last) ?? folderNum;
+                                    controller!.text = "${controller!.text.substring(0, controller!.text.lastIndexOf(" "))} ${++folderNum}";
                                     element=0;   ///for checking if changed name == name in already checked folders
                                   }
                                   else{
-                                    controller.text = "${controller.text} ${++folderNum}";
+                                    controller!.text = "${controller!.text} ${++folderNum}";
                                   }
                                 }
                               }
-                              widget.name=controller.text.toString();
+                              widget.name=controller!.text.toString();
                             });
                           },
                         ),

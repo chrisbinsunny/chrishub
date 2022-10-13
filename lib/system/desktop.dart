@@ -35,8 +35,8 @@ class _MacOSState extends State<MacOS> {
     var size = MediaQuery.of(context).size;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen = Provider.of<OnOff>(context).getCc;
-    double brightness = Provider.of<DataBus>(context).getBrightness;
-    List<Widget> apps = Provider.of<Apps>(context).getApps;
+    double brightness = Provider.of<DataBus>(context).getBrightness!;
+    List<Widget?> apps = Provider.of<Apps>(context).getApps;
     List<Folder> folders =
         Provider.of<Folders>(context, listen: false).getFolders;
     var pointerPos = Provider.of<DataBus>(context).getPos;
@@ -46,7 +46,7 @@ class _MacOSState extends State<MacOS> {
     return Scaffold(
       body: Center(
         child: Stack(
-          children: <Widget>[
+          children: <Widget?>[
             ///wallpaper
             GestureDetector(
               onSecondaryTap: () {
@@ -162,9 +162,9 @@ class _MacOSState extends State<MacOS> {
 }
 
 class Unfocuser extends StatelessWidget {
-  const Unfocuser({Key key, this.child}) : super(key: key);
+  const Unfocuser({Key? key, this.child}) : super(key: key);
 
-  final Widget child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -180,9 +180,9 @@ class Unfocuser extends StatelessWidget {
           }
         }
 
-        final primaryFocus = FocusManager.instance.primaryFocus;
+        final primaryFocus = FocusManager.instance.primaryFocus!;
 
-        if (primaryFocus.context.widget is EditableText) {
+        if (primaryFocus.context!.widget is EditableText) {
           primaryFocus.unfocus();
         }
       },
