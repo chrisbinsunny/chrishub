@@ -38,7 +38,7 @@ class _MacOSState extends State<MacOS> {
     double brightness = Provider.of<DataBus>(context).getBrightness!;
     List<Widget> apps = Provider.of<Apps>(context).getApps;
     List<Folder> folders =
-        Provider.of<Folders>(context, listen: false).getFolders;
+        Provider.of<Folders>(context, listen: true).getFolders;
     var pointerPos = Provider.of<DataBus>(context).getPos;
     bool NSOn = Provider.of<DataBus>(
       context,
