@@ -45,7 +45,7 @@ class Folders extends ChangeNotifier{
       else
         initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.07), (y)*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.09));
     }
-    folders.add(Folder( key: UniqueKey(), name: name, renaming: renaming, initPos: initPos, ));
+    folders.add(Folder(key: UniqueKey(), name: name, renaming: renaming, initPos: initPos, ));
     notifyListeners();
   }
 
