@@ -6,22 +6,22 @@ import 'package:provider/provider.dart';
 
 class MBPText extends StatelessWidget {
   final Color color;
-  final String text;
+  final String? text;
   final double size;
-  final FontWeight weight;
+  final FontWeight? weight;
   final String fontFamily;
   final int maxLines;
   final TextOverflow overflow;
   final bool softWrap;
-  const MBPText({this.color= Colors.black,this.text, this.size=12, this.weight, this.fontFamily="SF", this.maxLines=1, this.softWrap=true, this.overflow= TextOverflow.fade, Key key}) : super(key: key);
+  const MBPText({this.color= Colors.black,this.text, this.size=12, this.weight, this.fontFamily="SF", this.maxLines=1, this.softWrap=true, this.overflow= TextOverflow.fade, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FittedBox(
       fit: BoxFit.scaleDown,
-      child: Text(text,
+      child: Text(text!,
         style: TextStyle(
-        fontWeight: weight==null?Theme.of(context).textTheme.headline4.fontWeight:weight,
+        fontWeight: weight==null?Theme.of(context).textTheme.headline4!.fontWeight:weight,
         fontFamily: fontFamily,
         color: color,
         fontSize: size,
@@ -64,8 +64,8 @@ class CustomBoxShadow extends BoxShadow {
 }
 
 class Scaler extends StatelessWidget {
-  Widget child;
-  Scaler({this.child, Key key}) : super(key: key);
+  Widget? child;
+  Scaler({this.child, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -115,25 +115,26 @@ showAlertDialog(BuildContext context) {
   );
 }
 
-class Minimiser extends StatefulWidget {
-  Minimiser({Key key, this.minimise=false,  this.child}) : super(key: key);
-
-  bool minimise;
-  Widget child;
-  @override
-  _MinimiserState createState() => _MinimiserState();
-}
-
-class _MinimiserState extends State<Minimiser> {
-  @override
-  Widget build(BuildContext context) {
-    return Transform(
-
-
-      child: widget.child,
-    );
-  }
-}
+// class Minimiser extends StatefulWidget {
+//   Minimiser({Key? key, this.minimise=false,  this.child}) : super(key: key);
+//
+//   bool minimise;
+//   Widget? child;
+//   @override
+//   _MinimiserState createState() => _MinimiserState();
+// }
+//
+// class _MinimiserState extends State<Minimiser> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Transform(
+//
+//
+//       transform: Matrix4.translation(0000,0,0,0),
+//       child: widget.child,
+//     );
+//   }
+// }
 
 
 ///Night Shift Blender
@@ -142,10 +143,10 @@ class BlendMask extends SingleChildRenderObjectWidget {
   final double opacity;
 
   BlendMask({
-    @required this.blendMode,
+    required this.blendMode,
     this.opacity = 1.0,
-    Key key,
-    Widget child,
+    Key? key,
+    Widget? child,
   }) : super(key: key, child: child);
 
   @override
