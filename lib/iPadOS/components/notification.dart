@@ -10,7 +10,7 @@ import 'dart:ui' as ui;
 import '../../sizes.dart';
 
 class Notifications extends StatefulWidget {
-  Notifications({Key key, }) : super(key: key);
+  Notifications({Key? key, }) : super(key: key);
 
   @override
   _NotificationsState createState() => _NotificationsState();
@@ -18,7 +18,7 @@ class Notifications extends StatefulWidget {
 
 class _NotificationsState extends State<Notifications> {
   var themeNotifier;
-  Map<String, String> notification;
+  late Map<String, String> notification;
   bool notificationOn=false;
   bool hover=false;
   @override
@@ -69,14 +69,14 @@ class _NotificationsState extends State<Notifications> {
                             text: notification["head"],
                             color: Theme.of(context).cardColor.withOpacity(1),
                             size: 10.5,
-                            weight: Theme.of(context).textTheme.headline3.fontWeight,
+                            weight: Theme.of(context).textTheme.headline3!.fontWeight,
                             maxLines: 1,
                           ),
                           MBPText(
                             text: notification["notification"],
                             color: Theme.of(context).cardColor.withOpacity(1),
                             size: 10.5,
-                            weight: Theme.of(context).textTheme.headline2.fontWeight,
+                            weight: Theme.of(context).textTheme.headline2!.fontWeight,
                             maxLines: 1,
                           ),
                         ],

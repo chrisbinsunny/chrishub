@@ -5,7 +5,7 @@ import 'package:mac_dt/apps/messages/types.dart';
 
 
 class iMessageClipper extends CustomClipper<Path> {
-  final BubbleType type;
+  final BubbleType? type;
   final double radius;
   final double nipSize;
 

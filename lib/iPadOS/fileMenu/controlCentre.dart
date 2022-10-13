@@ -14,15 +14,15 @@ import '../../sizes.dart';
 
 //TODO slide down to reveal control centre
 class ControlCentre extends StatefulWidget {
-  const ControlCentre({Key key}) : super(key: key);
+  const ControlCentre({Key? key}) : super(key: key);
 
   @override
   _ControlCentreState createState() => _ControlCentreState();
 }
 
 class _ControlCentreState extends State<ControlCentre> {
-  double brightness;
-  double sound;
+  double? brightness;
+  late double sound;
 
   @override
   void initState() {
@@ -389,7 +389,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                         .noOverlay,
                                   ),
                                   child: Slider(
-                                    value: brightness,
+                                    value: brightness!,
                                     min: 0,
                                     max: 95.98,
                                     onChanged: (val) {

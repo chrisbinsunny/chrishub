@@ -14,14 +14,14 @@ import '../../widgets.dart';
 
 
 class AppMenu extends StatefulWidget {
-  const AppMenu({Key key}) : super(key: key);
+  const AppMenu({Key? key}) : super(key: key);
 
   @override
   _AppMenuState createState() => _AppMenuState();
 }
 
 class _AppMenuState extends State<AppMenu> {
-  DateTime now;
+  late DateTime now;
 
   void initState() {
     now = DateTime.now();

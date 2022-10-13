@@ -23,7 +23,7 @@ import '../apps/messages/messages.dart';
 
 class Docker extends StatefulWidget {
   const Docker({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -31,7 +31,7 @@ class Docker extends StatefulWidget {
 }
 
 class _DockerState extends State<Docker> {
-  DateTime now;
+  DateTime? now;
   Offset position = Offset(0.0, 0.0);
 
   @override
@@ -134,7 +134,7 @@ class _DockerState extends State<Docker> {
 
 
 class BottomWhiteLine extends StatefulWidget {
-  const BottomWhiteLine({Key key}) : super(key: key);
+  const BottomWhiteLine({Key? key}) : super(key: key);
 
   @override
   _BottomWhiteLineState createState() => _BottomWhiteLineState();
@@ -207,10 +207,10 @@ class _BottomWhiteLineState extends State<BottomWhiteLine> {
 class DockerItem extends StatefulWidget {
   final String iName;
   final bool iOS;
-  VoidCallback onTap=(){};
+  VoidCallback? onTap=(){};
   DockerItem({
-    Key key,
-    @required this.iName,
+    Key? key,
+    required this.iName,
     this.iOS=true,
     this.onTap
   }) : super(key: key);

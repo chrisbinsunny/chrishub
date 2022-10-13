@@ -16,24 +16,24 @@ import 'chat_bubble.dart';
 import 'dart:html' as html;
 
 class Messages extends StatefulWidget {
-  final Offset initPos;
-  const Messages({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const Messages({this.initPos, Key? key}) : super(key: key);
 
   @override
   _MessagesState createState() => _MessagesState();
 }
 
 class _MessagesState extends State<Messages> {
-  Future messageRecords;
+  Future? messageRecords;
   ScrollController chatScrollController = new ScrollController();
   ScrollController nameScrollController = new ScrollController();
-  int selectedChatIndex;
-  bool info;
-  MessageContent selectedChat= new MessageContent(
+  int? selectedChatIndex;
+  late bool info;
+  MessageContent? selectedChat= new MessageContent(
 
   );
 
-  Future<List<MessageContent>> readMessages() async {
+  Future<List<MessageContent>?> readMessages() async {
     var data = json
         .decode(await rootBundle.loadString('assets/messages/messageLog.json'));
     return data
@@ -114,7 +114,7 @@ class _MessagesState extends State<Messages> {
                           ),
                           MBPText(
                             text: "Messages",
-                            weight: Theme.of(context).textTheme.headline1.fontWeight,
+                            weight: Theme.of(context).textTheme.headline1!.fontWeight,
                             color: Theme.of(context).cardColor.withOpacity(1),
                             size: 26,
                           ),
@@ -163,7 +163,7 @@ class _MessagesState extends State<Messages> {
                             future: messageRecords,
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
-                                if(selectedChat.senderName=="A")
+                                if(selectedChat!.senderName=="A")
                                   selectedChat=  snapshot.data[0];
                                 return ListView.builder(
                                   physics: BouncingScrollPhysics(),
@@ -321,7 +321,7 @@ class _MessagesState extends State<Messages> {
                                             child: Container(
                                               color: ((selectedChatIndex ==
                                                   index) ||
-                                                  (selectedChatIndex - 1 ==
+                                                  (selectedChatIndex! - 1 ==
                                                       index))
                                                   ? Colors.transparent
                                                   : Theme.of(context)
@@ -711,7 +711,7 @@ class _MessagesState extends State<Messages> {
                     child: InkWell(
                       onTap: () {
                         html.window.open(
-                          selectedChat.profileLink,
+                          selectedChat!.profileLink,
                           'new tab',
                         );
                       },
@@ -755,7 +755,7 @@ class _MessagesState extends State<Messages> {
                                       mulBy: 0.012)),
                               child: MBPText(
                                 text:
-                                "${selectedChat.senderName.toString().getInitials().capitalize()}",
+                                "${selectedChat!.senderName.toString().getInitials().capitalize()}",
                                 color: Colors.white,
                                 fontFamily: "SFR",
                                 size: 25,
@@ -771,11 +771,11 @@ class _MessagesState extends State<Messages> {
                             ),
                             MBPText(
                               text:
-                              "${selectedChat.senderName.toString().capitalize()}",
+                              "${selectedChat!.senderName.toString().capitalize()}",
                               color: Theme.of(context).cardColor.withOpacity(1),
                               fontFamily: "HN",
                               size: 13,
-                              weight: Theme.of(context).textTheme.headline3.fontWeight,
+                              weight: Theme.of(context).textTheme.headline3!.fontWeight,
                               overflow:
                               TextOverflow.fade,
                               maxLines: 1,
@@ -1110,12 +1110,12 @@ class _MessagesState extends State<Messages> {
 }
 
 class MessageContent {
-  MainMessage messages;
+  MainMessage? messages;
   String senderName;
   String senderPhoto;
   String profileLink;
-  List<int> dateStops;
-  List<String> dates;
+  List<int>? dateStops;
+  List<String>? dates;
 
   MessageContent(
       {this.messages,
@@ -1137,8 +1137,8 @@ class MessageContent {
 }
 
 class MainMessage {
-  List<String> sender;
-  List<String> me;
+  List<String>? sender;
+  List<String>? me;
 
   MainMessage({this.me, this.sender});
 

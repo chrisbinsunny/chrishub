@@ -32,8 +32,8 @@ class _IPadOSState extends State<IPadOS> {
     var size = MediaQuery.of(context).size;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen = Provider.of<OnOff>(context).getCc;
-    double brightness = Provider.of<DataBus>(context).getBrightness;
-    List<Widget> app = Provider.of<Apps>(context).getApps;
+    double brightness = Provider.of<DataBus>(context).getBrightness!;
+    List<Widget?> app = Provider.of<Apps>(context).getApps;
     bool NSOn = Provider.of<DataBus>(
       context,
     ).getNS;
@@ -46,7 +46,7 @@ class _IPadOSState extends State<IPadOS> {
           child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
             child: Stack(
-              children: <Widget>[
+              children: <Widget?>[
                 ///wallpaper
                 Container(
                     height: size.height,

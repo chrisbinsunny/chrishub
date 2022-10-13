@@ -4,14 +4,14 @@ import 'package:mac_dt/apps/messages/types.dart';
 import 'clipper.dart';
 
 class ChatBubble extends StatelessWidget {
-  final CustomClipper clipper;
-  final Widget child;
-  final EdgeInsetsGeometry margin;
-  final double elevation;
-  final Color backGroundColor;
-  final Color shadowColor;
-  final Alignment alignment;
-  final EdgeInsetsGeometry padding;
+  final CustomClipper? clipper;
+  final Widget? child;
+  final EdgeInsetsGeometry? margin;
+  final double? elevation;
+  final Color? backGroundColor;
+  final Color? shadowColor;
+  final Alignment? alignment;
+  final EdgeInsetsGeometry? padding;
 
   ChatBubble({
     this.clipper,

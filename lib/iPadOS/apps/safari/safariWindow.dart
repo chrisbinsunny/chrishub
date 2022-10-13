@@ -12,19 +12,19 @@ import 'dart:ui' as ui;
 //TODO: BUG Found>> After opening youtube all searches redirects to youtube.
 
 class Safari extends StatefulWidget {
-  final Offset initPos;
-  const Safari({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const Safari({this.initPos, Key? key}) : super(key: key);
 
   @override
   _SafariState createState() => _SafariState();
 }
 
 class _SafariState extends State<Safari> {
-  Offset position = Offset(0.0, 0.0);
+  Offset? position = Offset(0.0, 0.0);
   String selected = "Applications";
   TextEditingController urlController = new TextEditingController();
-  bool safariFS;
-  bool safariPan;
+  late bool safariFS;
+  late bool safariPan;
   String url = "";
   bool isDoc = false;
   final html.IFrameElement _iframeElementURL = html.IFrameElement();
@@ -103,8 +103,8 @@ class _SafariState extends State<Safari> {
     return safariOpen
         ? AnimatedPositioned(
             duration: Duration(milliseconds: safariPan ? 0 : 200),
-            top: safariFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-            left: safariFS ? 0 : position.dx,
+            top: safariFS ? screenHeight(context, mulBy: 0.0335) : position!.dy,
+            left: safariFS ? 0 : position!.dx,
             child: safariWindow(context),
           )
         : Container();
@@ -157,8 +157,8 @@ class _SafariState extends State<Safari> {
                     onPanUpdate: (tapInfo) {
                       if (!safariFS) {
                         setState(() {
-                          position = Offset(position.dx + tapInfo.delta.dx,
-                              position.dy + tapInfo.delta.dy);
+                          position = Offset(position!.dx + tapInfo.delta.dx,
+                              position!.dy + tapInfo.delta.dy);
                         });
                       }
                     },
@@ -371,7 +371,7 @@ class _SafariState extends State<Safari> {
                                     size: 22,
                                     weight: Theme.of(context)
                                         .textTheme
-                                        .headline1
+                                        .headline1!
                                         .fontWeight,
                                   ),
                                   SizedBox(

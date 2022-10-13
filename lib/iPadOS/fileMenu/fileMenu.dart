@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class FileMenu extends StatefulWidget {
 
   FileMenu({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -22,7 +22,7 @@ class FileMenu extends StatefulWidget {
 
 class _FileMenuState extends State<FileMenu> {
   var rand = new Random();
-  int num;
+  late int num;
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _FileMenuState extends State<FileMenu> {
             Spacer(),
             GestureDetector(
               onVerticalDragEnd: (yoyo){
-                if(yoyo.primaryVelocity>20)
+                if(yoyo.primaryVelocity!>20)
                 Provider.of<Folders>(context, listen: false).deSelectAll();
                 Provider.of<OnOff>(context, listen: false).toggleCc();
               },

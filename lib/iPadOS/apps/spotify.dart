@@ -12,8 +12,8 @@ import 'dart:html' as html;
 import 'dart:ui' as ui;
 
 class Spotify extends StatefulWidget {
-  final Offset initPos;
-  const Spotify({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const Spotify({this.initPos, Key? key}) : super(key: key);
 
   @override
   _SpotifyState createState() => _SpotifyState();
