@@ -14,7 +14,7 @@ import '../system/folders.dart';
 class FileMenu extends StatefulWidget {
 
   FileMenu({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -23,7 +23,7 @@ class FileMenu extends StatefulWidget {
 
 class _FileMenuState extends State<FileMenu> {
   var rand = new Random();
-  int num;
+  late int num;
 
   @override
   void initState() {

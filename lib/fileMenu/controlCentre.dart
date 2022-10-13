@@ -12,15 +12,15 @@ import '../system/componentsOnOff.dart';
 import '../sizes.dart';
 
 class ControlCentre extends StatefulWidget {
-  const ControlCentre({Key key}) : super(key: key);
+  const ControlCentre({Key? key}) : super(key: key);
 
   @override
   _ControlCentreState createState() => _ControlCentreState();
 }
 
 class _ControlCentreState extends State<ControlCentre> {
-  double brightness;
-  double sound;
+  double? brightness;
+  late double sound;
 
   @override
   void initState() {
@@ -400,7 +400,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                       .noOverlay,
                                                 ),
                                                 child: Slider(
-                                                  value: brightness,
+                                                  value: brightness!,
                                                   min: 0,
                                                   max: 100,
                                                   onChanged: (val) {
@@ -638,10 +638,10 @@ class _ControlCentreState extends State<ControlCentre> {
 }
 
 class BrdrContainer extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   final double height;
   final double width;
-  const BrdrContainer({this.height = 1, this.width = 1, this.child, Key key})
+  const BrdrContainer({this.height = 1, this.width = 1, this.child, Key? key})
       : super(key: key);
 
   @override
@@ -661,13 +661,13 @@ class BrdrContainer extends StatelessWidget {
 
 class SliderTrackShape extends RoundedRectSliderTrackShape {
   Rect getPreferredRect({
-    @required RenderBox parentBox,
+    required RenderBox parentBox,
     Offset offset = Offset.zero,
-    @required SliderThemeData sliderTheme,
+    required SliderThemeData sliderTheme,
     bool isEnabled = false,
     bool isDiscrete = false,
   }) {
-    final double trackHeight = sliderTheme.trackHeight;
+    final double trackHeight = sliderTheme.trackHeight!;
     final double trackLeft = offset.dx;
     final double trackTop =
         offset.dy + (parentBox.size.height - trackHeight) / 2;
