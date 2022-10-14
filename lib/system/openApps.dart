@@ -40,7 +40,7 @@ class Apps extends ChangeNotifier{
 
   void closeApp(String appKey){
 
-    apps.removeWhere((element) => element!.key==ObjectKey(appKey));
+    apps.removeWhere((element) => element.key==ObjectKey(appKey));
     notifyListeners();
     setTop();
   }
@@ -52,7 +52,7 @@ class Apps extends ChangeNotifier{
 
 
   bool isOpen(ObjectKey appKey){
-    return apps.any((element) => element!.key==appKey);
+    return apps.any((element) => element.key==appKey);
   }
 
   String get getTop {
@@ -63,21 +63,21 @@ class Apps extends ChangeNotifier{
     //onTop=top;
     if(apps.isEmpty)
       onTop="Finder";
-    else if(apps.last!.key==ObjectKey("finder"))
+    else if(apps.last.key==ObjectKey("finder"))
      onTop="Finder";
-    else if(apps.last!.key==ObjectKey("safari"))
+    else if(apps.last.key==ObjectKey("safari"))
       onTop="Safari";
-    else if(apps.last!.key==ObjectKey("spotify"))
+    else if(apps.last.key==ObjectKey("spotify"))
       onTop="Spotify";
-    else if(apps.last!.key==ObjectKey("terminal"))
+    else if(apps.last.key==ObjectKey("terminal"))
       onTop="Terminal";
-    else if(apps.last!.key==ObjectKey("vscode"))
+    else if(apps.last.key==ObjectKey("vscode"))
       onTop="VS Code";
-    else if(apps.last!.key==ObjectKey("calendar"))
+    else if(apps.last.key==ObjectKey("calendar"))
       onTop="Calendar";
-    else if(apps.last!.key==ObjectKey("feedback"))
+    else if(apps.last.key==ObjectKey("feedback"))
       onTop="Feedback";
-    else if(apps.last!.key==ObjectKey("messages"))
+    else if(apps.last.key==ObjectKey("messages"))
       onTop="Messages";
 
     notifyListeners();
