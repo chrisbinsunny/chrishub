@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mac_dt/apps/systemPreferences.dart';
 import 'package:mac_dt/components/finderWindow.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:mac_dt/widgets.dart';
@@ -370,7 +371,21 @@ class _LaunchPadState extends State<LaunchPad> {
                               LaunchPadItem(
                                 iName: "System Preferences",
                                 onTap: () {
-                                  Provider.of<OnOff>(context, listen: false).onNotifications();
+                                  tapFunctions(context);
+                                  Future.delayed(const Duration(milliseconds: 200), () {
+                                    Provider.of<OnOff>(context, listen: false)
+                                        .maxSysPref();
+                                    Provider.of<Apps>(context, listen: false).openApp(
+                                        SystemPreferences(
+                                            key: ObjectKey("systemPreferences"),
+                                            initPos: Offset(
+                                                screenWidth(context, mulBy: 0.14),
+                                                screenHeight(context, mulBy: 0.1))),
+                                        Provider.of<OnOff>(context, listen: false)
+                                            .maxSysPref()
+                                    );
+                                  });
+
                                 },
                               ),
                             ],
