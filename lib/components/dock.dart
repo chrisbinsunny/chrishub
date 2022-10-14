@@ -6,6 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/apps/messages/messages.dart';
 import 'package:provider/provider.dart';
+import '../apps/systemPreferences.dart';
 import '../system/componentsOnOff.dart';
 import '../system/folders.dart';
 import '../system/openApps.dart';
@@ -385,7 +386,21 @@ class _DockerState extends State<Docker> {
                         on: false,
                         dx: _getPath(screenWidth(context, mulBy: 0.675), _getCursor(), ),
                         onTap: () {
-                          Provider.of<OnOff>(context, listen: false).onNotifications();
+                          tapFunctions(context);
+                          Future.delayed(const Duration(milliseconds: 200), () {
+                            Provider.of<OnOff>(context, listen: false)
+                                .maxSysPref();
+                            Provider.of<Apps>(context, listen: false).openApp(
+                                SystemPreferences(
+                                    key: ObjectKey("systemPreferences"),
+                                    initPos: Offset(
+                                        screenWidth(context, mulBy: 0.14),
+                                        screenHeight(context, mulBy: 0.1))),
+                                Provider.of<OnOff>(context, listen: false)
+                                    .maxSysPref()
+                            );
+                          });
+
                         },
                       ),
                     ]
