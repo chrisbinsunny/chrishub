@@ -43,7 +43,6 @@ class OnOff extends ChangeNotifier{
   bool launchPadOn=false;
   bool appOpen=false;
   bool sysPrefOpen = false;
-  bool sysPrefFS = false;
   bool sysPrefPan = false;
 
   bool get getAppOpen {
@@ -587,39 +586,11 @@ class OnOff extends ChangeNotifier{
     return sysPrefOpen;
   }
 
-  bool get getSysPrefFS {
-    return sysPrefFS;
-  }
+
 
   void toggleSysPref() {
     sysPrefOpen= !sysPrefOpen;
     notifyListeners();
-  }
-
-  void toggleSysPrefFS() {
-    bool localFs= fsAni;
-    sysPrefFS= !sysPrefFS;
-    fs=(fs=="")?"System Preferences":"";
-    if(!localFs){
-      fsAni = true;
-    }
-    notifyListeners();
-    if(localFs){
-      Future.delayed(Duration(milliseconds: 400), () {
-        fsAni = false;
-        notifyListeners();
-      });
-    }
-  }
-
-  void offSysPrefFS() {
-    sysPrefFS= false;
-    fs="";
-    notifyListeners();
-    Future.delayed(Duration(milliseconds: 400),(){
-      fsAni=false;
-      notifyListeners();
-    });
   }
 
   void maxSysPref() {
