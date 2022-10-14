@@ -383,7 +383,7 @@ class _DockerState extends State<Docker> {
                       ),
                       DockerItem(
                         iName: "System Preferences",
-                        on: false,
+                        on: Provider.of<Apps>(context).isOpen(ObjectKey("systemPreferences")),
                         dx: _getPath(screenWidth(context, mulBy: 0.675), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
