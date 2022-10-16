@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -53,6 +55,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
   AnimatedContainer sysPrefWindow(BuildContext context) {
     String thm = Provider.of<ThemeNotifier>(context).findThm;
     String topApp = Provider.of<Apps>(context).getTop;
+    log(screenHeight(context, mulBy: 0.05).toString());
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: screenWidth(context, mulBy: 0.45),
@@ -76,11 +79,13 @@ class _SystemPreferencesState extends State<SystemPreferences> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              ///Top
               Stack(
                 alignment: Alignment.centerRight,
                 children: [
                   Container(
                     height: screenHeight(context, mulBy: 0.05),
+                    constraints: constraints(height: 0.05),
                     decoration: BoxDecoration(
                         color: Theme.of(context).dividerColor,
                         borderRadius: BorderRadius.only(
@@ -105,6 +110,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                       alignment: Alignment.topRight,
                       width: screenWidth(context, mulBy: 0.7),
                       height: screenHeight(context, mulBy: 0.05),
+                      constraints: constraints(height: 0.05),
                       decoration: BoxDecoration(
                           color: Colors.transparent,
                           border: Border(
@@ -218,7 +224,8 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                         Container(
                           alignment: Alignment.bottomCenter,
                           width: screenWidth(context, mulBy: 0.09),
-                          height: screenHeight(context, mulBy: 0.028), //0.038
+                          height: screenHeight(context, mulBy: 0.028),
+                          constraints: constraints(height: 0.028),
                           margin: EdgeInsets.zero,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
@@ -300,23 +307,63 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                   ),
                 ],
               ),
+              ///Content part
               Expanded(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(15),
-                      bottomLeft: Radius.circular(15)),
-                  child: BackdropFilter(
-                    filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
-                    child: Container(
-                      height: screenHeight(context, mulBy: 0.14),
-                      width: screenWidth(
-                        context,
-                      ),
+                child: Column(
+                  children: [
+                    Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).hintColor,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        // borderRadius: BorderRadius.only(
+                        //     bottomRight: Radius.circular(15),
+                        //     bottomLeft: Radius.circular(15)),
                       ),
-                    ),
-                  ),
+                      padding: EdgeInsets.symmetric(
+                          vertical: screenHeight(context, mulBy: 0.02),
+                        horizontal: screenWidth(context, mulBy: 0.011)
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            child: Image.asset("assets/wallpapers/iPadOS_light.jpg", fit: BoxFit.cover,),
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle
+                            ),
+                            height: screenHeight(context, mulBy: 0.065),
+                            width: screenHeight(context, mulBy: 0.065),
+                            constraints: constraints(
+                              height: 0.065
+                            ),
+                          ),
+                          SizedBox(
+                            width: screenWidth(context, mulBy: 0.007),
+                          ),
+                          RichText(
+                              text: TextSpan(
+                                text: "Chrisbin Sunny\n",
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .cardColor
+                                  .withOpacity(0.9),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 17,
+                              fontFamily: "SF",
+                              letterSpacing: 0.3
+                            ),
+                            children: [
+                              TextSpan(
+                                text: "Apple ID, iCloud, Media & App Store",
+                                style: TextStyle(
+                                  fontSize: 11
+                                )
+                              )
+                            ]
+                          ))
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
             ],
