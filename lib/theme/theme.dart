@@ -70,14 +70,16 @@ class ThemeNotifier with ChangeNotifier {
         fontSize: 12,
         fontFamily: "SF"
       ),
+        ///iMessage info name
         headline3: TextStyle(
             fontWeight: FontWeight.w500,
-        ), //iMessage info name
+        ),
         headline1: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 15,
         ),
-        headline2: TextStyle(                 //calendar heading
+        ///calendar heading
+        headline2: TextStyle(
           fontWeight: FontWeight.w300,
           fontSize: 15,
         )
