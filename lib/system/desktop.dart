@@ -30,8 +30,6 @@ class _MacOSState extends State<MacOS> {
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.aspectRatio);
-    print(screenWidth(context));
     var size = MediaQuery.of(context).size;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen = Provider.of<OnOff>(context).getCc;
