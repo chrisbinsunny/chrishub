@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
@@ -21,11 +22,7 @@ class SystemPreferences extends StatefulWidget {
 
 class _SystemPreferencesState extends State<SystemPreferences> {
   Offset? position = Offset(0.0, 0.0);
-  String selected = "Applications";
-  TextEditingController urlController = new TextEditingController();
   late bool sysPrefPan;
-  String url = "";
-  bool isDoc = false;
 
   @override
   void initState() {
@@ -53,13 +50,13 @@ class _SystemPreferencesState extends State<SystemPreferences> {
     String topApp = Provider.of<Apps>(context).getTop;
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
-      width: screenWidth(context, mulBy: 0.52),
-      height: screenHeight(context, mulBy: 0.75),
+      width: screenWidth(context, mulBy: 0.45),
+      height: screenHeight(context, mulBy: 0.72),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
         ),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(15)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
@@ -78,12 +75,12 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                 alignment: Alignment.centerRight,
                 children: [
                   Container(
-                    height: screenHeight(context, mulBy: 0.06),
+                    height: screenHeight(context, mulBy: 0.05),
                     decoration: BoxDecoration(
                         color: Theme.of(context).dividerColor,
                         borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(10),
-                            topLeft: Radius.circular(10))),
+                            topRight: Radius.circular(15),
+                            topLeft: Radius.circular(15))),
                   ),
                   GestureDetector(
                     onPanUpdate: (tapInfo) {
@@ -103,7 +100,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     child: Container(
                       alignment: Alignment.topRight,
                       width: screenWidth(context, mulBy: 0.7),
-                      height: screenHeight(context, mulBy: 0.06),
+                      height: screenHeight(context, mulBy: 0.05),
                       decoration: BoxDecoration(
                           color: Colors.transparent,
                           border: Border(
@@ -141,8 +138,6 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                                     .closeApp("systemPreferences");
                                 Provider.of<OnOff>(context, listen: false)
                                     .toggleSysPref();
-                                url = "";
-                                urlController.text = "";
                               },
                             ),
                             SizedBox(
@@ -178,85 +173,100 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                             )
                           ],
                         ),
-                        Spacer(
-                          flex: 4,
+                        SizedBox(
+                          width: screenWidth(context, mulBy: 0.015),
                         ),
-                        Center(
-                          child: Container(
-                            height: screenHeight(context, mulBy: 0.033),
-                            child: IconButton(
-                              padding: EdgeInsets.zero,
-                              color:
-                                  Theme.of(context).cardColor.withOpacity(0.5),
-                              icon: Icon(
-                                Icons.home_outlined,
-                                size: 22,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  url = "";
-                                  urlController.text = "";
-                                });
-                              },
-                            ),
-                          ),
+                        Icon(
+                          CupertinoIcons.back,
+                          color: Colors.grey.withOpacity(0.4),
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: screenWidth(context, mulBy: 0.01),
+                        ),
+                        Icon(
+                          CupertinoIcons.forward,
+                          color: Colors.grey.withOpacity(0.4),
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: screenWidth(context, mulBy: 0.013),
+                        ),
+                        Icon(
+                          CupertinoIcons.square_grid_4x3_fill,
+                          color: Colors.grey,
+                          size: 20,
+                        ),
+                        SizedBox(
+                          width: screenWidth(context, mulBy: 0.01),
+                        ),
+                        MBPText(
+                          text: "System Preferences",
+                          size: 15,
+                          weight: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .fontWeight,
+                          color: Theme.of(context)
+                              .cardColor
+                              .withOpacity(1),
+                          softWrap: true,
                         ),
                         Spacer(
                           flex: 1,
                         ),
-                        // Container(
-                        //   width: 300,
-                        //   height: screenHeight(context, mulBy: 0.03), //0.038
-                        //   margin: EdgeInsets.zero,
-                        //   decoration: BoxDecoration(
-                        //     color: Color(0xff47454b),
-                        //     borderRadius: BorderRadius.circular(5),
-                        //   ),
-                        //   child: Center(
-                        //     child: Container(
-                        //       alignment: Alignment.center,
-                        //       child: TextField(
-                        //         controller: urlController,
-                        //         //textAlignVertical: TextAlignVertical.center,
-                        //         textAlign: TextAlign.center,
-                        //         cursorColor: Theme.of(context)
-                        //             .cardColor
-                        //             .withOpacity(0.55),
-                        //         onSubmitted: (text) => handleURL(text),
-                        //         style: TextStyle(
-                        //           height: 2,
-                        //           color: Theme.of(context)
-                        //               .cardColor
-                        //               .withOpacity(1),
-                        //           fontFamily: "HN",
-                        //           fontWeight: FontWeight.w400,
-                        //           fontSize: 10,
-                        //         ),
-                        //         maxLines: 1,
-                        //         decoration: InputDecoration(
-                        //           hintText:
-                        //               "Search or enter website name", //TODO
-                        //           isCollapsed: true,
-                        //           contentPadding:
-                        //               EdgeInsets.fromLTRB(5.0, 00.0, 5.0, 3.0),
-                        //           hintStyle: TextStyle(
-                        //             height: 2,
-                        //             color: Theme.of(context)
-                        //                 .cardColor
-                        //                 .withOpacity(0.4),
-                        //             fontFamily: "HN",
-                        //             fontWeight: FontWeight.w400,
-                        //             fontSize: 10,
-                        //           ),
-                        //           border: InputBorder.none,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        Spacer(
-                          flex: 6,
+                        Container(
+                          width: screenWidth(context, mulBy: 0.1),
+                          height: screenHeight(context, mulBy: 0.03), //0.038
+                          margin: EdgeInsets.zero,
+                          decoration: BoxDecoration(
+                            color: Color(0xff47454b),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Center(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: TextField(
+                                //textAlignVertical: TextAlignVertical.center,
+                                textAlign: TextAlign.start,
+                                cursorColor: Theme.of(context).cardColor.withOpacity(0.55),
+                                style: TextStyle(
+                                  height: 2,
+                                  color: Theme.of(context)
+                                      .cardColor
+                                      .withOpacity(1),
+                                  fontFamily: "HN",
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 10,
+                                ),
+                                maxLines: 1,
+                                decoration: InputDecoration(
+                                  hintText: "Search", //TODO
+                                  isCollapsed: true,
+                                  contentPadding: EdgeInsets.fromLTRB(5.0, 00.0, 5.0, 3.0),
+                                  icon: Icon(
+                                      CupertinoIcons.search,
+                                    size: 20,
+                                    color: Theme.of(context)
+                                        .cardColor
+                                        .withOpacity(0.55),
+                                  ),
+                                  hintStyle: TextStyle(
+                                    height: 2,
+                                    color: Theme.of(context)
+                                        .cardColor
+                                        .withOpacity(0.4),
+                                    fontFamily: "SF",
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12.5,
+                                  ),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
+
                       ],
                     ),
                   ),
@@ -265,8 +275,8 @@ class _SystemPreferencesState extends State<SystemPreferences> {
               Expanded(
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(10),
-                      bottomLeft: Radius.circular(10)),
+                      bottomRight: Radius.circular(15),
+                      bottomLeft: Radius.circular(15)),
                   child: BackdropFilter(
                     filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
                     child: Container(
