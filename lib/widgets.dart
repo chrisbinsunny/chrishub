@@ -31,6 +31,7 @@ class MBPText extends StatelessWidget {
         maxLines: maxLines,
         overflow: overflow,
         softWrap: softWrap,
+
       ),
     );
   }
@@ -77,6 +78,15 @@ class Scaler extends StatelessWidget {
     );
   }
 }
+
+
+BoxConstraints constraints({double? height, width}){
+  return BoxConstraints(
+      minHeight: height==null?0:height*800,
+    minWidth: width==null?0:width*800
+  );
+}
+
 
 
 extension StringExtension on String {

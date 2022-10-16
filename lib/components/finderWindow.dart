@@ -340,7 +340,8 @@ class _FinderState extends State<Finder> {
                             ],
                           ),
                         ],
-                      )
+                      ),
+                      //TODO Add content items here
                     ],
                   ),
                 ),
