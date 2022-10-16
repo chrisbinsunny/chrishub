@@ -23,10 +23,16 @@ class SystemPreferences extends StatefulWidget {
 class _SystemPreferencesState extends State<SystemPreferences> {
   Offset? position = Offset(0.0, 0.0);
   late bool sysPrefPan;
+  late TextEditingController controller;
 
   @override
   void initState() {
     position = widget.initPos;
+    controller=TextEditingController()..addListener(() {
+      setState(() {
+
+      });
+    });
     super.initState();
   }
 
@@ -37,9 +43,8 @@ class _SystemPreferencesState extends State<SystemPreferences> {
     return sysPrefOpen
         ? AnimatedPositioned(
             duration: Duration(milliseconds: sysPrefPan ? 0 : 200),
-            top:
-                position!.dy,
-            left:  position!.dx,
+            top: position!.dy,
+            left: position!.dx,
             child: sysPrefWindow(context),
           )
         : Container();
@@ -96,7 +101,6 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                       Provider.of<OnOff>(context, listen: false)
                           .offSysPrefPan();
                     },
-
                     child: Container(
                       alignment: Alignment.topRight,
                       width: screenWidth(context, mulBy: 0.7),
@@ -203,70 +207,94 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                         MBPText(
                           text: "System Preferences",
                           size: 15,
-                          weight: Theme.of(context)
-                              .textTheme
-                              .headline3!
-                              .fontWeight,
-                          color: Theme.of(context)
-                              .cardColor
-                              .withOpacity(1),
+                          weight:
+                              Theme.of(context).textTheme.headline3!.fontWeight,
+                          color: Theme.of(context).cardColor.withOpacity(1),
                           softWrap: true,
                         ),
                         Spacer(
                           flex: 1,
                         ),
                         Container(
-                          width: screenWidth(context, mulBy: 0.1),
-                          height: screenHeight(context, mulBy: 0.03), //0.038
+                          alignment: Alignment.bottomCenter,
+                          width: screenWidth(context, mulBy: 0.09),
+                          height: screenHeight(context, mulBy: 0.028), //0.038
                           margin: EdgeInsets.zero,
                           decoration: BoxDecoration(
-                            color: Color(0xff47454b),
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          child: Center(
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: TextField(
-                                //textAlignVertical: TextAlignVertical.center,
-                                textAlign: TextAlign.start,
-                                cursorColor: Theme.of(context).cardColor.withOpacity(0.55),
-                                style: TextStyle(
-                                  height: 2,
+                          child: TextField(
+                            textAlignVertical: TextAlignVertical.center,
+                            textAlign: TextAlign.start,
+                            controller: controller,
+                            cursorColor:
+                                Theme.of(context).cardColor.withOpacity(0.55),
+                            cursorHeight: 13,
+                            cursorWidth: 1,
+                            style: TextStyle(
+                              height: 0,
+                              color: Theme.of(context).cardColor.withOpacity(0.9),
+                              fontFamily: "HN",
+                              fontWeight: FontWeight.w300,
+                              fontSize: 11.5,
+                              letterSpacing: 0.5
+                            ),
+                            maxLines: 1,
+                            decoration: InputDecoration(
+                                hintText: "Search",
+                                isCollapsed: false,
+                                suffixIcon: Visibility(
+                                  visible: controller.text!="",
+                                  child: IconButton(
+                                    padding: EdgeInsets.zero,
+                                    icon: Icon(
+                                      CupertinoIcons.xmark_circle_fill,
+                                      size: 15,
+                                      color: Theme.of(context)
+                                          .cardColor
+                                          .withOpacity(0.55),
+                                    ),
+                                    onPressed: () {
+                                      controller.clear();
+
+                                    },
+                                  ),
+                                ),
+                                contentPadding:EdgeInsets.zero,
+                                prefixIcon: Icon(
+                                  CupertinoIcons.search,
+                                  size: 15,
                                   color: Theme.of(context)
                                       .cardColor
-                                      .withOpacity(1),
-                                  fontFamily: "HN",
+                                      .withOpacity(0.55),
+                                ),
+                                hintStyle: TextStyle(
+                                  height: 0,
+                                  color: Theme.of(context)
+                                      .cardColor
+                                      .withOpacity(0.4),
+                                  fontFamily: "SF",
                                   fontWeight: FontWeight.w400,
-                                  fontSize: 10,
+                                  fontSize: 12.5,
+                                  letterSpacing: 0
                                 ),
-                                maxLines: 1,
-                                decoration: InputDecoration(
-                                  hintText: "Search", //TODO
-                                  isCollapsed: true,
-                                  contentPadding: EdgeInsets.fromLTRB(5.0, 00.0, 5.0, 3.0),
-                                  icon: Icon(
-                                      CupertinoIcons.search,
-                                    size: 20,
-                                    color: Theme.of(context)
-                                        .cardColor
-                                        .withOpacity(0.55),
-                                  ),
-                                  hintStyle: TextStyle(
-                                    height: 2,
-                                    color: Theme.of(context)
-                                        .cardColor
-                                        .withOpacity(0.4),
-                                    fontFamily: "SF",
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12.5,
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                              ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                    borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .cardColor
+                                            .withOpacity(0.2),
+                                      width: 0.5
+                                    )),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: BorderSide(
+                                      color: Colors.blueAccent.withOpacity(0.7),
+                                      width: 2
+                                  )),
                             ),
                           ),
                         ),
-
                       ],
                     ),
                   ),
@@ -287,7 +315,6 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                       decoration: BoxDecoration(
                         color: Theme.of(context).hintColor,
                       ),
-
                     ),
                   ),
                 ),
