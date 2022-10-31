@@ -307,6 +307,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                   ),
                 ],
               ),
+
               ///Content part
               Expanded(
                 child: Column(
@@ -359,7 +360,58 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                                 )
                               )
                             ]
-                          ))
+                          )),
+                          Spacer(),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.red, //TODO
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                height: 33,
+                                  width: 33,
+                                margin: EdgeInsets.only(
+                                  bottom: 5
+                                ),
+                              ),
+                              Text(
+                                "Apple ID",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: "SF",
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            width: screenWidth(context, mulBy: 0.04),
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.red, //TODO
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                height: 30,
+                                width: 30,
+                              ),
+                              Text(
+                                "Apple ID",
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.grey
+                                ),
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     )
