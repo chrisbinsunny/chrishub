@@ -354,7 +354,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                             ),
                             children: [
                               TextSpan(
-                                text: "Apple ID, iCloud, Media & App Store",
+                                text: "Apple ID, iCloud, Media & App Store\n",
                                 style: TextStyle(
                                   fontSize: 11
                                 )
@@ -378,7 +378,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                                 ),
                               ),
                               Text(
-                                "Apple ID",
+                                "Apple ID\n",
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.grey,
@@ -389,7 +389,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                             ],
                           ),
                           SizedBox(
-                            width: screenWidth(context, mulBy: 0.04),
+                            width: screenWidth(context, mulBy: 0.025),
                           ),
                           Column(
                             mainAxisSize: MainAxisSize.min,
@@ -397,17 +397,23 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: Colors.red, //TODO
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                                height: 30,
-                                width: 30,
+                                height: 33,
+                                width: 33,
+                                margin: EdgeInsets.only(
+                                    bottom: 5
+                                ),
                               ),
                               Text(
-                                "Apple ID",
+                                "Family\nSharing",
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey
+                                  fontSize: 12,
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: "SF",
                                 ),
                               )
                             ],
