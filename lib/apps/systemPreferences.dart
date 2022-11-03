@@ -58,8 +58,8 @@ class _SystemPreferencesState extends State<SystemPreferences> {
     log(screenHeight(context, mulBy: 0.05).toString());
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
-      width: screenWidth(context, mulBy: 0.45),
-      height: screenHeight(context, mulBy: 0.72),
+      width: screenWidth(context, mulBy: 0.35),
+      height: screenHeight(context, mulBy: 0.55),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -87,7 +87,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     height: screenHeight(context, mulBy: 0.05),
                     constraints: constraints(height: 0.05),
                     decoration: BoxDecoration(
-                        color: Theme.of(context).dividerColor,
+                        color: Theme.of(context).disabledColor,
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(15),
                             topLeft: Radius.circular(15))),
@@ -120,6 +120,12 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     ),
                   ),
                   Container(
+                    decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(
+                        color: Colors.black,
+                        width: 0.8
+                      ))
+                    ),
                     padding: EdgeInsets.symmetric(
                         horizontal: screenWidth(context, mulBy: 0.013),
                         vertical: screenHeight(context, mulBy: 0.01)),
@@ -314,7 +320,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                        color: Theme.of(context).colorScheme.primary,
                         // borderRadius: BorderRadius.only(
                         //     bottomRight: Radius.circular(15),
                         //     bottomLeft: Radius.circular(15)),
@@ -365,16 +371,13 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.red, //TODO
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                height: 33,
-                                  width: 33,
-                                margin: EdgeInsets.only(
-                                  bottom: 5
+                              FittedBox(
+                                child: SizedBox(
+                                  height: 45,
+                                  width: 45,
+                                  child: Image.asset(
+                                      "assets/sysPref/appleID.png"
+                                  ),
                                 ),
                               ),
                               Text(
@@ -389,21 +392,19 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                             ],
                           ),
                           SizedBox(
-                            width: screenWidth(context, mulBy: 0.025),
+                            width: screenWidth(context, mulBy: 0.022),
                           ),
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.red, //TODO
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                height: 33,
-                                width: 33,
-                                margin: EdgeInsets.only(
-                                    bottom: 5
+
+                              FittedBox(
+                                child: SizedBox(
+                                  height: 45,
+                                  width: 45,
+                                  child: Image.asset(
+                                    "assets/sysPref/familySharing.png"
+                                  ),
                                 ),
                               ),
                               Text(
