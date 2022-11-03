@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../apps/systemPreferences.dart';
+import '../sizes.dart';
+
 
 class Apps extends ChangeNotifier{
 
   late Widget temp;
-  List<Widget> apps= [];
+  List<Widget> apps= [
+    SystemPreferences(
+        key: ObjectKey("systemPreferences"),
+        initPos: Offset(
+            490, 210)),
+  ];
   String onTop="Finder";
 
 
