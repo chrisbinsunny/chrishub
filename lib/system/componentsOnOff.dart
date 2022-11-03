@@ -42,7 +42,7 @@ class OnOff extends ChangeNotifier{
   bool notificationOn =false;
   bool launchPadOn=false;
   bool appOpen=false;
-  bool sysPrefOpen = false;
+  bool sysPrefOpen = true;
   bool sysPrefPan = false;
 
   bool get getAppOpen {
