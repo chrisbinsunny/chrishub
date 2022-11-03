@@ -108,7 +108,9 @@ class ThemeNotifier with ChangeNotifier {
       secondary: Color(0xff3b3b3b), //feedback light color
       background: Color(0xff2f2f2f),  //feedback dark color
         error: Color(0xff2f2e32), //feedback textbox fill
+      primary: Color(0xff232220)
     ),
+
       primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey[200],
