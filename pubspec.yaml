@@ -58,6 +58,7 @@ flutter:
     - assets/caches/
     - assets/messages/
     - assets/apps/
+    - assets/sysPref/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
