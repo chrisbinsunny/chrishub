@@ -55,11 +55,11 @@ class _SystemPreferencesState extends State<SystemPreferences> {
   AnimatedContainer sysPrefWindow(BuildContext context) {
     String thm = Provider.of<ThemeNotifier>(context).findThm;
     String topApp = Provider.of<Apps>(context).getTop;
-    log(screenWidth(context, mulBy: 0.011).toString());
+    log(screenHeight(context, mulBy: 0.55).toString());
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
-      width: screenWidth(context, mulBy: 0.35),
-      height: screenHeight(context, mulBy: 0.55),
+      width: 673,
+      height: 528,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -428,13 +428,14 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     Container(
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.background,
-                        // borderRadius: BorderRadius.only(
-                        //     bottomRight: Radius.circular(15),
-                        //     bottomLeft: Radius.circular(15)),
+                        border: Border(
+                            top: BorderSide(color: Colors.grey.withOpacity(0.6), width: 0.6),
+                          bottom: BorderSide(color: Colors.grey.withOpacity(0.6), width: 0.6)
+                        )
                       ),
 
-                      height: screenHeight(context, mulBy: 0.15),
-                      constraints: constraints(height: 0.15),
+                      height: screenHeight(context, mulBy: 0.16),
+                      constraints: constraints(height: 0.16),
                       padding: EdgeInsets.symmetric(
                           vertical: screenHeight(context, mulBy: 0.02),
                           horizontal: screenWidth(context, mulBy: 0.011)
@@ -531,6 +532,24 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                             ],
                           ),
                         ],
+                      ),
+                    ),
+                    Container(
+                      width: screenWidth(context),
+                      decoration: BoxDecoration(
+                        color: Color(0xff1f1e1d),
+
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(15),
+                            bottomLeft: Radius.circular(15)),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 5,
+                          horizontal: 0
+                      ),
+                      child: Image.asset(
+                        "assets/sysPref/settingBottomDark.jpg",
+                        fit: BoxFit.contain,
                       ),
                     )
                   ],
