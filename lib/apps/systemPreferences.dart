@@ -55,7 +55,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
   AnimatedContainer sysPrefWindow(BuildContext context) {
     String thm = Provider.of<ThemeNotifier>(context).findThm;
     String topApp = Provider.of<Apps>(context).getTop;
-    log(screenHeight(context, mulBy: 0.55).toString());
+    log(screenWidth(context, mulBy: 0.011).toString());
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: 673,
@@ -233,7 +233,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                           alignment: Alignment.bottomCenter,
                           width: screenWidth(context, mulBy: 0.09),
                           height: screenHeight(context, mulBy: 0.028),
-                          constraints: constraints(height: 0.028),
+                          constraints: constraints(height: 0.028, width: 0.09),
                           margin: EdgeInsets.zero,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
@@ -427,106 +427,88 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.background,
+                        color: Color(0xff272624),
                         border: Border(
-                            top: BorderSide(color: Colors.grey.withOpacity(0.6), width: 0.6),
-                          bottom: BorderSide(color: Colors.grey.withOpacity(0.6), width: 0.6)
+                            top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0.6),
+                          bottom: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0.6)
                         )
                       ),
 
-                      height: screenHeight(context, mulBy: 0.16),
-                      constraints: constraints(height: 0.16),
+                      height: 186,
                       padding: EdgeInsets.symmetric(
-                          vertical: screenHeight(context, mulBy: 0.02),
-                          horizontal: screenWidth(context, mulBy: 0.011)
+                          vertical: 15,
+                          horizontal: 21
                       ),
-                      child: Row(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
-                            child: Image.asset("assets/wallpapers/iPadOS_light.jpg", fit: BoxFit.cover,),
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle
-                            ),
-                            height: screenHeight(context, mulBy: 0.06),
-                            width: screenHeight(context, mulBy: 0.06),
-                            constraints: constraints(
-                                height: 0.06,
-                                width: 0.06
-                            ),
-                          ),
-                          SizedBox(
-                            width: screenWidth(context, mulBy: 0.007),
-                          ),
-                          RichText(
-                              text: TextSpan(
-                                  text: "Chrisbin Sunny\n",
-                                  style: TextStyle(
-                                      color: Theme.of(context)
-                                          .cardColor
-                                          .withOpacity(0.9),
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 17,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  FittedBox(
+                                    child: SizedBox(
+                                      height: 40,
+                                      width: 40,
+                                      child: Image.asset(
+                                          "assets/sysPref/general.png"
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "General\n",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: "SF",
-                                      letterSpacing: 0.3
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                        text: "Apple ID, iCloud, Media & App Store\n",
-                                        style: TextStyle(
-                                            fontSize: 11
-                                        )
-                                    )
-                                  ]
-                              )),
-                          Spacer(),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              FittedBox(
-                                child: SizedBox(
-                                  height: 45,
-                                  width: 45,
-                                  child: Image.asset(
-                                      "assets/sysPref/appleID.png"
-                                  ),
-                                ),
+                                    ),
+                                  )
+                                ],
                               ),
-                              Text(
-                                "Apple ID\n",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "SF",
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            width: screenWidth(context, mulBy: 0.022),
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-
-                              FittedBox(
-                                child: SizedBox(
-                                  height: 45,
-                                  width: 45,
-                                  child: Image.asset(
-                                      "assets/sysPref/familySharing.png"
-                                  ),
-                                ),
+                              SizedBox(
+                                width: 25,
                               ),
-                              Text(
-                                "Family\nSharing",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "SF",
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  FittedBox(
+                                    child: SizedBox(
+                                      height: 40,
+                                      width: 40,
+                                      child: Image.asset(
+                                          "assets/sysPref/desktop.png"
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    "Desktop &\nScreen Saver",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: "SF",
+                                    ),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                width: 25,
+                              ),
+                              SizedBox(
+                                height: 85,
+                                child: Image.asset(
+                                  "assets/sysPref/settingTopDark.jpg",
+                                  fit: BoxFit.contain,
                                 ),
                               )
                             ],
@@ -534,22 +516,25 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                         ],
                       ),
                     ),
-                    Container(
-                      width: screenWidth(context),
-                      decoration: BoxDecoration(
-                        color: Color(0xff1f1e1d),
+                    Expanded(
+                      child: Container(
+                        width: screenWidth(context),
+                        decoration: BoxDecoration(
+                          color: Color(0xff1f1e1d),
 
-                        borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(15),
-                            bottomLeft: Radius.circular(15)),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 5,
-                          horizontal: 0
-                      ),
-                      child: Image.asset(
-                        "assets/sysPref/settingBottomDark.jpg",
-                        fit: BoxFit.contain,
+                          borderRadius: BorderRadius.only(
+                              bottomRight: Radius.circular(15),
+                              bottomLeft: Radius.circular(15)),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 0
+                        ),
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          "assets/sysPref/settingBottomDark.jpg",
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     )
                   ],
