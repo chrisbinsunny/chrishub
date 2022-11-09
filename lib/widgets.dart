@@ -83,7 +83,7 @@ class Scaler extends StatelessWidget {
 BoxConstraints constraints({double? height, width}){
   return BoxConstraints(
       minHeight: height==null?0:height*800, ///800 is the safe height factor
-    minWidth: width==null?0:width*800
+    minWidth: width==null?0:width*1312
   );
 }
 
