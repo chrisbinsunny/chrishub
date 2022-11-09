@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:mac_dt/componentsOnOff.dart';
+import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:provider/provider.dart';
-import '../openApps.dart';
+import '../system/openApps.dart';
 import '../sizes.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 
 class Calendar extends StatefulWidget {
-  final Offset initPos;
-  const Calendar({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const Calendar({this.initPos, Key? key}) : super(key: key);
 
   @override
   _CalendarState createState() => _CalendarState();
 }
 
 class _CalendarState extends State<Calendar> {
-  Offset position = Offset(0.0, 0.0);
-  bool calendarFS;
-  bool calendarPan;
+  Offset? position = Offset(0.0, 0.0);
+  late bool calendarFS;
+  late bool calendarPan;
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.utc(1999, 07, 10);
   DateTime focusedDay = DateTime.now();
@@ -39,8 +39,8 @@ class _CalendarState extends State<Calendar> {
       visible: spotifyOpen,
       child: AnimatedPositioned(
         duration: Duration(milliseconds: calendarPan ? 0 : 200),
-        top: calendarFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-        left: calendarFS ? 0 : position.dx,
+        top: calendarFS ? screenHeight(context, mulBy: 0.0335) : position!.dy,
+        left: calendarFS ? 0 : position!.dx,
         child: calendarWindow(context),
       ),
     );
@@ -93,8 +93,8 @@ class _CalendarState extends State<Calendar> {
                     onPanUpdate: (tapInfo) {
                       if (!calendarFS) {
                         setState(() {
-                          position = Offset(position.dx + tapInfo.delta.dx,
-                              position.dy + tapInfo.delta.dy);
+                          position = Offset(position!.dx + tapInfo.delta.dx,
+                              position!.dy + tapInfo.delta.dy);
                         });
                       }
                     },
@@ -237,17 +237,17 @@ class _CalendarState extends State<Calendar> {
                         defaultTextStyle: TextStyle(
                             color: Theme.of(context).cardColor.withOpacity(1),
                             fontWeight:
-                                Theme.of(context).textTheme.headline4.fontWeight,
+                                Theme.of(context).textTheme.headline4!.fontWeight,
                             fontFamily: "HN"),
                         weekendTextStyle: TextStyle(
                             color: Theme.of(context).cardColor.withOpacity(0.6),
                             fontWeight:
-                                Theme.of(context).textTheme.headline4.fontWeight,
+                                Theme.of(context).textTheme.headline4!.fontWeight,
                             fontFamily: "HN"),
                         outsideTextStyle: TextStyle(
                             color: Theme.of(context).cardColor.withOpacity(0.3),
                             fontWeight:
-                                Theme.of(context).textTheme.headline4.fontWeight,
+                                Theme.of(context).textTheme.headline4!.fontWeight,
                             fontFamily: "HN"),
 
                       ),
@@ -266,7 +266,7 @@ class _CalendarState extends State<Calendar> {
                                   color: Theme.of(context).cardColor.withOpacity(1),
                                   fontWeight: Theme.of(context)
                                       .textTheme
-                                      .headline1
+                                      .headline1!
                                       .fontWeight,
                                   fontSize: 25,
                                   fontFamily: "HN"),
@@ -277,7 +277,7 @@ class _CalendarState extends State<Calendar> {
                                   color: Theme.of(context).cardColor.withOpacity(1),
                                   fontWeight: Theme.of(context)
                                       .textTheme
-                                      .headline2
+                                      .headline2!
                                       .fontWeight,
                                   fontSize: 25,
                                   fontFamily: "HN"),
@@ -303,7 +303,7 @@ class _CalendarState extends State<Calendar> {
                                     color: Theme.of(context).cardColor.withOpacity(1),
                                     fontWeight: Theme.of(context)
                                         .textTheme
-                                        .headline2
+                                        .headline2!
                                         .fontWeight,
                                     fontSize: 14,
                                     fontFamily: "HN"),
@@ -337,7 +337,7 @@ class _CalendarState extends State<Calendar> {
                                             color: Colors.white,
                                             fontWeight: Theme.of(context)
                                                 .textTheme
-                                                .headline2
+                                                .headline2!
                                                 .fontWeight,
                                             fontSize: 12.5,
                                             fontFamily: "HN"),
@@ -373,7 +373,7 @@ class _CalendarState extends State<Calendar> {
                                             color: Colors.white,
                                             fontWeight: Theme.of(context)
                                                 .textTheme
-                                                .headline2
+                                                .headline2!
                                                 .fontWeight,
                                             fontSize: 12.5,
                                             fontFamily: "HN"),
@@ -401,7 +401,7 @@ class _CalendarState extends State<Calendar> {
                                           color: Theme.of(context).cardColor.withOpacity(0.3),
                                           fontWeight: Theme.of(context)
                                               .textTheme
-                                              .headline2
+                                              .headline2!
                                               .fontWeight,
                                           fontSize: 14,
                                           fontFamily: "HN"),
@@ -420,7 +420,7 @@ class _CalendarState extends State<Calendar> {
                                       color: Theme.of(context).cardColor.withOpacity(1),
                                       fontWeight: Theme.of(context)
                                           .textTheme
-                                          .headline2
+                                          .headline2!
                                           .fontWeight,
                                       fontSize: 14,
                                       fontFamily: "HN"),

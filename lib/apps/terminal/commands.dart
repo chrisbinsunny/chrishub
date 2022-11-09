@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
-import '../../componentsOnOff.dart';
+import '../../system/componentsOnOff.dart';
 
 class Commands{
 
@@ -13,4 +13,4 @@ class Commands{
 
 }
 
-Commands commands;
+Commands? commands;

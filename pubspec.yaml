@@ -18,20 +18,21 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.18.1 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   intl: ^0.17.0
-  provider: ^5.0.0
-  http: ^0.13.3
-  table_calendar: ^3.0.0
+  provider: ^6.0.4
+  http: ^0.13.5
+  table_calendar: ^3.0.7
+#  pointer_interceptor: ^0.9.0+1
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.5
 
 dev_dependencies:
   flutter_test:
@@ -52,8 +53,13 @@ flutter:
   assets:
     - assets/wallpapers/
     - assets/icons/
-    - assets/apps/
+    - assets/appsMac/
+    - assets/appsiOS/
     - assets/caches/
+    - assets/messages/
+    - assets/apps/
+    - assets/sysPref/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -69,16 +75,29 @@ flutter:
   fonts:
     - family: SF
       fonts:
-      - asset: assets/fonts/SFUIDisplay-Regular.otf
+      - asset: assets/fonts/SF/SFUltralight.otf
         weight: 100
-      - asset: assets/fonts/SFUIDisplay-Semibold.otf
+      - asset: assets/fonts/SF/SFLight.otf
+        weight: 300
+      - asset: assets/fonts/SF/SFThin.otf
+        weight: 200
+      - asset: assets/fonts/SF/SFRegular.otf
         weight: 400
-      - asset: assets/fonts/SFUIDisplay-Bold.ttf
+      - asset: assets/fonts/SF/SFMedium.otf
+        weight: 500
+      - asset: assets/fonts/SF/SFSemibold.otf
         weight: 600
-      - asset: assets/fonts/SFUIDisplay-Heavy.otf
+      - asset: assets/fonts/SF/SFBold.otf
         weight: 700
-      - asset: assets/fonts/SFUIDisplay-Black.otf
+      - asset: assets/fonts/SF/SFHeavy.otf
+        weight: 800
+      - asset: assets/fonts/SF/SFBlack.otf
         weight: 900
+
+    - family: SFR
+      fonts:
+      - asset: assets/fonts/SFRounded.ttf
+        weight: 500
     - family: Helvetica
       fonts:
       - asset: assets/fonts/Helvetica.ttf

@@ -8,19 +8,19 @@ import '../theme/theme.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../componentsOnOff.dart';
+import '../system/componentsOnOff.dart';
 import '../sizes.dart';
 
 class ControlCentre extends StatefulWidget {
-  const ControlCentre({Key key}) : super(key: key);
+  const ControlCentre({Key? key}) : super(key: key);
 
   @override
   _ControlCentreState createState() => _ControlCentreState();
 }
 
 class _ControlCentreState extends State<ControlCentre> {
-  double brightness;
-  double sound;
+  double? brightness;
+  late double sound;
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _ControlCentreState extends State<ControlCentre> {
 
   @override
   Widget build(BuildContext context) {
-    brightness = Provider.of<BackBone>(context).getBrightness;
+    brightness = Provider.of<DataBus>(context).getBrightness;
 
     BoxDecoration ccDecoration = BoxDecoration(
       color: Theme.of(context).backgroundColor,
@@ -48,6 +48,9 @@ class _ControlCentreState extends State<ControlCentre> {
         blurStyle: BlurStyle.outer);
     var ccOpen = Provider.of<OnOff>(context).getCc;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+    bool NSOn = Provider.of<DataBus>(
+      context,
+    ).getNS;
     return ccOpen
         ? Container(
             child: Align(
@@ -159,21 +162,71 @@ class _ControlCentreState extends State<ControlCentre> {
                                             child: BrdrContainer(
                                               height: 0.08,
                                               width: 0.09,
-                                              child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: screenWidth(
-                                                        context,
-                                                        mulBy: 0.013),
-                                                    vertical: screenHeight(
-                                                        context,
-                                                        mulBy: 0.025)),
-                                                height: screenHeight(context,
-                                                    mulBy: 0.08),
-                                                width: screenWidth(context,
-                                                    mulBy: 0.09),
-                                                decoration: ccDecoration,
-                                                child: Row(
-                                                  children: [],
+                                              child: InkWell(
+                                                mouseCursor: MouseCursor.defer,
+                                                onTap: () {
+                                                  Provider.of<DataBus>(context, listen: false).toggleNS();
+                                                },
+                                                child: Container(
+                                                  height: screenHeight(context,
+                                                      mulBy: 0.08),
+                                                  width: screenWidth(context,
+                                                      mulBy: 0.09),
+                                                  decoration: ccDecoration,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.all(
+                                                            Radius.circular(
+                                                                10)),
+                                                        child: BackdropFilter(
+                                                          filter:
+                                                          ImageFilter.blur(
+                                                              sigmaX: 15.0,
+                                                              sigmaY: 15.0),
+                                                          child: Container(
+                                                            height:
+                                                            screenHeight(
+                                                                context,
+                                                                mulBy:
+                                                                0.0456),
+                                                            width: screenWidth(
+                                                                context,
+                                                                mulBy: 0.0219),
+                                                            decoration:
+                                                            BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color: NSOn? Colors.orange.withOpacity(0.8):Colors.black.withOpacity(.13),
+                                                            ),
+                                                            child: Center(
+                                                              child:
+                                                              Icon(
+                                                                CupertinoIcons.brightness,
+                                                                color: Colors.white.withOpacity(0.7),
+                                                                size: 18,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                          child: MBPText(
+                                                            overflow:
+                                                            TextOverflow.visible,
+                                                            maxLines: 2,
+                                                            text:
+                                                            "Night Shift\n${NSOn ? "On" : "Off"}",
+                                                            color: Theme.of(context)
+                                                                .cardColor
+                                                                .withOpacity(1),
+                                                          ))
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -195,28 +248,29 @@ class _ControlCentreState extends State<ControlCentre> {
                                             child: BrdrContainer(
                                               height: 0.08,
                                               width: 0.09,
-                                              child: Container(
-                                                height: screenHeight(context,
-                                                    mulBy: 0.08),
-                                                width: screenWidth(context,
-                                                    mulBy: 0.09),
-                                                decoration: ccDecoration,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                        themeNotifier.isDark()
-                                                            ? themeNotifier.setTheme(
-                                                                ThemeNotifier
-                                                                    .lightTheme)
-                                                            : themeNotifier.setTheme(
-                                                                ThemeNotifier
-                                                                    .darkTheme);
-                                                      },
-                                                      child: ClipRRect(
+                                              child: InkWell(
+                                                mouseCursor: MouseCursor.defer,
+                                                onTap: () {
+                                                  themeNotifier.isDark()
+                                                      ? themeNotifier.setTheme(
+                                                      ThemeNotifier
+                                                          .lightTheme)
+                                                      : themeNotifier.setTheme(
+                                                      ThemeNotifier
+                                                          .darkTheme);
+                                                },
+                                                child: Container(
+                                                  height: screenHeight(context,
+                                                      mulBy: 0.08),
+                                                  width: screenWidth(context,
+                                                      mulBy: 0.09),
+                                                  decoration: ccDecoration,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      ClipRRect(
                                                         borderRadius:
                                                             BorderRadius.all(
                                                                 Radius.circular(
@@ -241,7 +295,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                                   .circle,
                                                               color: Theme.of(
                                                                       context)
-                                                                  .buttonColor,
+                                                                  .highlightColor,
                                                             ),
                                                             child: Center(
                                                               child:
@@ -259,18 +313,19 @@ class _ControlCentreState extends State<ControlCentre> {
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                    Flexible(
-                                                        child: MBPText(
-                                                      overflow:
-                                                          TextOverflow.clip,
-                                                      text:
-                                                          "Dark Mode\n${themeNotifier.isDark() ? "On" : "Off"}",
-                                                      color: Theme.of(context)
-                                                          .cardColor
-                                                          .withOpacity(1),
-                                                    ))
-                                                  ],
+                                                      Flexible(
+                                                          child: MBPText(
+                                                        overflow:
+                                                            TextOverflow.visible,
+                                                        maxLines: 2,
+                                                        text:
+                                                            "Dark Mode\n${themeNotifier.isDark() ? "On" : "Off"}",
+                                                        color: Theme.of(context)
+                                                            .cardColor
+                                                            .withOpacity(1),
+                                                      ))
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -345,7 +400,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                       .noOverlay,
                                                 ),
                                                 child: Slider(
-                                                  value: brightness,
+                                                  value: brightness!,
                                                   min: 0,
                                                   max: 100,
                                                   onChanged: (val) {
@@ -354,7 +409,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                     else if (val < 6.7) val = 6.7;
                                                     setState(() {
                                                       brightness = val;
-                                                      Provider.of<BackBone>(context,
+                                                      Provider.of<DataBus>(context,
                                                               listen: false)
                                                           .setBrightness(brightness);
                                                     });
@@ -511,55 +566,57 @@ class _ControlCentreState extends State<ControlCentre> {
                                         context,
                                       ),
                                       decoration: ccDecoration,
-                                      child: Column(
+                                      child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.start,
                                         crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                         children: [
+                                         Container(
+                                           height: screenHeight(context, mulBy: 0.059),
+                                           width: screenWidth(context, mulBy: 0.028),
+                                           decoration: BoxDecoration(
+                                             color: Theme.of(context)
+                                                 .bottomAppBarColor,
+                                             borderRadius: BorderRadius.circular(5)
+                                           ),
+                                           margin: EdgeInsets.only(right: screenWidth(context, mulBy: 0.005)),
+                                           child: Center(
+                                             child: Image.asset(
+                                               "assets/apps/itunes.png",
+                                               height:
+                                               screenHeight(
+                                                   context,
+                                                   mulBy:
+                                                   0.035),
+                                               fit: BoxFit
+                                                   .fitHeight,
+                                             ),
+                                           ),
+                                         ),
                                           MBPText(
                                             overflow: TextOverflow.clip,
-                                            text: "Display",
+                                            text: "Music",
                                             color: Theme.of(context)
                                                 .cardColor
                                                 .withOpacity(1),
                                           ),
-                                          SliderTheme(
-                                            data: SliderTheme.of(context)
-                                                .copyWith(
-                                              trackHeight: 15,
-                                              activeTrackColor: Colors.white,
-                                              thumbColor: Colors.white,
-                                              minThumbSeparation: 20,
-                                              trackShape: SliderTrackShape(),
-                                              inactiveTrackColor: Colors.white
-                                                  .withOpacity(0.25),
-                                              thumbShape: RoundSliderThumbShape(
-                                                  enabledThumbRadius: 8.4,
-                                                  elevation: 10,
-                                                  pressedElevation: 20
-                                              ),
-                                              overlayShape: SliderComponentShape
-                                                  .noOverlay,
-                                            ),
-                                            child: Slider(
-                                              value: brightness,
-                                              min: 0,
-                                              max: 100,
-                                              onChanged: (val) {
-                                                if (val > 95.98)
-                                                  val = 95.98;
-                                                else if (val < 6.7) val = 6.7;
-                                                setState(() {
-                                                  brightness = val;
-                                                  Provider.of<BackBone>(context,
-                                                      listen: false)
-                                                      .setBrightness(brightness);
-                                                });
-                                              },
-                                            ),
+                                          Spacer(),
+                                          Icon(
+                                            CupertinoIcons.play_arrow_solid,
+                                          size: 17,
+                                            color: Theme.of(context)
+                                                .bottomAppBarColor.withOpacity(0.5),
                                           ),
-                                          //CCSlider(height: 16, width: screenWidth(context),),
+                                          SizedBox(
+                                            width: screenWidth(context, mulBy: 0.005),
+                                          ),
+                                          Icon(
+                                            CupertinoIcons.forward_fill,
+                                            size: 16,
+                                            color: Theme.of(context)
+                                                .bottomAppBarColor.withOpacity(0.3),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -581,10 +638,10 @@ class _ControlCentreState extends State<ControlCentre> {
 }
 
 class BrdrContainer extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   final double height;
   final double width;
-  const BrdrContainer({this.height = 1, this.width = 1, this.child, Key key})
+  const BrdrContainer({this.height = 1, this.width = 1, this.child, Key? key})
       : super(key: key);
 
   @override
@@ -604,13 +661,13 @@ class BrdrContainer extends StatelessWidget {
 
 class SliderTrackShape extends RoundedRectSliderTrackShape {
   Rect getPreferredRect({
-    @required RenderBox parentBox,
+    required RenderBox parentBox,
     Offset offset = Offset.zero,
-    @required SliderThemeData sliderTheme,
+    required SliderThemeData sliderTheme,
     bool isEnabled = false,
     bool isDiscrete = false,
   }) {
-    final double trackHeight = sliderTheme.trackHeight;
+    final double trackHeight = sliderTheme.trackHeight!;
     final double trackLeft = offset.dx;
     final double trackTop =
         offset.dy + (parentBox.size.height - trackHeight) / 2;

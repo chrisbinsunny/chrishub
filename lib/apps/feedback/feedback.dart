@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:mac_dt/componentsOnOff.dart';
+import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
-import '../../openApps.dart';
+import '../../system/openApps.dart';
 import '../../sizes.dart';
 import '../../widgets.dart';
 import 'dart:html' as html;
@@ -17,18 +17,18 @@ import 'model.dart';
 //TODO Theming of  feedback
 
 class FeedBack extends StatefulWidget {
-  final Offset initPos;
-  const FeedBack({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const FeedBack({this.initPos, Key? key}) : super(key: key);
 
   @override
   _FeedBackState createState() => _FeedBackState();
 }
 
 class _FeedBackState extends State<FeedBack> {
-  Offset position = Offset(0.0, 0.0);
-  bool feedbackFS;
-  bool feedbackPan;
-  bool feedbackOpen;
+  Offset? position = Offset(0.0, 0.0);
+  late bool feedbackFS;
+  late bool feedbackPan;
+  late bool feedbackOpen;
   bool error = true;
   bool valAni = false;
   bool valid = false;
@@ -39,34 +39,34 @@ class _FeedBackState extends State<FeedBack> {
   /// 0=submitting, 1=success, 2=error, 3= free state
   bool submitShow = false;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController nameController;
-  TextEditingController emailController;
-  TextEditingController mobileNoController;
-  TextEditingController feedbackController;
+  TextEditingController? nameController;
+  TextEditingController? emailController;
+  TextEditingController? mobileNoController;
+  TextEditingController? feedbackController;
   String type = "Feedback";
-  FeedbackForm feedbackItem = new FeedbackForm(
+  FeedbackForm? feedbackItem = new FeedbackForm(
       "Name", "yoyo", "123", "io", "hihihi", "2021-06-13T09:23:06.469Z");
   ScrollController scrollController = new ScrollController();
 
   void _submitForm() {
-    if (nameController.text.isNotEmpty &&
-        emailController.text.contains("@") &&
-        (mobileNoController.text.isEmpty ||
-            (mobileNoController.text.length >= 10 &&
-                int.tryParse(mobileNoController.text) != null)) &&
+    if (nameController!.text.isNotEmpty &&
+        emailController!.text.contains("@") &&
+        (mobileNoController!.text.isEmpty ||
+            (mobileNoController!.text.length >= 10 &&
+                int.tryParse(mobileNoController!.text) != null)) &&
         type.isNotEmpty &&
-        feedbackController.text.isNotEmpty) {
+        feedbackController!.text.isNotEmpty) {
       valid = true;
     }
-    _formKey.currentState.validate();
+    _formKey.currentState!.validate();
     if (valid) {
       // If the form is valid, proceed.
       FeedbackForm feedbackForm = FeedbackForm(
-        nameController.text,
-        emailController.text,
-        mobileNoController.text,
+        nameController!.text,
+        emailController!.text,
+        mobileNoController!.text,
         type,
-        feedbackController.text,
+        feedbackController!.text,
         DateTime.now().toString(),
       );
 
@@ -77,16 +77,16 @@ class _FeedBackState extends State<FeedBack> {
         submit = 0;
       });
 
-      formController.submitForm(feedbackForm, (String response) {
+      formController.submitForm(feedbackForm, (String? response) {
         print("Response: $response");
         Future.delayed(Duration(seconds: 0), () {
           if (response == FormController.STATUS_SUCCESS) {
             setState(() {
               submit = 1;
-              nameController.clear();
-              emailController.clear();
-              mobileNoController.clear();
-              feedbackController.clear();
+              nameController!.clear();
+              emailController!.clear();
+              mobileNoController!.clear();
+              feedbackController!.clear();
               issues= FormController().getFeedbackList();
             });
           } else {
@@ -119,8 +119,8 @@ class _FeedBackState extends State<FeedBack> {
         ? AnimatedPositioned(
             duration: Duration(milliseconds: feedbackPan ? 0 : 200),
             top:
-                feedbackFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-            left: feedbackFS ? 0 : position.dx,
+                feedbackFS ? screenHeight(context, mulBy: 0.0335) : position!.dy,
+            left: feedbackFS ? 0 : position!.dx,
             child: feedbackWindow(context),
           )
         : Container();
@@ -194,8 +194,8 @@ class _FeedBackState extends State<FeedBack> {
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                   colors: [
-                                    Color(0xff727272),
-                                    Color(0xff474747)
+                                    Theme.of(context).colorScheme.secondary
+                                    ,Theme.of(context).colorScheme.background,
 
                                   ],
                                 ),
@@ -214,7 +214,7 @@ class _FeedBackState extends State<FeedBack> {
                           height: screenHeight(context, mulBy: 0.05),
                         ),
                         MBPText(
-                          text: "Recent Issues",
+                          text: "Recent Issues Reported",
                           size: 18,
                           fontFamily: "HN",
                           weight: FontWeight.w600,
@@ -230,16 +230,15 @@ class _FeedBackState extends State<FeedBack> {
                             height: screenHeight(context),
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: Colors.white.withOpacity(0.5),
+                                color: Theme.of(context).cardColor.withOpacity(0.5),
                               ),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
-                              color: Color(0xff2f2f2f),
+                              color: Theme.of(context).colorScheme.background,
                             ),
                             child: ClipRRect(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
-                              //TODO Change color of selected tile.
                               child: FutureBuilder(
                                 future: issues,
                                 builder: (context, snapshot) {
@@ -269,8 +268,12 @@ class _FeedBackState extends State<FeedBack> {
                                                     mulBy: 0.008)),
                                             decoration: BoxDecoration(
                                               color: index % 2 == 0
-                                                  ? Color(0xff3b3b3b)
-                                                  : Color(0xff2f2f2f),
+                                                  ? Theme.of(context).colorScheme.secondary
+                                                  : Theme.of(context).colorScheme.background,
+                                                border: Border.all(
+                                                    color: feedbackItem==snapshot.data[index]?Color(0xffb558e1):Colors.transparent,
+                                                    width: 2
+                                                )
                                             ),
                                             child: Column(
                                               mainAxisAlignment:
@@ -395,7 +398,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 cursorHeight: 16,
                                                 controller: nameController,
                                                 validator: (value) {
-                                                  if (value.isEmpty) {
+                                                  if (value!.isEmpty) {
                                                     setState(() {
                                                       error = false;
                                                       valAni = true;
@@ -420,8 +423,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 decoration: InputDecoration(
                                                     isDense: true,
                                                     filled: true,
-                                                    fillColor:
-                                                        Color(0xff2f2e32),
+                                                    fillColor: Theme.of(context).colorScheme.error,
                                                     contentPadding:
                                                         EdgeInsets.symmetric(
                                                             vertical: 8,
@@ -473,7 +475,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 cursorHeight: 16,
                                                 controller: emailController,
                                                 validator: (value) {
-                                                  if (!value.contains("@")) {
+                                                  if (!value!.contains("@")) {
                                                     setState(() {
                                                       error = false;
                                                       valAni = true;
@@ -498,8 +500,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 decoration: InputDecoration(
                                                     isDense: true,
                                                     filled: true,
-                                                    fillColor:
-                                                        Color(0xff2f2e32),
+                                                    fillColor: Theme.of(context).colorScheme.error,
                                                     contentPadding:
                                                         EdgeInsets.symmetric(
                                                             vertical: 8,
@@ -552,7 +553,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 cursorHeight: 16,
                                                 controller: mobileNoController,
                                                 validator: (value) {
-                                                  if (value.isNotEmpty &&
+                                                  if (value!.isNotEmpty &&
                                                       value.length < 10 &&
                                                       int.tryParse(value) ==
                                                           null)
@@ -579,8 +580,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 decoration: InputDecoration(
                                                     isDense: true,
                                                     filled: true,
-                                                    fillColor:
-                                                        Color(0xff2f2e32),
+                                                    fillColor: Theme.of(context).colorScheme.error,
                                                     contentPadding:
                                                         EdgeInsets.symmetric(
                                                             vertical: 8,
@@ -733,7 +733,7 @@ class _FeedBackState extends State<FeedBack> {
                                             controller: feedbackController,
                                             textAlign: TextAlign.start,
                                             validator: (value) {
-                                              if (value.isEmpty) {
+                                              if (value!.isEmpty) {
                                                 setState(() {
                                                   error = false;
                                                   valAni = true;
@@ -757,7 +757,7 @@ class _FeedBackState extends State<FeedBack> {
                                             decoration: InputDecoration(
                                                 isDense: true,
                                                 filled: true,
-                                                fillColor: Color(0xff2f2e32),
+                                                fillColor: Theme.of(context).colorScheme.error,
                                                 contentPadding:
                                                     EdgeInsets.symmetric(
                                                         vertical: 8,
@@ -875,7 +875,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 borderRadius:
                                                     BorderRadius.circular(8)),
                                             child: Text(
-                                              "${feedbackItem.name}",
+                                              "${feedbackItem!.name}",
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: "HN",
@@ -932,7 +932,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 borderRadius:
                                                     BorderRadius.circular(8)),
                                             child: Text(
-                                              "${feedbackItem.dateTime}",
+                                              "${feedbackItem!.dateTime}",
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: "HN",
@@ -1007,7 +1007,7 @@ class _FeedBackState extends State<FeedBack> {
                                                         mulBy: 0.02),
                                                   ),
                                                   Text(
-                                                    "${feedbackItem.feedback}",
+                                                    "${feedbackItem!.feedback}",
                                                     style: TextStyle(
                                                       fontSize: 12,
                                                       fontFamily: "HN",
@@ -1389,8 +1389,8 @@ class _FeedBackState extends State<FeedBack> {
             onPanUpdate: (tapInfo) {
               if (!feedbackFS) {
                 setState(() {
-                  position = Offset(position.dx + tapInfo.delta.dx,
-                      position.dy + tapInfo.delta.dy);
+                  position = Offset(position!.dx + tapInfo.delta.dx,
+                      position!.dy + tapInfo.delta.dy);
                 });
               }
             },

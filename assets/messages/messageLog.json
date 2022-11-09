@@ -1,0 +1,85 @@
+[
+{
+  "messages": {
+    "sender": [
+      "Hey, Chrisbin",
+      "I have a work for you.",
+      "Can you do it in 1 week?",
+      "Thanks a lot man..",
+      "Hey, Chrisbin",
+      "I have a work for you.",
+      "Can you do it in 1 week?",
+      "Thanks a lot man..",
+      "Hey, Chrisbin",
+      "I have a work for you.",
+      "Can you do it in 1 week?",
+      "Thanks a lot man..",
+      "Hey, Chrisbin",
+      "I have a work for you.",
+      "Can you do it in 1 week?",
+      "Thanks a lot man..",
+      "Hey, Chrisbin",
+      "I have a work for you.",
+      "Can you do it in 1 week?",
+      "Thanks a lot man.."
+    ],
+    "me": [
+      "Hello, Sir",
+      "Can you explain a bit?",
+      "I guess I can do it sir",
+      "You're welcome, sir",
+      "Hello, Sir",
+      "Can you explain a bit?",
+      "I guess I can do it sir",
+      "You're welcome, sir",
+      "Hello, Sir",
+      "Can you explain a bit?",
+      "I guess I can do it sir",
+      "You're welcome, sir",
+      "Hello, Sir",
+      "Can you explain a bit?",
+      "I guess I can do it sir",
+      "You're welcome, sir",
+      "Hello, Sir",
+      "Can you explain a bit?",
+      "I guess I can do it sir",
+      "You're welcome, sir"
+    ]
+  },
+  "senderName": "Elon Musk",
+  "senderPhoto": "",
+  "profileLink": "https://en.wikipedia.org/wiki/Elon_Musk",
+  "dates": [
+    "2021-08-20 08:10:00.137"
+  ],
+  "dateStops": [
+    0
+  ]
+},
+  {
+    "messages": {
+      "sender": [
+        "Hey, Chrisbin",
+        "I have a work for you.",
+        "Can you do it in 1 week?",
+        "Thanks a lot man.."
+      ],
+      "me": [
+        "Hello, Sir",
+        "Can you explain a bit?",
+        "I guess I can do it sir",
+        "You're welcome, sir"
+      ]
+    },
+    "senderName": "Steve Jobs",
+    "senderPhoto": "",
+    "profileLink": "https://en.wikipedia.org/wiki/Steve_Jobs",
+    "dates": [
+      "2021-08-20 08:10:00.137"
+    ],
+    "dateStops": [
+      0
+    ]
+  }
+]
+

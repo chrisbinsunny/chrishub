@@ -4,15 +4,17 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
-import 'package:mac_dt/openApps.dart';
+import 'package:mac_dt/system/openApps.dart';
+import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
 
-import '../componentsOnOff.dart';
+import '../system/componentsOnOff.dart';
+import '../system/folders.dart';
 
 class FileMenu extends StatefulWidget {
 
   FileMenu({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class FileMenu extends StatefulWidget {
 
 class _FileMenuState extends State<FileMenu> {
   var rand = new Random();
-  int num;
+  late int num;
 
   @override
   void initState() {
@@ -32,14 +34,13 @@ class _FileMenuState extends State<FileMenu> {
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
-    String fs= Provider.of<OnOff>(context).getFS;
     String topApp= Provider.of<Apps>(context).getTop;
     return ClipRect(
       child: new BackdropFilter(
         filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
         child: new Container(
-            height: size.height*0.035,
-            width: size.width,
+            height: screenHeight(context, mulBy: 0.035),
+            width: screenWidth(context,),
             padding: EdgeInsets.all(3),
             decoration: new BoxDecoration(
               color: Theme.of(context).canvasColor,
@@ -86,6 +87,7 @@ class _FileMenuState extends State<FileMenu> {
                     SizedBox(width: size.width*0.014,),
                     InkWell(child: Image.asset("assets/icons/cc.png", height: 16,filterQuality: FilterQuality.low,),
                     onTap: (){
+                      Provider.of<Folders>(context, listen: false).deSelectAll();
                       Provider.of<OnOff>(context, listen: false).toggleCc();
                     },
                     ),

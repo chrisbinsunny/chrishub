@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:mac_dt/componentsOnOff.dart';
+import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
 import '../sizes.dart';
@@ -9,17 +9,17 @@ import 'dart:html' as html;
 import 'dart:ui' as ui;
 
 class Maps extends StatefulWidget {
-  final Offset initPos;
-  const Maps({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const Maps({this.initPos, Key? key}) : super(key: key);
 
   @override
   _MapsState createState() => _MapsState();
 }
 
 class _MapsState extends State<Maps> {
-  Offset position = Offset(0.0, 0.0);
-  bool spotifyFS;
-  bool spotifyPan;
+  Offset? position = Offset(0.0, 0.0);
+  late bool spotifyFS;
+  late bool spotifyPan;
   final html.IFrameElement _iframeElementURL = html.IFrameElement();
 
 
@@ -46,8 +46,8 @@ class _MapsState extends State<Maps> {
     return spotifyOpen
         ? AnimatedPositioned(
       duration: Duration(milliseconds: spotifyPan ? 0 : 200),
-      top: spotifyFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-      left: spotifyFS ? 0 : position.dx,
+      top: spotifyFS ? screenHeight(context, mulBy: 0.0335) : position!.dy,
+      left: spotifyFS ? 0 : position!.dx,
       child: mapsWindow(context),
     )
         : Container();
@@ -97,8 +97,8 @@ class _MapsState extends State<Maps> {
                 onPanUpdate: (tapInfo) {
                   if (!spotifyFS) {
                     setState(() {
-                      position = Offset(position.dx + tapInfo.delta.dx,
-                          position.dy + tapInfo.delta.dy);
+                      position = Offset(position!.dx + tapInfo.delta.dx,
+                          position!.dy + tapInfo.delta.dy);
                     });
                   }
                 },
