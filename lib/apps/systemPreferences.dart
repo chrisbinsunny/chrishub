@@ -55,11 +55,11 @@ class _SystemPreferencesState extends State<SystemPreferences> {
   AnimatedContainer sysPrefWindow(BuildContext context) {
     String thm = Provider.of<ThemeNotifier>(context).findThm;
     String topApp = Provider.of<Apps>(context).getTop;
-    log(screenWidth(context, mulBy: 0.011).toString());
+    log(screenWidth(context, mulBy: 0.022).toString());
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: 673,
-      height: 528,
+      height: 545,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -328,7 +328,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                         //     bottomLeft: Radius.circular(15)),
                       ),
                       padding: EdgeInsets.symmetric(
-                          vertical: 21.6,
+                          vertical: 18.6,
                         horizontal: 21.2
                       ),
                       child: Row(
@@ -339,15 +339,11 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle
                             ),
-                            height: screenHeight(context, mulBy: 0.06),
-                            width: screenHeight(context, mulBy: 0.06),
-                            constraints: constraints(
-                                height: 0.06,
-                                width: 0.06
-                            ),
+                            height: 57,
+                            width: 57,
                           ),
                           SizedBox(
-                            width: screenWidth(context, mulBy: 0.007),
+                            width: 13.44,
                           ),
                           RichText(
                               text: TextSpan(
@@ -395,7 +391,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                             ],
                           ),
                           SizedBox(
-                            width: screenWidth(context, mulBy: 0.022),
+                            width: 42,
                           ),
                           Column(
                             mainAxisSize: MainAxisSize.min,
@@ -434,17 +430,23 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                         )
                       ),
 
-                      height: 186,
-                      padding: EdgeInsets.symmetric(
-                          vertical: 15,
-                          horizontal: 21
+                      height: 190,
+                      padding: EdgeInsets.only(
+                          top: 15,
+                          left: 15,
+                        right: 21,
+                        bottom: 7
                       ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SizedBox(
+                                width: 18,
+                              ),
                               Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -472,7 +474,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                                 ],
                               ),
                               SizedBox(
-                                width: 25,
+                                width: 20,
                               ),
                               Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -502,7 +504,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                                 ],
                               ),
                               SizedBox(
-                                width: 25,
+                                width: 10,
                               ),
                               SizedBox(
                                 height: 85,
@@ -513,6 +515,12 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                               )
                             ],
                           ),
+                          Expanded(
+                            child: Image.asset(
+                              "assets/sysPref/settingMidDark.jpg",
+                              fit: BoxFit.contain,
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -526,11 +534,11 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                               bottomRight: Radius.circular(15),
                               bottomLeft: Radius.circular(15)),
                         ),
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5,
-                            horizontal: 0
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        padding: EdgeInsets.only(
+                          left: 15
                         ),
-                        alignment: Alignment.center,
+                        alignment: Alignment.centerLeft,
                         child: Image.asset(
                           "assets/sysPref/settingBottomDark.jpg",
                           fit: BoxFit.contain,
