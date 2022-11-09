@@ -2,9 +2,6 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:mac_dt/system/folders.dart';
-import 'package:mac_dt/iOS.dart';
-import 'package:mac_dt/iPadOS/iPadOS.dart';
-import 'package:mac_dt/platformFinder.dart';
 import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/sizes.dart';
 import 'system/openApps.dart';
@@ -46,11 +43,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Chrisbin\'s MacBook Pro',
         theme: themeNotifier.getTheme(),
-        home: PlatformFinder(
-            macOS: MacOS(),
-          ipadOS: IPadOS(),
-          iOS: IOS(),
-        ),
+        home: MacOS(),
       ),
     );
   }
