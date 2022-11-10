@@ -12,7 +12,6 @@ import '../../widgets.dart';
 import 'dart:html' as html;
 import 'dart:ui' as ui;
 
-//TODO: BUG Found>> After opening youtube all searches redirects to youtube.
 
 class SystemPreferences extends StatefulWidget {
   final Offset? initPos;
@@ -26,6 +25,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
   Offset? position = Offset(0.0, 0.0);
   late bool sysPrefPan;
   late TextEditingController controller;
+  final _navigatorKey2 = GlobalKey<NavigatorState>();
 
   @override
   void initState() {
@@ -36,6 +36,12 @@ class _SystemPreferencesState extends State<SystemPreferences> {
       });
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _navigatorKey2.currentState!.dispose;
+    super.dispose();
   }
 
   @override
@@ -316,235 +322,252 @@ class _SystemPreferencesState extends State<SystemPreferences> {
 
               ///Content part
               Expanded(
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: thm=="Dark"?Color(0xff1f1e1d):Colors.white,
-                        // borderRadius: BorderRadius.only(
-                        //     bottomRight: Radius.circular(15),
-                        //     bottomLeft: Radius.circular(15)),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: 18.6,
-                        horizontal: 21.2
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            child: Image.asset("assets/wallpapers/iPadOS_light.jpg", fit: BoxFit.cover,),
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle
-                            ),
-                            height: 57,
-                            width: 57,
-                          ),
-                          SizedBox(
-                            width: 13.44,
-                          ),
-                          RichText(
-                              text: TextSpan(
-                                text: "Chrisbin Sunny\n",
-                            style: TextStyle(
-                              color: Theme.of(context)
-                                  .cardColor
-                                  .withOpacity(0.9),
-                              fontWeight:
-                              Theme.of(context).textTheme.headline3!.fontWeight,
-                              fontSize: 17,
-                              fontFamily: "SF",
-                              letterSpacing: 0.3
-                            ),
-                            children: [
-                              TextSpan(
-                                text: "Apple ID, iCloud, Media & App Store\n",
-                                style: TextStyle(
-                                  fontSize: 11
-                                )
-                              )
-                            ]
-                          )),
-                          Spacer(),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              FittedBox(
-                                child: SizedBox(
-                                  height: 45,
-                                  width: 45,
-                                  child: Image.asset(
-                                      "assets/sysPref/appleID.png"
-                                  ),
-                                ),
+                child: WillPopScope(
+                  onWillPop: () async => !await _navigatorKey2.currentState!.maybePop(),
+                  child: Navigator(
+                    key: _navigatorKey2,
+                    onGenerateRoute: (routeSettings) {
+                      return MaterialPageRoute(
+                        builder: (context) => Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: thm=="Dark"?Color(0xff1f1e1d):Colors.white,
+                                // borderRadius: BorderRadius.only(
+                                //     bottomRight: Radius.circular(15),
+                                //     bottomLeft: Radius.circular(15)),
                               ),
-                              Text(
-                                "Apple ID\n",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "SF",
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            width: 42,
-                          ),
-                          Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-
-                              FittedBox(
-                                child: SizedBox(
-                                  height: 45,
-                                  width: 45,
-                                  child: Image.asset(
-                                    "assets/sysPref/familySharing.png"
-                                  ),
-                                ),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 18.6,
+                                  horizontal: 21.2
                               ),
-                              Text(
-                                "Family\nSharing",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: "SF",
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: thm=="Dark"?Color(0xff272624):Color(0xffe9e9e7),
-                        border: Border(
-                            top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0.6),
-                          bottom: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0.6)
-                        )
-                      ),
-
-                      height: 190,
-                      padding: EdgeInsets.only(
-                          top: 15,
-                          left: 15,
-                        right: 21,
-                        bottom: 7
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 18,
-                              ),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
+                              child: Row(
                                 children: [
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  FittedBox(
-                                    child: SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Image.asset(
-                                          "assets/sysPref/general.png"
-                                      ),
+                                  Container(
+                                    child: Image.asset("assets/wallpapers/iPadOS_light.jpg", fit: BoxFit.cover,),
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle
                                     ),
+                                    height: 57,
+                                    width: 57,
                                   ),
-                                  Text(
-                                    "General\n",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: thm=="Dark"?Colors.grey:Color(0xff80807e),
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "SF",
+                                  SizedBox(
+                                    width: 13.44,
+                                  ),
+                                  RichText(
+                                      text: TextSpan(
+                                          text: "Chrisbin Sunny\n",
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .cardColor
+                                                  .withOpacity(0.9),
+                                              fontWeight:
+                                              Theme.of(context).textTheme.headline3!.fontWeight,
+                                              fontSize: 17,
+                                              fontFamily: "SF",
+                                              letterSpacing: 0.3
+                                          ),
+                                          children: [
+                                            TextSpan(
+                                                text: "Apple ID, iCloud, Media & App Store\n",
+                                                style: TextStyle(
+                                                    fontSize: 11
+                                                )
+                                            )
+                                          ]
+                                      )),
+                                  Spacer(),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      FittedBox(
+                                        child: SizedBox(
+                                          height: 45,
+                                          width: 45,
+                                          child: Image.asset(
+                                              "assets/sysPref/appleID.png"
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "Apple ID\n",
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "SF",
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 42,
+                                  ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+
+                                      FittedBox(
+                                        child: SizedBox(
+                                          height: 45,
+                                          width: 45,
+                                          child: Image.asset(
+                                              "assets/sysPref/familySharing.png"
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        "Family\nSharing",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "SF",
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: thm=="Dark"?Color(0xff272624):Color(0xffe9e9e7),
+                                  border: Border(
+                                      top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0.6),
+                                      bottom: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0.6)
+                                  )
+                              ),
+
+                              height: 190,
+                              padding: EdgeInsets.only(
+                                  top: 15,
+                                  left: 15,
+                                  right: 21,
+                                  bottom: 7
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width: 18,
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          FittedBox(
+                                            child: SizedBox(
+                                              height: 40,
+                                              width: 40,
+                                              child: Image.asset(
+                                                  "assets/sysPref/general.png"
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            "General\n",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: thm=="Dark"?Colors.grey:Color(0xff80807e),
+                                              fontWeight: FontWeight.w500,
+                                              fontFamily: "SF",
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      InkWell(
+                                        onTap: (){
+                                          Navigator.of(context).push(
+                                              PageRouteBuilder(pageBuilder: (_, __, ___) => Wallpaper(), )
+                                          );
+                                        },
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            FittedBox(
+                                              child: SizedBox(
+                                                height: 40,
+                                                width: 40,
+                                                child: Image.asset(
+                                                    "assets/sysPref/desktop.png"
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              "Desktop &\nScreen Saver",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: thm=="Dark"?Colors.grey:Color(0xff80807e),
+                                                fontWeight: FontWeight.w500,
+                                                fontFamily: "SF",
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      SizedBox(
+                                        height: 85,
+                                        child: Image.asset(
+                                          "assets/sysPref/settingTop$thm.jpg",
+                                          fit: BoxFit.contain,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Expanded(
+                                    child: Image.asset(
+                                      "assets/sysPref/settingMid$thm.jpg",
+                                      fit: BoxFit.contain,
                                     ),
                                   )
                                 ],
                               ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  FittedBox(
-                                    child: SizedBox(
-                                      height: 40,
-                                      width: 40,
-                                      child: Image.asset(
-                                          "assets/sysPref/desktop.png"
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    "Desktop &\nScreen Saver",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: thm=="Dark"?Colors.grey:Color(0xff80807e),
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "SF",
-                                    ),
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              SizedBox(
-                                height: 85,
+                            ),
+                            Expanded(
+                              child: Container(
+                                width: screenWidth(context),
+                                decoration: BoxDecoration(
+                                  color: thm=="Dark"?Color(0xff1f1e1d):Colors.white,
+
+                                  borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(15),
+                                      bottomLeft: Radius.circular(15)),
+                                ),
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                padding: EdgeInsets.only(
+                                    left: 15
+                                ),
+                                alignment: Alignment.centerLeft,
                                 child: Image.asset(
-                                  "assets/sysPref/settingTop$thm.jpg",
+                                  "assets/sysPref/settingBottom$thm.jpg",
                                   fit: BoxFit.contain,
                                 ),
-                              )
-                            ],
-                          ),
-                          Expanded(
-                            child: Image.asset(
-                              "assets/sysPref/settingMid$thm.jpg",
-                              fit: BoxFit.contain,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        width: screenWidth(context),
-                        decoration: BoxDecoration(
-                          color: thm=="Dark"?Color(0xff1f1e1d):Colors.white,
-
-                          borderRadius: BorderRadius.only(
-                              bottomRight: Radius.circular(15),
-                              bottomLeft: Radius.circular(15)),
+                              ),
+                            )
+                          ],
                         ),
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        padding: EdgeInsets.only(
-                          left: 15
-                        ),
-                        alignment: Alignment.centerLeft,
-                        child: Image.asset(
-                          "assets/sysPref/settingBottom$thm.jpg",
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    )
-                  ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
@@ -570,5 +593,20 @@ class _SystemPreferencesState extends State<SystemPreferences> {
         ],
       ),
     );
+  }
+}
+
+
+class Wallpaper extends StatefulWidget {
+  const Wallpaper({Key? key}) : super(key: key);
+
+  @override
+  State<Wallpaper> createState() => _WallpaperState();
+}
+
+class _WallpaperState extends State<Wallpaper> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
