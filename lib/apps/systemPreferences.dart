@@ -12,6 +12,8 @@ import '../../widgets.dart';
 import 'dart:html' as html;
 import 'dart:ui' as ui;
 
+import '../components/wallpaper.dart';
+
 
 class SystemPreferences extends StatefulWidget {
   final Offset? initPos;
@@ -59,7 +61,6 @@ class _SystemPreferencesState extends State<SystemPreferences> {
   }
 
   AnimatedContainer sysPrefWindow(BuildContext context) {
-    String thm = Provider.of<ThemeNotifier>(context).findThm;
     String topApp = Provider.of<Apps>(context).getTop;
     log(screenHeight(context, mulBy: 0.028).toString());
     return AnimatedContainer(
@@ -128,7 +129,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                        color: thm=="Dark"?Colors.black:Colors.grey.withOpacity(0.6),
+                        color: Theme.of(context).splashColor,
                         width: 0.8
                       ))
                     ),
@@ -328,172 +329,135 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     key: _navigatorKey2,
                     onGenerateRoute: (routeSettings) {
                       return MaterialPageRoute(
-                        builder: (context) => Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: thm=="Dark"?Color(0xff1f1e1d):Colors.white,
-                                // borderRadius: BorderRadius.only(
-                                //     bottomRight: Radius.circular(15),
-                                //     bottomLeft: Radius.circular(15)),
-                              ),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 18.6,
-                                  horizontal: 21.2
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Image.asset("assets/wallpapers/iPadOS_light.jpg", fit: BoxFit.cover,),
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle
+                        builder: (context)
+                        {
+                          final themeNotifier = Provider.of<ThemeNotifier>(context);
+                          return Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).colorScheme.onError,
+                                  // borderRadius: BorderRadius.only(
+                                  //     bottomRight: Radius.circular(15),
+                                  //     bottomLeft: Radius.circular(15)),
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 18.6, horizontal: 21.2),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      child: Image.asset(
+                                        "assets/wallpapers/iPadOS_light.jpg",
+                                        fit: BoxFit.cover,
+                                      ),
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration:
+                                          BoxDecoration(shape: BoxShape.circle),
+                                      height: 57,
+                                      width: 57,
                                     ),
-                                    height: 57,
-                                    width: 57,
-                                  ),
-                                  SizedBox(
-                                    width: 13.44,
-                                  ),
-                                  RichText(
-                                      text: TextSpan(
-                                          text: "Chrisbin Sunny\n",
-                                          style: TextStyle(
-                                              color: Theme.of(context)
-                                                  .cardColor
-                                                  .withOpacity(0.9),
-                                              fontWeight:
-                                              Theme.of(context).textTheme.headline3!.fontWeight,
-                                              fontSize: 17,
-                                              fontFamily: "SF",
-                                              letterSpacing: 0.3
-                                          ),
-                                          children: [
-                                            TextSpan(
-                                                text: "Apple ID, iCloud, Media & App Store\n",
-                                                style: TextStyle(
-                                                    fontSize: 11
-                                                )
-                                            )
-                                          ]
-                                      )),
-                                  Spacer(),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      FittedBox(
-                                        child: SizedBox(
-                                          height: 45,
-                                          width: 45,
-                                          child: Image.asset(
-                                              "assets/sysPref/appleID.png"
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        "Apple ID\n",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "SF",
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 42,
-                                  ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-
-                                      FittedBox(
-                                        child: SizedBox(
-                                          height: 45,
-                                          width: 45,
-                                          child: Image.asset(
-                                              "assets/sysPref/familySharing.png"
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        "Family\nSharing",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "SF",
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                  color: thm=="Dark"?Color(0xff272624):Color(0xffe9e9e7),
-                                  border: Border(
-                                      top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0.6),
-                                      bottom: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0.6)
-                                  )
-                              ),
-
-                              height: 190,
-                              padding: EdgeInsets.only(
-                                  top: 15,
-                                  left: 15,
-                                  right: 21,
-                                  bottom: 7
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: 18,
-                                      ),
-                                      Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          FittedBox(
-                                            child: SizedBox(
-                                              height: 40,
-                                              width: 40,
-                                              child: Image.asset(
-                                                  "assets/sysPref/general.png"
-                                              ),
-                                            ),
-                                          ),
-                                          Text(
-                                            "General\n",
+                                    SizedBox(
+                                      width: 13.44,
+                                    ),
+                                    RichText(
+                                        text: TextSpan(
+                                            text: "Chrisbin Sunny\n",
                                             style: TextStyle(
-                                              fontSize: 12,
-                                              color: thm=="Dark"?Colors.grey:Color(0xff80807e),
-                                              fontWeight: FontWeight.w500,
-                                              fontFamily: "SF",
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      InkWell(
-                                        onTap: (){
-                                          Navigator.of(context).push(
-                                              PageRouteBuilder(pageBuilder: (_, __, ___) => Wallpaper(), )
-                                          );
-                                        },
-                                        child: Column(
+                                                color: Theme.of(context)
+                                                    .cardColor
+                                                    .withOpacity(0.9),
+                                                fontWeight: Theme.of(context)
+                                                    .textTheme
+                                                    .headline3!
+                                                    .fontWeight,
+                                                fontSize: 17,
+                                                fontFamily: "SF",
+                                                letterSpacing: 0.3),
+                                            children: [
+                                          TextSpan(
+                                              text:
+                                                  "Apple ID, iCloud, Media & App Store\n",
+                                              style: TextStyle(fontSize: 11))
+                                        ])),
+                                    Spacer(),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        FittedBox(
+                                          child: SizedBox(
+                                            height: 45,
+                                            width: 45,
+                                            child: Image.asset(
+                                                "assets/sysPref/appleID.png"),
+                                          ),
+                                        ),
+                                        Text(
+                                          "Apple ID\n",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "SF",
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: 42,
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        FittedBox(
+                                          child: SizedBox(
+                                            height: 45,
+                                            width: 45,
+                                            child: Image.asset(
+                                                "assets/sysPref/familySharing.png"),
+                                          ),
+                                        ),
+                                        Text(
+                                          "Family\nSharing",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "SF",
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .errorContainer,
+                                    border: Border(
+                                        top: BorderSide(
+                                            color: Colors.grey.withOpacity(0.4),
+                                            width: 0.6),
+                                        bottom: BorderSide(
+                                            color: Colors.grey.withOpacity(0.4),
+                                            width: 0.6))),
+                                height: 190,
+                                padding: EdgeInsets.only(
+                                    top: 15, left: 15, right: 21, bottom: 7),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 18,
+                                        ),
+                                        Column(
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             SizedBox(
@@ -504,67 +468,111 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                                                 height: 40,
                                                 width: 40,
                                                 child: Image.asset(
-                                                    "assets/sysPref/desktop.png"
-                                                ),
+                                                    "assets/sysPref/general.png"),
                                               ),
                                             ),
                                             Text(
-                                              "Desktop &\nScreen Saver",
-                                              textAlign: TextAlign.center,
+                                              "General\n",
                                               style: TextStyle(
                                                 fontSize: 12,
-                                                color: thm=="Dark"?Colors.grey:Color(0xff80807e),
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .inversePrimary,
                                                 fontWeight: FontWeight.w500,
                                                 fontFamily: "SF",
                                               ),
                                             )
                                           ],
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      SizedBox(
-                                        height: 85,
-                                        child: Image.asset(
-                                          "assets/sysPref/settingTop$thm.jpg",
-                                          fit: BoxFit.contain,
+                                        SizedBox(
+                                          width: 20,
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  Expanded(
-                                    child: Image.asset(
-                                      "assets/sysPref/settingMid$thm.jpg",
-                                      fit: BoxFit.contain,
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.of(context)
+                                                .push(PageRouteBuilder(
+                                              pageBuilder: (_, __, ___) =>
+                                                  Wallpaper(),
+                                            ));
+                                          },
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              SizedBox(
+                                                height: 5,
+                                              ),
+                                              FittedBox(
+                                                child: SizedBox(
+                                                  height: 40,
+                                                  width: 40,
+                                                  child: Image.asset(
+                                                      "assets/sysPref/desktop.png"),
+                                                ),
+                                              ),
+                                              Text(
+                                                "Desktop &\nScreen Saver",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .inversePrimary,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily: "SF",
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        SizedBox(
+                                          height: 85,
+                                          child: Image.asset(
+                                            themeNotifier.isDark()?
+                                            "assets/sysPref/settingTopDark.jpg":
+                                            "assets/sysPref/settingTopLight.jpg",
+                                            fit: BoxFit.contain,
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Container(
-                                width: screenWidth(context),
-                                decoration: BoxDecoration(
-                                  color: thm=="Dark"?Color(0xff1f1e1d):Colors.white,
-
-                                  borderRadius: BorderRadius.only(
-                                      bottomRight: Radius.circular(15),
-                                      bottomLeft: Radius.circular(15)),
-                                ),
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                padding: EdgeInsets.only(
-                                    left: 15
-                                ),
-                                alignment: Alignment.centerLeft,
-                                child: Image.asset(
-                                  "assets/sysPref/settingBottom$thm.jpg",
-                                  fit: BoxFit.contain,
+                                    Expanded(
+                                      child: Image.asset(
+                                        themeNotifier.isDark()?
+                                        "assets/sysPref/settingMidDark.jpg":
+                                        "assets/sysPref/settingMidLight.jpg",
+                                        fit: BoxFit.contain,
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
-                            )
-                          ],
-                        ),
+                              Expanded(
+                                child: Container(
+                                  width: screenWidth(context),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        Theme.of(context).colorScheme.onError,
+                                    borderRadius: BorderRadius.only(
+                                        bottomRight: Radius.circular(15),
+                                        bottomLeft: Radius.circular(15)),
+                                  ),
+                                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                                  padding: EdgeInsets.only(left: 15),
+                                  alignment: Alignment.centerLeft,
+                                  child: Image.asset(
+                        themeNotifier.isDark()?
+                                    "assets/sysPref/settingBottomDark.jpg":
+                        "assets/sysPref/settingBottomLight.jpg",
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
+                        },
                       );
                     },
                   ),
@@ -597,16 +605,4 @@ class _SystemPreferencesState extends State<SystemPreferences> {
 }
 
 
-class Wallpaper extends StatefulWidget {
-  const Wallpaper({Key? key}) : super(key: key);
 
-  @override
-  State<Wallpaper> createState() => _WallpaperState();
-}
-
-class _WallpaperState extends State<Wallpaper> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
