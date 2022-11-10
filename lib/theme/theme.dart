@@ -133,7 +133,7 @@ class ThemeNotifier with ChangeNotifier {
 
   setTheme(ThemeData themeData) async {
     _themeData = themeData;
-    thm=(themeData==lightTheme)?"B":"B";
+    thm=(themeData==lightTheme)?"Light":"Dark";
     notifyListeners();
   }
 
