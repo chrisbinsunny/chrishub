@@ -62,7 +62,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
       height: 545,
       decoration: BoxDecoration(
         border: Border.all(
-          color: Colors.white.withOpacity(0.2),
+          color:  Theme.of(context).cardColor.withOpacity(0.2),
         ),
         borderRadius: BorderRadius.all(Radius.circular(15)),
         boxShadow: [
@@ -120,8 +120,9 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                   Container(
                     height: 48,
                     decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(
-                        color: Colors.black,
+                      border: Border(
+                          bottom: BorderSide(
+                        color: thm=="Dark"?Colors.black:Colors.grey.withOpacity(0.6),
                         width: 0.8
                       ))
                     ),
@@ -319,7 +320,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: thm=="Dark"?Color(0xff1f1e1d):Colors.white,
                         // borderRadius: BorderRadius.only(
                         //     bottomRight: Radius.circular(15),
                         //     bottomLeft: Radius.circular(15)),
@@ -349,7 +350,8 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                               color: Theme.of(context)
                                   .cardColor
                                   .withOpacity(0.9),
-                              fontWeight: FontWeight.w400,
+                              fontWeight:
+                              Theme.of(context).textTheme.headline3!.fontWeight,
                               fontSize: 17,
                               fontFamily: "SF",
                               letterSpacing: 0.3
@@ -420,7 +422,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        color: Color(0xff272624),
+                          color: thm=="Dark"?Color(0xff272624):Color(0xffe9e9e7),
                         border: Border(
                             top: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0.6),
                           bottom: BorderSide(color: Colors.grey.withOpacity(0.4), width: 0.6)
@@ -463,7 +465,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                                     "General\n",
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: Colors.grey,
+                                      color: thm=="Dark"?Colors.grey:Color(0xff80807e),
                                       fontWeight: FontWeight.w500,
                                       fontFamily: "SF",
                                     ),
@@ -493,7 +495,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: Colors.grey,
+                                      color: thm=="Dark"?Colors.grey:Color(0xff80807e),
                                       fontWeight: FontWeight.w500,
                                       fontFamily: "SF",
                                     ),
@@ -506,7 +508,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                               SizedBox(
                                 height: 85,
                                 child: Image.asset(
-                                  "assets/sysPref/settingTopDark.jpg",
+                                  "assets/sysPref/settingTop$thm.jpg",
                                   fit: BoxFit.contain,
                                 ),
                               )
@@ -514,7 +516,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                           ),
                           Expanded(
                             child: Image.asset(
-                              "assets/sysPref/settingMidDark.jpg",
+                              "assets/sysPref/settingMid$thm.jpg",
                               fit: BoxFit.contain,
                             ),
                           )
@@ -525,7 +527,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                       child: Container(
                         width: screenWidth(context),
                         decoration: BoxDecoration(
-                          color: Color(0xff1f1e1d),
+                          color: thm=="Dark"?Color(0xff1f1e1d):Colors.white,
 
                           borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(15),
@@ -537,7 +539,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                         ),
                         alignment: Alignment.centerLeft,
                         child: Image.asset(
-                          "assets/sysPref/settingBottomDark.jpg",
+                          "assets/sysPref/settingBottom$thm.jpg",
                           fit: BoxFit.contain,
                         ),
                       ),
