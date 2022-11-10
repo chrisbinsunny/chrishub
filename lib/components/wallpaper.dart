@@ -8,6 +8,20 @@ class Wallpaper extends StatefulWidget {
 }
 
 class _WallpaperState extends State<Wallpaper> {
+
+  List<WallData> wallData=[
+    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
+
+
+  ];
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,11 +49,19 @@ class _WallpaperState extends State<Wallpaper> {
                 width: 0.3
             )
         ),
+        padding: EdgeInsets.symmetric(
+          vertical: 40,
+          horizontal: 20
+        ),
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  width: 40,
+                ),
                 Container(
                   padding: EdgeInsets.all(5),
                   decoration: BoxDecoration(
@@ -57,12 +79,88 @@ class _WallpaperState extends State<Wallpaper> {
                     fit: BoxFit.cover,
                   ),
                 ),
-
+                SizedBox(
+                  width: 20,
+                ),
+                RichText(
+                 text: TextSpan(
+                   text: "\nBig Sur\n",
+                   children: [
+                     TextSpan(
+                       text: "This desktop picture changes with your current theme.",
+                       style: TextStyle(
+                         fontSize: 11,
+                         fontWeight: FontWeight.w300,
+                         letterSpacing: .5
+                       )
+                     )
+                   ],
+                   style: TextStyle(
+                     fontSize: 14,
+                     color: Theme.of(context).cardColor.withOpacity(1),
+                     fontWeight: Theme.of(context)
+                         .textTheme
+                         .headline3!
+                         .fontWeight,
+                     fontFamily: "SF",
+                   ),
+                 ),
+                )
               ],
-            )
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                    color:
+                    Theme.of(context).colorScheme.onError,
+                    borderRadius: BorderRadius.circular(7),
+                    border: Border.all(
+                        color: Colors.grey.withOpacity(0.5),
+                        width: 0.3
+                    )
+                ),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    childAspectRatio: 1.6,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10
+                  ),
+                  padding: EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 10
+                  ),
+                  itemCount: wallData.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      padding: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(7),
+                          border: Border.all(
+                              color: Colors.grey.withOpacity(0.4),
+                              width: 1.2
+                          )
+                      ),
+                      child: Image.asset(
+                        wallData[index].location,
+                        fit: BoxFit.cover,
+                      ),
+                    );
+                },),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+class WallData{
+  String name="", content="", location="";
+  WallData({required this.name, required this.content, required this.location});
 }
