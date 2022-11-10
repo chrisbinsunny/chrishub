@@ -45,7 +45,6 @@ class _FinderState extends State<Finder> {
   }
 
   AnimatedContainer finderWindow(BuildContext context) {
-    String thm = Provider.of<ThemeNotifier>(context).findThm;
     String topApp = Provider.of<Apps>(context).getTop;
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
@@ -280,12 +279,12 @@ class _FinderState extends State<Finder> {
                         children: [
                           Row(
                             children: [
-                              Image.asset("assets/icons/back$thm.png",
+                              Image.asset("assets/icons/backB.png",
                                   height: 18),
                               SizedBox(
                                 width: screenWidth(context, mulBy: 0.01),
                               ),
-                              Image.asset("assets/icons/forw$thm.png",
+                              Image.asset("assets/icons/forwB.png",
                                   height: 18.5),
                               SizedBox(
                                 width: screenWidth(context, mulBy: 0.007),
@@ -311,31 +310,31 @@ class _FinderState extends State<Finder> {
                               ),
                             ],
                           ),
-                          Image.asset("assets/icons/sort$thm.png", height: 20),
+                          Image.asset("assets/icons/sortB.png", height: 20),
                           Row(
                             children: [
-                              Image.asset("assets/icons/icon$thm.png",
+                              Image.asset("assets/icons/iconB.png",
                                   height: 18),
                               SizedBox(
                                 width: screenWidth(context, mulBy: 0.015),
                               ),
-                              Image.asset("assets/icons/share$thm.png",
+                              Image.asset("assets/icons/shareB.png",
                                   height: 19),
                               SizedBox(
                                 width: screenWidth(context, mulBy: 0.015),
                               ),
-                              Image.asset("assets/icons/tag$thm.png",
+                              Image.asset("assets/icons/tagB.png",
                                   height: 15),
                             ],
                           ),
                           Row(
                             children: [
-                              Image.asset("assets/icons/more$thm.png",
+                              Image.asset("assets/icons/moreB.png",
                                   height: 15),
                               SizedBox(
                                 width: screenWidth(context, mulBy: 0.007),
                               ),
-                              Image.asset("assets/icons/search$thm.png",
+                              Image.asset("assets/icons/searchB.png",
                                   height: 15),
                             ],
                           ),
