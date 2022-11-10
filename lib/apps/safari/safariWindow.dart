@@ -111,7 +111,6 @@ class _SafariState extends State<Safari> {
   }
 
   AnimatedContainer safariWindow(BuildContext context) {
-    String thm = Provider.of<ThemeNotifier>(context).findThm;
     String topApp = Provider.of<Apps>(context).getTop;
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
