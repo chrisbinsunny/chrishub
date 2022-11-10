@@ -3,7 +3,7 @@ import 'sharedPref.dart';
 
 class ThemeNotifier with ChangeNotifier {
 
-  String thm = "B";
+  String thm = "Dark";
 
   static final ThemeData lightTheme = ThemeData(
     textTheme: TextTheme(
