@@ -55,7 +55,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
   AnimatedContainer sysPrefWindow(BuildContext context) {
     String thm = Provider.of<ThemeNotifier>(context).findThm;
     String topApp = Provider.of<Apps>(context).getTop;
-    log(screenWidth(context, mulBy: 0.022).toString());
+    log(screenHeight(context, mulBy: 0.028).toString());
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: 673,
@@ -84,8 +84,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                 alignment: Alignment.centerRight,
                 children: [
                   Container(
-                    height: screenHeight(context, mulBy: 0.05),
-                    constraints: constraints(height: 0.05),
+                    height: 48,
                     decoration: BoxDecoration(
                         color: Theme.of(context).disabledColor,
                         borderRadius: BorderRadius.only(
@@ -109,8 +108,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     child: Container(
                       alignment: Alignment.topRight,
                       width: screenWidth(context, mulBy: 0.7),
-                      height: screenHeight(context, mulBy: 0.05),
-                      constraints: constraints(height: 0.05),
+                      height: 48,
                       decoration: BoxDecoration(
                           color: Colors.transparent,
                           border: Border(
@@ -120,8 +118,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     ),
                   ),
                   Container(
-                    height: screenHeight(context, mulBy: 0.05),
-                    constraints: constraints(height: 0.05),
+                    height: 48,
                     decoration: BoxDecoration(
                       border: Border(bottom: BorderSide(
                         color: Colors.black,
@@ -129,8 +126,8 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                       ))
                     ),
                     padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth(context, mulBy: 0.013),
-                        vertical: screenHeight(context, mulBy: 0.01)),
+                        horizontal: 25,
+                        vertical: 9.61),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -192,7 +189,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                           ],
                         ),
                         SizedBox(
-                          width: screenWidth(context, mulBy: 0.015),
+                          width: 29,
                         ),
                         Icon(
                           CupertinoIcons.back,
@@ -200,7 +197,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                           size: 20,
                         ),
                         SizedBox(
-                          width: screenWidth(context, mulBy: 0.01),
+                          width: 19.2,
                         ),
                         Icon(
                           CupertinoIcons.forward,
@@ -208,7 +205,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                           size: 20,
                         ),
                         SizedBox(
-                          width: screenWidth(context, mulBy: 0.013),
+                          width: 25,
                         ),
                         Icon(
                           CupertinoIcons.square_grid_4x3_fill,
@@ -216,7 +213,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                           size: 20,
                         ),
                         SizedBox(
-                          width: screenWidth(context, mulBy: 0.01),
+                          width: 19.2,
                         ),
                         MBPText(
                           text: "System Preferences",
@@ -232,7 +229,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                         Container(
                           alignment: Alignment.bottomCenter,
                           width: screenWidth(context, mulBy: 0.09),
-                          height: screenHeight(context, mulBy: 0.028),
+                          height: 27,
                           constraints: constraints(height: 0.028, width: 0.09),
                           margin: EdgeInsets.zero,
                           decoration: BoxDecoration(
