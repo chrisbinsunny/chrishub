@@ -47,7 +47,12 @@ class ThemeNotifier with ChangeNotifier {
         secondary: Color(0xffbfbfbf), //feedback light color
         background: Color(0xff898989),  //feedback dark color
       error: Color(0xffcecece), //feedback textbox fill
+      primary: Color(0xff232220),
+      onError: Colors.white, //system Pref 1
+      errorContainer: Color(0xffe9e9e7), //system Pref 2
+      inversePrimary: Color(0xff80807e), //system Pref 2 text color
     ),
+
     primaryTextTheme: TextTheme(
       button: TextStyle(
         color: Colors.blueGrey,
@@ -107,7 +112,11 @@ class ThemeNotifier with ChangeNotifier {
       secondary: Color(0xff3b3b3b), //feedback light color
       background: Color(0xff2f2f2f),  //feedback dark color
         error: Color(0xff2f2e32), //feedback textbox fill
-      primary: Color(0xff232220)
+      primary: Color(0xff232220),
+      onError: Color(0xff1f1e1d), //system Pref 1
+      errorContainer: Color(0xff272624), //system Pref 2 ///Color(0xffe9e9e7)
+      inversePrimary: Colors.grey, //system Pref 2 text color ///Color(0xff80807e)
+
     ),
 
       primaryTextTheme: TextTheme(
