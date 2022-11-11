@@ -62,6 +62,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
 
   AnimatedContainer sysPrefWindow(BuildContext context) {
     String topApp = Provider.of<Apps>(context).getTop;
+    log(ModalRoute.of(context)!.settings.name!);
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: 673,
@@ -106,7 +107,6 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     },
                     onPanStart: (details) {
                       Provider.of<OnOff>(context, listen: false).onSysPrefPan();
-                      print("yoyoy");
                     },
                     onPanEnd: (details) {
                       Provider.of<OnOff>(context, listen: false)
@@ -117,22 +117,16 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                       width: screenWidth(context, mulBy: 0.7),
                       height: 48,
                       decoration: BoxDecoration(
-                          color: Colors.green,
+                          color: Colors.transparent,
                           border: Border(
-                              bottom: BorderSide(
-                                  color: Colors.black.withOpacity(0.5),
-                                  width: 0.8))),
+                      bottom: BorderSide(
+                      color: Theme.of(context).splashColor,
+                        width: 0.8
+                    )),),
                     ),
                   ),
                   Container(
                     height: 48,
-                    decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                        color: Theme.of(context).splashColor,
-                        width: 0.8
-                      ))
-                    ),
                     padding: EdgeInsets.symmetric(
                         horizontal: 25,
                         vertical: 9.61),
@@ -199,37 +193,47 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                         SizedBox(
                           width: 29,
                         ),
-                        Icon(
-                          CupertinoIcons.back,
-                          color: Colors.grey.withOpacity(0.4),
-                          size: 20,
+                        InkWell(
+                          onTap: () async => !await _navigatorKey2.currentState!.maybePop(),
+                          child: Icon(
+                            CupertinoIcons.back,
+                            color:Colors.grey.withOpacity(0.4),
+                            size: 20,
+                          ),
                         ),
                         SizedBox(
                           width: 19.2,
                         ),
-                        Icon(
-                          CupertinoIcons.forward,
-                          color: Colors.grey.withOpacity(0.4),
-                          size: 20,
+                        IgnorePointer(
+                          child: Icon(
+                            CupertinoIcons.forward,
+                            color: Colors.grey.withOpacity(0.4),
+                            size: 20,
+                          ),
                         ),
                         SizedBox(
                           width: 25,
                         ),
-                        Icon(
-                          CupertinoIcons.square_grid_4x3_fill,
-                          color: Colors.grey,
-                          size: 20,
+                        IgnorePointer(
+                          child: Icon(
+                            CupertinoIcons.square_grid_4x3_fill,
+                            color: Colors.grey,
+                            size: 20,
+                          ),
                         ),
+
                         SizedBox(
                           width: 19.2,
                         ),
-                        MBPText(
-                          text: "System Preferences",
-                          size: 15,
-                          weight:
-                              Theme.of(context).textTheme.headline3!.fontWeight,
-                          color: Theme.of(context).cardColor.withOpacity(1),
-                          softWrap: true,
+                        IgnorePointer(
+                          child: MBPText(
+                            text: "System Preferences",
+                            size: 15,
+                            weight:
+                                Theme.of(context).textTheme.headline3!.fontWeight,
+                            color: Theme.of(context).cardColor.withOpacity(1),
+                            softWrap: true,
+                          ),
                         ),
                         Spacer(
                           flex: 1,
@@ -602,6 +606,8 @@ class _SystemPreferencesState extends State<SystemPreferences> {
       ),
     );
   }
+
+
 }
 
 
