@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mac_dt/components/wallpaper.dart';
 import 'package:provider/provider.dart';
 
 import 'system/componentsOnOff.dart';
@@ -23,6 +24,7 @@ class DataBus extends ChangeNotifier{
     "app":"apple",
     "head":"Welcome"
   };
+  WallData wallpaper= WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg");
 
 
 
@@ -76,6 +78,16 @@ class DataBus extends ChangeNotifier{
   }
 
   get getScale=>scale;
+
+  WallData get getWallpaper {
+    return wallpaper;
+  }
+
+
+  void setWallpaper(WallData val) {
+    wallpaper= val;
+    notifyListeners();
+  }
 
 }
 
