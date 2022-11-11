@@ -62,7 +62,6 @@ class _SystemPreferencesState extends State<SystemPreferences> {
 
   AnimatedContainer sysPrefWindow(BuildContext context) {
     String topApp = Provider.of<Apps>(context).getTop;
-    log(screenHeight(context, mulBy: 0.028).toString());
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: 673,
@@ -107,6 +106,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                     },
                     onPanStart: (details) {
                       Provider.of<OnOff>(context, listen: false).onSysPrefPan();
+                      print("yoyoy");
                     },
                     onPanEnd: (details) {
                       Provider.of<OnOff>(context, listen: false)
@@ -117,7 +117,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                       width: screenWidth(context, mulBy: 0.7),
                       height: 48,
                       decoration: BoxDecoration(
-                          color: Colors.transparent,
+                          color: Colors.green,
                           border: Border(
                               bottom: BorderSide(
                                   color: Colors.black.withOpacity(0.5),
