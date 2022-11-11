@@ -55,12 +55,42 @@ class _WallpaperState extends State<Wallpaper> {
                 width: 0.3
             )
         ),
-        padding: EdgeInsets.symmetric(
-          vertical: 40,
-          horizontal: 20
+        padding: EdgeInsets.only(
+          bottom: 40,
+          left: 20,
+          right: 20,
+          top: 10
         ),
         child: Column(
           children: [
+            Container(
+              width: 100,
+              height: 30,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.onError,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                      color: Colors.grey.withOpacity(0.5),
+                      width: 0.3
+                  )
+              ),
+              child: Text(
+                "Desktop",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Theme.of(context).cardColor.withOpacity(1),
+                  fontWeight: Theme.of(context)
+                      .textTheme
+                      .headline3!
+                      .fontWeight,
+                  fontFamily: "SF",
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
