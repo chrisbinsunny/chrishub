@@ -24,7 +24,7 @@ class DataBus extends ChangeNotifier{
     "app":"apple",
     "head":"Welcome"
   };
-  WallData wallpaper= WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg");
+  WallData wallpaper=  WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_.jpg");
 
 
 
