@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mac_dt/apps/launchpad.dart';
+import 'package:mac_dt/components/wallpaper.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
 import 'package:mac_dt/system/folders.dart';
@@ -24,7 +25,6 @@ class MacOS extends StatefulWidget {
 }
 
 class _MacOSState extends State<MacOS> {
-  bool finderOpen = true;
 
 
 
@@ -33,14 +33,9 @@ class _MacOSState extends State<MacOS> {
     var size = MediaQuery.of(context).size;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen = Provider.of<OnOff>(context).getCc;
-    double brightness = Provider.of<DataBus>(context).getBrightness!;
+    final dataBus = Provider.of<DataBus>(context, listen: true);
     List<Widget> apps = Provider.of<Apps>(context).getApps;
-    List<Folder> folders =
-        Provider.of<Folders>(context, listen: true).getFolders;
-    var pointerPos = Provider.of<DataBus>(context).getPos;
-    bool NSOn = Provider.of<DataBus>(
-      context,
-    ).getNS;
+    List<Folder> folders = Provider.of<Folders>(context, listen: true).getFolders;
     return Scaffold(
       body: Center(
         child: Stack(
@@ -62,23 +57,18 @@ class _MacOSState extends State<MacOS> {
               child: Container(
                   height: size.height,
                   width: size.width,
-                  child: Image.asset(
-                    themeNotifier.isDark()
-                        ? "assets/wallpapers/bigsur_dark.jpg"
-                        : "assets/wallpapers/bigsur_light.jpg",
-                    fit: BoxFit.cover,
-                  )),
+                  child: ViewWallpaper(location: dataBus.getWallpaper.location,)),
             ),
 
             ///Desktop Items
             ...folders,
 
             ///Right Click Context Menu
-            RightClick(initPos: pointerPos),
+            RightClick(initPos: dataBus.getPos,),
 
             ///Folder Right Click Menu
             FolderRightClick(
-              initPos: pointerPos,
+              initPos: dataBus.getPos,
             ),
 
             ///Applications
@@ -135,7 +125,7 @@ class _MacOSState extends State<MacOS> {
                   duration: Duration(milliseconds: 700),
                   width: screenWidth(context),
                   height: screenHeight(context),
-                  color: Colors.orange.withOpacity(NSOn ? 0.2 : 0),
+                  color: Colors.orange.withOpacity(dataBus.getNS ? 0.2 : 0),
                 ),
               ),
             ),
@@ -144,7 +134,7 @@ class _MacOSState extends State<MacOS> {
             IgnorePointer(
               ignoring: true,
               child: Opacity(
-                opacity: 1 - (brightness / 95.98),
+                opacity: 1 - (dataBus.getBrightness! / 95.98),
                 child: Container(
                   width: screenWidth(context),
                   height: screenHeight(context),
