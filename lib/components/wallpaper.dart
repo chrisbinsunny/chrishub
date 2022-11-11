@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers.dart';
+import '../theme/theme.dart';
 
 class Wallpaper extends StatefulWidget {
   const Wallpaper({Key? key}) : super(key: key);
@@ -13,6 +16,7 @@ class Wallpaper extends StatefulWidget {
 class _WallpaperState extends State<Wallpaper> {
 
   late WallData wallpaper;
+  bool darkTheme=true;
   List<WallData> wallData=[
     WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
     WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
@@ -22,13 +26,16 @@ class _WallpaperState extends State<Wallpaper> {
     WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
     WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
 
+   // WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_${darkTheme?"dark":"light"}.jpg"),
 
   ];
 
 
   @override
   Widget build(BuildContext context) {
+     darkTheme= Provider.of<ThemeNotifier>(context).isDark();
     wallpaper=Provider.of<DataBus>(context, listen: true).getWallpaper;
+    log(wallData[0].location);
     return Container(
       decoration: BoxDecoration(
         color:
@@ -152,7 +159,7 @@ class _WallpaperState extends State<Wallpaper> {
                             color: Colors.transparent,
                             borderRadius: BorderRadius.circular(7),
                             border: Border.all(
-                                color: Colors.grey.withOpacity(0.4),
+                                color: wallpaper.location==wallData[index].location?Colors.blueAccent:Colors.grey.withOpacity(0.4),
                                 width: 1.2
                             )
                         ),
@@ -175,4 +182,24 @@ class _WallpaperState extends State<Wallpaper> {
 class WallData{
   String name="", location="";
   WallData({required this.name, required this.location});
+}
+
+
+class ViewWallpaper extends StatelessWidget {
+  const ViewWallpaper({Key? key, required this.location}) : super(key: key);
+
+  final String location;
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      location.contains("_") ?
+      location.splitMapJoin("_",
+          onMatch: (a){
+            return Provider.of<ThemeNotifier>(context).isDark()?"_dark":"_light";
+          })
+          :location,
+      fit: BoxFit.cover,
+    );
+  }
 }
