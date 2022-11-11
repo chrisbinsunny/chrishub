@@ -407,12 +407,10 @@ class _ControlCentreState extends State<ControlCentre> {
                                                     if (val > 95.98)
                                                       val = 95.98;
                                                     else if (val < 6.7) val = 6.7;
-                                                    setState(() {
-                                                      brightness = val;
-                                                      Provider.of<DataBus>(context,
-                                                              listen: false)
-                                                          .setBrightness(brightness);
-                                                    });
+                                                    brightness = val;
+                                                    Provider.of<DataBus>(context,
+                                                        listen: false)
+                                                        .setBrightness(brightness);
                                                   },
                                                 ),
                                               ),
