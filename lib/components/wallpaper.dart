@@ -17,13 +17,13 @@ class _WallpaperState extends State<Wallpaper> {
 
   late WallData wallpaper;
   List<WallData> wallData=[
-    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur Illustration", location: "assets/wallpapers/bigsur_.jpg"),
+    WallData(name: "Big Sur", location: "assets/wallpapers/realbigsur_.jpg"),
+    WallData(name: "Big Sur Valley", location: "assets/wallpapers/bigSurValley_.jpg"),
+    WallData(name: "Iridescence", location: "assets/wallpapers/iridescence_.jpg"),
+    WallData(name: "Big Sur Horizon", location: "assets/wallpapers/bigSurHorizon.jpg"),
+    WallData(name: "Big Sur Mountains", location: "assets/wallpapers/bigSurMountains.jpg"),
+    WallData(name: "Big Sur Road", location: "assets/wallpapers/bigSurRoad.jpg"),
   ];
 
 
@@ -154,10 +154,7 @@ class _WallpaperState extends State<Wallpaper> {
                                 width: 1.2
                             )
                         ),
-                        child: Image.asset(
-                          wallData[index].location,
-                          fit: BoxFit.cover,
-                        ),
+                        child: ViewWallpaper(location: wallData[index].location,),
                       ),
                     );
                 },),
