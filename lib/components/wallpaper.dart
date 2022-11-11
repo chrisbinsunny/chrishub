@@ -16,7 +16,6 @@ class Wallpaper extends StatefulWidget {
 class _WallpaperState extends State<Wallpaper> {
 
   late WallData wallpaper;
-  bool darkTheme=true;
   List<WallData> wallData=[
     WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
     WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
@@ -25,17 +24,12 @@ class _WallpaperState extends State<Wallpaper> {
     WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
     WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
     WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
-
-   // WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_${darkTheme?"dark":"light"}.jpg"),
-
   ];
 
 
   @override
   Widget build(BuildContext context) {
-     darkTheme= Provider.of<ThemeNotifier>(context).isDark();
     wallpaper=Provider.of<DataBus>(context, listen: true).getWallpaper;
-    log(wallData[0].location);
     return Container(
       decoration: BoxDecoration(
         color:
@@ -86,10 +80,7 @@ class _WallpaperState extends State<Wallpaper> {
                   ),
                   height: 90,
                   width: 130,
-                  child: Image.asset(
-                    wallpaper.location,
-                    fit: BoxFit.cover,
-                  ),
+                  child: ViewWallpaper(location: wallpaper.location,),
                 ),
                 SizedBox(
                   width: 20,
