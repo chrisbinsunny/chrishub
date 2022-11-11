@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers.dart';
 
 class Wallpaper extends StatefulWidget {
   const Wallpaper({Key? key}) : super(key: key);
@@ -9,14 +12,15 @@ class Wallpaper extends StatefulWidget {
 
 class _WallpaperState extends State<Wallpaper> {
 
+  late WallData wallpaper;
   List<WallData> wallData=[
-    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
-    WallData(name: "Big Sur", content: "This desktop picture changes with your current theme.", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
+    WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_dark.jpg"),
 
 
   ];
@@ -24,6 +28,7 @@ class _WallpaperState extends State<Wallpaper> {
 
   @override
   Widget build(BuildContext context) {
+    wallpaper=Provider.of<DataBus>(context, listen: true).getWallpaper;
     return Container(
       decoration: BoxDecoration(
         color:
@@ -75,7 +80,7 @@ class _WallpaperState extends State<Wallpaper> {
                   height: 90,
                   width: 130,
                   child: Image.asset(
-                    "assets/wallpapers/bigsur_dark.jpg",
+                    wallpaper.location,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -84,10 +89,10 @@ class _WallpaperState extends State<Wallpaper> {
                 ),
                 RichText(
                  text: TextSpan(
-                   text: "\nBig Sur\n",
+                   text: "\n${wallpaper.name}\n",
                    children: [
                      TextSpan(
-                       text: "This desktop picture changes with your current theme.",
+                       text: wallpaper.location.contains("_")?"This desktop picture changes with your current theme.":"",
                        style: TextStyle(
                          fontSize: 11,
                          fontWeight: FontWeight.w300,
@@ -135,19 +140,26 @@ class _WallpaperState extends State<Wallpaper> {
                   ),
                   itemCount: wallData.length,
                   itemBuilder: (context, index) {
-                    return Container(
-                      padding: EdgeInsets.all(1),
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(7),
-                          border: Border.all(
-                              color: Colors.grey.withOpacity(0.4),
-                              width: 1.2
-                          )
-                      ),
-                      child: Image.asset(
-                        wallData[index].location,
-                        fit: BoxFit.cover,
+                    return InkWell(
+                      onTap: (){
+                        Provider.of<DataBus>(context,
+                            listen: false)
+                            .setWallpaper(wallData[index],);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(1),
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(7),
+                            border: Border.all(
+                                color: Colors.grey.withOpacity(0.4),
+                                width: 1.2
+                            )
+                        ),
+                        child: Image.asset(
+                          wallData[index].location,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     );
                 },),
@@ -161,6 +173,6 @@ class _WallpaperState extends State<Wallpaper> {
 }
 
 class WallData{
-  String name="", content="", location="";
-  WallData({required this.name, required this.content, required this.location});
+  String name="", location="";
+  WallData({required this.name, required this.location});
 }
