@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class FeedbackForm {
   String name;
   String email;
   String mobileNo;
   String type;
   String feedback;
-  String dateTime;
+  DateTime dateTime;
 
   FeedbackForm(this.name, this.email, this.mobileNo, this.type, this.feedback,
       this.dateTime);
@@ -16,16 +18,27 @@ class FeedbackForm {
         "${json['mobileNo']}",
         "${json['type']}",
         "${json['feedback']}",
-        "${json['dateTime']}");
+        json['dateTime']);
   }
 
   // Method to make GET parameters.
-  Map toJson() => {
+  Map<String, dynamic> toJson() => {
         'name': name,
         'email': email,
         'mobileNo': mobileNo,
         'type': type,
         'feedback': feedback,
-        'dateTime': dateTime
+        'time': dateTime
       };
+
+
+  factory FeedbackForm.fromSnapshot(QueryDocumentSnapshot? snapshot) {
+    return FeedbackForm(
+        "${snapshot!['name']}",
+        "${snapshot['email']}",
+        "${snapshot['number']}",
+        "${snapshot['type']}",
+        "${snapshot['feedback']}",
+        snapshot['time']);
+  }
 }
