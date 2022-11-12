@@ -25,7 +25,7 @@ class OnOff extends ChangeNotifier{
   bool spotifyFS = false;
   bool spotifyPan = false;
   bool fsAni= false;
-  bool feedBackOpen = false;
+  bool feedBackOpen = true;
   bool feedBackFS = false;
   bool feedBackPan = false;
   bool calendarMax = false;
