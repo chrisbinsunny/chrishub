@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../apps/feedback/feedback.dart';
 import '../sizes.dart';
 
 
@@ -7,7 +8,10 @@ class Apps extends ChangeNotifier{
 
   late Widget temp;
   List<Widget> apps= [
-
+    FeedBack(
+        key: ObjectKey("feedback"),
+        initPos: Offset(
+            200, 100)),
   ];
   String onTop="Finder";
 
