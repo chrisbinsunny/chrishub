@@ -81,9 +81,9 @@ class _DockerState extends State<Docker> {
     return AnimatedPositioned(
       duration: Duration(milliseconds: (fsAni) ? 400 : 0),
       top: (fs == "")
-          ? screenHeight(context, mulBy: 0.825)
+          ? screenHeight(context, mulBy: 0.83)
           : screenHeight(context, mulBy: 1.05),
-      left: screenWidth(context, mulBy: 0.15),
+      left: screenWidth(context, mulBy: 0.225),
       child: Column(
         children: [
           Stack(
@@ -107,8 +107,8 @@ class _DockerState extends State<Docker> {
                     filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
                     child: Container(
                       padding: EdgeInsets.only(bottom: 2),
-                      width: screenWidth(context, mulBy: 0.7),
-                      height: screenHeight(context, mulBy: 0.09),
+                      width: screenWidth(context, mulBy: 0.55),
+                      height: screenHeight(context, mulBy: 0.06),
                       decoration: BoxDecoration(
                           color: Theme.of(context).focusColor,
                           border: Border.all(
@@ -121,15 +121,15 @@ class _DockerState extends State<Docker> {
               ),
               Container(
                 padding: EdgeInsets.only(bottom: 2),
-                width: screenWidth(context, mulBy: 0.7),
-                height: screenHeight(context, mulBy: 0.09),
+                width: screenWidth(context, mulBy: 0.55),
+                height: screenHeight(context, mulBy: 0.06),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       DockerItem(
                         iName: "Finder",
                         on: true,
-                        dx: _getPath(screenWidth(context, mulBy: 0.025), _getCursor(),),
+                        dx: _getPath(screenWidth(context, mulBy: 0.0196), _getCursor(),),
                         onTap: () {
                           setState(() {
                             _animate = !_animate;
@@ -151,7 +151,7 @@ class _DockerState extends State<Docker> {
                       DockerItem(
                         iName: "Launchpad",
                         on: false,
-                        dx: _getPath(screenWidth(context, mulBy: 0.075), _getCursor(), ),
+                        dx: _getPath(screenWidth(context, mulBy: 0.0588), _getCursor(), ),
                         onTap: () {
                           Provider.of<Folders>(context, listen: false).deSelectAll();
                           Provider.of<OnOff>(context, listen: false).offNotifications();
@@ -163,7 +163,7 @@ class _DockerState extends State<Docker> {
                       DockerItem(
                         iName: "Safari-Mac",
                         on: safariOpen,
-                        dx: _getPath(screenWidth(context, mulBy: 0.125), _getCursor(),),
+                        dx: _getPath(screenWidth(context, mulBy: 0.098), _getCursor(),),
                         onTap: () {
                           tapFunctions(context);
                           Provider.of<OnOff>(context, listen: false)
@@ -182,7 +182,7 @@ class _DockerState extends State<Docker> {
                       DockerItem(
                         iName: "Messages-Mac",
                         on: messageOpen,
-                        dx: _getPath(screenWidth(context, mulBy: 0.175), _getCursor(), ),
+                        dx: _getPath(screenWidth(context, mulBy: 0.1372), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
 
@@ -202,13 +202,13 @@ class _DockerState extends State<Docker> {
                       DockerItem(
                         iName: "Maps",
                         on: false,
-                        dx: _getPath(screenWidth(context, mulBy: 0.225), _getCursor(), ),
+                        dx: _getPath(screenWidth(context, mulBy: 0.1764), _getCursor(), ),
 
                       ),
                       DockerItem(
                         iName: "Spotify",
                         on: spotifyOpen,
-                        dx: _getPath(screenWidth(context, mulBy: 0.275), _getCursor(), ),
+                        dx: _getPath(screenWidth(context, mulBy: 0.2156), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
 
@@ -229,7 +229,7 @@ class _DockerState extends State<Docker> {
                       DockerItem(
                         iName: "Terminal",
                         on: terminalOpen,
-                        dx: _getPath(screenWidth(context, mulBy: 0.325), _getCursor(), ),
+                        dx: _getPath(screenWidth(context, mulBy: 0.2548), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
 
@@ -250,7 +250,7 @@ class _DockerState extends State<Docker> {
                       DockerItem(
                         iName: "Visual Studio Code",
                         on: vsOpen,
-                        dx: _getPath(screenWidth(context, mulBy: 0.375), _getCursor(), ),
+                        dx: _getPath(screenWidth(context, mulBy: 0.294), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
 
@@ -269,13 +269,13 @@ class _DockerState extends State<Docker> {
                       DockerItem(
                         iName: "Photos",
                         on: false,
-                        dx: _getPath(screenWidth(context, mulBy: 0.425), _getCursor(), ),
+                        dx: _getPath(screenWidth(context, mulBy: 0.3332), _getCursor(), ),
 
                       ),
                       DockerItem(
                         iName: "Contacts-Mac",
                         on: false,
-                        dx: _getPath(screenWidth(context, mulBy: 0.475), _getCursor(), ),
+                        dx: _getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ),
 
                       ),
                       InkWell(
@@ -285,7 +285,7 @@ class _DockerState extends State<Docker> {
                             Expanded(
                               child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 80),
-                                  transform: Matrix4.identity()..scale((.3*_getPath(screenWidth(context, mulBy: 0.525), _getCursor(), ))+1,(.3*_getPath(screenWidth(context, mulBy: 0.525), _getCursor(), ))+1)..translate(-5, -(_getPath(screenWidth(context, mulBy: 0.525), _getCursor(), )*40), 0, ),
+                                  transform: Matrix4.identity()..scale((.3*_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), ))+1,(.3*_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), ))+1)..translate(-5, -(_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), )*40), 0, ),
                                   child: Stack(
                                     alignment: Alignment.topCenter,
                                     children: [
@@ -358,13 +358,13 @@ class _DockerState extends State<Docker> {
                       DockerItem(
                         iName: "Notes",
                         on: false,
-                        dx: _getPath(screenWidth(context, mulBy: 0.575), _getCursor(), ),
+                        dx: _getPath(screenWidth(context, mulBy: 0.4508), _getCursor(), ),
 
                       ),
                       DockerItem(
                         iName: "Feedback",
                         on: fbOpen,
-                        dx: _getPath(screenWidth(context, mulBy: 0.625), _getCursor(), ),
+                        dx: _getPath(screenWidth(context, mulBy: 0.49), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
 
@@ -384,7 +384,7 @@ class _DockerState extends State<Docker> {
                       DockerItem(
                         iName: "System Preferences",
                         on: Provider.of<Apps>(context).isOpen(ObjectKey("systemPreferences")),
-                        dx: _getPath(screenWidth(context, mulBy: 0.675), _getCursor(), ),
+                        dx: _getPath(screenWidth(context, mulBy: 0.5292), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
                           Future.delayed(const Duration(milliseconds: 200), () {
@@ -421,14 +421,14 @@ class _DockerState extends State<Docker> {
                 },
                 child: Container(
                   padding: EdgeInsets.only(bottom: 2),
-                  width: screenWidth(context, mulBy: 0.7),
+                  width: screenWidth(context, mulBy: 0.55),
                   height: screenHeight(context, mulBy: 0.165),
                 ),
               ),
             ],
           ),
           SizedBox(
-            height: screenHeight(context, mulBy: 0.01),
+            height: screenHeight(context, mulBy: 0.005),
           )
         ],
       ),
@@ -439,6 +439,7 @@ class _DockerState extends State<Docker> {
 class DockerItem extends StatefulWidget {
   final String iName;
   final bool? on;
+  ///change to be applied
   double dx;
   VoidCallback? onTap=(){};
   DockerItem({
