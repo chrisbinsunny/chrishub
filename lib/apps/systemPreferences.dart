@@ -14,10 +14,17 @@ import 'dart:ui' as ui;
 
 import '../components/wallpaper.dart';
 
+/// Wallpaper screen is in a separate file. On right click>change wallpaper it willchange automatically
+/// due to the timer added in initstate. Usually wallpaper bool value is false. To be passed as true
+/// if wallpaper screen is to be opened.
+///
+//TODO My image
+
 
 class SystemPreferences extends StatefulWidget {
   final Offset? initPos;
-  const SystemPreferences({this.initPos, Key? key}) : super(key: key);
+  final bool wallpaper;
+  const SystemPreferences({this.initPos, this.wallpaper=false, Key? key}) : super(key: key);
 
   @override
   _SystemPreferencesState createState() => _SystemPreferencesState();
@@ -37,12 +44,22 @@ class _SystemPreferencesState extends State<SystemPreferences> {
 
       });
     });
+
+
+    if(widget.wallpaper)
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _navigatorKey2.currentState!
+          .push(PageRouteBuilder(
+        pageBuilder: (_, __, ___) =>
+            Wallpaper(),
+      ));
+    });
+
     super.initState();
   }
 
   @override
   void dispose() {
-    _navigatorKey2.currentState!.dispose;
     super.dispose();
   }
 
@@ -62,7 +79,6 @@ class _SystemPreferencesState extends State<SystemPreferences> {
 
   AnimatedContainer sysPrefWindow(BuildContext context) {
     String topApp = Provider.of<Apps>(context).getTop;
-    log(ModalRoute.of(context)!.settings.name!);
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: 673,
