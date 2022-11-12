@@ -394,8 +394,8 @@ class _DockerState extends State<Docker> {
                                 SystemPreferences(
                                     key: ObjectKey("systemPreferences"),
                                     initPos: Offset(
-                                        screenWidth(context, mulBy: 0.14),
-                                        screenHeight(context, mulBy: 0.1))),
+                                        screenWidth(context, mulBy: 0.24),
+                                        screenHeight(context, mulBy: 0.2))),
                                 Provider.of<OnOff>(context, listen: false)
                                     .maxSysPref()
                             );
