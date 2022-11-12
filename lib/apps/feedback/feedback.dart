@@ -36,7 +36,6 @@ class _FeedBackState extends State<FeedBack> {
   bool valid = false;
   int submit = 3;
   bool reportIssue = true;
-  Future issues = FormController().getFeedbackList();
   DataBase dataBase =DataBase();
   late Stream<QuerySnapshot> feedback;
 
@@ -48,7 +47,7 @@ class _FeedBackState extends State<FeedBack> {
   TextEditingController? mobileNoController;
   TextEditingController? feedbackController;
   String type = "Feedback";
-  FeedbackForm? feedbackItem;
+  FeedbackForm? feedbackItem= FeedbackForm("", "email", "mobileNo", "type", "feedback", DateTime(0), key: ObjectKey("fresh"));
   ScrollController scrollController = new ScrollController();
 
   void _submitForm() {
@@ -89,7 +88,6 @@ class _FeedBackState extends State<FeedBack> {
             emailController!.clear();
             mobileNoController!.clear();
             feedbackController!.clear();
-            issues= FormController().getFeedbackList();
           });
         } else {
           setState(() {
@@ -97,7 +95,7 @@ class _FeedBackState extends State<FeedBack> {
           });
         }
       });
-      
+
       valid = false;
     }
   }
@@ -189,6 +187,7 @@ class _FeedBackState extends State<FeedBack> {
                           onTap: () {
                             setState(() {
                               reportIssue=true;
+                              feedbackItem= FeedbackForm("", "email", "mobileNo", "type", "feedback", DateTime(0), key: ObjectKey("fresh"));
                             });
                           },
                           child: Container(
@@ -249,6 +248,7 @@ class _FeedBackState extends State<FeedBack> {
                                     return ListView.builder(
                                       physics: BouncingScrollPhysics(),
                                       controller: scrollController,
+                                      itemCount: snapshot.data?.docs.length,
                                       itemBuilder: (context, index) {
                                         return InkWell(
                                           onTap: () {
@@ -274,7 +274,7 @@ class _FeedBackState extends State<FeedBack> {
                                                   ? Theme.of(context).colorScheme.secondary
                                                   : Theme.of(context).colorScheme.background,
                                                 border: Border.all(
-                                                    color: feedbackItem==snapshot.data?.docs[index]?Color(0xffb558e1):Colors.transparent,
+                                                    color: feedbackItem!.key==ObjectKey(snapshot.data?.docs[index].id)?Color(0xffb558e1):Colors.transparent,
                                                     width: 2
                                                 )
                                             ),
@@ -827,7 +827,7 @@ class _FeedBackState extends State<FeedBack> {
                               : AnimatedContainer(
                                   duration: Duration(milliseconds: 200),
                                   width: screenWidth(context,
-                                      mulBy: feedbackFS ? 0.5 : 0.46),
+                                      mulBy: feedbackFS ? 0.5 : 0.35),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment:
@@ -858,9 +858,9 @@ class _FeedBackState extends State<FeedBack> {
                                             duration:
                                                 Duration(milliseconds: 200),
                                             width: screenWidth(context,
-                                                mulBy: 0.14),
+                                                mulBy: 0.1275),
                                             height: screenHeight(context,
-                                                mulBy: 0.042),
+                                                mulBy: 0.038),
                                             padding: EdgeInsets.only(
                                                 left: screenWidth(context,
                                                     mulBy: 0.015),
@@ -915,7 +915,7 @@ class _FeedBackState extends State<FeedBack> {
                                             duration:
                                                 Duration(milliseconds: 200),
                                             width: screenWidth(context,
-                                                mulBy: 0.14),
+                                                mulBy: 0.1275),
                                             height: screenHeight(context,
                                                 mulBy: 0.038),
                                             padding: EdgeInsets.only(
@@ -935,7 +935,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 borderRadius:
                                                     BorderRadius.circular(8)),
                                             child: Text(
-                                              "${feedbackItem!.dateTime}",
+                                              "${DateFormat('hh:mm a, MMMM dd yyyy').format(feedbackItem!.dateTime)}",
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: "HN",
@@ -979,7 +979,7 @@ class _FeedBackState extends State<FeedBack> {
                                             duration:
                                                 Duration(milliseconds: 200),
                                             width: screenWidth(context,
-                                                mulBy: 0.35),
+                                                mulBy: 0.315),
                                             height: screenHeight(context,
                                                 mulBy: 0.13), //0.038
                                             padding: EdgeInsets.only(
