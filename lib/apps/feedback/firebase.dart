@@ -7,6 +7,7 @@ class DataBase{
   Stream<QuerySnapshot> getFeedback() {
     return FirebaseFirestore.instance
         .collection("Feedback")
+        .where("type", isEqualTo: "Issue")
         .orderBy("time", descending: true)
         .snapshots();
   }
