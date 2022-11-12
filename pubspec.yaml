@@ -27,6 +27,8 @@ dependencies:
   provider: ^6.0.4
   http: ^0.13.5
   table_calendar: ^3.0.8
+  firebase_core: ^2.2.0
+  cloud_firestore: ^4.0.5
 #  pointer_interceptor: ^0.9.0+1
 
 
