@@ -279,7 +279,6 @@ class _DockerState extends State<Docker> {
 
                       ),
                       InkWell(
-
                         child: Column(
                           children: [
                             Expanded(
@@ -293,12 +292,12 @@ class _DockerState extends State<Docker> {
                                         "assets/apps/calendar-Mac.png",
                                       ),
                                       Positioned(
-                                        top: screenHeight(context, mulBy: 0.01),
+                                        top: screenHeight(context, mulBy: 0.006),
                                         child: Container(
                                           height:
-                                          screenHeight(context, mulBy: 0.02),
+                                          screenHeight(context, mulBy: 0.014),
                                           width:
-                                          screenWidth(context, mulBy: 0.03),
+                                          screenWidth(context, mulBy: 0.025),
                                           color: Colors.transparent,
                                           child: FittedBox(
                                             fit: BoxFit.fitHeight,
@@ -316,12 +315,12 @@ class _DockerState extends State<Docker> {
                                         ),
                                       ),
                                       Positioned(
-                                        top: screenHeight(context, mulBy: 0.026),
+                                        top: screenHeight(context, mulBy: 0.017),
                                         child: Container(
                                           height:
-                                          screenHeight(context, mulBy: 0.047),
+                                          screenHeight(context, mulBy: 0.031),
                                           width:
-                                          screenWidth(context, mulBy: 0.03),
+                                          screenWidth(context, mulBy: 0.025),
                                           color: Colors.transparent,
                                           child: FittedBox(
                                             fit: BoxFit.fitHeight,
