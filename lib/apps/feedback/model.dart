@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class FeedbackForm {
   String name;
@@ -7,9 +8,10 @@ class FeedbackForm {
   String type;
   String feedback;
   DateTime dateTime;
+  Key? key;
 
   FeedbackForm(this.name, this.email, this.mobileNo, this.type, this.feedback,
-      this.dateTime);
+      this.dateTime, {this.key});
 
   factory FeedbackForm.fromJson(dynamic json) {
     return FeedbackForm(
@@ -25,7 +27,7 @@ class FeedbackForm {
   Map<String, dynamic> toJson() => {
         'name': name,
         'email': email,
-        'mobileNo': mobileNo,
+        'number': mobileNo,
         'type': type,
         'feedback': feedback,
         'time': dateTime
@@ -39,6 +41,8 @@ class FeedbackForm {
         "${snapshot['number']}",
         "${snapshot['type']}",
         "${snapshot['feedback']}",
-        snapshot['time']);
+        snapshot['time'].toDate(),
+    key: ObjectKey(snapshot.id)
+    );
   }
 }
