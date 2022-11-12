@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/system/folders.dart';
+import '../apps/systemPreferences.dart';
+import '../providers.dart';
 import '../theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'openApps.dart';
@@ -147,8 +149,23 @@ class _RightClickState extends State<RightClick> {
                         bottom: screenHeight(context, mulBy: 0.006)
                     ),
                     buttonFunc: (){
-                      print("Settings Screen");
-                      Provider.of<OnOff>(context, listen: false).offRCM();
+                      tapFunctions(context);
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        Provider.of<OnOff>(context, listen: false)
+                            .maxSysPref();
+                        Provider.of<Apps>(context, listen: false).openApp(
+                            SystemPreferences(
+                                key: ObjectKey("systemPreferences"),
+                                initPos: Offset(
+                                    screenWidth(context, mulBy: 0.24),
+                                    screenHeight(context, mulBy: 0.2)),
+                            wallpaper: true,
+                            ),
+                            Provider.of<OnOff>(context, listen: false)
+                                .maxSysPref()
+                        );
+                      });
+
                     },
                   ),
                   Container(
