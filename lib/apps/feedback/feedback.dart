@@ -81,28 +81,23 @@ class _FeedBackState extends State<FeedBack> {
       });
 
 
-      dataBase.addFeedback(feedbackForm: feedbackForm);
-
-
-      formController.submitForm(feedbackForm, (String? response) {
-        print("Response: $response");
-        Future.delayed(Duration(seconds: 0), () {
-          if (response == FormController.STATUS_SUCCESS) {
-            setState(() {
-              submit = 1;
-              nameController!.clear();
-              emailController!.clear();
-              mobileNoController!.clear();
-              feedbackController!.clear();
-              issues= FormController().getFeedbackList();
-            });
-          } else {
-            setState(() {
-              submit = 2;
-            });
-          }
-        });
+      dataBase.addFeedback(feedbackForm: feedbackForm).then((success) {
+        if (success) {
+          setState(() {
+            submit = 1;
+            nameController!.clear();
+            emailController!.clear();
+            mobileNoController!.clear();
+            feedbackController!.clear();
+            issues= FormController().getFeedbackList();
+          });
+        } else {
+          setState(() {
+            submit = 2;
+          });
+        }
       });
+      
       valid = false;
     }
   }
