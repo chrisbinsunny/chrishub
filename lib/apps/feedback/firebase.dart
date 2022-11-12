@@ -12,11 +12,14 @@ class DataBase{
   }
 
 
-  Future addFeedback(
+  Future<bool> addFeedback(
       {required FeedbackForm feedbackForm})async {
-    await FirebaseFirestore.instance
+    return await FirebaseFirestore.instance
         .collection("Feedback")
-        .add(feedbackForm.toJson()).catchError((e){
+        .add(feedbackForm.toJson()).then((value) {
+          return true;
+    }).catchError((e){
+      return false;
     });
 }
 }
