@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -12,6 +13,7 @@ import 'dart:html' as html;
 import 'dart:ui' as ui;
 
 import 'controller.dart';
+import 'firebase.dart';
 import 'model.dart';
 
 //TODO Theming of  feedback
@@ -35,6 +37,8 @@ class _FeedBackState extends State<FeedBack> {
   int submit = 3;
   bool reportIssue = true;
   Future issues = FormController().getFeedbackList();
+  DataBase dataBase =DataBase();
+  late Stream<QuerySnapshot> feedback;
 
   /// 0=submitting, 1=success, 2=error, 3= free state
   bool submitShow = false;
@@ -44,8 +48,7 @@ class _FeedBackState extends State<FeedBack> {
   TextEditingController? mobileNoController;
   TextEditingController? feedbackController;
   String type = "Feedback";
-  FeedbackForm? feedbackItem = new FeedbackForm(
-      "Name", "yoyo", "123", "io", "hihihi", "2021-06-13T09:23:06.469Z");
+  FeedbackForm? feedbackItem;
   ScrollController scrollController = new ScrollController();
 
   void _submitForm() {
@@ -60,14 +63,14 @@ class _FeedBackState extends State<FeedBack> {
     }
     _formKey.currentState!.validate();
     if (valid) {
-      // If the form is valid, proceed.
+      /// If the form is valid, proceed.
       FeedbackForm feedbackForm = FeedbackForm(
         nameController!.text,
         emailController!.text,
         mobileNoController!.text,
         type,
         feedbackController!.text,
-        DateTime.now().toString(),
+        DateTime.now(),
       );
 
       FormController formController = FormController();
@@ -76,6 +79,10 @@ class _FeedBackState extends State<FeedBack> {
         submitShow = true;
         submit = 0;
       });
+
+
+      dataBase.addFeedback(feedbackForm: feedbackForm);
+
 
       formController.submitForm(feedbackForm, (String? response) {
         print("Response: $response");
@@ -108,6 +115,7 @@ class _FeedBackState extends State<FeedBack> {
     emailController = TextEditingController();
     mobileNoController = TextEditingController();
     feedbackController = TextEditingController();
+  feedback=dataBase.getFeedback();
   }
 
   @override
@@ -239,21 +247,21 @@ class _FeedBackState extends State<FeedBack> {
                             child: ClipRRect(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
-                              child: FutureBuilder(
-                                future: issues,
+                              child: StreamBuilder<QuerySnapshot>(
+                                stream: feedback,
                                 builder: (context, snapshot) {
                                   if (snapshot.hasData) {
                                     return ListView.builder(
                                       physics: BouncingScrollPhysics(),
-                                      itemCount: snapshot.data.length,
                                       controller: scrollController,
                                       itemBuilder: (context, index) {
                                         return InkWell(
                                           onTap: () {
                                             setState(() {
-                                              reportIssue = false;
                                               feedbackItem =
-                                                  snapshot.data[index];
+                                                  FeedbackForm.fromSnapshot(snapshot.data?.docs[index]);
+                                              reportIssue = false;
+
                                             });
                                           },
                                           child: AnimatedContainer(
@@ -271,7 +279,7 @@ class _FeedBackState extends State<FeedBack> {
                                                   ? Theme.of(context).colorScheme.secondary
                                                   : Theme.of(context).colorScheme.background,
                                                 border: Border.all(
-                                                    color: feedbackItem==snapshot.data[index]?Color(0xffb558e1):Colors.transparent,
+                                                    color: feedbackItem==snapshot.data?.docs[index]?Color(0xffb558e1):Colors.transparent,
                                                     width: 2
                                                 )
                                             ),
@@ -282,7 +290,7 @@ class _FeedBackState extends State<FeedBack> {
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "${snapshot.data[index].name}",
+                                                  "${snapshot.data?.docs[index]["name"]}",
                                                   style: TextStyle(
                                                       color: Theme.of(context)
                                                           .cardColor
@@ -296,7 +304,7 @@ class _FeedBackState extends State<FeedBack> {
                                                   softWrap: false,
                                                 ),
                                                 Text(
-                                                  snapshot.data[index].feedback,
+                                                  snapshot.data?.docs[index]["feedback"],
                                                   style: TextStyle(
                                                       color: Theme.of(context)
                                                           .cardColor
