@@ -132,10 +132,10 @@ class _FeedBackState extends State<FeedBack> {
       duration: Duration(milliseconds: 200),
       width: feedbackFS
           ? screenWidth(context, mulBy: 1)
-          : screenWidth(context, mulBy: 0.7),
+          : screenWidth(context, mulBy: 0.58),
       height: feedbackFS
           ?screenHeight(context, mulBy: 0.966)
-          : screenHeight(context, mulBy: 0.75),
+          : screenHeight(context, mulBy: 0.7),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -344,7 +344,7 @@ class _FeedBackState extends State<FeedBack> {
                           horizontal: screenWidth(context, mulBy: 0.02),
                           vertical: screenHeight(context, mulBy: 0.05)),
                       duration: Duration(milliseconds: 200),
-                      width: screenWidth(context, mulBy: feedbackFS ? .75 : .5),
+                      width: screenWidth(context, mulBy: feedbackFS ? .75 : .41),
                       decoration: BoxDecoration(
                         color: Theme.of(context).dialogBackgroundColor,
                       ),
@@ -354,7 +354,7 @@ class _FeedBackState extends State<FeedBack> {
                           AnimatedContainer(
                             duration: Duration(milliseconds: 200),
                             height: screenHeight(context,
-                                mulBy: feedbackFS ? 0.40 : .3),
+                                mulBy: feedbackFS ? 0.40 : .25),
                             child: Column(
                               children: [
                                 Image.asset(
@@ -376,7 +376,7 @@ class _FeedBackState extends State<FeedBack> {
                               ? AnimatedContainer(
                                   duration: Duration(milliseconds: 200),
                                   width: screenWidth(context,
-                                      mulBy: feedbackFS ? 0.5 : 0.46),
+                                      mulBy: feedbackFS ? 0.5 : 0.35),
                                   child: Form(
                                     key: _formKey,
                                     child: Column(
@@ -391,9 +391,9 @@ class _FeedBackState extends State<FeedBack> {
                                               duration:
                                                   Duration(milliseconds: 200),
                                               width: screenWidth(context,
-                                                  mulBy: 0.22),
+                                                  mulBy: 0.1675),
                                               height: screenHeight(context,
-                                                  mulBy: 0.038), //0.038
+                                                  mulBy: 0.042), //0.038
                                               child: TextFormField(
                                                 cursorHeight: 16,
                                                 controller: nameController,
@@ -462,15 +462,15 @@ class _FeedBackState extends State<FeedBack> {
                                                   Duration(milliseconds: 200),
                                               width: screenWidth(context,
                                                   mulBy:
-                                                      feedbackFS ? 0.06 : 0.02),
+                                                      feedbackFS ? 0.06 : 0.015),
                                             ),
                                             AnimatedContainer(
                                               duration:
                                                   Duration(milliseconds: 200),
                                               width: screenWidth(context,
-                                                  mulBy: 0.22),
+                                                  mulBy: 0.1675),
                                               height: screenHeight(context,
-                                                  mulBy: 0.038), //0.038
+                                                  mulBy: 0.042), //0.038
                                               child: TextFormField(
                                                 cursorHeight: 16,
                                                 controller: emailController,
@@ -548,7 +548,7 @@ class _FeedBackState extends State<FeedBack> {
                                               width: screenWidth(context,
                                                   mulBy: 0.22),
                                               height: screenHeight(context,
-                                                  mulBy: 0.038), //0.038
+                                                  mulBy: 0.042), //0.038
                                               child: TextFormField(
                                                 cursorHeight: 16,
                                                 controller: mobileNoController,
@@ -857,7 +857,7 @@ class _FeedBackState extends State<FeedBack> {
                                             width: screenWidth(context,
                                                 mulBy: 0.14),
                                             height: screenHeight(context,
-                                                mulBy: 0.038),
+                                                mulBy: 0.042),
                                             padding: EdgeInsets.only(
                                                 left: screenWidth(context,
                                                     mulBy: 0.015),
@@ -1092,7 +1092,7 @@ class _FeedBackState extends State<FeedBack> {
                             child: AnimatedContainer(
                                 duration: Duration(milliseconds: 200),
                                 width: screenWidth(context,
-                                    mulBy: feedbackFS ? .75 : .5),
+                                    mulBy: feedbackFS ? .75 : .41),
                                 //height: screenHeight(context),
                                 color: Colors.transparent),
                           )
@@ -1100,7 +1100,7 @@ class _FeedBackState extends State<FeedBack> {
                     AnimatedPositioned(
                       duration: Duration(milliseconds: valAni ? 400 : 200),
                       left: screenWidth(context,
-                          mulBy: feedbackFS ? 0.284 : 0.17),
+                          mulBy: feedbackFS ? 0.284 : 0.125),
                       top: error ? -(screenHeight(context, mulBy: 0.32)) : 0,
                       child: AnimatedContainer(
                         duration: Duration(milliseconds: 200),
@@ -1236,7 +1236,7 @@ class _FeedBackState extends State<FeedBack> {
                             child: AnimatedContainer(
                                 duration: Duration(milliseconds: 200),
                                 width: screenWidth(context,
-                                    mulBy: feedbackFS ? .75 : .5),
+                                    mulBy: feedbackFS ? .75 : .41),
                                 //height: screenHeight(context),
                                 color: Colors.transparent),
                           )
@@ -1244,7 +1244,7 @@ class _FeedBackState extends State<FeedBack> {
                     AnimatedPositioned(
                       duration: Duration(milliseconds: valAni ? 400 : 200),
                       left: screenWidth(context,
-                          mulBy: feedbackFS ? 0.284 : 0.17),
+                          mulBy: feedbackFS ? 0.284 : 0.125),
                       top: !submitShow
                           ? -(screenHeight(context, mulBy: 0.32))
                           : 0,
