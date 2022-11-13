@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'sharedPref.dart';
+import 'package:mac_dt/data/system_data_CRUD.dart';
 
 class ThemeNotifier with ChangeNotifier {
-
-  String thm = "Dark";
 
   static final ThemeData lightTheme = ThemeData(
     textTheme: TextTheme(
@@ -135,46 +133,14 @@ class ThemeNotifier with ChangeNotifier {
   ThemeData _themeData;
   ThemeNotifier(this._themeData);
   getTheme() => _themeData;
-  String get findThm => thm;
 
   isDark() => _themeData==lightTheme?false:true;
 
 
   setTheme(ThemeData themeData) async {
     _themeData = themeData;
-    thm=(themeData==lightTheme)?"Light":"Dark";
+    SystemDataCRUD.setTheme(themeData);
     notifyListeners();
   }
-
-  // ThemeNotifier() {
-  //   StorageManager.readData('themeMode').then((value) {
-  //     print('value read from storage: ' + value.toString());
-  //     themeMode = value ?? 'light';
-  //     if (themeMode == 'light') {
-  //       _themeData = lightTheme;
-  //      // dark=false;
-  //     } else {
-  //       print('setting dark theme');
-  //       _themeData = darkTheme;
-  //      //dark=true;
-  //     }
-  //     notifyListeners();
-  //   });
-  // }
-  //
-  //
-  //
-  // void setDarkMode() async {
-  //   _themeData = darkTheme;
-  //   StorageManager.saveData('themeMode', 'dark');
-  //   notifyListeners();
-  // }
-  //
-  // void setLightMode() async {
-  //   _themeData = lightTheme;
-  //   StorageManager.saveData('themeMode', 'light');
-  //   notifyListeners();
-  //
-  // }
 
 }
