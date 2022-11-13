@@ -1,4 +1,6 @@
-import 'dart:math';
+
+import 'dart:developer';
+import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -22,7 +24,7 @@ class FileMenu extends StatefulWidget {
 }
 
 class _FileMenuState extends State<FileMenu> {
-  var rand = new Random();
+  var rand = new math.Random();
   late int num;
 
   @override
@@ -35,11 +37,12 @@ class _FileMenuState extends State<FileMenu> {
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
     String topApp= Provider.of<Apps>(context).getTop;
+    log(screenHeight(context, mulBy: 0.027).toString());
     return ClipRect(
       child: new BackdropFilter(
         filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
         child: new Container(
-            height: screenHeight(context, mulBy: 0.035),
+            height: 25,
             width: screenWidth(context,),
             padding: EdgeInsets.all(3),
             decoration: new BoxDecoration(
