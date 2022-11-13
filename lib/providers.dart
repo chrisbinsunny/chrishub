@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mac_dt/components/wallpaper.dart';
 import 'package:provider/provider.dart';
 
+import 'data/system_data_CRUD.dart';
 import 'system/componentsOnOff.dart';
 import 'system/folders.dart';
 
@@ -24,7 +25,9 @@ class DataBus extends ChangeNotifier{
     "app":"apple",
     "head":"Welcome"
   };
-  WallData wallpaper=  WallData(name: "Big Sur", location: "assets/wallpapers/bigsur_.jpg");
+
+
+  WallData wallpaper=  SystemDataCRUD.getWallpaper();
 
 
 
@@ -86,6 +89,7 @@ class DataBus extends ChangeNotifier{
 
   void setWallpaper(WallData val) {
     wallpaper= val;
+    SystemDataCRUD.setWallpaper(val);
     notifyListeners();
   }
 
