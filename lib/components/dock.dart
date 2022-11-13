@@ -467,7 +467,7 @@ class _DockerItemState extends State<DockerItem> {
           Expanded(
               child: AnimatedContainer(
                   duration: const Duration(milliseconds: 80),
-                  transform: Matrix4.identity()..scale((.25*widget.dx)+1,(.25*widget.dx)+1)..translate(-5, -(widget.dx*30), 0, ),
+                  transform: Matrix4.identity()..scale((.25*widget.dx)+1,(.25*widget.dx)+1)..translate(0, -(widget.dx*30), 0, ),
                   child: Image.asset(
                     "assets/apps/${widget.iName.toLowerCase()}.png",
                   ))),
