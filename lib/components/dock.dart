@@ -2,7 +2,6 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/apps/messages/messages.dart';
 import 'package:provider/provider.dart';
@@ -14,12 +13,10 @@ import '../providers.dart';
 import '../widgets.dart';
 import 'finderWindow.dart';
 import '../sizes.dart';
-import '../apps/calendar.dart';
 import '../apps/feedback/feedback.dart';
 import '../apps/spotify.dart';
 import '../apps/terminal/terminal.dart';
 import '../apps/vscode.dart';
-import '../components/finderWindow.dart';
 import '../apps/safari/safariWindow.dart';
 
 //TODO: Icons are not clickable outside of Dock. Known issue of framework. Need to find a Workaround.
@@ -457,7 +454,6 @@ class _DockerItemState extends State<DockerItem> {
 
   @override
   Widget build(BuildContext context) {
-    //print("${widget.iName}: ${widget.dx}");
     return InkWell(
       onTap: widget.onTap,
       mouseCursor: MouseCursor.defer,
