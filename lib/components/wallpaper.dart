@@ -201,16 +201,6 @@ class _WallpaperState extends State<Wallpaper> {
     );
   }
 }
-@HiveType(typeId: 1)
-class WallData extends HiveObject {
-
-  @HiveField(0,)
-  final String name;
-  @HiveField(1,)
-  final String location;
-  WallData({required this.name, required this.location});
-}
-
 
 class ViewWallpaper extends StatelessWidget {
   const ViewWallpaper({Key? key, required this.location}) : super(key: key);
@@ -229,4 +219,16 @@ class ViewWallpaper extends StatelessWidget {
       fit: BoxFit.cover,
     );
   }
+}
+
+
+///Declared as HiveObject for hive database
+@HiveType(typeId: 1)
+class WallData extends HiveObject {
+
+  @HiveField(0,)
+  final String name;
+  @HiveField(1,)
+  final String location;
+  WallData({required this.name, required this.location});
 }
