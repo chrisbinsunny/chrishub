@@ -5,10 +5,11 @@ part 'system_data.g.dart';
 
 @HiveType(typeId: 0)
 class SystemData extends HiveObject {
-  @HiveField(0, defaultValue: WallData(name: "Big Sur Illustration", location: "assets/wallpapers/bigsur_.jpg"))
+
+  @HiveField(0,)
   WallData? wallpaper;
 
-  @HiveField(1)
+  @HiveField(1, )
   bool? dark;
 
 }
