@@ -201,8 +201,8 @@ class _WallpaperState extends State<Wallpaper> {
 }
 
 class WallData{
-  String name="", location="";
-  WallData({required this.name, required this.location});
+  final String name, location;
+  const WallData({required this.name, required this.location});
 }
 
 
