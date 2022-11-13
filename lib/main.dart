@@ -37,7 +37,7 @@ Future<void> main() async {
 
 
   runApp(ChangeNotifierProvider<ThemeNotifier>(
-      create: (_) => ThemeNotifier(ThemeNotifier.darkTheme),
+      create: (_) => ThemeNotifier(SystemDataCRUD.getTheme()),
       child: MyApp()));
 }
 
