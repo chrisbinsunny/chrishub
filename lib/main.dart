@@ -1,7 +1,12 @@
+import 'dart:developer';
 import 'dart:html';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:mac_dt/data/system_data.dart';
+import 'package:mac_dt/data/system_data_CRUD.dart';
 import 'package:mac_dt/system/folders.dart';
 import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/sizes.dart';
@@ -21,6 +26,13 @@ Future<void> main() async {
 
   ///Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+
+
+  ///Hive
+  await Hive.initFlutter();
+  Hive.registerAdapter(SystemDataAdapter());
+  await Hive.openBox<SystemData>('systemData');
+
 
   runApp(ChangeNotifierProvider<ThemeNotifier>(
       create: (_) => ThemeNotifier(ThemeNotifier.darkTheme),
