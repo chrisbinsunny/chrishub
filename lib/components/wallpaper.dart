@@ -1,10 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../providers.dart';
 import '../theme/theme.dart';
+part 'wallpaper.g.dart';
 
 
 
@@ -199,10 +201,14 @@ class _WallpaperState extends State<Wallpaper> {
     );
   }
 }
+@HiveType(typeId: 1)
+class WallData extends HiveObject {
 
-class WallData{
-  final String name, location;
-  const WallData({required this.name, required this.location});
+  @HiveField(0,)
+  final String name;
+  @HiveField(1,)
+  final String location;
+  WallData({required this.name, required this.location});
 }
 
 
