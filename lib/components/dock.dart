@@ -81,7 +81,7 @@ class _DockerState extends State<Docker> {
     return AnimatedPositioned(
       duration: Duration(milliseconds: (fsAni) ? 400 : 0),
       top: (fs == "")
-          ? screenHeight(context, mulBy: 0.83)
+          ? screenHeight(context, mulBy: 0.86)
           : screenHeight(context, mulBy: 1.05),
       left: screenWidth(context, mulBy: 0.225),
       child: Column(
@@ -421,7 +421,7 @@ class _DockerState extends State<Docker> {
                 child: Container(
                   padding: EdgeInsets.only(bottom: 2),
                   width: screenWidth(context, mulBy: 0.55),
-                  height: screenHeight(context, mulBy: 0.165),
+                  height: screenHeight(context, mulBy: 0.135),
                 ),
               ),
             ],
