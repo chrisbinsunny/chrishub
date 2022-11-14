@@ -38,7 +38,7 @@ class _FileMenuState extends State<FileMenu> {
 
 
   _checkWifi() async {
-    Future.delayed(Duration.zero, () {
+    Future.delayed(Duration(seconds: 1), () {
       showDialog(
         barrierColor: Colors.black.withOpacity(0.15),
         context: context,
