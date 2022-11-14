@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
+import 'package:mac_dt/system/folders/folders_CRUD.dart';
 import 'package:provider/provider.dart';
 
 import '../componentsOnOff.dart';
@@ -15,7 +16,7 @@ part 'folders.g.dart';
 class Folders extends ChangeNotifier{
 
   Widget? temp;
-  List<Folder> folders= [];
+  List<Folder> folders= FoldersDataCRUD.getFolders();
 
   List<Folder> get getFolders {
     return folders;
@@ -48,13 +49,17 @@ class Folders extends ChangeNotifier{
         initPos=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.07), (y)*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.09));
     }
     folders.add(Folder(key: UniqueKey(), name: name, renaming: renaming, initPos: initPos, ));
+    FoldersDataCRUD.addFolder(FolderProps(name: name, x: initPos.dx, y: initPos.dy,));
     notifyListeners();
   }
 
   void deleteFolder(BuildContext context){
     Offset posAfterDel=  Offset(200, 150);
     int x,y;
+
+    FoldersDataCRUD.deleteFolder(folders.firstWhere((element) => element.selected==true).name!);
     folders.removeWhere((element) => element.selected==true);
+
     deSelectAll();
 
     for(int i=0; i<folders.length; i++)
@@ -338,6 +343,7 @@ class _FolderState extends State<Folder> {
                                   }
                                 }
                               }
+                              FoldersDataCRUD.renameFolder(widget.name!, controller!.text.toString());
                               widget.name=controller!.text.toString();
                             });
                           },
@@ -377,14 +383,15 @@ class _FolderState extends State<Folder> {
 class FolderProps extends HiveObject{
 
   @HiveField(0,)
-  final String? name;
+  String? name;
 
   @HiveField(1,)
-  final Offset? initPos;
+  double? x;
 
   @HiveField(2,)
-  final bool? renaming;
+  double? y;
 
-  FolderProps({this.name="", this.initPos, this.renaming= false});
+
+  FolderProps({this.name="", this.x, this.y,});
 }
 
