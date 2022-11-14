@@ -33,7 +33,10 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(SystemDataAdapter());
   Hive.registerAdapter(WallDataAdapter());
+  Hive.registerAdapter(FolderPropsAdapter());
+
   await Hive.openBox<SystemData>('systemData');
+  await Hive.openBox<FolderProps>('folders');
 
 
   runApp(ChangeNotifierProvider<ThemeNotifier>(
