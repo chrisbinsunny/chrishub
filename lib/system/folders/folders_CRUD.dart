@@ -40,10 +40,18 @@ class FoldersDataCRUD{
   }
 
 
-  static deleteFolder(String name){
+  static deleteFolder(String name, List<Folder> folders){
     final box= getFoldersBox();
     FolderProps? folderProps= box.get(name);
     folderProps!.delete();
+    List keys=box.keys.toList();
+    for(int i=0; i<folders.length; i++)
+    {
+      box.putAt(keys.indexOf(folders[i].name), FolderProps(name: folders[i].name, x: folders[i].initPos!.dx, y: folders[i].initPos!.dy));
+    }
+
   }
+
+
 
 }
