@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -56,8 +57,7 @@ class Folders extends ChangeNotifier{
   void deleteFolder(BuildContext context){
     Offset posAfterDel=  Offset(200, 150);
     int x,y;
-
-    FoldersDataCRUD.deleteFolder(folders.firstWhere((element) => element.selected==true).name!);
+    String name=folders.firstWhere((element) => element.selected==true).name!;
     folders.removeWhere((element) => element.selected==true);
 
     deSelectAll();
@@ -72,6 +72,8 @@ class Folders extends ChangeNotifier{
         posAfterDel=Offset(screenWidth(context, mulBy: 0.98)-(x+1)*screenWidth(context, mulBy: 0.07), (y)*screenHeight(context, mulBy: 0.129)+screenHeight(context, mulBy: 0.09));
       folders[i].initPos=posAfterDel;
     }
+
+    FoldersDataCRUD.deleteFolder(name, folders);
 
     notifyListeners();
 
