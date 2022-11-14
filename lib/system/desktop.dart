@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mac_dt/apps/launchpad.dart';
@@ -18,6 +19,8 @@ import 'openApps.dart';
 import '../theme/theme.dart';
 import '../components/dock.dart';
 import '../fileMenu/fileMenu.dart';
+import 'dart:html' as html;
+
 
 class MacOS extends StatefulWidget {
   @override
