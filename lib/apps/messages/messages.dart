@@ -76,10 +76,10 @@ class _MessagesState extends State<Messages> {
       duration: Duration(milliseconds: 200),
       width: messagesFS
           ? screenWidth(context, mulBy: 1)
-          : screenWidth(context, mulBy: 0.55),
+          : screenWidth(context, mulBy: 0.47),
       height: messagesFS
           ? screenHeight(context, mulBy: 0.966)
-          : screenHeight(context, mulBy: 0.65),
+          : screenHeight(context, mulBy: 0.57),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -111,7 +111,7 @@ class _MessagesState extends State<Messages> {
                         horizontal: screenWidth(context, mulBy: 0.005),
                         vertical: screenHeight(context, mulBy: 0.025)),
                     height: screenHeight(context),
-                    width: screenWidth(context, mulBy: 0.2),
+                    width: screenWidth(context, mulBy: 0.15),
                     decoration: BoxDecoration(
                       color: Theme.of(context).hintColor,
                       borderRadius: BorderRadius.only(
@@ -616,7 +616,9 @@ class _MessagesState extends State<Messages> {
                               ClipRect(
                                 child: BackdropFilter(
                                   filter: ImageFilter.blur(
-                                      sigmaX: 15.0, sigmaY: 15.0),
+                                      sigmaX: 15.0, sigmaY: 15.0,
+                                  tileMode: TileMode.decal
+                                  ),
                                   child: Container(
                                     height: screenHeight(context, mulBy: 0.055),
                                     width: double.infinity,
