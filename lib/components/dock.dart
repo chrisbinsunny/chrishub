@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/apps/messages/messages.dart';
@@ -267,7 +268,9 @@ class _DockerState extends State<Docker> {
                         iName: "Photos",
                         on: false,
                         dx: _getPath(screenWidth(context, mulBy: 0.3332), _getCursor(), ),
+                        onTap: (){
 
+                        },
                       ),
                       DockerItem(
                         iName: "Contacts-Mac",
