@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +20,13 @@ class MacOSAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(screenWidth(context,
+        mulBy: 0.17).toString());
+    ///Checking if the system is running on mobile and if not request fullscreen
+    final bool isWebMobile = true;
+
+
+
     return Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -30,12 +39,12 @@ class MacOSAlertDialog extends StatelessWidget {
               sigmaX: 70.0, sigmaY: 70.0),
           child: Container(
             width: screenWidth(context,
-                mulBy: 0.185),
+                mulBy: 0.165),
             height: screenHeight(context,
-                mulBy: 0.46),
+                mulBy: 0.37),
             constraints: const BoxConstraints(
               minWidth: 250,
-              minHeight: 350,
+              minHeight: 340,
             ),
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -60,7 +69,7 @@ class MacOSAlertDialog extends StatelessWidget {
                 padding:
                 const EdgeInsets
                     .symmetric(
-                    horizontal: 7,
+                    horizontal: 30,
                   vertical: 5
                 ),
                 child: Column(
@@ -94,36 +103,139 @@ class MacOSAlertDialog extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      "Chrisbin's MacBook Pro is recommended to be used in fullscreen",
-                      style: TextStyle(
-                          color: Theme.of(context).cardColor.withOpacity(1),
-                          fontWeight: FontWeight.w700,
-                          fontSize: 20
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20
+                      ),
+                      child: isWebMobile?
+                      Text(
+                        "The website is recommended to be used on a computer browser. "
+                            "Please use a computer browser for full experience.",
+                        style: TextStyle(
+                            color: Theme.of(context).cardColor.withOpacity(1),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14
+                        ),
+                        textAlign: TextAlign.center,
+                      ):
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "The website is recommended to be used in fullscreen. "
+                                  "Click the button below or the icon(",
+                            ),
+                            WidgetSpan(
+                              child: Icon(
+                                CupertinoIcons.fullscreen,
+                                size: 14,
+                                color: Theme.of(context).cardColor.withOpacity(1),
+                              ),
+                            ),
+                            TextSpan(
+                              text: ") on the desktop to toggle fullscreen.",
+                            ),
+                          ],
+                          style: TextStyle(
+                              color: Theme.of(context).cardColor.withOpacity(1),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14
+                          ),
+                        ),
+                        textAlign: TextAlign.center,
+
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () {
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    isWebMobile?
+                    InkWell(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 7
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Continue",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [
+                                  Color(0xff107deb),
+                                  Color(0xff226eca),
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter
+                            ),
+                            borderRadius: BorderRadius.circular(7)
+                        ),
+                      ),
+                      onTap: (){
                         Navigator.pop(context);
                       },
-                      style: ButtonStyle(
-                        shape: MaterialStateProperty.all(const StadiumBorder(side: BorderSide.none)),
-                        padding: MaterialStateProperty.all(
-                            const EdgeInsets.symmetric(
-                                vertical: 17,
-                                horizontal: 30
-                            )),
-                        enableFeedback: true,
-                        backgroundColor: MaterialStateProperty.all(Colors.white.withOpacity(0.2)),
-                        overlayColor: MaterialStateProperty.all(Colors.deepPurpleAccent.withOpacity(0.3)),
-                        elevation: MaterialStateProperty.all(0),
-                        side: MaterialStateProperty.all(const BorderSide(color: Colors.white)),
+                    ):
+                    InkWell(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 7
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                            "Full Screen",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xff107deb),
+                              Color(0xff226eca),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter
+                          ),
+                          borderRadius: BorderRadius.circular(7)
+                        ),
                       ),
-                      child: const Text(
-                        "Done",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white
+                      onTap: (){
+                        if(!isWebMobile){
+                          document.documentElement!.requestFullscreen();
+                        }
+                        Navigator.pop(context);
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Visibility(
+                      visible: !isWebMobile,
+                      child: InkWell(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 7
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14
+                            ),
+                          ),
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.4),
+                              borderRadius: BorderRadius.circular(7)
+                          ),
                         ),
                       ),
                     ),
