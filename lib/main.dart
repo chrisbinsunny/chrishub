@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:mac_dt/components/wallpaper.dart';
+import 'package:mac_dt/components/wallpaper/wallpaper.dart';
 import 'package:mac_dt/data/system_data.dart';
 import 'package:mac_dt/data/system_data_CRUD.dart';
 import 'package:mac_dt/system/folders/folders.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mac_dt/components/wallpaper.dart';
+import 'package:mac_dt/components/wallpaper/wallpaper.dart';
 import 'package:provider/provider.dart';
 
 import 'data/system_data_CRUD.dart';

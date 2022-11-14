@@ -12,7 +12,7 @@ import '../../widgets.dart';
 import 'dart:html' as html;
 import 'dart:ui' as ui;
 
-import '../components/wallpaper.dart';
+import '../components/wallpaper/wallpaper.dart';
 
 /// Wallpaper screen is in a separate file. On right click>change wallpaper it willchange automatically
 /// due to the timer added in initstate. Usually wallpaper bool value is false. To be passed as true

@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-import '../components/wallpaper.dart';
+import '../components/wallpaper/wallpaper.dart';
 part 'system_data.g.dart';
 
 @HiveType(typeId: 0)
