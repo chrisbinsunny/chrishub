@@ -18,8 +18,8 @@ class FolderPropsAdapter extends TypeAdapter<FolderProps> {
     };
     return FolderProps(
       name: fields[0] as String?,
-      initPos: fields[1] as Offset?,
-      renaming: fields[2] as bool?,
+      x: fields[1] as double?,
+      y: fields[2] as double?,
     );
   }
 
@@ -30,9 +30,9 @@ class FolderPropsAdapter extends TypeAdapter<FolderProps> {
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.initPos)
+      ..write(obj.x)
       ..writeByte(2)
-      ..write(obj.renaming);
+      ..write(obj.y);
   }
 
   @override
