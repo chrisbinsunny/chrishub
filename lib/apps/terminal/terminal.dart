@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
-import '../../system/folders.dart';
+import '../../system/folders/folders.dart';
 import '../../system/openApps.dart';
 import '../../sizes.dart';
 import 'dart:ui' as ui;
