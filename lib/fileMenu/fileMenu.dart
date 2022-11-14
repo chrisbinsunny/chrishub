@@ -33,7 +33,7 @@ class _FileMenuState extends State<FileMenu> {
   @override
   void initState() {
     num= rand.nextInt(20);
-    alertCaller();
+    //alertCaller();
     super.initState();
   }
 
