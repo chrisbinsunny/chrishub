@@ -10,6 +10,7 @@ import 'package:mac_dt/system/openApps.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:provider/provider.dart';
 
+import '../components/alertDialog.dart';
 import '../system/componentsOnOff.dart';
 import '../system/folders/folders.dart';
 
@@ -30,7 +31,23 @@ class _FileMenuState extends State<FileMenu> {
   @override
   void initState() {
     num= rand.nextInt(20);
+    _checkWifi();
     super.initState();
+  }
+
+
+
+  _checkWifi() async {
+    Future.delayed(Duration.zero, () {
+      showDialog(
+        barrierColor: Colors.black.withOpacity(0.15),
+        context: context,
+        builder: (context) {
+          return MacOSAlertDialog();
+        },
+      );
+    });
+
   }
 
   @override
