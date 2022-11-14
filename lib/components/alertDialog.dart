@@ -20,12 +20,12 @@ class MacOSAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(screenWidth(context,
-        mulBy: 0.17).toString());
-    ///Checking if the system is running on mobile and if not request fullscreen
-    final bool isWebMobile = true;
-
-
+    log(screenHeight(context,
+        mulBy: 0.37).toString());
+    ///Checking if the system is running on mobile
+    final bool isWebMobile = kIsWeb &&
+        (defaultTargetPlatform == TargetPlatform.iOS ||
+            defaultTargetPlatform == TargetPlatform.android);
 
     return Dialog(
       backgroundColor: Colors.transparent,
@@ -45,6 +45,8 @@ class MacOSAlertDialog extends StatelessWidget {
             constraints: const BoxConstraints(
               minWidth: 250,
               minHeight: 340,
+              maxWidth: 317,
+              maxHeight: 356
             ),
             alignment: Alignment.center,
             decoration: BoxDecoration(
@@ -179,6 +181,7 @@ class MacOSAlertDialog extends StatelessWidget {
                       onTap: (){
                         Navigator.pop(context);
                       },
+                      mouseCursor: SystemMouseCursors.click,
                     ):
                     InkWell(
                       child: Container(
@@ -212,6 +215,8 @@ class MacOSAlertDialog extends StatelessWidget {
                         }
                         Navigator.pop(context);
                       },
+                      mouseCursor: SystemMouseCursors.click,
+
                     ),
                     const SizedBox(
                       height: 10,
@@ -219,6 +224,10 @@ class MacOSAlertDialog extends StatelessWidget {
                     Visibility(
                       visible: !isWebMobile,
                       child: InkWell(
+                        mouseCursor: SystemMouseCursors.click,
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
                         child: Container(
                           padding: EdgeInsets.symmetric(
                               vertical: 7
