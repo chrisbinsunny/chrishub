@@ -7,7 +7,7 @@ import 'package:mac_dt/apps/messages/messages.dart';
 import 'package:provider/provider.dart';
 import '../apps/systemPreferences.dart';
 import '../system/componentsOnOff.dart';
-import '../system/folders.dart';
+import '../system/folders/folders.dart';
 import '../system/openApps.dart';
 import '../providers.dart';
 import '../widgets.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
-import 'package:mac_dt/system/folders.dart';
+import 'package:mac_dt/system/folders/folders.dart';
 import '../apps/systemPreferences.dart';
 import '../providers.dart';
 import '../theme/theme.dart';

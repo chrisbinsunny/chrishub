@@ -6,7 +6,7 @@ import 'package:mac_dt/apps/launchpad.dart';
 import 'package:mac_dt/components/wallpaper.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
-import 'package:mac_dt/system/folders.dart';
+import 'package:mac_dt/system/folders/folders.dart';
 import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/system/rightClickMenu.dart';
 import 'package:mac_dt/sizes.dart';

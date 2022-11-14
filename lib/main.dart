@@ -8,7 +8,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:mac_dt/components/wallpaper.dart';
 import 'package:mac_dt/data/system_data.dart';
 import 'package:mac_dt/data/system_data_CRUD.dart';
-import 'package:mac_dt/system/folders.dart';
+import 'package:mac_dt/system/folders/folders.dart';
 import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/sizes.dart';
 import 'firebase_options.dart';
