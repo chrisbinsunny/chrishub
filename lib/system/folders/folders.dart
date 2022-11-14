@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 import '../componentsOnOff.dart';
 import '../../providers.dart';
 import '../../sizes.dart';
+part 'folders.g.dart';
 
 
 class Folders extends ChangeNotifier{
@@ -369,11 +371,20 @@ class _FolderState extends State<Folder> {
   }
 }
 
-// class FolderProps{
-//   String name;
-//   Offset initPos= new Offset(0, 0);
-//   bool renaming;
-//
-//   FolderProps({this.name="", this.initPos, this.renaming= false});
-// }
+
+///Declared as HiveObject for hive database
+@HiveType(typeId: 2)
+class FolderProps extends HiveObject{
+
+  @HiveField(0,)
+  final String? name;
+
+  @HiveField(1,)
+  final Offset? initPos;
+
+  @HiveField(2,)
+  final bool? renaming;
+
+  FolderProps({this.name="", this.initPos, this.renaming= false});
+}
 
