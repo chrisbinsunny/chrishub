@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
-import '../providers.dart';
-import '../theme/theme.dart';
+import '../../providers.dart';
+import '../../theme/theme.dart';
 part 'wallpaper.g.dart';
 
 
