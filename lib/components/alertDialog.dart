@@ -169,8 +169,8 @@ class MacOSAlertDialog extends StatelessWidget {
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
                                 colors: [
-                                  Color(0xff107deb),
-                                  Color(0xff226eca),
+                                  Color(0xff118bff),
+                                  Color(0xff1c59a4),
                                 ],
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter
