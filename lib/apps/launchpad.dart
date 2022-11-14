@@ -178,8 +178,8 @@ class _LaunchPadState extends State<LaunchPad> {
                                         Messages(
                                             key: ObjectKey("messages"),
                                             initPos: Offset(
-                                                screenWidth(context, mulBy: 0.14),
-                                                screenHeight(context, mulBy: 0.1))),
+                                                screenWidth(context, mulBy: 0.27),
+                                                screenHeight(context, mulBy: 0.2))),
                                         Provider.of<OnOff>(context, listen: false)
                                             .maxMessages()
                                     );
