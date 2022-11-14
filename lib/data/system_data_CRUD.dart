@@ -2,15 +2,11 @@
 
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:mac_dt/components/wallpaper/wallpaper.dart';
 import 'package:mac_dt/data/system_data.dart';
 import 'package:mac_dt/theme/theme.dart';
-import 'package:provider/provider.dart';
-
-import '../providers.dart';
 
 class SystemDataCRUD{
 
