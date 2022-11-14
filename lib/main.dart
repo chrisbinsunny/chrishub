@@ -1,5 +1,6 @@
 import 'dart:developer';
-import 'dart:html';
+import 'dart:html' as html;
+import 'dart:js';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,14 +17,22 @@ import 'system/openApps.dart';
 import 'theme/theme.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart';
 
 import 'system/desktop.dart';
-import 'dart:html' as html;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  window.document.onContextMenu.listen((evt) => evt.preventDefault());
+  html.window.document.onContextMenu.listen((evt) => evt.preventDefault());
 
+  // ///Checking if the system is running on mobile and if not request fullscreen
+  // final bool isWebMobile = kIsWeb &&
+  //     (defaultTargetPlatform == TargetPlatform.iOS ||
+  //         defaultTargetPlatform == TargetPlatform.android);
+  //
+  // if(!isWebMobile){
+  //   html.document!.documentElement!.requestFullscreen();
+  // }
 
   ///Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
@@ -71,5 +80,28 @@ class MyApp extends StatelessWidget {
         home: MacOS(),
       ),
     );
+  }
+}
+
+
+
+void fullscreenWorkaround(Element element) {
+  var elem = new JsObject.fromBrowserObject(element);
+
+  if (elem.hasProperty("requestFullscreen")) {
+    elem.callMethod("requestFullscreen");
+  }
+  else {
+    List<String> vendors = ['moz', 'webkit', 'ms', 'o'];
+    for (String vendor in vendors) {
+      String vendorFullscreen = "${vendor}RequestFullscreen";
+      if (vendor == 'moz') {
+        vendorFullscreen = "${vendor}RequestFullScreen";
+      }
+      if (elem.hasProperty(vendorFullscreen)) {
+        elem.callMethod(vendorFullscreen);
+        return;
+      }
+    }
   }
 }
