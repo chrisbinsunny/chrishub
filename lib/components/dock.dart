@@ -272,11 +272,91 @@ class _DockerState extends State<Docker> {
 
                         },
                       ),
+                      InkWell(
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 80),
+                                  transform: Matrix4.identity()..scale((.3*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1,(.3*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1)..translate(-5, -(_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), )*40), 0, ),
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle
+                                        ),
+                                        height: 50,
+                                        width: 50,
+                                      ),
+                                      Positioned(
+                                        top: screenHeight(context, mulBy: 0.006),
+                                        child: Container(
+                                          height:
+                                          screenHeight(context, mulBy: 0.014),
+                                          width:
+                                          screenWidth(context, mulBy: 0.025),
+                                          color: Colors.transparent,
+                                          child: FittedBox(
+                                            fit: BoxFit.fitHeight,
+                                            child: Text(
+                                              "${DateFormat('LLL').format(now).toUpperCase()}",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontFamily: 'SF',
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: screenHeight(context, mulBy: 0.017),
+                                        child: Container(
+                                          height:
+                                          screenHeight(context, mulBy: 0.031),
+                                          width:
+                                          screenWidth(context, mulBy: 0.025),
+                                          color: Colors.transparent,
+                                          child: FittedBox(
+                                            fit: BoxFit.fitHeight,
+                                            child: Text(
+                                              "${DateFormat('d').format(now).toUpperCase()}",
+                                              style: TextStyle(
+                                                  color: Colors.black87
+                                                      .withOpacity(0.8),
+                                                  fontFamily: 'SF',
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 28),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                            Container(
+                              height: 4,
+                              width: 4,
+                              decoration: BoxDecoration(
+                                color: calendarOpen!
+                                    ? Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(1)
+                                    : Colors.transparent,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       DockerItem(
                         iName: "Contacts-Mac",
                         on: false,
                         dx: _getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ),
-
                       ),
                       InkWell(
                         child: Column(
