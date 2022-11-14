@@ -1,6 +1,8 @@
+import 'dart:html' as html;
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -37,6 +39,10 @@ class _DockerState extends State<Docker> {
   var _offsetX = 0.0;
   var _offsetY = 0.0;
   bool? safariOpen, vsOpen, messageOpen,spotifyOpen, fbOpen, calendarOpen, terminalOpen;
+  final bool isWebMobile = kIsWeb &&
+      (defaultTargetPlatform == TargetPlatform.iOS ||
+          defaultTargetPlatform == TargetPlatform.android);
+
 
   @override
   void initState() {
@@ -190,8 +196,8 @@ class _DockerState extends State<Docker> {
                               Messages(
                                   key: ObjectKey("messages"),
                                   initPos: Offset(
-                                      screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))),
+                                      screenWidth(context, mulBy: 0.27),
+                                      screenHeight(context, mulBy: 0.2))),
                               Provider.of<OnOff>(context, listen: false)
                                   .maxMessages()
                           );
@@ -273,90 +279,36 @@ class _DockerState extends State<Docker> {
                         },
                       ),
                       InkWell(
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 80),
-                                  transform: Matrix4.identity()..scale((.3*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1,(.3*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1)..translate(-5, -(_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), )*40), 0, ),
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.circle
-                                        ),
-                                        height: 50,
-                                        width: 50,
-                                      ),
-                                      Positioned(
-                                        top: screenHeight(context, mulBy: 0.006),
-                                        child: Container(
-                                          height:
-                                          screenHeight(context, mulBy: 0.014),
-                                          width:
-                                          screenWidth(context, mulBy: 0.025),
-                                          color: Colors.transparent,
-                                          child: FittedBox(
-                                            fit: BoxFit.fitHeight,
-                                            child: Text(
-                                              "${DateFormat('LLL').format(now).toUpperCase()}",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: 'SF',
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 11,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top: screenHeight(context, mulBy: 0.017),
-                                        child: Container(
-                                          height:
-                                          screenHeight(context, mulBy: 0.031),
-                                          width:
-                                          screenWidth(context, mulBy: 0.025),
-                                          color: Colors.transparent,
-                                          child: FittedBox(
-                                            fit: BoxFit.fitHeight,
-                                            child: Text(
-                                              "${DateFormat('d').format(now).toUpperCase()}",
-                                              style: TextStyle(
-                                                  color: Colors.black87
-                                                      .withOpacity(0.8),
-                                                  fontFamily: 'SF',
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 28),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                            ),
-                            Container(
-                              height: 4,
-                              width: 4,
-                              decoration: BoxDecoration(
-                                color: calendarOpen!
-                                    ? Theme.of(context)
-                                    .cardColor
-                                    .withOpacity(1)
-                                    : Colors.transparent,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ],
+                        child: Expanded(
+                          child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 80),
+                              transform: Matrix4.identity()..scale((.25*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1,(.25*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1)..translate(0, -(_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), )*30), 0, ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        colors: [
+                                          Color(0xff118bff),
+                                          Color(0xff1c59a4),
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter
+                                    ),
+                                  shape: BoxShape.circle
+                                ),
+                                height: 47,
+                                width: 47,
+                                child: Icon(
+                                  CupertinoIcons.fullscreen,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              )),
                         ),
-                      ),
-                      DockerItem(
-                        iName: "Contacts-Mac",
-                        on: false,
-                        dx: _getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ),
+                        onTap: (){
+                          if(!isWebMobile){
+                            html.document.documentElement!.requestFullscreen();
+                          }
+                        },
                       ),
                       InkWell(
                         child: Column(
@@ -364,7 +316,7 @@ class _DockerState extends State<Docker> {
                             Expanded(
                               child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 80),
-                                  transform: Matrix4.identity()..scale((.3*_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), ))+1,(.3*_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), ))+1)..translate(-5, -(_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), )*40), 0, ),
+                                  transform: Matrix4.identity()..scale((.25*_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), ))+1,(.25*_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), ))+1)..translate(0, -(_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), )*30), 0, ),
                                   child: Stack(
                                     alignment: Alignment.topCenter,
                                     children: [
