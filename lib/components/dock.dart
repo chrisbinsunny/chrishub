@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/apps/messages/messages.dart';
 import 'package:provider/provider.dart';
@@ -72,14 +73,14 @@ class _DockerState extends State<Docker> {
   }
 
   double getWidth(){
+    dev.log((_offsetX).toString());
 
     if(_offsetX<100){
       return (screenWidth(context, mulBy: 0.55)+screenWidth(context, mulBy: 0.06*_offsetX/100));
     }
     else{
       if(_offsetX>1070){
-        //TODO
-        return (screenWidth(context, mulBy: 0.55)+screenWidth(context, mulBy: 0.06*(1070-_offsetX)/1070));
+        return (screenWidth(context, mulBy: 0.55)+screenWidth(context, mulBy: 0.06*(1170-_offsetX)/100));
       }
       return screenWidth(context, mulBy: 0.61);
     }
@@ -128,7 +129,7 @@ class _DockerState extends State<Docker> {
                     filter: new ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
                     child: Container(
                       padding: EdgeInsets.only(bottom: 2),
-                      width: getWidth(),
+                      width: screenWidth(context, mulBy: 0.55),
                       height: screenHeight(context, mulBy: 0.06),
                       decoration: BoxDecoration(
                           color: Theme.of(context).focusColor,
@@ -456,7 +457,7 @@ class _DockerState extends State<Docker> {
                 opaque: false,
                 onHover: (event) {
                   setState(() {
-                    dev.log(_offsetX.toString());
+                   // dev.log(_offsetX.toString());
                     _offsetX = event.localPosition.dx;
                     _offsetY= event.localPosition.dy;
                   });
@@ -468,7 +469,7 @@ class _DockerState extends State<Docker> {
                 },
                 child: Container(
                   padding: EdgeInsets.only(bottom: 2),
-                  width: getWidth(),
+                  width: screenWidth(context, mulBy: 0.55),
                   height: screenHeight(context, mulBy: 0.135),
                 ),
               ),
@@ -516,7 +517,7 @@ class _DockerItemState extends State<DockerItem> {
                   duration: const Duration(milliseconds: 80),
                   transform: Matrix4.identity()
                     ..scale((.6*widget.dx)+1,(.6*widget.dx)+1)
-                    ..translate(-(widget.dx*2), -(widget.dx*18), 0,
+                    ..translate(-widget.dx*8, -(widget.dx*18), 0,
                     ),
                   child: Image.asset(
                     "assets/apps/${widget.iName.toLowerCase()}.png",
