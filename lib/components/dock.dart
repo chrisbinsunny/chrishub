@@ -63,7 +63,8 @@ class _DockerState extends State<Docker> {
     if (_offsetX == 0) return 0;
     var z = (x - x0) * (x - x0) - 2;
     if (z > 0) return 0;
-    if (_offsetY<screenHeight(context, mulBy: 0.075))
+    ///Following if  has been added to obtain the gradual increase of size when coming from top.
+    if (_offsetY<screenHeight(context, mulBy: 0.06))
       return sqrt(-z / 2)*(_offsetY/50);
     return sqrt(-z / 2);
   }
@@ -457,7 +458,6 @@ class _DockerState extends State<Docker> {
                 opaque: false,
                 onHover: (event) {
                   setState(() {
-                   // dev.log(_offsetX.toString());
                     _offsetX = event.localPosition.dx;
                     _offsetY= event.localPosition.dy;
                   });
