@@ -279,31 +279,29 @@ class _DockerState extends State<Docker> {
                         },
                       ),
                       InkWell(
-                        child: Expanded(
-                          child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 80),
-                              transform: Matrix4.identity()..scale((.25*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1,(.25*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1)..translate(0, -(_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), )*30), 0, ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        colors: [
-                                          Color(0xff118bff),
-                                          Color(0xff1c59a4),
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter
-                                    ),
-                                  shape: BoxShape.circle
-                                ),
-                                height: 47,
-                                width: 47,
-                                child: Icon(
-                                  CupertinoIcons.fullscreen,
-                                  color: Colors.white,
-                                  size: 30,
-                                ),
-                              )),
-                        ),
+                        child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 80),
+                            transform: Matrix4.identity()..scale((.25*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1,(.25*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1)..translate(0, -(_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), )*30), 0, ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xff118bff),
+                                        Color(0xff1c59a4),
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter
+                                  ),
+                                shape: BoxShape.circle
+                              ),
+                              height: 47,
+                              width: 47,
+                              child: Icon(
+                                CupertinoIcons.fullscreen,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                            )),
                         onTap: (){
                           if(!isWebMobile){
                             html.document.documentElement!.requestFullscreen();
