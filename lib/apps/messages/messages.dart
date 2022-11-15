@@ -724,6 +724,8 @@ class _MessagesState extends State<Messages> {
               )
             ],
           ),
+
+          ///Info closer
           Visibility(
             visible: info,
             child: GestureDetector(
@@ -743,6 +745,8 @@ class _MessagesState extends State<Messages> {
               ),
             ),
           ),
+
+          ///Info
           Visibility(
             visible: info,
             child: Positioned(
@@ -1142,6 +1146,8 @@ class _MessagesState extends State<Messages> {
               ),
             ),
           ),
+
+          ///Drag around
           GestureDetector(
             onPanUpdate: (tapInfo) {
               if (!messagesFS) {
