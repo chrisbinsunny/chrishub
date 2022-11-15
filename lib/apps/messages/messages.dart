@@ -1164,10 +1164,13 @@ class _MessagesState extends State<Messages> {
                 alignment: Alignment.centerRight,
                 width: messagesFS
                     ? screenWidth(context, mulBy: 0.95)
-                    : screenWidth(context, mulBy: 0.5),
+                    : screenWidth(context, mulBy: 0.42),
                 height: screenHeight(context, mulBy: 0.04),
-                color: Colors.transparent),
+                color: Colors.transparent
+            ),
           ),
+
+          ///Open info
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal:
@@ -1186,6 +1189,8 @@ class _MessagesState extends State<Messages> {
               ),
             ),
           ),
+
+          ///Bring to top
           Visibility(
             visible: topApp != "Messages",
             child: GestureDetector(
@@ -1204,7 +1209,6 @@ class _MessagesState extends State<Messages> {
               ),
             ),
           ),
-
         ],
       ),
     );
