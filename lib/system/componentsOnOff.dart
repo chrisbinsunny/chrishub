@@ -442,6 +442,7 @@ class OnOff extends ChangeNotifier{
 
   void offMessagesFS() {
     messagesFS= false;
+    fs="";
     notifyListeners();
     Future.delayed(Duration(milliseconds: 400),(){
       fsAni=false;
