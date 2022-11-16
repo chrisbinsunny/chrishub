@@ -91,7 +91,7 @@ class _SpotifyState extends State<Spotify> {
                         ? screenHeight(context, mulBy: 0.056)
                         : screenHeight(context, mulBy: 0.053),
                     decoration: BoxDecoration(
-                        color: Theme.of(context).dividerColor,
+                        color: Color(0xff3a383e),
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(10),
                             topLeft: Radius.circular(10))),
@@ -221,7 +221,7 @@ class _SpotifyState extends State<Spotify> {
                         context,
                       ),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).dividerColor.withOpacity(0.8),
+                        color: Color(0xff3a383e).withOpacity(0.8),
                       ),
                       child: HtmlElementView(
                         viewType: 'spotifyIframe',
