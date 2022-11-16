@@ -102,7 +102,7 @@ class ThemeNotifier with ChangeNotifier {
       hintColor: Color(0xff242127).withOpacity(0.3), //window transparency Color
       dialogBackgroundColor: Color(0xff1e1f23), //feedback body color
       disabledColor: Color(0xff39373b), //terminal top color
-      errorColor: Color(0xff1e1e1e).withOpacity(0.4), //iMessages color
+      errorColor: Color(0xff1e1e1e).withOpacity(0.4), //iMessages color, Fill color
       hoverColor: Color(0xff110f0f).withOpacity(0.4), // RCM color
     bottomAppBarColor: Colors.white.withOpacity(0.3), //CC Music Color
     selectedRowColor: Color(0xff111111).withOpacity(0.7),
