@@ -869,7 +869,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 top: screenHeight(context,
                                                     mulBy: 0.011)),
                                             decoration: BoxDecoration(
-                                                color: Color(0xff2f2e32),
+                                                color: Theme.of(context).colorScheme.error,
                                                 border: Border.all(
                                                     color: Theme.of(context)
                                                         .cardColor
@@ -926,7 +926,7 @@ class _FeedBackState extends State<FeedBack> {
                                                 top: screenHeight(context,
                                                     mulBy: 0.011)),
                                             decoration: BoxDecoration(
-                                                color: Color(0xff2f2e32),
+                                                color: Theme.of(context).colorScheme.error,
                                                 border: Border.all(
                                                     color: Theme.of(context)
                                                         .cardColor
@@ -989,7 +989,7 @@ class _FeedBackState extends State<FeedBack> {
                                                   mulBy: 0.015),
                                             ),
                                             decoration: BoxDecoration(
-                                                color: Color(0xff2f2e32),
+                                                color: Theme.of(context).colorScheme.error,
                                                 border: Border.all(
                                                     color: Theme.of(context)
                                                         .cardColor
