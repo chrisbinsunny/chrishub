@@ -9,6 +9,7 @@ import 'package:mac_dt/theme/theme.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../components/wallpaper/wallpaper.dart';
 import '../system/componentsOnOff.dart';
 import '../system/openApps.dart';
 import '../providers.dart';
@@ -52,15 +53,7 @@ class _LaunchPadState extends State<LaunchPad> {
         curve: Curves.easeInOut,
         child: Stack(
           children: [
-            Container(
-                height: screenHeight(context),
-                width: screenWidth(context),
-                child: Image.asset(
-                  themeNotifier.isDark()
-                      ? "assets/wallpapers/bigsur_dark.jpg"
-                      : "assets/wallpapers/bigsur_light.jpg",
-                  fit: BoxFit.cover,
-                )),
+            ViewWallpaper(location: Provider.of<DataBus>(context, listen: true).getWallpaper.location,),
             ClipRect(
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 23.0, sigmaY: 23.0),
@@ -189,7 +182,15 @@ class _LaunchPadState extends State<LaunchPad> {
                               ),
                               LaunchPadItem(
                                 iName: "Maps",
-                                onTap: (){},
+                                onTap: (){
+                                  Provider.of<DataBus>(context, listen: false).setNotification(
+                                      "App has not been installed. Create the app on GitHub.",
+                                      "https://github.com/chrisbinsunny",
+                                      "maps",
+                                      "Not installed"
+                                  );
+                                  Provider.of<OnOff>(context, listen: false).onNotifications();
+                                },
                               ),
                               LaunchPadItem(
                                 iName: "Spotify",
@@ -253,7 +254,15 @@ class _LaunchPadState extends State<LaunchPad> {
                               ),
                               LaunchPadItem(
                                 iName: "Photos",
-                                onTap: (){},
+                                onTap: (){
+                                  Provider.of<DataBus>(context, listen: false).setNotification(
+                                      "App has not been installed. Create the app on GitHub.",
+                                      "https://github.com/chrisbinsunny",
+                                      "photos",
+                                      "Not installed"
+                                  );
+                                  Provider.of<OnOff>(context, listen: false).onNotifications();
+                                },
                               ),
                               LaunchPadItem(
                                 iName: "Contacts-Mac",
