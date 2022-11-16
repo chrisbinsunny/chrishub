@@ -29,7 +29,6 @@ class _NotificationsState extends State<Notifications> {
     themeNotifier = Provider.of<ThemeNotifier>(context);
     notification = Provider.of<DataBus>(context).getNotification;
     notificationOn = Provider.of<OnOff>(context).getNotificationOn;
-    log(screenWidth(context, mulBy: 0.17).toString());
     return AnimatedPositioned(
       duration: Duration(milliseconds: 500),
       right: notificationOn?screenWidth(context, mulBy: 0.01):-screenWidth(context, mulBy: 0.201),
@@ -95,7 +94,7 @@ class _NotificationsState extends State<Notifications> {
                         padding: EdgeInsets.only(
                             left: screenWidth(context, mulBy: 0.005),
                             right: screenWidth(context, mulBy: 0.01),
-                            top: screenHeight(context, mulBy: 0.01),
+                            top: screenHeight(context, mulBy: 0.007),
                             bottom: screenHeight(context, mulBy: 0.01)
                         ),
                         decoration: BoxDecoration(
@@ -108,7 +107,7 @@ class _NotificationsState extends State<Notifications> {
                             Row(
                               children: [
                                 Container(
-                                  height: screenHeight(context, mulBy: 0.03),
+                                  height: screenHeight(context, mulBy: 0.027),
                                   child: Image.asset(
                                     "assets/appsMac/${notification["app"]}.png",
                                   ),
@@ -132,11 +131,13 @@ class _NotificationsState extends State<Notifications> {
                               ],
                             ),
 
-                            MBPText(
-                              text: notification["head"],
-                              color: Theme.of(context).cardColor.withOpacity(1),
-                              size: 11.5,
-                              weight: Theme.of(context).textTheme.headline3!.fontWeight,
+                            Text(
+                              notification["head"]!,
+                              style: TextStyle(
+                                color: Theme.of(context).cardColor.withOpacity(1),
+                                fontSize: 11.5,
+                                fontWeight: Theme.of(context).textTheme.headline3!.fontWeight,
+                              ),
                               maxLines: 1,
                             ),
                             MBPText(
