@@ -226,7 +226,14 @@ class _DockerState extends State<Docker> {
                         iName: "Maps",
                         on: false,
                         dx: _getPath(screenWidth(context, mulBy: 0.1764), _getCursor(), ),
-
+                        onTap: (){
+                          Provider.of<DataBus>(context, listen: false).setNotification(
+                          "App has not been installed. Go ahead and create the app on GitHub.",
+                              "https://github.com/chrisbinsunny",
+                              "maps",
+                          "Not installed"
+                          );
+                        },
                       ),
                       DockerItem(
                         iName: "Spotify",
@@ -298,9 +305,13 @@ class _DockerState extends State<Docker> {
                         },
                       ),
                       InkWell(
+                        mouseCursor: SystemMouseCursors.basic,
                         child: AnimatedContainer(
                             duration: const Duration(milliseconds: 80),
-                            transform: Matrix4.identity()..scale((.25*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1,(.25*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1)..translate(0, -(_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), )*30), 0, ),
+                            transform: Matrix4.identity()
+                              ..scale((.6*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1,(.6*_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), ))+1)
+                              ..translate(-_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), )*8, -(_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), )*18), 0,
+                              ),
                             child: Container(
                               decoration: BoxDecoration(
                                   gradient: LinearGradient(
@@ -333,7 +344,10 @@ class _DockerState extends State<Docker> {
                             Expanded(
                               child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 80),
-                                  transform: Matrix4.identity()..scale((.25*_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), ))+1,(.25*_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), ))+1)..translate(0, -(_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), )*30), 0, ),
+                                  transform: Matrix4.identity()
+                                    ..scale((.6*_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), ))+1,(.6*_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), ))+1)
+                                    ..translate(-_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), )*8, -(_getPath(screenWidth(context, mulBy: 0.4116), _getCursor(), )*18), 0,
+                                    ),
                                   child: Stack(
                                     alignment: Alignment.topCenter,
                                     children: [
