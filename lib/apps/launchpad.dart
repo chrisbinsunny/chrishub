@@ -268,8 +268,9 @@ class _LaunchPadState extends State<LaunchPad> {
                                         Calendar(
                                             key: ObjectKey("calendar"),
                                             initPos: Offset(
-                                                screenWidth(context, mulBy: 0.14),
-                                                screenHeight(context, mulBy: 0.1))),
+                                                screenWidth(context, mulBy: 0.24),
+                                                screenHeight(context, mulBy: 0.15))
+                                        ),
                                         Provider.of<OnOff>(context, listen: false)
                                             .maxCalendar()
                                     );
