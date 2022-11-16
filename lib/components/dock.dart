@@ -250,8 +250,9 @@ class _DockerState extends State<Docker> {
                               Spotify(
                                   key: ObjectKey("spotify"),
                                   initPos: Offset(
-                                      screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))),
+                                      screenWidth(context, mulBy: 0.24),
+                                      screenHeight(context, mulBy: 0.15)
+                                  )),
                               Provider.of<OnOff>(context, listen: false)
                                   .maxSpotify()
                           );
@@ -291,8 +292,8 @@ class _DockerState extends State<Docker> {
                               VSCode(
                                   key: ObjectKey("vscode"),
                                   initPos: Offset(
-                                      screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))),
+                                      screenWidth(context, mulBy: 0.24),
+                                      screenHeight(context, mulBy: 0.15))),
                               Provider.of<OnOff>(context, listen: false).maxVS()
                           );
 
@@ -462,8 +463,8 @@ class _DockerState extends State<Docker> {
                               FeedBack(
                                   key: ObjectKey("feedback"),
                                   initPos: Offset(
-                                      screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))),
+                                      screenWidth(context, mulBy: 0.2),
+                                      screenHeight(context, mulBy: 0.12))),
                               Provider.of<OnOff>(context, listen: false)
                                   .maxFeedBack()
                           );
@@ -482,7 +483,7 @@ class _DockerState extends State<Docker> {
                                 SystemPreferences(
                                     key: ObjectKey("systemPreferences"),
                                     initPos: Offset(
-                                        screenWidth(context, mulBy: 0.24),
+                                        screenWidth(context, mulBy: 0.27),
                                         screenHeight(context, mulBy: 0.2))),
                                 Provider.of<OnOff>(context, listen: false)
                                     .maxSysPref()
