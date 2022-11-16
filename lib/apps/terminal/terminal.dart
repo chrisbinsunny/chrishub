@@ -333,7 +333,7 @@ class _TerminalState extends State<Terminal> {
     terminalPan = Provider.of<OnOff>(context).getTerminalPan;
     return AnimatedPositioned(
       duration: Duration(milliseconds: terminalPan ? 0 : 200),
-      top: terminalFS ? screenHeight(context, mulBy: 0.0335) : position!.dy,
+      top: terminalFS ? 25 : position!.dy,
       left: terminalFS ? 0 : position!.dx,
       child: RawKeyboardListener(
           autofocus: true,
@@ -351,7 +351,7 @@ class _TerminalState extends State<Terminal> {
           ? screenWidth(context, mulBy: 1)
           : screenWidth(context, mulBy: 0.4),
       height: terminalFS
-          ? screenHeight(context, mulBy: 0.966)
+          ? screenHeight(context, mulBy: 0.975)
           : screenHeight(context, mulBy: 0.5),
       decoration: BoxDecoration(
         border: Border.all(
