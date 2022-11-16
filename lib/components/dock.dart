@@ -228,11 +228,12 @@ class _DockerState extends State<Docker> {
                         dx: _getPath(screenWidth(context, mulBy: 0.1764), _getCursor(), ),
                         onTap: (){
                           Provider.of<DataBus>(context, listen: false).setNotification(
-                          "App has not been installed. Go ahead and create the app on GitHub.",
+                          "App has not been installed. Create the app on GitHub.",
                               "https://github.com/chrisbinsunny",
                               "maps",
                           "Not installed"
                           );
+                          Provider.of<OnOff>(context, listen: false).onNotifications();
                         },
                       ),
                       DockerItem(
@@ -313,6 +314,9 @@ class _DockerState extends State<Docker> {
                               ..translate(-_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), )*8, -(_getPath(screenWidth(context, mulBy: 0.3724), _getCursor(), )*18), 0,
                               ),
                             child: Container(
+                              margin: EdgeInsets.symmetric(
+                                vertical: 3
+                              ),
                               decoration: BoxDecoration(
                                   gradient: LinearGradient(
                                       colors: [
@@ -324,12 +328,19 @@ class _DockerState extends State<Docker> {
                                   ),
                                 shape: BoxShape.circle
                               ),
+                              padding: EdgeInsets.symmetric(
+                                vertical: 7,
+                                horizontal: 10
+                              ),
                               height: 47,
                               width: 47,
-                              child: Icon(
-                                CupertinoIcons.fullscreen,
-                                color: Colors.white,
-                                size: 30,
+                              child: FittedBox(
+                                child: Icon(
+                                  CupertinoIcons.fullscreen,
+                                  color: Colors.white,
+                                  size: 30,
+
+                                ),
                               ),
                             )),
                         onTap: (){
