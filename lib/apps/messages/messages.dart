@@ -62,7 +62,7 @@ class _MessagesState extends State<Messages> {
     return messagesOpen
         ? AnimatedPositioned(
       duration: Duration(milliseconds: messagesPan ? 0 : 200),
-      top: messagesFS ? screenHeight(context, mulBy: 0.034) : position!.dy,
+      top: messagesFS ? 25 : position!.dy,
       left: messagesFS ? 0 : position!.dx,
       child: messagesWindow(context),
     )
@@ -78,7 +78,7 @@ class _MessagesState extends State<Messages> {
           ? screenWidth(context, mulBy: 1)
           : screenWidth(context, mulBy: 0.47),
       height: messagesFS
-          ? screenHeight(context, mulBy: 0.966)
+          ? screenHeight(context, mulBy: 0.975)
           : screenHeight(context, mulBy: 0.57),
       decoration: BoxDecoration(
         border: Border.all(
