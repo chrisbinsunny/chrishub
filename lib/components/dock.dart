@@ -196,8 +196,8 @@ class _DockerState extends State<Docker> {
                               Safari(
                                   key: ObjectKey("safari"),
                                   initPos: Offset(
-                                      screenWidth(context, mulBy: 0.14),
-                                      screenHeight(context, mulBy: 0.1))),
+                                      screenWidth(context, mulBy: 0.21),
+                                      screenHeight(context, mulBy: 0.14))),
                               Provider.of<OnOff>(context, listen: false)
                                   .maxSafari()
                           );
@@ -454,7 +454,15 @@ class _DockerState extends State<Docker> {
                         iName: "Notes",
                         on: false,
                         dx: _getPath(screenWidth(context, mulBy: 0.4508), _getCursor(), ),
-
+                        onTap: (){
+                          Provider.of<DataBus>(context, listen: false).setNotification(
+                              "App has not been installed. Create the app on GitHub.",
+                              "https://github.com/chrisbinsunny",
+                              "notes",
+                              "Not installed"
+                          );
+                          Provider.of<OnOff>(context, listen: false).onNotifications();
+                        },
                       ),
                       DockerItem(
                         iName: "Feedback",
