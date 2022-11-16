@@ -10,6 +10,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/apps/messages/messages.dart';
 import 'package:provider/provider.dart';
+import '../apps/calendar.dart';
 import '../apps/systemPreferences.dart';
 import '../system/componentsOnOff.dart';
 import '../system/folders/folders.dart';
@@ -350,6 +351,20 @@ class _DockerState extends State<Docker> {
                         },
                       ),
                       InkWell(
+                        onTap: (){
+                          Provider.of<OnOff>(context, listen: false)
+                              .maxCalendar();
+                          Provider.of<Apps>(context, listen: false).openApp(
+                              Calendar(
+                                key: ObjectKey("calendar"),
+                                  initPos: Offset(
+                                      screenWidth(context, mulBy: 0.24),
+                                      screenHeight(context, mulBy: 0.15))
+                              ),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxCalendar()
+                          );
+                        },
                         child: Column(
                           children: [
                             Expanded(
