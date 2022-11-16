@@ -196,12 +196,12 @@ class _NotificationsState extends State<Notifications> {
                         child: BackdropFilter(
                           filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
                           child: Container(
-                              height: screenHeight(context, mulBy: 0.14),
-                              width: screenWidth(
-                                context,
-                              ),
+                              height: screenHeight(context, mulBy: 0.025),
+                              width: screenHeight(context, mulBy: 0.025),
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).focusColor
+                                  color: Theme.of(context).focusColor,
+                                shape: BoxShape.circle,
+
                               ),
                             child: Icon(
                               CupertinoIcons.clear,
