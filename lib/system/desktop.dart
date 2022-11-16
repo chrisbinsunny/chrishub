@@ -80,14 +80,16 @@ class _MacOSState extends State<MacOS> {
             /// file menu
             FileMenu(),
 
-            ///Notification
-            Notifications(),
+
 
             //TODO State change of widgets under this will cause iFrame HTMLView to reload. Engine Fix required.
             /// Track the issue here: https://github.com/flutter/flutter/issues/80524
 
             ///LaunchPad
             LaunchPad(),
+
+            ///Notification
+            Notifications(),
 
             ///docker bar
             Docker(),
