@@ -103,7 +103,7 @@ class _SafariState extends State<Safari> {
     return safariOpen
         ? AnimatedPositioned(
             duration: Duration(milliseconds: safariPan ? 0 : 200),
-            top: safariFS ? screenHeight(context, mulBy: 0.0335) : position!.dy,
+            top: safariFS ? 25 : position!.dy,
             left: safariFS ? 0 : position!.dx,
             child: safariWindow(context),
           )
@@ -118,7 +118,7 @@ class _SafariState extends State<Safari> {
           ? screenWidth(context, mulBy: 1)
           : screenWidth(context, mulBy: 0.7),
       height: safariFS
-          ?screenHeight(context, mulBy: 0.966)
+          ?screenHeight(context, mulBy: 0.975)
           : screenHeight(context, mulBy: 0.75),
       decoration: BoxDecoration(
         border: Border.all(
