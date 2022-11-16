@@ -202,8 +202,9 @@ class _LaunchPadState extends State<LaunchPad> {
                                         Spotify(
                                             key: ObjectKey("spotify"),
                                             initPos: Offset(
-                                                screenWidth(context, mulBy: 0.14),
-                                                screenHeight(context, mulBy: 0.1))),
+                                                screenWidth(context, mulBy: 0.24),
+                                                screenHeight(context, mulBy: 0.15)
+                                            )),
                                         Provider.of<OnOff>(context, listen: false)
                                             .maxSpotify()
                                     );
@@ -241,8 +242,8 @@ class _LaunchPadState extends State<LaunchPad> {
                                         VSCode(
                                             key: ObjectKey("vscode"),
                                             initPos: Offset(
-                                                screenWidth(context, mulBy: 0.14),
-                                                screenHeight(context, mulBy: 0.1))),
+                                                screenWidth(context, mulBy: 0.24),
+                                                screenHeight(context, mulBy: 0.15))),
                                         Provider.of<OnOff>(context, listen: false).maxVS()
                                     );
                                   });
@@ -269,7 +270,8 @@ class _LaunchPadState extends State<LaunchPad> {
                                             key: ObjectKey("calendar"),
                                             initPos: Offset(
                                                 screenWidth(context, mulBy: 0.24),
-                                                screenHeight(context, mulBy: 0.15))
+                                                screenHeight(context, mulBy: 0.15)
+                                            )
                                         ),
                                         Provider.of<OnOff>(context, listen: false)
                                             .maxCalendar()
@@ -360,8 +362,8 @@ class _LaunchPadState extends State<LaunchPad> {
                                         FeedBack(
                                             key: ObjectKey("feedback"),
                                             initPos: Offset(
-                                                screenWidth(context, mulBy: 0.14),
-                                                screenHeight(context, mulBy: 0.1))),
+                                                screenWidth(context, mulBy: 0.2),
+                                                screenHeight(context, mulBy: 0.12))),
                                         Provider.of<OnOff>(context, listen: false)
                                             .maxFeedBack()
                                     );
@@ -380,7 +382,7 @@ class _LaunchPadState extends State<LaunchPad> {
                                         SystemPreferences(
                                             key: ObjectKey("systemPreferences"),
                                             initPos: Offset(
-                                                screenWidth(context, mulBy: 0.24),
+                                                screenWidth(context, mulBy: 0.27),
                                                 screenHeight(context, mulBy: 0.2))),
                                         Provider.of<OnOff>(context, listen: false)
                                             .maxSysPref()
