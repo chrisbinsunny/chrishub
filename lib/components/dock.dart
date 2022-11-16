@@ -304,7 +304,13 @@ class _DockerState extends State<Docker> {
                         on: false,
                         dx: _getPath(screenWidth(context, mulBy: 0.3332), _getCursor(), ),
                         onTap: (){
-
+                          Provider.of<DataBus>(context, listen: false).setNotification(
+                              "App has not been installed. Create the app on GitHub.",
+                              "https://github.com/chrisbinsunny",
+                              "photos",
+                              "Not installed"
+                          );
+                          Provider.of<OnOff>(context, listen: false).onNotifications();
                         },
                       ),
                       InkWell(
