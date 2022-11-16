@@ -113,7 +113,7 @@ class _MessagesState extends State<Messages> {
                         right: screenWidth(context, mulBy: 0.005),
                         top: screenHeight(context, mulBy: 0.025)),
                     height: screenHeight(context),
-                    width: screenWidth(context, mulBy: 0.15),
+                    width: screenWidth(context, mulBy: 0.17),
                     decoration: BoxDecoration(
                       color: Theme.of(context).hintColor,
                       borderRadius: BorderRadius.only(
@@ -641,7 +641,7 @@ class _MessagesState extends State<Messages> {
                                             Duration(milliseconds: 200),
                                             width: screenWidth(context,
                                                 mulBy:
-                                                messagesFS ? 0.73 : 0.27),
+                                                messagesFS ? 0.73 : 0.23),
                                             height: screenHeight(context,
                                                 mulBy: 0.032),
                                             padding: EdgeInsets.only(
