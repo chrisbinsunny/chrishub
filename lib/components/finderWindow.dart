@@ -38,7 +38,7 @@ class _FinderState extends State<Finder> {
     finderPan = Provider.of<OnOff>(context).getFinderPan;
       return AnimatedPositioned(
             duration: Duration(milliseconds: finderPan ? 0 : 200),
-            top: finderFS ? screenHeight(context, mulBy: 0.034) : position!.dy,
+            top: finderFS ? 25 : position!.dy,
             left: finderFS ? 0 : position!.dx,
             child: finderWindow(context),
           );
@@ -52,7 +52,7 @@ class _FinderState extends State<Finder> {
           ? screenWidth(context, mulBy: 1)
           : screenWidth(context, mulBy: 0.55),
       height: finderFS
-          ? screenHeight(context, mulBy: 0.966)
+          ? screenHeight(context, mulBy: 0.975)
           : screenHeight(context, mulBy: 0.65),
       decoration: BoxDecoration(
         border: Border.all(
