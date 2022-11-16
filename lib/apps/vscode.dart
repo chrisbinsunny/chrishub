@@ -46,7 +46,7 @@ class _VSCodeState extends State<VSCode> {
     return vsOpen
         ? AnimatedPositioned(
       duration: Duration(milliseconds: vsPan ? 0 : 200),
-      top: vsFS ? screenHeight(context, mulBy: 0.0335) : position!.dy,
+      top: vsFS ? 25 : position!.dy,
       left: vsFS ? 0 : position!.dx,
       child: vsWindow(context),
     )
@@ -59,9 +59,9 @@ class _VSCodeState extends State<VSCode> {
       duration: Duration(milliseconds: 200),
       width: vsFS
           ? screenWidth(context, mulBy: 1)
-          : screenWidth(context, mulBy: 0.7),
+          : screenWidth(context, mulBy: 0.55),
       height: vsFS
-          ? screenHeight(context, mulBy: 0.966):screenHeight(context, mulBy: 0.75),
+          ? screenHeight(context, mulBy: 0.975):screenHeight(context, mulBy: 0.7),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -86,8 +86,8 @@ class _VSCodeState extends State<VSCode> {
                 children: [
                   Container(
                     height: vsFS
-                        ? screenHeight(context, mulBy: 0.059)
-                        : screenHeight(context, mulBy: 0.06),
+                        ? screenHeight(context, mulBy: 0.056)
+                        : screenHeight(context, mulBy: 0.053),
                     decoration: BoxDecoration(
                         color: Color(0xff252526),
                         borderRadius: BorderRadius.only(
@@ -118,8 +118,8 @@ class _VSCodeState extends State<VSCode> {
                           ? screenWidth(context, mulBy: 0.95)
                           : screenWidth(context, mulBy: 0.7),
                       height: vsFS
-                          ? screenHeight(context, mulBy: 0.059)
-                          : screenHeight(context, mulBy: 0.06),
+                          ? screenHeight(context, mulBy: 0.056)
+                          : screenHeight(context, mulBy: 0.053),
                       decoration: BoxDecoration(
                           color: Colors.transparent,
                           border: Border(
