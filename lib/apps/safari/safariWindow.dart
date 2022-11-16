@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
@@ -112,14 +114,16 @@ class _SafariState extends State<Safari> {
 
   AnimatedContainer safariWindow(BuildContext context) {
     String topApp = Provider.of<Apps>(context).getTop;
+    log(screenHeight(context,
+        mulBy: 0.08).toString());
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: safariFS
           ? screenWidth(context, mulBy: 1)
-          : screenWidth(context, mulBy: 0.7),
+          : screenWidth(context, mulBy: 0.57),
       height: safariFS
           ?screenHeight(context, mulBy: 0.975)
-          : screenHeight(context, mulBy: 0.75),
+          : screenHeight(context, mulBy: 0.7),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -286,7 +290,7 @@ class _SafariState extends State<Safari> {
                           height: screenHeight(context, mulBy: 0.03), //0.038
                           margin: EdgeInsets.zero,
                           decoration: BoxDecoration(
-                            color: Color(0xff47454b),
+                            color: Theme.of(context).colorScheme.error,
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Center(
@@ -393,10 +397,10 @@ class _SafariState extends State<Safari> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               child: Container(
-                                                height: screenHeight(context,
-                                                    mulBy: 0.08),
-                                                width: screenWidth(context,
-                                                    mulBy: 0.04),
+                                                height: 70,
+                                                width: 70,
+                                                padding: EdgeInsets.all(6),
+
                                                 decoration: BoxDecoration(
                                                     color: Colors.white,
                                                     borderRadius:
@@ -432,10 +436,9 @@ class _SafariState extends State<Safari> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               child: Container(
-                                                height: screenHeight(context,
-                                                    mulBy: 0.08),
-                                                width: screenWidth(context,
-                                                    mulBy: 0.04),
+                                                height: 70,
+                                                width: 70,
+                                                padding: EdgeInsets.all(6),
                                                 decoration: BoxDecoration(
                                                     color: Colors.white,
                                                     borderRadius:
@@ -471,10 +474,9 @@ class _SafariState extends State<Safari> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               child: Container(
-                                                height: screenHeight(context,
-                                                    mulBy: 0.08),
-                                                width: screenWidth(context,
-                                                    mulBy: 0.04),
+                                                height: 70,
+                                                width: 70,
+                                                padding: EdgeInsets.all(6),
                                                 decoration: BoxDecoration(
                                                     color: Colors.white,
                                                     borderRadius:
@@ -511,10 +513,9 @@ class _SafariState extends State<Safari> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               child: Container(
-                                                height: screenHeight(context,
-                                                    mulBy: 0.08),
-                                                width: screenWidth(context,
-                                                    mulBy: 0.04),
+                                                height: 70,
+                                                width: 70,
+                                                padding: EdgeInsets.all(6),
                                                 decoration: BoxDecoration(
                                                     color: Colors.white,
                                                     borderRadius:
@@ -551,10 +552,9 @@ class _SafariState extends State<Safari> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               child: Container(
-                                                height: screenHeight(context,
-                                                    mulBy: 0.08),
-                                                width: screenWidth(context,
-                                                    mulBy: 0.04),
+                                                height: 70,
+                                                width: 70,
+                                                padding: EdgeInsets.all(6),
                                                 decoration: BoxDecoration(
                                                     color: Colors.white,
                                                     borderRadius:
@@ -591,10 +591,9 @@ class _SafariState extends State<Safari> {
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                               child: Container(
-                                                height: screenHeight(context,
-                                                    mulBy: 0.08),
-                                                width: screenWidth(context,
-                                                    mulBy: 0.04),
+                                                height: 70,
+                                                width: 70,
+                                                padding: EdgeInsets.all(6),
                                                 decoration: BoxDecoration(
                                                     color: Colors.white,
                                                     borderRadius:
