@@ -549,7 +549,7 @@ class _FeedBackState extends State<FeedBack> {
                                               duration:
                                                   Duration(milliseconds: 200),
                                               width: screenWidth(context,
-                                                  mulBy: 0.22),
+                                                  mulBy: 0.19),
                                               height: screenHeight(context,
                                                   mulBy: 0.042), //0.038
                                               child: TextFormField(
@@ -858,7 +858,7 @@ class _FeedBackState extends State<FeedBack> {
                                             duration:
                                                 Duration(milliseconds: 200),
                                             width: screenWidth(context,
-                                                mulBy: 0.1275),
+                                                mulBy: 0.115),
                                             height: screenHeight(context,
                                                 mulBy: 0.038),
                                             padding: EdgeInsets.only(
@@ -915,7 +915,7 @@ class _FeedBackState extends State<FeedBack> {
                                             duration:
                                                 Duration(milliseconds: 200),
                                             width: screenWidth(context,
-                                                mulBy: 0.1275),
+                                                mulBy: 0.115),
                                             height: screenHeight(context,
                                                 mulBy: 0.038),
                                             padding: EdgeInsets.only(
@@ -979,7 +979,7 @@ class _FeedBackState extends State<FeedBack> {
                                             duration:
                                                 Duration(milliseconds: 200),
                                             width: screenWidth(context,
-                                                mulBy: 0.315),
+                                                mulBy: 0.295),
                                             height: screenHeight(context,
                                                 mulBy: 0.13), //0.038
                                             padding: EdgeInsets.only(
