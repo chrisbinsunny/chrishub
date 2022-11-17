@@ -127,14 +127,154 @@ class _ControlCentreState extends State<ControlCentre> {
                                           margin: EdgeInsets.zero,
                                           padding: EdgeInsets.symmetric(
                                               horizontal: screenWidth(context,
-                                                  mulBy: 0.013),
+                                                  mulBy: 0.007),
                                               vertical: screenHeight(context,
-                                                  mulBy: 0.025)),
+                                                  mulBy: 0.012)),
                                           height: screenHeight(context,
                                               mulBy: 0.17),
                                           width:
                                               screenWidth(context, mulBy: 0.09),
                                           decoration: ccDecoration,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    height: 33,
+                                                    width: 33,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Color(0xff0b84ff)
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                    child: Icon(
+                                                      CupertinoIcons.wifi,
+                                                      color: Colors.white,
+                                                      size: 19.5,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Wi-Fi",
+                                                        style: TextStyle(
+                                                          fontSize: 13,
+                                                          color: Theme.of(context).cardColor.withOpacity(1),
+                                                          fontWeight: FontWeight.w600,
+                                                          letterSpacing: 0.5
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "DLink Home",
+                                                        style: TextStyle(
+                                                            fontSize: 11,
+                                                            color: Theme.of(context).cardColor.withOpacity(0.8),
+                                                            fontWeight: FontWeight.w300,
+                                                            letterSpacing: 0.5
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    height: 33,
+                                                    width: 33,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Color(0xff0b84ff)
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                    child: Icon(
+                                                      CupertinoIcons.bluetooth,
+                                                      color: Colors.white,
+                                                      size: 19.5,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Bluetooth",
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            color: Theme.of(context).cardColor.withOpacity(1),
+                                                            fontWeight: FontWeight.w600,
+                                                            letterSpacing: 0.5
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "On",
+                                                        style: TextStyle(
+                                                            fontSize: 11,
+                                                            color: Theme.of(context).cardColor.withOpacity(0.8),
+                                                            fontWeight: FontWeight.w300,
+                                                            letterSpacing: 0.5
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    height: 33,
+                                                    width: 33,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Color(0xff0b84ff)
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                    child:Image.network(
+                                                      "https://img.icons8.com/ios-filled/50/000000/airdrop.png",
+                                                      color: Colors.white,
+                                                      height: 19.5,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "AirDrop",
+                                                        style: TextStyle(
+                                                            fontSize: 13,
+                                                            color: Theme.of(context).cardColor.withOpacity(1),
+                                                            fontWeight: FontWeight.w600,
+                                                            letterSpacing: 0.5
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "Contacts only",
+                                                        style: TextStyle(
+                                                            fontSize: 11,
+                                                            color: Theme.of(context).cardColor.withOpacity(0.8),
+                                                            fontWeight: FontWeight.w300,
+                                                            letterSpacing: 0.5
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
