@@ -22,6 +22,8 @@ import '../system/folders/folders.dart';
 import '../system/folders/folders_CRUD.dart';
 import '../system/openApps.dart';
 import '../sizes.dart';
+import 'dart:html' as html;
+
 import '../widgets.dart';
 
 
@@ -40,6 +42,8 @@ class _FinderState extends State<Finder> {
   late bool finderPan;
   late DateTime now;
   late List<Folder> folders;
+  final _navigatorKey2 = GlobalKey<NavigatorState>();
+
 
   getContent(){
     switch(selected){
@@ -378,6 +382,84 @@ class _FinderState extends State<Finder> {
           ).toList(),
         );
         break;
+      case "Documents":
+        return WillPopScope(
+          onWillPop: () async => !await _navigatorKey2.currentState!.maybePop(),
+          child: Navigator(
+            key: _navigatorKey2,
+            onGenerateRoute: (routeSettings) {
+              return MaterialPageRoute(
+                builder: (context)
+                {
+                  return GridView(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 5,
+                        childAspectRatio: 6/5.5,
+                        mainAxisSpacing: screenHeight(context, mulBy: 0.05)
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: screenHeight(context, mulBy: 0.04),
+                    ),
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    physics: BouncingScrollPhysics(),
+                    children: [
+                      FinderItems(
+                        name: "Cabby: Published Paper.pdf",
+                        link: "https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
+                      ),
+                      FinderItems(
+                        name: "Chrisbin Resume Dark.pdf",
+                        link: "https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
+                      ),
+                      FinderItems(
+                        name: "Chrisbin Resume Light.pdf",
+                        link: "https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
+                      ),
+                      FinderItems(
+                        name: "Interests",
+                        link: "",
+                        nav: (){
+                          Navigator.of(context)
+                              .push(PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
+                                Interests(),
+                          ));
+                        },
+                        folder: true,
+                      ),
+                      FinderItems(
+                        name: "Languages",
+                        link: "",
+                        nav: (){
+                          Navigator.of(context)
+                              .push(PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
+                                Languages(),
+                          ));
+                        },
+                        folder: true,
+                      ),
+                      FinderItems(
+                        name: "Projects",
+                        link: "",
+                        nav: (){
+                          Navigator.of(context)
+                              .push(PageRouteBuilder(
+                            pageBuilder: (_, __, ___) =>
+                                Projects(),
+                          ));
+                        },
+                        folder: true,
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+        );
+        break;
     }
   }
 
@@ -640,38 +722,41 @@ class _FinderState extends State<Finder> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Image.asset("assets/icons/backB.png",
-                                  height: 18),
-                              SizedBox(
-                                width: screenWidth(context, mulBy: 0.01),
-                              ),
-                              Image.asset("assets/icons/forwB.png",
-                                  height: 18.5),
-                              SizedBox(
-                                width: screenWidth(context, mulBy: 0.007),
-                              ),
-                              Container(
-                                width: screenWidth(context, mulBy: 0.07),
-                                child: MBPText(
-                                  text: selected,
-                                  size: 15,
-                                  weight: Theme.of(context)
-                                      .textTheme
-                                      .headline1!
-                                      .fontWeight,
-                                  color: Theme.of(context)
-                                      .cardColor
-                                      .withOpacity(1),
-                                  // style: TextStyle(
-                                  //   fontWeight: FontWeight.w700,
-                                  //   color: Colors.black.withOpacity(0.7),
-                                  //   fontSize: 15,
-                                  // ),
+                          InkWell(
+                            onTap: () async => !await _navigatorKey2.currentState!.maybePop(),
+                            child: Row(
+                              children: [
+                                Image.asset("assets/icons/backB.png",
+                                    height: 18),
+                                SizedBox(
+                                  width: screenWidth(context, mulBy: 0.01),
                                 ),
-                              ),
-                            ],
+                                Image.asset("assets/icons/forwB.png",
+                                    height: 18.5),
+                                SizedBox(
+                                  width: screenWidth(context, mulBy: 0.007),
+                                ),
+                                Container(
+                                  width: screenWidth(context, mulBy: 0.07),
+                                  child: MBPText(
+                                    text: selected,
+                                    size: 15,
+                                    weight: Theme.of(context)
+                                        .textTheme
+                                        .headline1!
+                                        .fontWeight,
+                                    color: Theme.of(context)
+                                        .cardColor
+                                        .withOpacity(1),
+                                    // style: TextStyle(
+                                    //   fontWeight: FontWeight.w700,
+                                    //   color: Colors.black.withOpacity(0.7),
+                                    //   fontSize: 15,
+                                    // ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           Image.asset("assets/icons/sortB.png", height: 20),
                           Row(
@@ -706,7 +791,8 @@ class _FinderState extends State<Finder> {
                       SizedBox(
                         height: screenHeight(context, mulBy: 0.01),
                       ),
-                      Expanded(child: getContent())
+
+                      Expanded(child: getContent(),)
                     ],
                   ),
                 ),
@@ -945,6 +1031,204 @@ class _FolderForFinderState extends State<FolderForFinder> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class FinderItems extends StatelessWidget {
+  const FinderItems({Key? key, required this.name, required this.link, this.folder=false, this.nav}) : super(key: key);
+
+  final String name, link;
+  final VoidCallback? nav;
+  final bool folder;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onDoubleTap: folder?nav:(){html.window.open(link, 'new tab');},
+      child: Container(
+        width: screenWidth(context, mulBy: 0.08),
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: screenHeight(context, mulBy: 0.1),
+              padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.0005)),
+              decoration: BoxDecoration(
+                border: Border.all(
+                    color: Colors.grey.withOpacity(0.0),
+                    width: 2
+                ),
+              ),
+              child: Image.asset(folder?"assets/icons/folder.png":"assets/icons/pdfMac.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045), ),
+            ),
+            SizedBox(height: screenHeight(context, mulBy: 0.005), ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.005)),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(),
+      width: screenWidth(context, mulBy: 0.07),
+                  child: Text(name, textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 2, overflow: TextOverflow.ellipsis, ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Interests extends StatelessWidget {
+  const Interests({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: GridView(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            childAspectRatio: 6/5.5,
+            mainAxisSpacing: screenHeight(context, mulBy: 0.05)
+        ),
+        padding: EdgeInsets.symmetric(
+          vertical: screenHeight(context, mulBy: 0.04),
+        ),
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(),
+        children: [
+          FinderItems(
+            name: "Interests",
+            link: "",
+            folder: true,
+          ),
+          FinderItems(
+            name: "Languages",
+            link: "",
+            folder: true,
+          ),
+          FinderItems(
+            name: "Projects",
+            link: "",
+            folder: true,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Languages extends StatelessWidget {
+  const Languages({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: GridView(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            childAspectRatio: 6/5.5,
+            mainAxisSpacing: screenHeight(context, mulBy: 0.05)
+        ),
+        padding: EdgeInsets.symmetric(
+          vertical: screenHeight(context, mulBy: 0.04),
+        ),
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(),
+        children: [
+          FinderItems(
+            name: "Flutter",
+            link: "",
+            folder: true,
+          ),
+          FinderItems(
+            name: "Dart",
+            link: "",
+            folder: true,
+          ),
+          FinderItems(
+            name: "Python",
+            link: "",
+            folder: true,
+          ),
+          FinderItems(
+            name: "GoLang",
+            link: "",
+            folder: true,
+          ),
+          FinderItems(
+            name: "C++",
+            link: "",
+            folder: true,
+          ),
+          FinderItems(
+            name: "Java",
+            link: "",
+            folder: true,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Projects extends StatelessWidget {
+  const Projects({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: GridView(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            childAspectRatio: 6/5.5,
+            mainAxisSpacing: screenHeight(context, mulBy: 0.05)
+        ),
+        padding: EdgeInsets.symmetric(
+          vertical: screenHeight(context, mulBy: 0.04),
+        ),
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(),
+        children: [
+          FinderItems(
+            name: "Macbook",
+            link: "",
+            nav: (){html.window.open("https://chrisbinsunny.github.io/macbook", 'new tab');},
+            folder: true,
+          ),
+          FinderItems(
+            name: "Dream",
+            link: "",
+            nav: (){html.window.open("https://chrisbinsunny.github.io/dream", 'new tab');},
+            folder: true,
+          ),
+          FinderItems(
+            name: "Portfolio old",
+            link: "",
+            nav: (){html.window.open("https://chrisbinsunny.github.io", 'new tab');},
+            folder: true,
+          ),
+          FinderItems(
+            name: "Flutter-Talks",
+            link: "",
+            nav: (){html.window.open("https://chrisbinsunny.github.io/Flutter-Talks", 'new tab');},
+            folder: true,
+          ),
+        ],
       ),
     );
   }
