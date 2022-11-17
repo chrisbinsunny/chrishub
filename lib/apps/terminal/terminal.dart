@@ -71,7 +71,7 @@ class _TerminalState extends State<Terminal> {
       "Revolution 2020"
     ],
     "skills": ["Front-end development", "jQuery", "Flutter", "Firebase"],
-    "projects": ["chrisbinsunny.github.io", "Desktop", "Dream","Flutter Talks", ],
+    "projects": ["Desktop", "Dream", "chrisbinsunny.github.io",  "Flutter-Talks", ],
     "applications": [
       "calendar",
       "feedback",
@@ -87,8 +87,8 @@ class _TerminalState extends State<Terminal> {
     "languages": ["Flutter", "Dart", "Python", "GoLang", "C++", "Java",  ],
     "documents":[
       "cabby: published paper.pdf////https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
-      "chrisbin resume dark.pdf////",
-      "chrisbin resume light.pdf////",
+      "chrisbin resume dark.pdf////https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
+      "chrisbin resume light.pdf////https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
       "interests",
       "languages",
       "projects",
@@ -137,7 +137,6 @@ class _TerminalState extends State<Terminal> {
     switch (command) {
       case "":
         break;
-
 
       case "ls":
         String target;
@@ -327,6 +326,32 @@ class _TerminalState extends State<Terminal> {
                 output="Application not found or Installed.";
             }
           }
+        else if(currentDir=="projects"){
+          String link="404";
+          switch(variable){
+            case "desktop":
+              link= "https://chrisbinsunny.github.io/desktop";
+              break;
+            case "dream":
+              link= "https://chrisbinsunny.github.io/dream";
+              break;
+            case "chrisbinsunny.github.io":
+              link= "https://chrisbinsunny.github.io";
+              break;
+            case "flutter-talks":
+              link= "https://chrisbinsunny.github.io/Flutter-Talks";
+              break;
+          }
+          if(link=="404"){
+            output="Can't open the application from this location. Try using \"open -a\".";
+          }
+          else{
+            output="Opening ${variable}";
+            Future.delayed(const Duration(seconds: 1), () {
+              html.window.open(link, 'new tab');
+            });
+          }
+        }
         else if(textWords.join(" ").contains(".pdf")){
           String pdf="";
           contents[currentDir]!.forEach((element) {
@@ -396,7 +421,6 @@ class _TerminalState extends State<Terminal> {
           output = "usage: mkdir directory ...";
           break;
         }
-        //TODO
         if (textWords.length > 1) {
           for(String name in textOrg.split(" ")..removeAt(0))  ///Org text used for for Upper and Lower org cases
             Provider.of<Folders>(context, listen: false).createFolder(context, renaming: false, name: name);
