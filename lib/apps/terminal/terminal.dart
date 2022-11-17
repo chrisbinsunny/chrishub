@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -60,10 +62,12 @@ class _TerminalState extends State<Terminal> {
       "public"
     ],
     "library": [
+      "Alchemist",
       "One Night at a call centre",
+      "Revolution 2020"
     ],
     "skills": ["Front-end development", "jQuery", "Flutter", "Firebase"],
-    "projects": ["chrisbinsunny.github.io", "portfolio"],
+    "projects": ["chrisbinsunny.github.io", "Desktop", "Dream","Flutter Talks", ],
     "applications": [
       "calendar",
       "feedback",
@@ -77,6 +81,24 @@ class _TerminalState extends State<Terminal> {
     ],
     "interests": ["Software Engineering", "Deep Learning", "Computer Vision"],
     "languages": ["Javascript", "C++", "Java", "Dart", "Python"],
+    "documents":[
+      "Cabby: Published paper.pdf",
+      "Chrisbin Resume Dark.pdf",
+      "Chrisbin Resume Light.pdf",
+      "Interests",
+      "Languages",
+      "Projects",
+    ],
+    "downloads":[
+      "Anton- Game Testing platform.pdf",
+      "Cabby final.pdf",
+      "Chrisbin seminar.docx",
+      "Chrisbin seminar.pdf",
+      "Dream.zip",
+      "Flutter_F_4K_Wallpaper.png",
+      "Flutter Talks.pdf"
+      "Ride Sharing platform.pdf",
+    ]
   };
   ScrollController _scrollController = ScrollController();
 
@@ -117,6 +139,7 @@ class _TerminalState extends State<Terminal> {
         String target;
         if (variable == "")
           target = currentDir;
+
         else {
           target = textWords[0];
         }
@@ -308,7 +331,9 @@ class _TerminalState extends State<Terminal> {
 
       case "cd":
         if (variable == "") {
-          currentDir = "~"; 
+          log("1");
+          currentDir = "~";
+          directory = "/~";
           break;
         }
         if (textWords.length > 1) {
@@ -332,7 +357,7 @@ class _TerminalState extends State<Terminal> {
           output = "/$currentDir : Permission denied.";
           break;
         }
-        if (contents[currentDir]!.contains(variable)) {
+        if (contents[currentDir]!.contains(variable,)) {
           directory = directory + "/" + variable;
           currentDir = variable;
         } else {
