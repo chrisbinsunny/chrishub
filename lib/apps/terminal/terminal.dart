@@ -63,7 +63,6 @@ class _TerminalState extends State<Terminal> {
       "movies",
       "music",
       "pictures",
-      "public"
     ],
     "library": [
       "Alchemist",
@@ -94,7 +93,7 @@ class _TerminalState extends State<Terminal> {
       "projects",
     ],
     "downloads":[
-      "Anton- Game Testing platform.pdf",
+      "Antonn- Game Testing platform.pdf",
       "Cabby final.pdf",
       "Chrisbin seminar.docx",
       "Chrisbin seminar.pdf",
@@ -102,7 +101,10 @@ class _TerminalState extends State<Terminal> {
       "Flutter_F_4K_Wallpaper.png",
       "Flutter Talks.pdf"
       "Ride Sharing platform.pdf",
-    ]
+    ],
+    "movies":[],
+    "music":[],
+    "pictures":[],
   };
   ScrollController _scrollController = ScrollController();
 
