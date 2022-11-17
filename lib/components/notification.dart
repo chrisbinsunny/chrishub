@@ -29,7 +29,6 @@ class _NotificationsState extends State<Notifications> {
     themeNotifier = Provider.of<ThemeNotifier>(context);
     notification = Provider.of<DataBus>(context).getNotification;
     notificationOn = Provider.of<OnOff>(context).getNotificationOn;
-    log(screenWidth(context, mulBy: 0.201).toString());
     return Visibility(
       visible: true,
       child: AnimatedPositioned(
