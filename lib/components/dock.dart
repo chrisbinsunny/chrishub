@@ -359,6 +359,7 @@ class _DockerState extends State<Docker> {
                       ),
                       InkWell(
                         onTap: (){
+                          tapFunctions(context);
                           Provider.of<OnOff>(context, listen: false)
                               .maxCalendar();
                           Provider.of<Apps>(context, listen: false).openApp(
