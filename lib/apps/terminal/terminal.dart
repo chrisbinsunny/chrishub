@@ -14,7 +14,7 @@ import '../../providers.dart';
 import '../../system/folders/folders.dart';
 import '../../system/openApps.dart';
 import '../../sizes.dart';
-import 'dart:ui' as ui;
+import 'dart:html' as html;
 
 import '../calendar.dart';
 import '../feedback/feedback.dart';
@@ -50,6 +50,10 @@ class _TerminalState extends State<Terminal> {
   late DateTime now;
   int updownIndex = 0;
   String currentDir = "~";
+
+  ///Data should be entered as lowercase. It is converted to alternate caps when it is displayed.
+  ///
+  /// Links are added to end of pdf name after ////
   Map<String, List<String>> contents = {
     "~": [
       "applications",
@@ -79,15 +83,15 @@ class _TerminalState extends State<Terminal> {
       "spotify",
       "vscode",
     ],
-    "interests": ["Software Engineering", "Deep Learning", "Computer Vision"],
-    "languages": ["Javascript", "C++", "Java", "Dart", "Python"],
+    "interests": ["Software Engineering","Game Development", "AI in Games","Deep Learning", "Computer Vision"],
+    "languages": ["Flutter", "Dart", "Python", "GoLang", "C++", "Java",  ],
     "documents":[
-      "Cabby: Published paper.pdf",
-      "Chrisbin Resume Dark.pdf",
-      "Chrisbin Resume Light.pdf",
-      "Interests",
-      "Languages",
-      "Projects",
+      "cabby: published paper.pdf////https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
+      "chrisbin resume dark.pdf////",
+      "chrisbin resume light.pdf////",
+      "interests",
+      "languages",
+      "projects",
     ],
     "downloads":[
       "Anton- Game Testing platform.pdf",
@@ -156,7 +160,7 @@ class _TerminalState extends State<Terminal> {
             }
             maxLen += 5;
             for (int i = 0; i < contents[target]!.length; i++) {
-              output += "${contents[target]![i].capitalize()}";
+              output += "${contents[target]![i].split("////")[0].capitalize()}";
               if ((i + 1) % 3 == 0)
                 output += "\n";
               else
@@ -164,7 +168,7 @@ class _TerminalState extends State<Terminal> {
             }
           } else
             contents[target]!.forEach((item) {
-              output += "${item.capitalize()}\n";
+              output += "${item.split("////")[0].capitalize()}\n";
             });
           break;
         } else {
@@ -323,6 +327,23 @@ class _TerminalState extends State<Terminal> {
                 output="Application not found or Installed.";
             }
           }
+        else if(textWords.join(" ").contains(".pdf")){
+          String pdf="";
+          contents[currentDir]!.forEach((element) {
+            if(element.split("////")[0]==textWords.join(" ")){
+              pdf= element;
+            }
+          });
+          if(pdf==""){
+            output="File \"${textWords.join(" ")}\" not found. Check the file name";
+          }
+          else{
+            output="Opening ${pdf.split("////")[0].capitalize()}";
+            Future.delayed(const Duration(seconds: 1), () {
+              html.window.open(pdf.split("////")[1], 'new tab');
+            });
+          }
+        }
         else{
           output="Can't open the application from this location. Try using \"open -a\".";
         }
@@ -354,6 +375,10 @@ class _TerminalState extends State<Terminal> {
           break;
         }
         if (variable == "personal-documents") {
+          output = "/$currentDir : Permission denied.";
+          break;
+        }
+        if (currentDir == "downloads") {
           output = "/$currentDir : Permission denied.";
           break;
         }
