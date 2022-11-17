@@ -460,6 +460,58 @@ class _FinderState extends State<Finder> {
           ),
         );
         break;
+      case "Downloads":
+        return GridView(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 5,
+              childAspectRatio: 6/5.5,
+              mainAxisSpacing: screenHeight(context, mulBy: 0.05)
+          ),
+          padding: EdgeInsets.symmetric(
+            vertical: screenHeight(context, mulBy: 0.04),
+          ),
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          physics: BouncingScrollPhysics(),
+          children: [
+            FinderItems(
+              name: "Antonn- Game Testing platform.pdf",
+              link: "",
+            ),
+            FinderItems(
+              name: "Cabby final.pdf",
+              link: "",
+            ),
+            FinderItems(
+              name: "Chrisbin seminar.pdf",
+              link: "",
+            ),
+            FinderItems(
+              name: "Flutter Talks.pdf",
+              link: "",
+            ),
+            FinderItems(
+              name: "Ride Sharing platform.pdf",
+              link: "",
+            ),
+            FinderItems(
+              name: "Dream.zip",
+              link: "",
+              nav: null,
+              folder: true,
+            ),
+          ],
+        );
+        break;
+      case "Movies":
+        return SizedBox();
+        break;
+      case "Music":
+        return SizedBox();
+        break;
+      case "Pictures":
+        return SizedBox();
+        break;
     }
   }
 
@@ -1046,7 +1098,7 @@ class FinderItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onDoubleTap: folder?nav:(){html.window.open(link, 'new tab');},
+      onDoubleTap: folder?nav:(link=="")?null:(){html.window.open(link, 'new tab');},
       child: Container(
         width: screenWidth(context, mulBy: 0.08),
 
