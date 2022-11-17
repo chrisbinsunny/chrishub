@@ -367,7 +367,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                                   children: [
                                     Container(
                                       child: Image.asset(
-                                        "assets/wallpapers/iPadOS_light.jpg",
+                                        "assets/sysPref/chrisbin.jpg",
                                         fit: BoxFit.cover,
                                       ),
                                       clipBehavior: Clip.antiAlias,
@@ -408,7 +408,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
                                             height: 45,
                                             width: 45,
                                             child: Image.asset(
-                                                "assets/sysPref/chrisbin.jpg"),
+                                                "assets/sysPref/appleID.png"),
                                           ),
                                         ),
                                         Text(
