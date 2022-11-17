@@ -2,10 +2,24 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
+import '../apps/calendar.dart';
+import '../apps/feedback/feedback.dart';
+import '../apps/launchpad.dart';
+import '../apps/messages/messages.dart';
+import '../apps/safari/safariWindow.dart';
+import '../apps/spotify.dart';
+import '../apps/systemPreferences.dart';
+import '../apps/terminal/terminal.dart';
+import '../apps/vscode.dart';
 import '../components/windowWidgets.dart';
+import '../providers.dart';
+import '../system/folders/folders.dart';
+import '../system/folders/folders_CRUD.dart';
 import '../system/openApps.dart';
 import '../sizes.dart';
 import '../widgets.dart';
@@ -24,18 +38,366 @@ class _FinderState extends State<Finder> {
   String selected = "Applications";
   late bool finderFS;
   late bool finderPan;
+  late DateTime now;
+  late List<Folder> folders;
+
+  getContent(){
+    switch(selected){
+      case "Applications":
+        return GridView(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              childAspectRatio: 6/3,
+              mainAxisSpacing: screenHeight(context, mulBy: 0.05)
+          ),
+          padding: EdgeInsets.symmetric(
+            vertical: screenHeight(context, mulBy: 0.04),
+          ),
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          physics: BouncingScrollPhysics(),
+          children: [
+            LaunchPadItem(
+              iName: "Finder",
+              onTap: () {
+                tapFunctions(context);
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  Provider.of<OnOff>(context, listen: false)
+                      .maxFinder();
+                  Provider.of<Apps>(context, listen: false).openApp(
+                      Finder(
+                          key: ObjectKey("finder"),
+                          initPos: Offset(
+                              screenWidth(context, mulBy: 0.2),
+                              screenHeight(context, mulBy: 0.18))),
+                      Provider.of<OnOff>(context, listen: false)
+                          .maxFinder()
+                  );
+                });
+
+              },
+            ),
+            LaunchPadItem(
+              iName: "Safari-Mac",
+              onTap: () {
+                tapFunctions(context);
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  Provider.of<OnOff>(context, listen: false)
+                      .maxSafari();
+                  Provider.of<Apps>(context, listen: false).openApp(
+                      Safari(
+                          key: ObjectKey("safari"),
+                          initPos: Offset(
+                              screenWidth(context, mulBy: 0.14),
+                              screenHeight(context, mulBy: 0.1))),
+                      Provider.of<OnOff>(context, listen: false)
+                          .maxSafari()
+                  );
+                });
+
+              },
+            ),
+            LaunchPadItem(
+              iName: "Messages-Mac",
+              onTap: () {
+                tapFunctions(context);
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  Provider.of<OnOff>(context, listen: false)
+                      .maxMessages();
+                  Provider.of<Apps>(context, listen: false).openApp(
+                      Messages(
+                          key: ObjectKey("messages"),
+                          initPos: Offset(
+                              screenWidth(context, mulBy: 0.27),
+                              screenHeight(context, mulBy: 0.2))),
+                      Provider.of<OnOff>(context, listen: false)
+                          .maxMessages()
+                  );
+                });
+
+              },
+            ),
+            LaunchPadItem(
+              iName: "Maps",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed. Create the app on GitHub.",
+                    "https://github.com/chrisbinsunny",
+                    "maps",
+                    "Not installed"
+                );
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
+            ),
+            LaunchPadItem(
+              iName: "Spotify",
+              onTap: () {
+                tapFunctions(context);
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  Provider.of<OnOff>(context, listen: false)
+                      .maxSpotify();
+                  Provider.of<Apps>(context, listen: false).openApp(
+                      Spotify(
+                          key: ObjectKey("spotify"),
+                          initPos: Offset(
+                              screenWidth(context, mulBy: 0.24),
+                              screenHeight(context, mulBy: 0.15)
+                          )),
+                      Provider.of<OnOff>(context, listen: false)
+                          .maxSpotify()
+                  );
+                });
+              },
+            ),
+            LaunchPadItem(
+              iName: "Terminal",
+              onTap: () {
+                tapFunctions(context);
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  Provider.of<OnOff>(context, listen: false)
+                      .maxTerminal();
+                  Provider.of<Apps>(context, listen: false).openApp(
+                      Terminal(
+                          key: ObjectKey("terminal"),
+                          initPos: Offset(
+                              screenWidth(context, mulBy: 0.28),
+                              screenHeight(context, mulBy: 0.2))),
+                      Provider.of<OnOff>(context, listen: false)
+                          .maxTerminal()
+                  );
+                });
+
+
+              },
+            ),
+            LaunchPadItem(
+              iName: "Visual Studio Code",
+              onTap: () {
+                tapFunctions(context);
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  Provider.of<OnOff>(context, listen: false).maxVS();
+                  Provider.of<Apps>(context, listen: false).openApp(
+                      VSCode(
+                          key: ObjectKey("vscode"),
+                          initPos: Offset(
+                              screenWidth(context, mulBy: 0.24),
+                              screenHeight(context, mulBy: 0.15))),
+                      Provider.of<OnOff>(context, listen: false).maxVS()
+                  );
+                });
+
+
+              },
+            ),
+            LaunchPadItem(
+              iName: "Photos",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed. Create the app on GitHub.",
+                    "https://github.com/chrisbinsunny",
+                    "photos",
+                    "Not installed"
+                );
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
+            ),
+            LaunchPadItem(
+              iName: "Contacts-Mac",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed. Create the app on GitHub.",
+                    "https://github.com/chrisbinsunny",
+                    "contacts",
+                    "Not installed"
+                );
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
+            ),
+            InkWell(
+              onTap: () {
+                tapFunctions(context);
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  Provider.of<OnOff>(context, listen: false)
+                      .maxCalendar();
+                  Provider.of<Apps>(context, listen: false).openApp(
+                      Calendar(
+                          key: ObjectKey("calendar"),
+                          initPos: Offset(
+                              screenWidth(context, mulBy: 0.24),
+                              screenHeight(context, mulBy: 0.15)
+                          )
+                      ),
+                      Provider.of<OnOff>(context, listen: false)
+                          .maxCalendar()
+                  );
+                });
+
+
+              },
+              child: Column(
+                children: [
+                  Expanded(
+                    ///For setting the Text on the icon on position. Done by getting relative position.
+                    child: LayoutBuilder(builder: (context, cont) {
+                      return Stack(
+                        alignment: Alignment.topCenter,
+                        children: [
+                          Image.asset(
+                            "assets/appsMac/calendar-Mac.png",
+                          ),
+                          Positioned(
+                            top: cont.smallest.height * .13,
+                            child: Container(
+                              height:
+                              cont.maxHeight*0.23,
+                              width:
+                              screenWidth(context, mulBy: 0.03),
+                              //color: Colors.green,
+                              child: FittedBox(
+                                fit: BoxFit.fitHeight,
+                                child: Text(
+                                  "${DateFormat('LLL').format(now).toUpperCase()}",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "SF",
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 11,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: cont.smallest.height * .35,
+                            child: Container(
+                              height:
+                              cont.maxHeight*0.5,
+                              width:
+                              screenWidth(context, mulBy: 0.03),
+                              //color:Colors.green,
+                              child: FittedBox(
+                                fit: BoxFit.fitHeight,
+                                child: Text(
+                                  "${DateFormat('d').format(now).toUpperCase()}",
+                                  style: TextStyle(
+                                      color: Colors.black87
+                                          .withOpacity(0.8),
+                                      fontFamily: 'SF',
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 28),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },),
+                  ),
+                  MBPText(
+                      text: "Calendar",
+                      color: Colors.white
+                  )
+                ],
+              ),
+            ),
+            LaunchPadItem(
+              iName: "Notes",
+              onTap: (){
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed. Create the app on GitHub.",
+                    "https://github.com/chrisbinsunny",
+                    "notes",
+                    "Not installed"
+                );
+                Provider.of<OnOff>(context, listen: false).onNotifications();
+              },
+            ),
+            LaunchPadItem(
+              iName: "Feedback",
+              onTap: () {
+                tapFunctions(context);
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  Provider.of<OnOff>(context, listen: false)
+                      .maxFeedBack();
+                  Provider.of<Apps>(context, listen: false).openApp(
+                      FeedBack(
+                          key: ObjectKey("feedback"),
+                          initPos: Offset(
+                              screenWidth(context, mulBy: 0.2),
+                              screenHeight(context, mulBy: 0.12))),
+                      Provider.of<OnOff>(context, listen: false)
+                          .maxFeedBack()
+                  );
+                });
+
+              },
+            ),
+            LaunchPadItem(
+              iName: "System Preferences",
+              onTap: () {
+                tapFunctions(context);
+                Future.delayed(const Duration(milliseconds: 200), () {
+                  Provider.of<OnOff>(context, listen: false)
+                      .maxSysPref();
+                  Provider.of<Apps>(context, listen: false).openApp(
+                      SystemPreferences(
+                          key: ObjectKey("systemPreferences"),
+                          initPos: Offset(
+                              screenWidth(context, mulBy: 0.27),
+                              screenHeight(context, mulBy: 0.2))),
+                      Provider.of<OnOff>(context, listen: false)
+                          .maxSysPref()
+                  );
+                });
+
+              },
+            ),
+          ],
+        );
+        break;
+      case "Desktop":
+        return GridView(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 5,
+              childAspectRatio: 6/5,
+              mainAxisSpacing: screenHeight(context, mulBy: 0.05)
+          ),
+          padding: EdgeInsets.symmetric(
+            vertical: screenHeight(context, mulBy: 0.04),
+          ),
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          physics: BouncingScrollPhysics(),
+          children: folders.map((e) =>
+              FolderForFinder(
+                name: e.name,
+                renaming: false,
+
+              )
+          ).toList(),
+        );
+        break;
+    }
+  }
+
 
   @override
   void initState() {
     position = widget.initPos;
+    now = DateTime.now();
+
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
     var finderOpen = Provider.of<OnOff>(context).getFinder;
     finderFS = Provider.of<OnOff>(context).getFinderFS;
     finderPan = Provider.of<OnOff>(context).getFinderPan;
+    folders = Provider.of<Folders>(context, listen: true).getFolders;
       return AnimatedPositioned(
             duration: Duration(milliseconds: finderPan ? 0 : 200),
             top: finderFS ? 25 : position!.dy,
@@ -264,9 +626,10 @@ class _FinderState extends State<Finder> {
               ),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: screenWidth(context, mulBy: 0.013),
-                      vertical: screenHeight(context, mulBy: 0.03)),
+                  padding: EdgeInsets.only(
+                      left: screenWidth(context, mulBy: 0.013),
+                      right: screenWidth(context, mulBy: 0.013),
+                      top: screenHeight(context, mulBy: 0.03)),
                   decoration: BoxDecoration(
                       color: Theme.of(context).scaffoldBackgroundColor,
                       borderRadius: BorderRadius.only(
@@ -340,7 +703,10 @@ class _FinderState extends State<Finder> {
                           ),
                         ],
                       ),
-                      //TODO Add content items here
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.01),
+                      ),
+                      Expanded(child: getContent())
                     ],
                   ),
                 ),
@@ -388,6 +754,197 @@ class _FinderState extends State<Finder> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+
+class FolderForFinder extends StatefulWidget {
+  String? name;
+  bool? renaming;
+  bool selected;
+  late VoidCallback deSelectFolder;
+  late VoidCallback renameFolder;
+  FolderForFinder({Key? key, this.name,  this.renaming= false, this.selected=false,}): super(key: key);
+  @override
+  _FolderForFinderState createState() => _FolderForFinderState();
+}
+
+class _FolderForFinderState extends State<FolderForFinder> {
+  TextEditingController? controller;
+  FocusNode _focusNode = FocusNode();
+  bool pan= false;
+  bool bgVisible= false;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = new TextEditingController(text: widget.name, );
+    controller!.selection=TextSelection.fromPosition(TextPosition(offset: controller!.text.length));
+    selectText();
+    widget.renameFolder=(){
+      if (!mounted) return;
+      setState(() {
+        widget.renaming=true;
+      });
+    };
+    widget.deSelectFolder= (){
+      if (!mounted) return;
+      setState(() {
+        widget.selected=false;
+        widget.renaming=false;
+        //widget.name=controller.text.toString();
+      });
+    };
+  }
+
+  void selectText(){
+    _focusNode.addListener(() {
+      if(_focusNode.hasFocus) {
+        controller!.selection = TextSelection(baseOffset: 0, extentOffset: controller!.text.length);
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Folder> folders= Provider.of<Folders>(context).getFolders;
+    return Container(
+      height: screenHeight(context),
+      width: screenWidth(context),
+      child: GestureDetector(
+        //TODO
+        ///Gestures are turned off for now. Will have to re-do the gestures for folderforFinder
+        // onTap: (){
+        //   tapFunctions(context);
+        //   if (!mounted) return;
+        //   setState(() {
+        //     widget.selected=true;
+        //   });
+        // },
+        //
+        // onSecondaryTap: (){
+        //   if (!mounted) return;
+        //   setState(() {
+        //     widget.selected=true;
+        //   });
+        //   Provider.of<OnOff>(context, listen: false).onFRCM();
+        // },
+        // onSecondaryTapDown: (details){
+        //   tapFunctions(context);
+        //   Provider.of<DataBus>(context, listen: false).setPos(details.globalPosition);
+        // },
+        child: Container(
+          width: screenWidth(context, mulBy: 0.08),
+
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: screenHeight(context, mulBy: 0.1),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.0005)),
+                decoration: (widget.renaming!||widget.selected)?BoxDecoration(
+                    color: Colors.black.withOpacity(0.25),
+                    border: Border.all(
+                        color: Colors.grey.withOpacity(0.4),
+                        width: 2
+                    ),
+                    borderRadius: BorderRadius.circular(4)
+                ):BoxDecoration(
+                  border: Border.all(
+                      color: Colors.grey.withOpacity(0.0),
+                      width: 2
+                  ),
+                ),
+                child: Image.asset("assets/icons/folder.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045), ),
+              ),
+              SizedBox(height: screenHeight(context, mulBy: 0.005), ),
+              widget.renaming!?
+              Container(
+                height: screenHeight(context, mulBy: 0.024),
+                width: screenWidth(context, mulBy: 0.06),
+                decoration: BoxDecoration(
+                    color: Color(0xff1a6cc4).withOpacity(0.7),
+                    border: Border.all(
+                        color: Colors.blueAccent
+                    ),
+                    borderRadius: BorderRadius.circular(3)
+                ),
+                child: Theme(
+                  data: ThemeData(textSelectionTheme: TextSelectionThemeData(
+                      selectionColor: Colors.transparent)),
+                  child: TextField(
+                    controller: controller,
+                    autofocus: true,
+                    focusNode: _focusNode,
+                    textAlign: TextAlign.center,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(18),
+                    ],
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.only(top: 4.5, bottom: 0, left: 0, right: 0),
+                      border: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                    ),
+                    cursorColor: Colors.white60,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "HN",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12
+                    ),
+                    onSubmitted: (s){
+                      if (!mounted) return;
+                      setState(() {
+                        widget.renaming=false;
+                        if(controller!.text=="")    ///changes controller to sys found name if empty.
+                          controller!.text=widget.name!;
+                        int folderNum=0;
+                        for(int element=0; element<folders.length; element++) {
+                          if(folders[element].name==controller!.text) {
+                            if(int.tryParse(folders[element].name!.split(" ").last)!=null) { ///for not changing "untitled folder" to "untitled 1"
+                              folderNum = int.parse(folders[element].name!.split(" ").last) ?? folderNum;
+                              controller!.text = "${controller!.text.substring(0, controller!.text.lastIndexOf(" "))} ${++folderNum}";
+                              element=0;   ///for checking if changed name == name in already checked folders
+                            }
+                            else{
+                              controller!.text = "${controller!.text} ${++folderNum}";
+                            }
+                          }
+                        }
+                        FoldersDataCRUD.renameFolder(widget.name!, controller!.text.toString());
+                        widget.name=controller!.text.toString();
+                      });
+                    },
+                  ),
+                ),
+              )
+                  :Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: screenHeight(context, mulBy: 0.024),
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.005)),
+                    alignment: Alignment.center,
+                    decoration: widget.selected?BoxDecoration(
+                        color: Color(0xff0058d0),
+                        borderRadius: BorderRadius.circular(3)
+                    ):BoxDecoration(),
+                    child: Text(widget.name??"", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 1, overflow: TextOverflow.ellipsis, ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
