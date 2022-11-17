@@ -299,20 +299,28 @@ class _MessagesState extends State<Messages> {
                                                     width: screenHeight(
                                                         context,
                                                         mulBy: 0.055),
-                                                    padding: EdgeInsets.all(
-                                                        screenHeight(context,
-                                                            mulBy: 0.01)),
-                                                    child: MBPText(
-                                                      text:
-                                                      "${snapshot.data[index].senderName.toString().getInitials().capitalize()}",
-                                                      color: Colors.white,
-                                                      fontFamily: "SFR",
-                                                      size: 25,
-                                                      weight: FontWeight.w500,
-                                                      overflow:
-                                                      TextOverflow.fade,
-                                                      maxLines: 1,
-                                                      softWrap: false,
+                                                    clipBehavior: Clip.antiAlias,
+                                                    child: (snapshot.data[index].senderPhoto=="")?
+                                                    Padding(
+                                                      padding: EdgeInsets.all(
+                                                          screenHeight(context,
+                                                              mulBy: 0.01)),
+                                                      child: MBPText(
+                                                        text:
+                                                        "${snapshot.data[index].senderName.toString().getInitials().capitalize()}",
+                                                        color: Colors.white,
+                                                        fontFamily: "SFR",
+                                                        size: 25,
+                                                        weight: FontWeight.w500,
+                                                        overflow:
+                                                        TextOverflow.fade,
+                                                        maxLines: 1,
+                                                        softWrap: false,
+                                                      ),
+                                                    ):
+                                                    Image.network(
+                                                        snapshot.data[index].senderPhoto,
+                                                      fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                   SizedBox(
@@ -328,48 +336,54 @@ class _MessagesState extends State<Messages> {
                                                     CrossAxisAlignment
                                                         .start,
                                                     children: [
-                                                      Text(
-                                                        "${snapshot.data[index].senderName}",
-                                                        style: TextStyle(
-                                                            color: Theme.of(
-                                                                context)
-                                                                .cardColor
-                                                                .withOpacity(
-                                                                1),
-                                                            fontSize: 13,
-                                                            fontFamily: 'HN',
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .w500),
-                                                        overflow:
-                                                        TextOverflow.fade,
-                                                        maxLines: 1,
-                                                        softWrap: false,
+                                                      SizedBox(
+                                                        width: screenWidth(context, mulBy: 0.07),
+                                                        child: Text(
+                                                          "${snapshot.data[index].senderName}",
+                                                          style: TextStyle(
+                                                              color: Theme.of(
+                                                                  context)
+                                                                  .cardColor
+                                                                  .withOpacity(
+                                                                  1),
+                                                              fontSize: 13,
+                                                              fontFamily: 'HN',
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w500),
+                                                          overflow:
+                                                          TextOverflow.fade,
+                                                          maxLines: 1,
+                                                          softWrap: false,
+                                                        ),
                                                       ),
-                                                      Text(
-                                                        snapshot
-                                                            .data[index]
-                                                            .messages
-                                                            .sender
-                                                            .last,
-                                                        style: TextStyle(
-                                                            color: Theme.of(
-                                                                context)
-                                                                .cardColor
-                                                                .withOpacity(
-                                                                selectedChatIndex ==
-                                                                    index
-                                                                    ? 1
-                                                                    : .6),
-                                                            fontSize: 11,
-                                                            fontFamily: 'HN',
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .w400),
-                                                        overflow:
-                                                        TextOverflow.fade,
-                                                        maxLines: 1,
-                                                        softWrap: false,
+                                                      SizedBox(
+                                                        width: screenWidth(context, mulBy: 0.07),
+                                                        child: Text(
+                                                          snapshot
+                                                              .data[index]
+                                                              .messages
+                                                              .sender
+                                                              .last,
+                                                          style: TextStyle(
+                                                              color: Theme.of(
+                                                                  context)
+                                                                  .cardColor
+                                                                  .withOpacity(
+                                                                  selectedChatIndex ==
+                                                                      index
+                                                                      ? 1
+                                                                      : .6),
+                                                              fontSize: 11,
+                                                              fontFamily: 'HN',
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w400),
+                                                          overflow:
+                                                          TextOverflow.fade,
+                                                          maxLines: 1,
+                                                          softWrap: false,
+                                                        ),
                                                       ),
                                                       SizedBox(
                                                         height: screenHeight(
@@ -552,6 +566,7 @@ class _MessagesState extends State<Messages> {
                                                     fontFamily: "HN",
                                                     size: 10,
                                                   ),
+                                                if(snapshot.data[selectedChatIndex].messages.sender[reversedIndex]!="")
                                                 ChatBubble(
                                                   clipper: iMessageClipper(
                                                       type: BubbleType.receiverBubble),
@@ -577,6 +592,8 @@ class _MessagesState extends State<Messages> {
                                                     ),
                                                   ),
                                                 ),
+
+                                                if(snapshot.data[selectedChatIndex].messages.me[reversedIndex]!="")
                                                 ChatBubble(
                                                   clipper: iMessageClipper(
                                                       type: BubbleType
