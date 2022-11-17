@@ -7,11 +7,19 @@ import 'package:intl/intl.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
+import '../../components/finderWindow.dart';
+import '../../providers.dart';
 import '../../system/folders/folders.dart';
 import '../../system/openApps.dart';
 import '../../sizes.dart';
 import 'dart:ui' as ui;
 
+import '../calendar.dart';
+import '../feedback/feedback.dart';
+import '../messages/messages.dart';
+import '../safari/safariWindow.dart';
+import '../spotify.dart';
+import '../vscode.dart';
 import 'commands.dart';
 
 //TODO Has an issue with cursor. Currently the issue is present in master branch of flutter.
@@ -64,7 +72,6 @@ class _TerminalState extends State<Terminal> {
       "messages",
       "maps",
       "safari",
-      "terminal",
       "spotify",
       "vscode",
     ],
@@ -149,47 +156,145 @@ class _TerminalState extends State<Terminal> {
             switch (textWords[currentDir=="applications"?0:1]){
               case "finder":
                 output="Opening Finder";
-                Provider.of<OnOff>(context, listen: false).maxFinder();
+                tapFunctions(context);
+                Provider.of<OnOff>(context, listen: false)
+                    .maxFinder();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    Finder(
+                        key: ObjectKey("finder"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.2),
+                            screenHeight(context, mulBy: 0.18))),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxFinder()
+                );
                 break;
               case "safari":
                 output="Opening Safari";
-                Provider.of<OnOff>(context, listen: false).maxSafari();
+                tapFunctions(context);
+                Provider.of<OnOff>(context, listen: false)
+                    .maxSafari();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    Safari(
+                        key: ObjectKey("safari"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.21),
+                            screenHeight(context, mulBy: 0.14))),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxSafari()
+                );
                 break;
               case "messages":
                 output="Opening Messages";
-             //TODO   Provider.of<OnOff>(context, listen: false).openMessages();
+                tapFunctions(context);
+
+                Provider.of<OnOff>(context, listen: false)
+                    .maxMessages();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    Messages(
+                        key: ObjectKey("messages"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.27),
+                            screenHeight(context, mulBy: 0.2))),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxMessages()
+                );
                 break;
               case "maps":
                 output="Opening Maps";
-             //TODO   Provider.of<OnOff>(context, listen: false).openMaps();
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed. Create the app on GitHub.",
+                    "https://github.com/chrisbinsunny",
+                    "maps",
+                    "Not installed"
+                );
+                Provider.of<OnOff>(context, listen: false).onNotifications();
                 break;
               case "spotify":
                 output="Opening Spotify";
-                Provider.of<OnOff>(context, listen: false).maxSpotify();
+                tapFunctions(context);
+
+                Provider.of<OnOff>(context, listen: false)
+                    .maxSpotify();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    Spotify(
+                        key: ObjectKey("spotify"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.24),
+                            screenHeight(context, mulBy: 0.15)
+                        )),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxSpotify()
+                );
                 break;
               case "terminal":
                 output="Opening Terminal";
-                Provider.of<OnOff>(context, listen: false).maxTerminal();
                 break;
               case "vscode":
                 output="Opening Visual Studio Code";
+                tapFunctions(context);
+
                 Provider.of<OnOff>(context, listen: false).maxVS();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    VSCode(
+                        key: ObjectKey("vscode"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.24),
+                            screenHeight(context, mulBy: 0.15))),
+                    Provider.of<OnOff>(context, listen: false).maxVS()
+                );
                 break;
               case "photos":
                 output="Opening Photos";
-            //TODO    Provider.of<OnOff>(context, listen: false).openPhotos();
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed. Create the app on GitHub.",
+                    "https://github.com/chrisbinsunny",
+                    "photos",
+                    "Not installed"
+                );
+                Provider.of<OnOff>(context, listen: false).onNotifications();
                 break;
               case "calendar":
                 output="Opening Calendar";
-                Provider.of<OnOff>(context, listen: false).maxCalendar();
+                tapFunctions(context);
+                Provider.of<OnOff>(context, listen: false)
+                    .maxCalendar();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    Calendar(
+                        key: ObjectKey("calendar"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.24),
+                            screenHeight(context, mulBy: 0.15))
+                    ),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxCalendar()
+                );
                 break;
               case "notes":
                 output="Opening Notes";
-             //TODO   Provider.of<OnOff>(context, listen: false).openNotes();
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed. Create the app on GitHub.",
+                    "https://github.com/chrisbinsunny",
+                    "notes",
+                    "Not installed"
+                );
+                Provider.of<OnOff>(context, listen: false).onNotifications();
                 break;
               case "feedback":
                 output="Opening Feedback";
-                Provider.of<OnOff>(context, listen: false).maxFeedBack();
+                tapFunctions(context);
+
+                Provider.of<OnOff>(context, listen: false)
+                    .maxFeedBack();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    FeedBack(
+                        key: ObjectKey("feedback"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.2),
+                            screenHeight(context, mulBy: 0.12))),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxFeedBack()
+                );
                 break;
               default:
                 output="Application not found or Installed.";
@@ -203,7 +308,7 @@ class _TerminalState extends State<Terminal> {
 
       case "cd":
         if (variable == "") {
-          currentDir = "~"; //TODO currently moves to root. should adjust as macos
+          currentDir = "~"; 
           break;
         }
         if (textWords.length > 1) {
