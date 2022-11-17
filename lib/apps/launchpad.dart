@@ -34,8 +34,6 @@ class LaunchPad extends StatefulWidget {
 
 class _LaunchPadState extends State<LaunchPad> {
   late DateTime now;
-  bool _animate = false;
-  TextEditingController controller= new TextEditingController();
   @override
   void initState() {
     now = DateTime.now();
@@ -120,9 +118,6 @@ class _LaunchPadState extends State<LaunchPad> {
                               LaunchPadItem(
                                 iName: "Finder",
                                 onTap: () {
-                                  setState(() {
-                                    _animate = !_animate;
-                                  });
                                   tapFunctions(context);
                                   Future.delayed(const Duration(milliseconds: 200), () {
                                     Provider.of<OnOff>(context, listen: false)
@@ -266,7 +261,15 @@ class _LaunchPadState extends State<LaunchPad> {
                               ),
                               LaunchPadItem(
                                 iName: "Contacts-Mac",
-                                onTap: (){},
+                                onTap: (){
+                                  Provider.of<DataBus>(context, listen: false).setNotification(
+                                      "App has not been installed. Create the app on GitHub.",
+                                      "https://github.com/chrisbinsunny",
+                                      "contacts",
+                                      "Not installed"
+                                  );
+                                  Provider.of<OnOff>(context, listen: false).onNotifications();
+                                },
                               ),
                               InkWell(
                                 onTap: () {
@@ -358,7 +361,15 @@ class _LaunchPadState extends State<LaunchPad> {
                               ),
                               LaunchPadItem(
                                 iName: "Notes",
-                                onTap: (){},
+                                onTap: (){
+                                  Provider.of<DataBus>(context, listen: false).setNotification(
+                                      "App has not been installed. Create the app on GitHub.",
+                                      "https://github.com/chrisbinsunny",
+                                      "notes",
+                                      "Not installed"
+                                  );
+                                  Provider.of<OnOff>(context, listen: false).onNotifications();
+                                },
                               ),
                               LaunchPadItem(
                                 iName: "Feedback",
