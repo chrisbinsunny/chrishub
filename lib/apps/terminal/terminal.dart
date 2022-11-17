@@ -427,23 +427,52 @@ class _TerminalState extends State<Terminal> {
           break;
         }
         Provider.of<Folders>(context, listen: false).createFolder(context, renaming: false, name: textOrg.split(" ")[1]);
-
         break;
+
       case "echo":
         output = textWords.join(" ");
         break;
+
+
       case "clear":
-        //TODO
+        ///Not working as of now.
+      ///What went wrong: The textfield is not enabled after clearing. leaving the code below.
+
+        // commandCards.clear();
+        // commandCards.add(
+        //   Column(
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     mainAxisSize: MainAxisSize.max,
+        //     children: [
+        //       SizedBox(
+        //         height: 5,
+        //       ),
+        //       MBPText(
+        //         text:
+        //         "Last login: ${DateFormat("E LLL d HH:mm:ss").format(now)} on console",
+        //         color: Theme.of(context).cardColor.withOpacity(1),
+        //         fontFamily: "Menlo",
+        //         size: 10,
+        //       ),
+        //     ],
+        //   ),
+        // );
+
+      output="Bug found!!! Submit an issue on GitHub.";
         break;
       case "exit":
         {
           directory="/~";
+          Provider.of<Apps>(context, listen: false).closeApp("terminal");
+          Provider.of<OnOff>(context, listen: false)
+              .offTerminalFS();
           Provider.of<OnOff>(context, listen: false).toggleTerminal();
         }
         break;
       case "sudo":
         output =
-            "\"With great power comes great responsibility.\" ~Peter Parker Principle";
+            "\"With great power comes great responsibility.\" ~Peter Parker";
         break;
       default:
         output = "Command '" +
@@ -459,7 +488,6 @@ class _TerminalState extends State<Terminal> {
           if (updownIndex < oldCommands.length) {
             updownIndex++;
           }
-          debugPrint("Up.${oldCommands[oldCommands.length - updownIndex]}");
           commandTECs.last.text = oldCommands[oldCommands.length - updownIndex];
         });
       } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
@@ -467,7 +495,6 @@ class _TerminalState extends State<Terminal> {
           if (updownIndex > 1) {
             updownIndex--;
           }
-          debugPrint("Down.${oldCommands[oldCommands.length - updownIndex]}");
           commandTECs.last.text = oldCommands[oldCommands.length - updownIndex];
         });
       }
