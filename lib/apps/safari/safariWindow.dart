@@ -114,8 +114,6 @@ class _SafariState extends State<Safari> {
 
   AnimatedContainer safariWindow(BuildContext context) {
     String topApp = Provider.of<Apps>(context).getTop;
-    log(screenHeight(context,
-        mulBy: 0.08).toString());
     return AnimatedContainer(
       duration: Duration(milliseconds: 200),
       width: safariFS
