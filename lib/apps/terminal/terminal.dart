@@ -71,7 +71,7 @@ class _TerminalState extends State<Terminal> {
       "Revolution 2020"
     ],
     "skills": ["Front-end development", "jQuery", "Flutter", "Firebase"],
-    "projects": ["Desktop", "Dream", "chrisbinsunny.github.io",  "Flutter-Talks", ],
+    "projects": ["Macbook", "Dream", "chrisbinsunny.github.io",  "Flutter-Talks", ],
     "applications": [
       "calendar",
       "feedback",
@@ -329,8 +329,8 @@ class _TerminalState extends State<Terminal> {
         else if(currentDir=="projects"){
           String link="404";
           switch(variable){
-            case "desktop":
-              link= "https://chrisbinsunny.github.io/desktop";
+            case "macbook":
+              link= "https://chrisbinsunny.github.io/macbook";
               break;
             case "dream":
               link= "https://chrisbinsunny.github.io/dream";
