@@ -66,16 +66,22 @@ class _MacOSState extends State<MacOS> {
             ///Desktop Items
             ...folders,
 
+
+
+
+
+            ///Applications
+            ...apps,
+
+
             ///Right Click Context Menu
             RightClick(initPos: dataBus.getPos,),
+
 
             ///Folder Right Click Menu
             FolderRightClick(
               initPos: dataBus.getPos,
             ),
-
-            ///Applications
-            ...apps,
 
             /// file menu
             FileMenu(),
