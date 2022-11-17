@@ -91,7 +91,7 @@ BoxConstraints constraints({double? height, width}){
 
 extension StringExtension on String {
   String capitalize() {
-    return "${this[0].toUpperCase()}${this.substring(1)}";
+    return this.split(" ").map((element) => "${element[0].toUpperCase()}${element.substring(1)}").join(" ");
   }
 
   String getInitials() => this.isNotEmpty
