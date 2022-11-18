@@ -36,9 +36,9 @@ class _AboutState extends State<About> {
 
   @override
   Widget build(BuildContext context) {
-    aboutOpen = Provider.of<OnOff>(context).getFeedBack;
-    aboutFS = Provider.of<OnOff>(context).getFeedBackFS;
-    aboutPan = Provider.of<OnOff>(context).getFeedBackPan;
+    aboutOpen = Provider.of<OnOff>(context).getAbout;
+    aboutFS = Provider.of<OnOff>(context).getAboutFS;
+    aboutPan = Provider.of<OnOff>(context).getAboutPan;
     return aboutOpen
         ? AnimatedPositioned(
             duration: Duration(milliseconds: aboutPan ? 0 : 200),
@@ -88,7 +88,6 @@ class _AboutState extends State<About> {
                   ),
                   child: AnimatedContainer(
                     duration: Duration(milliseconds: 200),
-                    //width: screenWidth(context, mulBy: feedbackFS ? .5 : .35),
                     decoration: BoxDecoration(
                         color: Theme.of(context).dialogBackgroundColor,
                         border: Border(
@@ -165,13 +164,13 @@ class _AboutState extends State<About> {
               }
             },
             onPanStart: (details) {
-              Provider.of<OnOff>(context, listen: false).onFeedBackPan();
+              Provider.of<OnOff>(context, listen: false).onAboutPan();
             },
             onPanEnd: (details) {
-              Provider.of<OnOff>(context, listen: false).offFeedBackPan();
+              Provider.of<OnOff>(context, listen: false).offAboutPan();
             },
             onDoubleTap: () {
-              Provider.of<OnOff>(context, listen: false).toggleFeedBackFS();
+              Provider.of<OnOff>(context, listen: false).toggleAboutFS();
             },
             child: Container(
               alignment: Alignment.topRight,
@@ -205,9 +204,9 @@ class _AboutState extends State<About> {
                     ),
                   ),
                   onTap: () {
-                    Provider.of<OnOff>(context, listen: false).toggleFeedBack();
-                    Provider.of<OnOff>(context, listen: false).offFeedBackFS();
-                    Provider.of<Apps>(context, listen: false).closeApp("feedback");
+                    Provider.of<OnOff>(context, listen: false).toggleAbout();
+                    Provider.of<OnOff>(context, listen: false).offAboutFS();
+                    Provider.of<Apps>(context, listen: false).closeApp("about");
                   },
                 ),
                 SizedBox(
@@ -215,8 +214,8 @@ class _AboutState extends State<About> {
                 ),
                 InkWell(
                   onTap: (){
-                    Provider.of<OnOff>(context, listen: false).toggleFeedBack();
-                    Provider.of<OnOff>(context, listen: false).offFeedBackFS();
+                    Provider.of<OnOff>(context, listen: false).toggleAbout();
+                    Provider.of<OnOff>(context, listen: false).offAboutFS();
                   },
                   child: Container(
                     height: 11.5,
@@ -247,7 +246,7 @@ class _AboutState extends State<About> {
                   ),
                   onTap: () {
                     Provider.of<OnOff>(context, listen: false)
-                        .toggleFeedBackFS();
+                        .toggleAboutFS();
                   },
                 )
               ],
@@ -256,7 +255,7 @@ class _AboutState extends State<About> {
 
 
     Visibility(
-    visible: topApp != "About",
+    visible: topApp != "About Me",
     child: InkWell(
     onTap: (){
     Provider.of<Apps>(context, listen: false)
