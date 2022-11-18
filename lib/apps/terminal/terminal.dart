@@ -86,8 +86,8 @@ class _TerminalState extends State<Terminal> {
     "languages": ["Flutter", "Dart", "Python", "GoLang", "C++", "Java",  ],
     "documents":[
       "cabby: published paper.pdf////https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
-      "chrisbin resume dark.pdf////https://drive.google.com/file/d/1pqXwvyA1_TWsfY56FNHcwzhlEQQUyJGJ/view",
-      "chrisbin resume light.pdf////https://drive.google.com/file/d/1WcoWKdvZDYtZNavwR77tHVCferyamrG4/view",
+      "chrisbin resume dark.pdf////https://drive.google.com/file/d/1lPK15gLkNr2Rso3JNr0b-RdmFN245w87/view",
+      "chrisbin resume light.pdf////https://drive.google.com/file/d/11j0UCdSXBRA1DPFct1EImmKFpyQu0fiH/view",
       "interests",
       "languages",
       "projects",
@@ -332,7 +332,7 @@ class _TerminalState extends State<Terminal> {
           String link="404";
           switch(variable){
             case "macbook":
-              link= "https://chrisbinsunny.github.io/macbook";
+              link= "https://chrisbinsunny.github.io/chrishub";
               break;
             case "dream":
               link= "https://chrisbinsunny.github.io/dream";
