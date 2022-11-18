@@ -39,7 +39,7 @@ class _MacOSState extends State<MacOS> {
     final dataBus = Provider.of<DataBus>(context, listen: true);
     List<Widget> apps = Provider.of<Apps>(context).getApps;
     List<Folder> folders = Provider.of<Folders>(context, listen: true).getFolders;
-    List<Widget> desktopItems = Provider.of<Folders>(context, listen: true).getDesktopItems;
+    List<DesktopItem> desktopItems = Provider.of<Folders>(context, listen: true).getDesktopItems;
     return Scaffold(
       body: Center(
         child: Stack(
@@ -65,7 +65,7 @@ class _MacOSState extends State<MacOS> {
             ),
 
             ///Desktop Items
-           ...desktopItems,
+           //...desktopItems,
 
 
             /// Folders
