@@ -1,0 +1,17 @@
+name: ChrisHub
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3 # Only works with v2
+      - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/flutter-gh-pages@v7
+        with:
+          targetBranch: production
+          baseHref: /chrishub/
