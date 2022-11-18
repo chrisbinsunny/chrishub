@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
+import '../apps/about.dart';
 import '../apps/calendar.dart';
 import '../apps/feedback/feedback.dart';
 import '../apps/launchpad.dart';
@@ -61,6 +62,24 @@ class _FinderState extends State<Finder> {
           scrollDirection: Axis.vertical,
           physics: BouncingScrollPhysics(),
           children: [
+            LaunchPadItem(
+              iName: "About Me",
+              onTap: () {
+                tapFunctions(context);
+                html.window.open('https://drive.google.com/uc?export=download&id=1lPK15gLkNr2Rso3JNr0b-RdmFN245w87', '_self');
+                Provider.of<OnOff>(context, listen: false)
+                    .maxAbout();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    About(
+                        key: ObjectKey("about"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.2),
+                            screenHeight(context, mulBy: 0.12))),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxAbout()
+                );
+              },
+            ),
             LaunchPadItem(
               iName: "Safari-Mac",
               folder: true,
