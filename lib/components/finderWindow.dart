@@ -62,28 +62,10 @@ class _FinderState extends State<Finder> {
           physics: BouncingScrollPhysics(),
           children: [
             LaunchPadItem(
-              iName: "Finder",
-              onTap: () {
-                tapFunctions(context);
-                Future.delayed(const Duration(milliseconds: 200), () {
-                  Provider.of<OnOff>(context, listen: false)
-                      .maxFinder();
-                  Provider.of<Apps>(context, listen: false).openApp(
-                      Finder(
-                          key: ObjectKey("finder"),
-                          initPos: Offset(
-                              screenWidth(context, mulBy: 0.2),
-                              screenHeight(context, mulBy: 0.18))),
-                      Provider.of<OnOff>(context, listen: false)
-                          .maxFinder()
-                  );
-                });
-
-              },
-            ),
-            LaunchPadItem(
               iName: "Safari-Mac",
-              onTap: () {
+              folder: true,
+
+              onDoubleTap: () {
                 tapFunctions(context);
                 Future.delayed(const Duration(milliseconds: 200), () {
                   Provider.of<OnOff>(context, listen: false)
@@ -103,7 +85,9 @@ class _FinderState extends State<Finder> {
             ),
             LaunchPadItem(
               iName: "Messages-Mac",
-              onTap: () {
+              folder: true,
+
+              onDoubleTap: () {
                 tapFunctions(context);
                 Future.delayed(const Duration(milliseconds: 200), () {
                   Provider.of<OnOff>(context, listen: false)
@@ -123,7 +107,9 @@ class _FinderState extends State<Finder> {
             ),
             LaunchPadItem(
               iName: "Maps",
-              onTap: (){
+              folder: true,
+
+              onDoubleTap: (){
                 Provider.of<DataBus>(context, listen: false).setNotification(
                     "App has not been installed. Create the app on GitHub.",
                     "https://github.com/chrisbinsunny",
@@ -134,8 +120,9 @@ class _FinderState extends State<Finder> {
               },
             ),
             LaunchPadItem(
-              iName: "Spotify",
-              onTap: () {
+              iName: "Spotify",              folder: true,
+
+              onDoubleTap: () {
                 tapFunctions(context);
                 Future.delayed(const Duration(milliseconds: 200), () {
                   Provider.of<OnOff>(context, listen: false)
@@ -154,8 +141,9 @@ class _FinderState extends State<Finder> {
               },
             ),
             LaunchPadItem(
-              iName: "Terminal",
-              onTap: () {
+              iName: "Terminal",              folder: true,
+
+              onDoubleTap: () {
                 tapFunctions(context);
                 Future.delayed(const Duration(milliseconds: 200), () {
                   Provider.of<OnOff>(context, listen: false)
@@ -175,8 +163,9 @@ class _FinderState extends State<Finder> {
               },
             ),
             LaunchPadItem(
-              iName: "Visual Studio Code",
-              onTap: () {
+              iName: "Visual Studio Code",              folder: true,
+
+              onDoubleTap: () {
                 tapFunctions(context);
                 Future.delayed(const Duration(milliseconds: 200), () {
                   Provider.of<OnOff>(context, listen: false).maxVS();
@@ -194,8 +183,9 @@ class _FinderState extends State<Finder> {
               },
             ),
             LaunchPadItem(
-              iName: "Photos",
-              onTap: (){
+              iName: "Photos",              folder: true,
+
+              onDoubleTap: (){
                 Provider.of<DataBus>(context, listen: false).setNotification(
                     "App has not been installed. Create the app on GitHub.",
                     "https://github.com/chrisbinsunny",
@@ -206,8 +196,9 @@ class _FinderState extends State<Finder> {
               },
             ),
             LaunchPadItem(
-              iName: "Contacts-Mac",
-              onTap: (){
+              iName: "Contacts-Mac",              folder: true,
+
+              onDoubleTap: (){
                 Provider.of<DataBus>(context, listen: false).setNotification(
                     "App has not been installed. Create the app on GitHub.",
                     "https://github.com/chrisbinsunny",
@@ -218,7 +209,7 @@ class _FinderState extends State<Finder> {
               },
             ),
             InkWell(
-              onTap: () {
+              onDoubleTap: () {
                 tapFunctions(context);
                 Future.delayed(const Duration(milliseconds: 200), () {
                   Provider.of<OnOff>(context, listen: false)
@@ -300,14 +291,15 @@ class _FinderState extends State<Finder> {
                   ),
                   MBPText(
                       text: "Calendar",
-                      color: Colors.white
+                      color: Theme.of(context).cardColor.withOpacity(1),
                   )
                 ],
               ),
             ),
             LaunchPadItem(
-              iName: "Notes",
-              onTap: (){
+              iName: "Notes",              folder: true,
+
+              onDoubleTap: (){
                 Provider.of<DataBus>(context, listen: false).setNotification(
                     "App has not been installed. Create the app on GitHub.",
                     "https://github.com/chrisbinsunny",
@@ -318,8 +310,9 @@ class _FinderState extends State<Finder> {
               },
             ),
             LaunchPadItem(
-              iName: "Feedback",
-              onTap: () {
+              iName: "Feedback",              folder: true,
+
+              onDoubleTap: () {
                 tapFunctions(context);
                 Future.delayed(const Duration(milliseconds: 200), () {
                   Provider.of<OnOff>(context, listen: false)
@@ -338,8 +331,9 @@ class _FinderState extends State<Finder> {
               },
             ),
             LaunchPadItem(
-              iName: "System Preferences",
-              onTap: () {
+              iName: "System Preferences",              folder: true,
+
+              onDoubleTap: () {
                 tapFunctions(context);
                 Future.delayed(const Duration(milliseconds: 200), () {
                   Provider.of<OnOff>(context, listen: false)
@@ -349,7 +343,7 @@ class _FinderState extends State<Finder> {
                           key: ObjectKey("systemPreferences"),
                           initPos: Offset(
                               screenWidth(context, mulBy: 0.27),
-                              screenHeight(context, mulBy: 0.2))),
+                              screenHeight(context, mulBy: 0.13))),
                       Provider.of<OnOff>(context, listen: false)
                           .maxSysPref()
                   );
@@ -410,11 +404,11 @@ class _FinderState extends State<Finder> {
                       ),
                       FinderItems(
                         name: "Chrisbin Resume Dark.pdf",
-                        link: "https://drive.google.com/file/d/1pqXwvyA1_TWsfY56FNHcwzhlEQQUyJGJ/view",
+                        link: "https://drive.google.com/file/d/1lPK15gLkNr2Rso3JNr0b-RdmFN245w87/view",
                       ),
                       FinderItems(
                         name: "Chrisbin Resume Light.pdf",
-                        link: "https://drive.google.com/file/d/1WcoWKdvZDYtZNavwR77tHVCferyamrG4/view",
+                        link: "https://drive.google.com/file/d/11j0UCdSXBRA1DPFct1EImmKFpyQu0fiH/view",
                       ),
                       FinderItems(
                         name: "Interests",
@@ -1076,7 +1070,7 @@ class _FolderForFinderState extends State<FolderForFinder> {
                         color: Color(0xff0058d0),
                         borderRadius: BorderRadius.circular(3)
                     ):BoxDecoration(),
-                    child: Text(widget.name??"", textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 1, overflow: TextOverflow.ellipsis, ),
+                    child: Text(widget.name??"", textAlign: TextAlign.center, style: TextStyle(color: Theme.of(context).cardColor.withOpacity(1), fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 1, overflow: TextOverflow.ellipsis, ),
                   ),
                 ],
               )
@@ -1098,7 +1092,7 @@ class FinderItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onDoubleTap: folder?nav:(link=="")?null:(){html.window.open(link, 'new tab');},
+      onTap: folder?nav:(link=="")?null:(){html.window.open(link, 'new tab');},
       child: Container(
         width: screenWidth(context, mulBy: 0.08),
 
@@ -1128,7 +1122,7 @@ class FinderItems extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(),
       width: screenWidth(context, mulBy: 0.07),
-                  child: Text(name, textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 2, overflow: TextOverflow.ellipsis, ),
+                  child: Text(name, textAlign: TextAlign.center, style: TextStyle(color: Theme.of(context).cardColor.withOpacity(1), fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 2, overflow: TextOverflow.ellipsis, ),
                 ),
               ],
             )
@@ -1259,7 +1253,7 @@ class Projects extends StatelessWidget {
           FinderItems(
             name: "Macbook",
             link: "",
-            nav: (){html.window.open("https://chrisbinsunny.github.io/macbook", 'new tab');},
+            nav: (){html.window.open("https://chrisbinsunny.github.io/chrishub", 'new tab');},
             folder: true,
           ),
           FinderItems(
