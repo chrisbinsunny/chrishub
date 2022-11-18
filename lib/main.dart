@@ -13,6 +13,7 @@ import 'package:mac_dt/system/folders/folders.dart';
 import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/sizes.dart';
 import 'apps/systemPreferences.dart';
+import 'data/analytics.dart';
 import 'firebase_options.dart';
 import 'system/openApps.dart';
 import 'theme/theme.dart';
@@ -65,10 +66,17 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<Folders>(
           create: (context) => Folders(),
         ),
+        ChangeNotifierProvider<AnalyticsService>(
+          create: (context) => AnalyticsService(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Chrisbin\'s MacBook Pro',
+        navigatorObservers: [
+          Provider.of<AnalyticsService>(context, listen: false)
+              .getAnalyticsObserver()
+        ],
         theme: themeNotifier.getTheme(),
         home: MacOS(),
       ),
