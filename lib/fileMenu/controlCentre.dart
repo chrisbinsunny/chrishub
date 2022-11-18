@@ -141,8 +141,8 @@ class _ControlCentreState extends State<ControlCentre> {
                                               Row(
                                                 children: [
                                                   Container(
-                                                    height: 33,
-                                                    width: 33,
+                                                    height: 31,
+                                                    width: 31,
                                                     decoration: BoxDecoration(
                                                       shape: BoxShape.circle,
                                                       color: Color(0xff0b84ff)
@@ -164,7 +164,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                       Text(
                                                         "Wi-Fi",
                                                         style: TextStyle(
-                                                          fontSize: 13,
+                                                          fontSize: 12,
                                                           color: Theme.of(context).cardColor.withOpacity(1),
                                                           fontWeight: FontWeight.w600,
                                                           letterSpacing: 0.5
@@ -173,7 +173,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                       Text(
                                                         "DLink Home",
                                                         style: TextStyle(
-                                                            fontSize: 11,
+                                                            fontSize: 10,
                                                             color: Theme.of(context).cardColor.withOpacity(0.8),
                                                             fontWeight: FontWeight.w300,
                                                             letterSpacing: 0.5
@@ -186,8 +186,8 @@ class _ControlCentreState extends State<ControlCentre> {
                                               Row(
                                                 children: [
                                                   Container(
-                                                    height: 33,
-                                                    width: 33,
+                                                    height: 31,
+                                                    width: 31,
                                                     decoration: BoxDecoration(
                                                         shape: BoxShape.circle,
                                                         color: Color(0xff0b84ff)
@@ -209,7 +209,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                       Text(
                                                         "Bluetooth",
                                                         style: TextStyle(
-                                                            fontSize: 13,
+                                                            fontSize: 12,
                                                             color: Theme.of(context).cardColor.withOpacity(1),
                                                             fontWeight: FontWeight.w600,
                                                             letterSpacing: 0.5
@@ -218,7 +218,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                       Text(
                                                         "On",
                                                         style: TextStyle(
-                                                            fontSize: 11,
+                                                            fontSize: 10,
                                                             color: Theme.of(context).cardColor.withOpacity(0.8),
                                                             fontWeight: FontWeight.w300,
                                                             letterSpacing: 0.5
@@ -231,8 +231,8 @@ class _ControlCentreState extends State<ControlCentre> {
                                               Row(
                                                 children: [
                                                   Container(
-                                                    height: 33,
-                                                    width: 33,
+                                                    height: 31,
+                                                    width: 31,
                                                     decoration: BoxDecoration(
                                                         shape: BoxShape.circle,
                                                         color: Color(0xff0b84ff)
@@ -254,7 +254,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                       Text(
                                                         "AirDrop",
                                                         style: TextStyle(
-                                                            fontSize: 13,
+                                                            fontSize: 12,
                                                             color: Theme.of(context).cardColor.withOpacity(1),
                                                             fontWeight: FontWeight.w600,
                                                             letterSpacing: 0.5
@@ -263,7 +263,7 @@ class _ControlCentreState extends State<ControlCentre> {
                                                       Text(
                                                         "Contacts only",
                                                         style: TextStyle(
-                                                            fontSize: 11,
+                                                            fontSize: 10,
                                                             color: Theme.of(context).cardColor.withOpacity(0.8),
                                                             fontWeight: FontWeight.w300,
                                                             letterSpacing: 0.5
