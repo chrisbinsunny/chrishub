@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../apps/feedback/feedback.dart';
+import '../data/analytics.dart';
 import '../sizes.dart';
 
 
@@ -26,7 +28,8 @@ class Apps extends ChangeNotifier{
   }
 
 
-  void openApp(Widget app, void minMax){
+  void openApp(Widget app, void minMax, ){
+
     if(!apps.any((element) => element.key==app.key)) {
       apps.add(app);
       setTop();
