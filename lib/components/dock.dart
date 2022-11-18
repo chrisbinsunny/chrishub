@@ -1,5 +1,6 @@
 import 'dart:developer' as dev;
 import 'dart:html' as html;
+import 'dart:js' as js;
 import 'dart:math';
 import 'dart:ui';
 
@@ -230,7 +231,7 @@ class _DockerState extends State<Docker> {
                         dx: _getPath(screenWidth(context, mulBy: 0.1764), _getCursor(), ),
                         onTap: () {
                           tapFunctions(context);
-
+                          html.window.open('https://drive.google.com/uc?export=download&id=1lPK15gLkNr2Rso3JNr0b-RdmFN245w87', '_self');
                           Provider.of<OnOff>(context, listen: false)
                               .maxAbout();
                           Provider.of<Apps>(context, listen: false).openApp(
