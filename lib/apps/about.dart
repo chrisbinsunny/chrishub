@@ -122,7 +122,7 @@ class _AboutState extends State<About> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "🧑🏻‍💻     ",
+                      "👨‍💻     ",
                       style: TextStyle(
                         fontSize: 15,
                         color: Theme.of(context)
@@ -723,9 +723,263 @@ class _AboutState extends State<About> {
         );
         break;
       case "Projects":
-        return Container();
+        return Container(
+          alignment: Alignment.topCenter,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.02),
+                ),
+                Text(
+                    "Open Projects",
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1
+                    )
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.04),
+                ),
+                InkWell(
+                  onTap: (){
+                    html.window.open('https://chrisbinsunny.github.io/chrishub', 'new tab');
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "👨‍💻     ",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Theme.of(context)
+                              .cardColor
+                              .withOpacity(1),
+                        ),
+                      ),
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            text: "Chrisbin's Macbook Pro\n",
+                            children: [
+                              TextSpan(
+                                text: "chrisbinsunny.github.io/chrishub\n",
+                                style: TextStyle(
+                                  color: Color(0xff118bff),
+                                    fontWeight: FontWeight.w500,
+                                  fontSize: 15
+                                ),
+                              ),
+                              TextSpan(
+                                text: "A portfolio website created as a web Simulation of macOS Big Sur."
+                                    " The idea is to provide a glimpse at my personal system.",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13
+                                ),
+                              )
+                            ],
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontFamily: "HN",
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(1),
+                                letterSpacing: 1
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.025),
+                ),
+                InkWell(
+                  onTap: (){
+                    html.window.open('https://chrisbinsunny.github.io/dream', 'new tab');
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "👨‍💻     ",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Theme.of(context)
+                              .cardColor
+                              .withOpacity(1),
+                        ),
+                      ),
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            text: "DREAM\n",
+                            children: [
+                              TextSpan(
+                                text: "chrisbinsunny.github.io/dream\n",
+                                style: TextStyle(
+                                    color: Color(0xff118bff),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15
+                                ),
+                              ),
+                              TextSpan(
+                                text: "A utility website used to find "
+                                  "colours from images and screenshots. "
+                              "There’s also a gradient builder to build"
+                              " beautiful background for websites.",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13
+                                ),
+                              )
+                            ],
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontFamily: "HN",
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(1),
+                                letterSpacing: 1
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.025),
+                ),
+                InkWell(
+                  onTap: (){
+                    html.window.open('https://chrisbinsunny.github.io/Flutter-Talks', 'new tab');
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "👨‍💻     ",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Theme.of(context)
+                              .cardColor
+                              .withOpacity(1),
+                        ),
+                      ),
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            text: "Flutter Talks\n",
+                            children: [
+                              TextSpan(
+                                text: "chrisbinsunny.github.io/Flutter-Talks\n",
+                                style: TextStyle(
+                                    color: Color(0xff118bff),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15
+                                ),
+                              ),
+                              TextSpan(
+                                text: "The project is basically a Flutter intro "
+                                  " slideshow presentation used in workshops.",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13
+                                ),
+                              )
+                            ],
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontFamily: "HN",
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(1),
+                                letterSpacing: 1
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.025),
+                ),
+                InkWell(
+                  onTap: (){
+                    html.window.open('https://chrisbinsunny.github.io', 'new tab');
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "👨‍💻     ",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Theme.of(context)
+                              .cardColor
+                              .withOpacity(1),
+                        ),
+                      ),
+                      Expanded(
+                        child: RichText(
+                          text: TextSpan(
+                            text: "Old Portfolio\n",
+                            children: [
+                              TextSpan(
+                                text: "chrisbinsunny.github.io\n",
+                                style: TextStyle(
+                                    color: Color(0xff118bff),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 15
+                                ),
+                              ),
+                              TextSpan(
+                                text: "The portfolio website while I was a real noob.",
+                                style: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13
+                                ),
+                              )
+                            ],
+                            style: TextStyle(
+                                fontSize: 17,
+                                fontFamily: "HN",
+                                fontWeight: FontWeight.w700,
+                                color: Theme.of(context)
+                                    .cardColor
+                                    .withOpacity(1),
+                                letterSpacing: 1
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
         break;
       case "Resume":
+        html.window.open('https://drive.google.com/uc?export=download&id=1lPK15gLkNr2Rso3JNr0b-RdmFN245w87', '_self');
         return SizedBox();
         break;
     }
