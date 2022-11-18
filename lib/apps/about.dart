@@ -27,6 +27,232 @@ class _AboutState extends State<About> {
   late bool aboutFS;
   late bool aboutPan;
   late bool aboutOpen;
+  String selected = "About";
+
+
+  getContent(){
+    switch(selected){
+      case "About":
+        return Container(
+          alignment: Alignment.topCenter,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.02),
+                ),
+                Container(
+                  child: Image.asset(
+                    "assets/sysPref/chrisbin.jpg",
+                    fit: BoxFit.cover,
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  decoration:
+                  BoxDecoration(shape: BoxShape.circle),
+                  height: 120,
+                  width: 120,
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.02),
+                ),
+                RichText(
+                  text: TextSpan(
+                    text: "Hey, I am ",
+                    children: [
+                      TextSpan(
+                        text: "Chrisbin Sunny,\n",
+                        style: TextStyle(
+                          color: Color(0xff118bff),
+                        )
+                      ),
+                      TextSpan(
+                          text: "App Developer from India 🇮🇳",
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w400,
+                          )
+                      )
+                    ],
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Theme.of(context)
+                          .cardColor
+                          .withOpacity(1),
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 1
+                    )
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.03),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "🏠     ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                         "I am a CS Engineering graduate from SJCET, Palai. I now work as a freelance"
+                            " App Developer. ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                      ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.015),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "🧑🏻‍💻     ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "I mostly use Flutter for building all kinds of projects. "
+                            "Currently, I am trying to bring more out of Flutter Web.",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Theme.of(context)
+                              .cardColor
+                              .withOpacity(1),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.015),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "🏅     ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "I have conducted several sessions and hands-on workshops at colleges."
+                            "All the sessions was on Flutter.",
+
+
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Theme.of(context)
+                              .cardColor
+                              .withOpacity(1),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.015),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "🎯     ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Programming was always my area of interest since teenage.Currently on a mission to make clean"
+                            "app UI/UX",
+
+
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Theme.of(context)
+                              .cardColor
+                              .withOpacity(1),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.015),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "📲     ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Feel free to email me at chrisbinofficial@gmail.com",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Theme.of(context)
+                              .cardColor
+                              .withOpacity(1),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+        break;
+      case "Education":
+        return Container();
+        break;
+      case "Skills":
+        return Container();
+        break;
+      case "Projects":
+        return Container();
+        break;
+      case "Resume":
+        return SizedBox();
+        break;
+    }
+  }
 
   @override
   void initState() {
@@ -97,11 +323,44 @@ class _AboutState extends State<About> {
                                     .withOpacity(0.3),
                                 width: 0.6))),
                     padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth(context, mulBy: 0.025),
+                        horizontal: screenWidth(context, mulBy: 0.01),
                         vertical: screenHeight(context, mulBy: 0.05)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [],
+                      children: [
+                        SizedBox(
+                          height: screenHeight(context, mulBy: 0.03),
+                        ),
+                        AboutWindowItems(
+                          icon: CupertinoIcons.person_fill,
+                          iName: "About Chrisbin",
+                          onTap: (){
+                            setState(() {
+                              selected = "Applications";
+                            });
+                          },
+                        ),
+                        AboutWindowItems(
+                          icon: CupertinoIcons.book_fill,
+                          iName: "Education",
+                          onTap: (){},
+                        ),
+                        AboutWindowItems(
+                          icon: CupertinoIcons.hammer_fill,
+                          iName: "Skills",
+                          onTap: (){},
+                        ),
+                        AboutWindowItems(
+                          icon: CupertinoIcons.device_desktop,
+                          iName: "Open Projects",
+                          onTap: (){},
+                        ),
+                        AboutWindowItems(
+                          icon: CupertinoIcons.folder_fill,
+                          iName: "Resume",
+                          onTap: (){},
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -118,36 +377,11 @@ class _AboutState extends State<About> {
                           horizontal: screenWidth(context, mulBy: 0.02),
                           vertical: screenHeight(context, mulBy: 0.05)),
                       duration: Duration(milliseconds: 200),
-                      width: screenWidth(context, mulBy: aboutFS ? .79 : .46),
+                      width: screenWidth(context, mulBy: aboutFS ? .78 : .43),
                       decoration: BoxDecoration(
                         color: Theme.of(context).dialogBackgroundColor,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          AnimatedContainer(
-                            duration: Duration(milliseconds: 200),
-                            height: screenHeight(context,
-                                mulBy: aboutFS ? 0.40 : .25),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  "assets/apps/feedback.png",
-                                  height: 100,
-                                  // width: 30,
-                                ),
-                                MBPText(
-                                  text: "Chrisbin's MacBook Pro Feedback",
-                                  size: 25,
-                                  color: Theme.of(context)
-                                      .cardColor
-                                      .withOpacity(1),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                      child: getContent(),
                     ),
                   ],
                 ),
@@ -269,6 +503,71 @@ class _AboutState extends State<About> {
     ),
     ),
         ],
+      ),
+    );
+  }
+}
+
+
+class AboutWindowItems extends StatefulWidget {
+  bool isSelected;
+  final String? iName;
+  final IconData icon;
+  VoidCallback? onTap;
+  AboutWindowItems({
+    this.isSelected=false,
+    this.iName,
+    required this.icon,
+    this.onTap,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _AboutWindowItemsState createState() => _AboutWindowItemsState();
+}
+
+class _AboutWindowItemsState extends State<AboutWindowItems> {
+  bool hovering= false;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: widget.onTap,
+      child: MouseRegion(
+        onEnter: (evnt){
+          setState(() {
+            hovering=true;
+          });
+        },
+        onExit: (evnt){
+          setState(() {
+            hovering=false;
+          });
+        },
+        child: Container(
+          margin: EdgeInsets.only(
+            bottom: 7
+          ),
+          decoration: BoxDecoration(
+              color: widget.isSelected?Colors.black.withOpacity(0.14):
+              hovering ? Colors.blueAccent.withOpacity(0.14) : Colors.transparent
+              ,
+              borderRadius: BorderRadius.all(Radius.circular(5))),
+          alignment: Alignment.centerLeft,
+          width: screenWidth(context,),
+          padding: EdgeInsets.only(left: screenWidth(context,mulBy: 0.005)),
+          height: screenHeight(context,mulBy: 0.038),
+          child: Row(
+            children: [
+              Icon(widget.icon, color: Theme.of(context).cardColor.withOpacity(1),),
+              MBPText(
+                text: "    ${widget.iName}",
+                size: 14,
+                color: Theme.of(context).cardColor.withOpacity(1),
+
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
