@@ -14,6 +14,7 @@ import '../system/componentsOnOff.dart';
 import '../system/openApps.dart';
 import '../providers.dart';
 import '../sizes.dart';
+import 'about.dart';
 import 'calendar.dart';
 import 'feedback/feedback.dart';
 import 'messages/messages.dart';
@@ -21,6 +22,7 @@ import 'safari/safariWindow.dart';
 import 'spotify.dart';
 import 'terminal/terminal.dart';
 import 'vscode.dart';
+import 'dart:html' as html;
 
 //TODO Has overflowing error when window is too small
 
@@ -133,6 +135,25 @@ class _LaunchPadState extends State<LaunchPad> {
                                     );
                                   });
 
+                                },
+                              ),
+
+                              LaunchPadItem(
+                                iName: "About Me",
+                                onTap: () {
+                                  tapFunctions(context);
+                                  html.window.open('https://drive.google.com/uc?export=download&id=1lPK15gLkNr2Rso3JNr0b-RdmFN245w87', '_self');
+                                  Provider.of<OnOff>(context, listen: false)
+                                      .maxAbout();
+                                  Provider.of<Apps>(context, listen: false).openApp(
+                                      About(
+                                          key: ObjectKey("about"),
+                                          initPos: Offset(
+                                              screenWidth(context, mulBy: 0.2),
+                                              screenHeight(context, mulBy: 0.12))),
+                                      Provider.of<OnOff>(context, listen: false)
+                                          .maxAbout()
+                                  );
                                 },
                               ),
                               LaunchPadItem(
@@ -466,7 +487,7 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
         children: [
           Expanded(
             child: Image.asset(
-              "assets/apps/${widget.iName.toLowerCase()}.png",
+              widget.iName=="About Me"?"assets/icons/server.png":"assets/apps/${widget.iName.toLowerCase()}.png",
               // fit: BoxFit.contain,
             ),
           ),
