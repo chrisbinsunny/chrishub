@@ -12,6 +12,7 @@ import 'package:mac_dt/data/system_data_CRUD.dart';
 import 'package:mac_dt/system/folders/folders.dart';
 import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/sizes.dart';
+import 'apps/systemPreferences.dart';
 import 'firebase_options.dart';
 import 'system/openApps.dart';
 import 'theme/theme.dart';
@@ -25,14 +26,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   html.window.document.onContextMenu.listen((evt) => evt.preventDefault());
 
-  // ///Checking if the system is running on mobile and if not request fullscreen
-  // final bool isWebMobile = kIsWeb &&
-  //     (defaultTargetPlatform == TargetPlatform.iOS ||
-  //         defaultTargetPlatform == TargetPlatform.android);
-  //
-  // if(!isWebMobile){
-  //   html.document!.documentElement!.requestFullscreen();
-  // }
 
   ///Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
