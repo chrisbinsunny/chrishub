@@ -403,7 +403,7 @@ class _LaunchPadState extends State<LaunchPad> {
                                             key: ObjectKey("systemPreferences"),
                                             initPos: Offset(
                                                 screenWidth(context, mulBy: 0.27),
-                                                screenHeight(context, mulBy: 0.2))),
+                                                screenHeight(context, mulBy: 0.13))),
                                         Provider.of<OnOff>(context, listen: false)
                                             .maxSysPref()
                                     );
@@ -439,11 +439,15 @@ class _LaunchPadState extends State<LaunchPad> {
 
 class LaunchPadItem extends StatefulWidget {
   final String iName;
-  VoidCallback onTap;
+  VoidCallback? onTap;
+  VoidCallback? onDoubleTap;
+  final bool folder;
   LaunchPadItem({
     Key? key,
     required this.iName,
-    required this.onTap
+    this.onTap=null,
+    this.onDoubleTap=null,
+    this.folder=false,
   }) : super(key: key);
 
   @override
@@ -455,6 +459,7 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: widget.onTap,
+      onDoubleTap: widget.onDoubleTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -467,7 +472,7 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
           ),
           MBPText(
             text: widget.iName.split("-")[0],
-              color: Colors.white
+              color: widget.folder?Theme.of(context).cardColor.withOpacity(1):Colors.white
           ),
         ],
       ),
