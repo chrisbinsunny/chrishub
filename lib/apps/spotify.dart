@@ -10,17 +10,17 @@ import 'dart:html' as html;
 import 'dart:ui' as ui;
 
 class Spotify extends StatefulWidget {
-  final Offset initPos;
-  const Spotify({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const Spotify({this.initPos, Key? key}) : super(key: key);
 
   @override
   _SpotifyState createState() => _SpotifyState();
 }
 
 class _SpotifyState extends State<Spotify> {
-  Offset position = Offset(0.0, 0.0);
-  bool spotifyFS;
-  bool spotifyPan;
+  Offset? position = Offset(0.0, 0.0);
+  late bool spotifyFS;
+  late bool spotifyPan;
   final html.IFrameElement _iframeElementURL = html.IFrameElement();
 
 
@@ -28,7 +28,7 @@ class _SpotifyState extends State<Spotify> {
   void initState() {
     position = widget.initPos;
     super.initState();
-    _iframeElementURL.src = 'https://open.spotify.com/embed/playlist/1hJhyi1Ofxvlsswc1ZeXEs';
+    _iframeElementURL.src = 'https://open.spotify.com/embed/playlist/2HBIMnwHxqq2Q79LFJkBtB';
     _iframeElementURL.style.border = 'none';
     _iframeElementURL.allow = "autoplay; encrypted-media;";
     _iframeElementURL.allowFullscreen = true;
@@ -47,8 +47,8 @@ class _SpotifyState extends State<Spotify> {
     return spotifyOpen
         ? AnimatedPositioned(
       duration: Duration(milliseconds: spotifyPan ? 0 : 200),
-      top: spotifyFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-      left: spotifyFS ? 0 : position.dx,
+      top: spotifyFS ? 25 : position!.dy,
+      left: spotifyFS ? 0 : position!.dx,
       child: spotifyWindow(context),
     )
         : Container();
@@ -60,10 +60,10 @@ class _SpotifyState extends State<Spotify> {
       duration: Duration(milliseconds: 200),
       width: spotifyFS
           ? screenWidth(context, mulBy: 1)
-          : screenWidth(context, mulBy: 0.7),
+          : screenWidth(context, mulBy: 0.5),
       height: spotifyFS
-          ?screenHeight(context, mulBy: 0.966)
-          : screenHeight(context, mulBy: 0.75),
+          ?screenHeight(context, mulBy: 0.975)
+          : screenHeight(context, mulBy: 0.7),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -88,10 +88,10 @@ class _SpotifyState extends State<Spotify> {
                 children: [
                   Container(
                     height: spotifyFS
-                        ? screenHeight(context, mulBy: 0.059)
-                        : screenHeight(context, mulBy: 0.06),
+                        ? screenHeight(context, mulBy: 0.056)
+                        : screenHeight(context, mulBy: 0.053),
                     decoration: BoxDecoration(
-                        color: Theme.of(context).dividerColor,
+                        color: Color(0xff3a383e),
                         borderRadius: BorderRadius.only(
                             topRight: Radius.circular(10),
                             topLeft: Radius.circular(10))),
@@ -100,8 +100,8 @@ class _SpotifyState extends State<Spotify> {
                     onPanUpdate: (tapInfo) {
                       if (!spotifyFS) {
                         setState(() {
-                          position = Offset(position.dx + tapInfo.delta.dx,
-                              position.dy + tapInfo.delta.dy);
+                          position = Offset(position!.dx + tapInfo.delta.dx,
+                              position!.dy + tapInfo.delta.dy);
                         });
                       }
                     },
@@ -118,10 +118,10 @@ class _SpotifyState extends State<Spotify> {
                       alignment: Alignment.topRight,
                       width: spotifyFS
                           ? screenWidth(context, mulBy: 0.95)
-                          : screenWidth(context, mulBy: 0.7),
+                          : screenWidth(context, mulBy: 0.6),
                       height: spotifyFS
-                          ? screenHeight(context, mulBy: 0.059)
-                          : screenHeight(context, mulBy: 0.06),
+                          ? screenHeight(context, mulBy: 0.056)
+                          : screenHeight(context, mulBy: 0.053),
                       decoration: BoxDecoration(
                           color: Colors.transparent,
                           border: Border(
@@ -221,7 +221,7 @@ class _SpotifyState extends State<Spotify> {
                         context,
                       ),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).dividerColor.withOpacity(0.8),
+                        color: Color(0xff3a383e).withOpacity(0.8),
                       ),
                       child: HtmlElementView(
                         viewType: 'spotifyIframe',

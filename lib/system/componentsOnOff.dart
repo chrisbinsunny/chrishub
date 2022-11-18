@@ -28,13 +28,16 @@ class OnOff extends ChangeNotifier{
   bool feedBackOpen = false;
   bool feedBackFS = false;
   bool feedBackPan = false;
+  bool aboutOpen = false;
+  bool aboutFS = false;
+  bool aboutPan = false;
   bool calendarMax = false;
   bool calendarFS = false;
   bool calendarPan = false;
   bool terminalMax = false;
   bool terminalFS = false;
   bool terminalPan = false;
-  bool messagesMax = true;
+  bool messagesMax = false;
   bool messagesFS = false;
   bool messagesPan = false;
   bool rightClickMenu = false;
@@ -42,6 +45,8 @@ class OnOff extends ChangeNotifier{
   bool notificationOn =false;
   bool launchPadOn=false;
   bool appOpen=false;
+  bool sysPrefOpen = false;
+  bool sysPrefPan = false;
 
   bool get getAppOpen {
     return appOpen;
@@ -440,6 +445,7 @@ class OnOff extends ChangeNotifier{
 
   void offMessagesFS() {
     messagesFS= false;
+    fs="";
     notifyListeners();
     Future.delayed(Duration(milliseconds: 400),(){
       fsAni=false;
@@ -524,6 +530,65 @@ class OnOff extends ChangeNotifier{
     notifyListeners();
   }
 
+  bool get getAbout {
+    return aboutOpen;
+  }
+
+  bool get getAboutFS {
+    return aboutFS;
+  }
+
+  void toggleAbout() {
+    aboutOpen= !aboutOpen;
+    notifyListeners();
+  }
+
+  void toggleAboutFS() {
+    bool localFs= fsAni;
+    aboutFS= !aboutFS;
+    fs=(fs=="")?"About Me":"";
+    if(!localFs){
+      fsAni = true;
+    }
+    notifyListeners();
+    if(localFs){
+      Future.delayed(Duration(milliseconds: 400), () {
+        fsAni = false;
+        notifyListeners();
+      });
+    }
+  }
+
+  void offAboutFS() {
+    aboutFS= false;
+    fs="";
+    notifyListeners();
+    Future.delayed(Duration(milliseconds: 400),(){
+      fsAni=false;
+      notifyListeners();
+    });
+  }
+
+  void maxAbout() {
+    aboutOpen= true;
+    notifyListeners();
+  }
+
+  bool get getAboutPan {
+    return aboutPan;
+  }
+
+  void offAboutPan() {
+    aboutPan= false;
+    notifyListeners();
+  }
+
+  void onAboutPan() {
+    aboutPan= true;
+    notifyListeners();
+  }
+
+
   bool get getCc {
     return ccOpen;
   }
@@ -576,6 +641,37 @@ class OnOff extends ChangeNotifier{
 
   void offNotifications() {
     notificationOn= false;
+    notifyListeners();
+  }
+
+
+  bool get getSysPref {
+    return sysPrefOpen;
+  }
+
+
+
+  void toggleSysPref() {
+    sysPrefOpen= !sysPrefOpen;
+    notifyListeners();
+  }
+
+  void maxSysPref() {
+    sysPrefOpen= true;
+    notifyListeners();
+  }
+
+  bool get getSysPrefPan {
+    return sysPrefPan;
+  }
+
+  void offSysPrefPan() {
+    sysPrefPan= false;
+    notifyListeners();
+  }
+
+  void onSysPrefPan() {
+    sysPrefPan= true;
     notifyListeners();
   }
 

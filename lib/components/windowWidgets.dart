@@ -6,11 +6,11 @@ import '../widgets.dart';
 
 class LeftPaneItems extends StatefulWidget {
   bool isSelected;
-  final String iName;
+  final String? iName;
   LeftPaneItems({
     this.isSelected=false,
     this.iName,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -44,7 +44,7 @@ class _LeftPaneItemsState extends State<LeftPaneItems> {
         height: screenHeight(context,mulBy: 0.038),
         child: Row(
           children: [
-            Image.asset("assets/icons/${widget.iName.toLowerCase()}.png", height: 15),
+            Image.asset("assets/icons/${widget.iName!.toLowerCase()}.png", height: 15),
             MBPText(
               text: "    ${widget.iName}",
 

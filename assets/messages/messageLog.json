@@ -3,83 +3,218 @@
   "messages": {
     "sender": [
       "Hey, Chrisbin",
-      "I have a work for you.",
-      "Can you do it in 1 week?",
-      "Thanks a lot man..",
-      "Hey, Chrisbin",
-      "I have a work for you.",
-      "Can you do it in 1 week?",
-      "Thanks a lot man..",
-      "Hey, Chrisbin",
-      "I have a work for you.",
-      "Can you do it in 1 week?",
-      "Thanks a lot man..",
-      "Hey, Chrisbin",
-      "I have a work for you.",
-      "Can you do it in 1 week?",
-      "Thanks a lot man..",
-      "Hey, Chrisbin",
-      "I have a work for you.",
-      "Can you do it in 1 week?",
-      "Thanks a lot man.."
+      "I received very good feedback about your workshop.",
+      "Yes..",
+      "The workshop was designed to learn how to use Flutter to develop high-quality, interactive mobile applications both for iOS and Android devices. You taught our students coding using Dart and to build beautiful, fast, native-quality Android apps.",
+      "I got some feedback from students.. Sharing here",
+      "Building app with Flutter was very easy and fun, the resource person made it simple",
+      "App Development in Flutter was amazing, it's cross-platform, and very well optimized! Chrisbin made the session very interesting with his knowledge in flutter... Workshops like this will create great impact in student community",
+      "A very worthwhile and very timely workshop for myself.. Great experience",
+      "The workshop exceeded my expectations and was entirely relevant",
+      "The resource person had great facilitating skills, and was very helpful in improving my skills in building an app.",
+      "Thank you for a nice workshop. He had great presentation style with lots of opportunities to interact about creating apps.",
+      "Interactive and thought provoking",
+      " A very informative and valuable day in enhancing my technical skill",
+      "",
+      "Your session was very well organized. I'll definitely recommend your session to anyone interested in learning more about Flutter."
     ],
     "me": [
       "Hello, Sir",
-      "Can you explain a bit?",
-      "I guess I can do it sir",
-      "You're welcome, sir",
-      "Hello, Sir",
-      "Can you explain a bit?",
-      "I guess I can do it sir",
-      "You're welcome, sir",
-      "Hello, Sir",
-      "Can you explain a bit?",
-      "I guess I can do it sir",
-      "You're welcome, sir",
-      "Hello, Sir",
-      "Can you explain a bit?",
-      "I guess I can do it sir",
-      "You're welcome, sir",
-      "Hello, Sir",
-      "Can you explain a bit?",
-      "I guess I can do it sir",
-      "You're welcome, sir"
+      "Really?",
+      "",
+      "Thank you so much sir...",
+      "I would love to hear it, sir",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Awww.. This means a lot...",
+      "Students were also really cooperative and interactive. I loved them",
+      "Thank you sir. I would love to share my knowledge."
     ]
   },
-  "senderName": "Elon Musk",
-  "senderPhoto": "",
-  "profileLink": "https://en.wikipedia.org/wiki/Elon_Musk",
+  "senderName": "Dr. Joby PP",
+  "senderPhoto": "https://media-exp1.licdn.com/dms/image/C4D03AQHWxdYlwY-WAg/profile-displayphoto-shrink_400_400/0/1516879355636?e=1674086400&v=beta&t=Aq2f4G94nPWMGxcdDsx_MsbMjZgkHXcxg_yo2GhBRs8",
+  "profileLink": "https://www.linkedin.com/in/dr-joby-p-p-b089391b/",
   "dates": [
-    "2021-08-20 08:10:00.137"
+    "2022-06-25 20:10:00.137",
+    "2022-06-29 16:32:00.137"
   ],
   "dateStops": [
-    0
+    0,
+    4
   ]
 },
+
   {
     "messages": {
       "sender": [
-        "Hey, Chrisbin",
-        "I have a work for you.",
-        "Can you do it in 1 week?",
-        "Thanks a lot man.."
+        "Helloo Chrisbin",
+        "Your Flutter session was very informative.",
+        "Everyone learned a lot about the different aspects of Flutter and how it can be used to create amazing apps.",
+        "And the important thing to say is that the session was very well organized and you were very knowledgeable.",
+        "I would definitely recommend your session to my friends from other colleges",
+        "All the best"
+      ],
+      "me": [
+        "Hello, Siji Sir",
+        "",
+        "Soo happy to hear that, sir",
+        "",
+        "Thank you, sir..",
+        "That is so nice of you ❤️"
+      ]
+    },
+    "senderName": "Dr. Siji Cyriac",
+    "senderPhoto": "",
+    "profileLink": "https://www.linkedin.com/in/siji-cyriac-97b2b1169/",
+    "dates": [
+      "2021-10-31 10:12:00.137"
+    ],
+    "dateStops": [
+      0
+    ]
+  },
+
+  {
+    "messages": {
+      "sender": [
+        "Hello Chrisbin",
+        "Your session on Flutter was very informative.",
+        "I came to know that the students were trained well to develop apps.",
+        "You very well handled about 40 students for 3 day workshop held under the auspices of IEDC, Mar Augustinos College, Ramapuram",
+        "See you soon"
       ],
       "me": [
         "Hello, Sir",
-        "Can you explain a bit?",
-        "I guess I can do it sir",
-        "You're welcome, sir"
+        "Thank you sir",
+        "",
+        "I am really to happy to know that...",
+        "Sure ❤️"
       ]
     },
-    "senderName": "Steve Jobs",
+
+    "senderName": "Abhilash V Pandiankal",
     "senderPhoto": "",
-    "profileLink": "https://en.wikipedia.org/wiki/Steve_Jobs",
+    "profileLink": "https://maraugusthinosecollege.org/electronics/faculty-of-electronics/abhilash-v/",
     "dates": [
-      "2021-08-20 08:10:00.137"
+      "2021-10-31 10:12:00.137"
+    ],
+    "dateStops": [
+      0
+    ]
+  },
+
+  {
+    "messages": {
+      "sender": [
+        "Good Evening, Chrisbin",
+        "You managed the flutter workshop in a beautiful way.",
+        "Your dedication to repeat even the simple topic was awesome.",
+        "Everyone really enjoyed the session.",
+        "",
+        "Will see you again, Chrisbin"
+      ],
+      "me": [
+        "Good Evening, Sir",
+        "Thank you, sir",
+        "",
+        "Thanks to you for the opportunity,sir..",
+        "Even I also grew under your mentorship at IEDC Startup Bootcamp.",
+        "Sure sir"
+      ]
+    },
+    "senderName": "Sarju S",
+    "senderPhoto": "https://media-exp1.licdn.com/dms/image/D5603AQE1E85euwIiIw/profile-displayphoto-shrink_400_400/0/1668587612953?e=1674086400&v=beta&t=NDDRnwb0B15ZY_lRto-e9-bx7VlO6vNpah5K0-d2CtA",
+    "profileLink": "https://www.linkedin.com/in/sarju-s/",
+    "dates": [
+      "2021-01-17 19:22:00.137"
+    ],
+    "dateStops": [
+      0
+    ]
+  },
+
+  {
+    "messages": {
+      "sender": [
+        "Dear Chrisbin",
+        "I saw your work.",
+        "DREAM is a good example of how you spend your extra time.",
+        "",
+        "",
+        "Yeah, I saw that.",
+        "You're a person with strong mindset, is very committed and always passionate about profession and tech.",
+        "You are very cool and enthusiastic.",
+        "I am very proud of you my dear student.",
+        "Wishing you all success"
+
+      ],
+      "me": [
+        "Hello Ma'am",
+        "",
+        "Thank you, ma'am.",
+        "Did you use the gradient maker in DREAM?",
+        "Could help in creating CSS backgrounds",
+        "",
+        "",
+        "",
+        "Thank you Angitha ma'am❤",
+        "It's really a pleasure to hear it from you."
+      ]
+    },
+    "senderName": "Angitha George",
+    "senderPhoto": "",
+    "profileLink": "https://www.linkedin.com/in/angitha-george-4a4a751a5/",
+    "dates": [
+      "2022-11-01 19:02:00.137"
+    ],
+    "dateStops": [
+      0
+    ]
+  },
+
+  {
+    "messages": {
+      "sender": [
+        "Hey",
+        "Mahn, I just came across your DREAM web app.",
+        "As a graphic designer, I can use the platform to enhance my work with a theme.",
+        "",
+        "",
+        "That really worked.",
+        "It is really user-friendly and easy-to-use.",
+        "I might need DREAM in a daily basis",
+        "Designers will definitely use it",
+        "DREAM is a good choice for novices.."
+
+      ],
+      "me": [
+        "Hello Arun..",
+        "",
+        "That was my only aim.",
+        "Even I was finding it hard to find the colors from an image.",
+        "That's when I thought why not create a light web app for that.",
+        "",
+        "",
+        "",
+        "Thank you, bro..",
+        "For a better tomorrow 🥂"
+      ]
+    },
+    "senderName": "Arun Alex",
+    "senderPhoto": "https://media-exp1.licdn.com/dms/image/C4D03AQF8KA6fAzhPEQ/profile-displayphoto-shrink_400_400/0/1655491317779?e=1674086400&v=beta&t=6aQ38gv2bqmJqta-HDoy6XPnbBru0DwXcq0wzKzM3ms",
+    "profileLink": "https://www.linkedin.com/in/arun-alex-6b9a24191/",
+    "dates": [
+      "2022-10-31 18:22:00.137"
     ],
     "dateStops": [
       0
     ]
   }
+
 ]
 

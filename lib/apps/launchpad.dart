@@ -3,15 +3,18 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mac_dt/apps/systemPreferences.dart';
 import 'package:mac_dt/components/finderWindow.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 
+import '../components/wallpaper/wallpaper.dart';
 import '../system/componentsOnOff.dart';
 import '../system/openApps.dart';
 import '../providers.dart';
 import '../sizes.dart';
+import 'about.dart';
 import 'calendar.dart';
 import 'feedback/feedback.dart';
 import 'messages/messages.dart';
@@ -19,21 +22,20 @@ import 'safari/safariWindow.dart';
 import 'spotify.dart';
 import 'terminal/terminal.dart';
 import 'vscode.dart';
+import 'dart:html' as html;
 
 //TODO Has overflowing error when window is too small
 
 
 class LaunchPad extends StatefulWidget {
-  const LaunchPad({Key key}) : super(key: key);
+  const LaunchPad({Key? key}) : super(key: key);
 
   @override
   _LaunchPadState createState() => _LaunchPadState();
 }
 
 class _LaunchPadState extends State<LaunchPad> {
-  DateTime now;
-  bool _animate = false;
-  TextEditingController controller= new TextEditingController();
+  late DateTime now;
   @override
   void initState() {
     now = DateTime.now();
@@ -51,15 +53,7 @@ class _LaunchPadState extends State<LaunchPad> {
         curve: Curves.easeInOut,
         child: Stack(
           children: [
-            Container(
-                height: screenHeight(context),
-                width: screenWidth(context),
-                child: Image.asset(
-                  themeNotifier.isDark()
-                      ? "assets/wallpapers/bigsur_dark.jpg"
-                      : "assets/wallpapers/bigsur_light.jpg",
-                  fit: BoxFit.cover,
-                )),
+            ViewWallpaper(location: Provider.of<DataBus>(context, listen: true).getWallpaper.location,),
             ClipRect(
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 23.0, sigmaY: 23.0),
@@ -126,9 +120,6 @@ class _LaunchPadState extends State<LaunchPad> {
                               LaunchPadItem(
                                 iName: "Finder",
                                 onTap: () {
-                                  setState(() {
-                                    _animate = !_animate;
-                                  });
                                   tapFunctions(context);
                                   Future.delayed(const Duration(milliseconds: 200), () {
                                     Provider.of<OnOff>(context, listen: false)
@@ -144,6 +135,25 @@ class _LaunchPadState extends State<LaunchPad> {
                                     );
                                   });
 
+                                },
+                              ),
+
+                              LaunchPadItem(
+                                iName: "About Me",
+                                onTap: () {
+                                  tapFunctions(context);
+                                  html.window.open('https://drive.google.com/uc?export=download&id=1lPK15gLkNr2Rso3JNr0b-RdmFN245w87', '_self');
+                                  Provider.of<OnOff>(context, listen: false)
+                                      .maxAbout();
+                                  Provider.of<Apps>(context, listen: false).openApp(
+                                      About(
+                                          key: ObjectKey("about"),
+                                          initPos: Offset(
+                                              screenWidth(context, mulBy: 0.2),
+                                              screenHeight(context, mulBy: 0.12))),
+                                      Provider.of<OnOff>(context, listen: false)
+                                          .maxAbout()
+                                  );
                                 },
                               ),
                               LaunchPadItem(
@@ -177,8 +187,8 @@ class _LaunchPadState extends State<LaunchPad> {
                                         Messages(
                                             key: ObjectKey("messages"),
                                             initPos: Offset(
-                                                screenWidth(context, mulBy: 0.14),
-                                                screenHeight(context, mulBy: 0.1))),
+                                                screenWidth(context, mulBy: 0.27),
+                                                screenHeight(context, mulBy: 0.2))),
                                         Provider.of<OnOff>(context, listen: false)
                                             .maxMessages()
                                     );
@@ -188,7 +198,15 @@ class _LaunchPadState extends State<LaunchPad> {
                               ),
                               LaunchPadItem(
                                 iName: "Maps",
-                                onTap: (){},
+                                onTap: (){
+                                  Provider.of<DataBus>(context, listen: false).setNotification(
+                                      "App has not been installed. Create the app on GitHub.",
+                                      "https://github.com/chrisbinsunny",
+                                      "maps",
+                                      "Not installed"
+                                  );
+                                  Provider.of<OnOff>(context, listen: false).onNotifications();
+                                },
                               ),
                               LaunchPadItem(
                                 iName: "Spotify",
@@ -201,8 +219,9 @@ class _LaunchPadState extends State<LaunchPad> {
                                         Spotify(
                                             key: ObjectKey("spotify"),
                                             initPos: Offset(
-                                                screenWidth(context, mulBy: 0.14),
-                                                screenHeight(context, mulBy: 0.1))),
+                                                screenWidth(context, mulBy: 0.24),
+                                                screenHeight(context, mulBy: 0.15)
+                                            )),
                                         Provider.of<OnOff>(context, listen: false)
                                             .maxSpotify()
                                     );
@@ -240,8 +259,8 @@ class _LaunchPadState extends State<LaunchPad> {
                                         VSCode(
                                             key: ObjectKey("vscode"),
                                             initPos: Offset(
-                                                screenWidth(context, mulBy: 0.14),
-                                                screenHeight(context, mulBy: 0.1))),
+                                                screenWidth(context, mulBy: 0.24),
+                                                screenHeight(context, mulBy: 0.15))),
                                         Provider.of<OnOff>(context, listen: false).maxVS()
                                     );
                                   });
@@ -251,11 +270,27 @@ class _LaunchPadState extends State<LaunchPad> {
                               ),
                               LaunchPadItem(
                                 iName: "Photos",
-                                onTap: (){},
+                                onTap: (){
+                                  Provider.of<DataBus>(context, listen: false).setNotification(
+                                      "App has not been installed. Create the app on GitHub.",
+                                      "https://github.com/chrisbinsunny",
+                                      "photos",
+                                      "Not installed"
+                                  );
+                                  Provider.of<OnOff>(context, listen: false).onNotifications();
+                                },
                               ),
                               LaunchPadItem(
                                 iName: "Contacts-Mac",
-                                onTap: (){},
+                                onTap: (){
+                                  Provider.of<DataBus>(context, listen: false).setNotification(
+                                      "App has not been installed. Create the app on GitHub.",
+                                      "https://github.com/chrisbinsunny",
+                                      "contacts",
+                                      "Not installed"
+                                  );
+                                  Provider.of<OnOff>(context, listen: false).onNotifications();
+                                },
                               ),
                               InkWell(
                                 onTap: () {
@@ -267,8 +302,10 @@ class _LaunchPadState extends State<LaunchPad> {
                                         Calendar(
                                             key: ObjectKey("calendar"),
                                             initPos: Offset(
-                                                screenWidth(context, mulBy: 0.14),
-                                                screenHeight(context, mulBy: 0.1))),
+                                                screenWidth(context, mulBy: 0.24),
+                                                screenHeight(context, mulBy: 0.15)
+                                            )
+                                        ),
                                         Provider.of<OnOff>(context, listen: false)
                                             .maxCalendar()
                                     );
@@ -345,7 +382,15 @@ class _LaunchPadState extends State<LaunchPad> {
                               ),
                               LaunchPadItem(
                                 iName: "Notes",
-                                onTap: (){},
+                                onTap: (){
+                                  Provider.of<DataBus>(context, listen: false).setNotification(
+                                      "App has not been installed. Create the app on GitHub.",
+                                      "https://github.com/chrisbinsunny",
+                                      "notes",
+                                      "Not installed"
+                                  );
+                                  Provider.of<OnOff>(context, listen: false).onNotifications();
+                                },
                               ),
                               LaunchPadItem(
                                 iName: "Feedback",
@@ -358,8 +403,8 @@ class _LaunchPadState extends State<LaunchPad> {
                                         FeedBack(
                                             key: ObjectKey("feedback"),
                                             initPos: Offset(
-                                                screenWidth(context, mulBy: 0.14),
-                                                screenHeight(context, mulBy: 0.1))),
+                                                screenWidth(context, mulBy: 0.2),
+                                                screenHeight(context, mulBy: 0.12))),
                                         Provider.of<OnOff>(context, listen: false)
                                             .maxFeedBack()
                                     );
@@ -370,7 +415,21 @@ class _LaunchPadState extends State<LaunchPad> {
                               LaunchPadItem(
                                 iName: "System Preferences",
                                 onTap: () {
-                                  Provider.of<OnOff>(context, listen: false).onNotifications();
+                                  tapFunctions(context);
+                                  Future.delayed(const Duration(milliseconds: 200), () {
+                                    Provider.of<OnOff>(context, listen: false)
+                                        .maxSysPref();
+                                    Provider.of<Apps>(context, listen: false).openApp(
+                                        SystemPreferences(
+                                            key: ObjectKey("systemPreferences"),
+                                            initPos: Offset(
+                                                screenWidth(context, mulBy: 0.27),
+                                                screenHeight(context, mulBy: 0.13))),
+                                        Provider.of<OnOff>(context, listen: false)
+                                            .maxSysPref()
+                                    );
+                                  });
+
                                 },
                               ),
                             ],
@@ -401,11 +460,15 @@ class _LaunchPadState extends State<LaunchPad> {
 
 class LaunchPadItem extends StatefulWidget {
   final String iName;
-  VoidCallback onTap;
+  VoidCallback? onTap;
+  VoidCallback? onDoubleTap;
+  final bool folder;
   LaunchPadItem({
-    Key key,
-    @required this.iName,
-    @required this.onTap
+    Key? key,
+    required this.iName,
+    this.onTap=null,
+    this.onDoubleTap=null,
+    this.folder=false,
   }) : super(key: key);
 
   @override
@@ -417,19 +480,20 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: widget.onTap,
+      onDoubleTap: widget.onDoubleTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
             child: Image.asset(
-              "assets/apps/${widget.iName.toLowerCase()}.png",
+              widget.iName=="About Me"?"assets/icons/server.png":"assets/apps/${widget.iName.toLowerCase()}.png",
               // fit: BoxFit.contain,
             ),
           ),
           MBPText(
             text: widget.iName.split("-")[0],
-              color: Colors.white
+              color: widget.folder?Theme.of(context).cardColor.withOpacity(1):Colors.white
           ),
         ],
       ),

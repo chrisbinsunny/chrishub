@@ -1,4 +1,5 @@
-![ChrisHub Logo](docs/chrisHubLogo.png)
+
+![ChrisHub Logo](docs/chrishubLogo.jpg)
 
 
 # Chrisbin's MacBook Pro

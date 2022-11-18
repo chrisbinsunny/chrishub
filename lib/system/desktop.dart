@@ -1,22 +1,26 @@
 import 'dart:ui';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:mac_dt/apps/launchpad.dart';
+import 'package:mac_dt/components/wallpaper/wallpaper.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/fileMenu/controlCentre.dart';
-import 'package:mac_dt/system/folders.dart';
+import 'package:mac_dt/system/folders/folders.dart';
 import 'package:mac_dt/providers.dart';
 import 'package:mac_dt/system/rightClickMenu.dart';
 import 'package:mac_dt/sizes.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/rendering.dart';
-import '../components/notifiaction.dart';
+import '../components/notification.dart';
 import 'openApps.dart';
 import '../theme/theme.dart';
 import '../components/dock.dart';
 import '../fileMenu/fileMenu.dart';
+import 'dart:html' as html;
+
 
 class MacOS extends StatefulWidget {
   @override
@@ -24,25 +28,18 @@ class MacOS extends StatefulWidget {
 }
 
 class _MacOSState extends State<MacOS> {
-  bool finderOpen = true;
 
 
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.aspectRatio);
-    print(screenWidth(context));
     var size = MediaQuery.of(context).size;
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen = Provider.of<OnOff>(context).getCc;
-    double brightness = Provider.of<DataBus>(context).getBrightness;
+    final dataBus = Provider.of<DataBus>(context, listen: true);
     List<Widget> apps = Provider.of<Apps>(context).getApps;
-    List<Folder> folders =
-        Provider.of<Folders>(context, listen: false).getFolders;
-    var pointerPos = Provider.of<DataBus>(context).getPos;
-    bool NSOn = Provider.of<DataBus>(
-      context,
-    ).getNS;
+    List<Folder> folders = Provider.of<Folders>(context, listen: true).getFolders;
+    List<DesktopItem> desktopItems = Provider.of<Folders>(context, listen: true).getDesktopItems;
     return Scaffold(
       body: Center(
         child: Stack(
@@ -55,7 +52,7 @@ class _MacOSState extends State<MacOS> {
               onSecondaryTapDown: (details) {
                 tapFunctions(context);
                 Provider.of<DataBus>(context, listen: false)
-                    .setPos(details?.globalPosition);
+                    .setPos(details.globalPosition);
               },
               onTap: () {
                 if (!mounted) return;
@@ -64,39 +61,46 @@ class _MacOSState extends State<MacOS> {
               child: Container(
                   height: size.height,
                   width: size.width,
-                  child: Image.asset(
-                    themeNotifier.isDark()
-                        ? "assets/wallpapers/bigsur_dark.jpg"
-                        : "assets/wallpapers/bigsur_light.jpg",
-                    fit: BoxFit.cover,
-                  )),
+                  child: ViewWallpaper(location: dataBus.getWallpaper.location,)),
             ),
 
             ///Desktop Items
+           //...desktopItems,
+
+
+            /// Folders
             ...folders,
 
-            ///Right Click Context Menu
-            RightClick(initPos: pointerPos),
 
-            ///Folder Right Click Menu
-            FolderRightClick(
-              initPos: pointerPos,
-            ),
+
+
 
             ///Applications
             ...apps,
 
+
+            ///Right Click Context Menu
+            RightClick(initPos: dataBus.getPos,),
+
+
+            ///Folder Right Click Menu
+            FolderRightClick(
+              initPos: dataBus.getPos,
+            ),
+
             /// file menu
             FileMenu(),
 
-            ///Notification
-            Notifications(),
+
 
             //TODO State change of widgets under this will cause iFrame HTMLView to reload. Engine Fix required.
             /// Track the issue here: https://github.com/flutter/flutter/issues/80524
 
             ///LaunchPad
             LaunchPad(),
+
+            ///Notification
+            Notifications(),
 
             ///docker bar
             Docker(),
@@ -107,6 +111,7 @@ class _MacOSState extends State<MacOS> {
                     onTap: () {
                       Provider.of<OnOff>(context, listen: false).offCc();
                     },
+              mouseCursor: SystemMouseCursors.basic,
                     child: Container(
                       height: screenHeight(context),
                       width: screenWidth(context),
@@ -137,7 +142,7 @@ class _MacOSState extends State<MacOS> {
                   duration: Duration(milliseconds: 700),
                   width: screenWidth(context),
                   height: screenHeight(context),
-                  color: Colors.orange.withOpacity(NSOn ? 0.2 : 0),
+                  color: Colors.orange.withOpacity(dataBus.getNS ? 0.2 : 0),
                 ),
               ),
             ),
@@ -146,7 +151,7 @@ class _MacOSState extends State<MacOS> {
             IgnorePointer(
               ignoring: true,
               child: Opacity(
-                opacity: 1 - (brightness / 95.98),
+                opacity: 1 - (dataBus.getBrightness! / 95.98),
                 child: Container(
                   width: screenWidth(context),
                   height: screenHeight(context),
@@ -162,9 +167,9 @@ class _MacOSState extends State<MacOS> {
 }
 
 class Unfocuser extends StatelessWidget {
-  const Unfocuser({Key key, this.child}) : super(key: key);
+  const Unfocuser({Key? key, this.child}) : super(key: key);
 
-  final Widget child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -180,9 +185,9 @@ class Unfocuser extends StatelessWidget {
           }
         }
 
-        final primaryFocus = FocusManager.instance.primaryFocus;
+        final primaryFocus = FocusManager.instance.primaryFocus!;
 
-        if (primaryFocus.context.widget is EditableText) {
+        if (primaryFocus.context!.widget is EditableText) {
           primaryFocus.unfocus();
         }
       },

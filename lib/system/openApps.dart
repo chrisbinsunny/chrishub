@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../apps/feedback/feedback.dart';
+import '../data/analytics.dart';
+import '../sizes.dart';
 
 
 class Apps extends ChangeNotifier{
 
-  Widget temp;
-  List<Widget> apps= [];
+  late Widget temp;
+  List<Widget> apps= [
+
+  ];
   String onTop="Finder";
 
 
-  void bringToTop(ObjectKey appKey){
+  void bringToTop(ObjectKey? appKey){
     temp= apps.singleWhere((element) => element.key==appKey);
     apps.removeWhere((element) => element.key==appKey);
     apps.add(temp);
@@ -21,14 +28,15 @@ class Apps extends ChangeNotifier{
   }
 
 
-  void openApp(Widget app, void minMax){
+  void openApp(Widget app, void minMax, ){
+
     if(!apps.any((element) => element.key==app.key)) {
       apps.add(app);
       setTop();
       notifyListeners();
     }
     else {
-      bringToTop(app.key);
+      bringToTop(app.key as ObjectKey?);
       minMax;
     }
   }
@@ -79,7 +87,10 @@ class Apps extends ChangeNotifier{
       onTop="Feedback";
     else if(apps.last.key==ObjectKey("messages"))
       onTop="Messages";
-
+    else if(apps.last.key==ObjectKey("systemPreferences"))
+      onTop="System Preferences";
+    else if(apps.last.key==ObjectKey("about"))
+      onTop="About Me";
     notifyListeners();
   }
 

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -7,11 +9,19 @@ import 'package:intl/intl.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
-import '../../system/folders.dart';
+import '../../components/finderWindow.dart';
+import '../../providers.dart';
+import '../../system/folders/folders.dart';
 import '../../system/openApps.dart';
 import '../../sizes.dart';
-import 'dart:ui' as ui;
+import 'dart:html' as html;
 
+import '../calendar.dart';
+import '../feedback/feedback.dart';
+import '../messages/messages.dart';
+import '../safari/safariWindow.dart';
+import '../spotify.dart';
+import '../vscode.dart';
 import 'commands.dart';
 
 //TODO Has an issue with cursor. Currently the issue is present in master branch of flutter.
@@ -23,23 +33,27 @@ String output = "";
 String directory = "/~";
 
 class Terminal extends StatefulWidget {
-  final Offset initPos;
-  const Terminal({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const Terminal({this.initPos, Key? key}) : super(key: key);
 
   @override
   _TerminalState createState() => _TerminalState();
 }
 
 class _TerminalState extends State<Terminal> {
-  Offset position = Offset(0.0, 0.0);
-  bool terminalFS;
-  bool terminalPan;
+  Offset? position = Offset(0.0, 0.0);
+  late bool terminalFS;
+  late bool terminalPan;
   var commandTECs = <TextEditingController>[];
   var oldCommands = <String>[""];
   var commandCards = <Widget>[];
-  DateTime now;
+  late DateTime now;
   int updownIndex = 0;
   String currentDir = "~";
+
+  ///Data should be entered as lowercase. It is converted to alternate caps when it is displayed.
+  ///
+  /// Links are added to end of pdf name after ////
   Map<String, List<String>> contents = {
     "~": [
       "applications",
@@ -49,13 +63,14 @@ class _TerminalState extends State<Terminal> {
       "movies",
       "music",
       "pictures",
-      "public"
     ],
     "library": [
+      "Alchemist",
       "One Night at a call centre",
+      "Revolution 2020"
     ],
     "skills": ["Front-end development", "jQuery", "Flutter", "Firebase"],
-    "projects": ["chrisbinsunny.github.io", "portfolio"],
+    "projects": ["Macbook", "Dream", "chrisbinsunny.github.io",  "Flutter-Talks", ],
     "applications": [
       "calendar",
       "feedback",
@@ -64,12 +79,32 @@ class _TerminalState extends State<Terminal> {
       "messages",
       "maps",
       "safari",
-      "terminal",
       "spotify",
       "vscode",
     ],
-    "interests": ["Software Engineering", "Deep Learning", "Computer Vision"],
-    "languages": ["Javascript", "C++", "Java", "Dart", "Python"],
+    "interests": ["Software Engineering","Game Development", "AI in Games","Deep Learning", "Computer Vision"],
+    "languages": ["Flutter", "Dart", "Python", "GoLang", "C++", "Java",  ],
+    "documents":[
+      "cabby: published paper.pdf////https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
+      "chrisbin resume dark.pdf////https://drive.google.com/file/d/1lPK15gLkNr2Rso3JNr0b-RdmFN245w87/view",
+      "chrisbin resume light.pdf////https://drive.google.com/file/d/11j0UCdSXBRA1DPFct1EImmKFpyQu0fiH/view",
+      "interests",
+      "languages",
+      "projects",
+    ],
+    "downloads":[
+      "Antonn- Game Testing platform.pdf",
+      "Cabby final.pdf",
+      "Chrisbin seminar.docx",
+      "Chrisbin seminar.pdf",
+      "Dream.zip",
+      "Flutter_F_4K_Wallpaper.png",
+      "Flutter Talks.pdf"
+      "Ride Sharing platform.pdf",
+    ],
+    "movies":[],
+    "music":[],
+    "pictures":[],
   };
   ScrollController _scrollController = ScrollController();
 
@@ -105,11 +140,11 @@ class _TerminalState extends State<Terminal> {
       case "":
         break;
 
-
       case "ls":
         String target;
-        if (variable == "" || variable == null)
+        if (variable == "")
           target = currentDir;
+
         else {
           target = textWords[0];
         }
@@ -118,23 +153,23 @@ class _TerminalState extends State<Terminal> {
           break;
         }
         if (contents.containsKey(target)) {
-          if (contents[target].length < 10) {
+          if (contents[target]!.length < 10) {
             int maxLen = 0;
-            for (int i = 0; i < contents[target].length; i++) {
-              if (contents[target][i].length > maxLen)
-                maxLen = contents[target][i].length;
+            for (int i = 0; i < contents[target]!.length; i++) {
+              if (contents[target]![i].length > maxLen)
+                maxLen = contents[target]![i].length;
             }
             maxLen += 5;
-            for (int i = 0; i < contents[target].length; i++) {
-              output += "${contents[target][i].capitalize()}";
+            for (int i = 0; i < contents[target]!.length; i++) {
+              output += "${contents[target]![i].split("////")[0].capitalize()}";
               if ((i + 1) % 3 == 0)
                 output += "\n";
               else
-                output += " " * (maxLen - contents[target][i].length);
+                output += " " * (maxLen - contents[target]![i].length);
             }
           } else
-            contents[target].forEach((item) {
-              output += "${item.capitalize()}\n";
+            contents[target]!.forEach((item) {
+              output += "${item.split("////")[0].capitalize()}\n";
             });
           break;
         } else {
@@ -149,52 +184,193 @@ class _TerminalState extends State<Terminal> {
             switch (textWords[currentDir=="applications"?0:1]){
               case "finder":
                 output="Opening Finder";
-                Provider.of<OnOff>(context, listen: false).maxFinder();
+                tapFunctions(context);
+                Provider.of<OnOff>(context, listen: false)
+                    .maxFinder();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    Finder(
+                        key: ObjectKey("finder"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.2),
+                            screenHeight(context, mulBy: 0.18))),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxFinder()
+                );
                 break;
               case "safari":
                 output="Opening Safari";
-                Provider.of<OnOff>(context, listen: false).maxSafari();
+                tapFunctions(context);
+                Provider.of<OnOff>(context, listen: false)
+                    .maxSafari();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    Safari(
+                        key: ObjectKey("safari"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.21),
+                            screenHeight(context, mulBy: 0.14))),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxSafari()
+                );
                 break;
               case "messages":
                 output="Opening Messages";
-             //TODO   Provider.of<OnOff>(context, listen: false).openMessages();
+                tapFunctions(context);
+
+                Provider.of<OnOff>(context, listen: false)
+                    .maxMessages();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    Messages(
+                        key: ObjectKey("messages"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.27),
+                            screenHeight(context, mulBy: 0.2))),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxMessages()
+                );
                 break;
               case "maps":
                 output="Opening Maps";
-             //TODO   Provider.of<OnOff>(context, listen: false).openMaps();
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed. Create the app on GitHub.",
+                    "https://github.com/chrisbinsunny",
+                    "maps",
+                    "Not installed"
+                );
+                Provider.of<OnOff>(context, listen: false).onNotifications();
                 break;
               case "spotify":
                 output="Opening Spotify";
-                Provider.of<OnOff>(context, listen: false).maxSpotify();
+                tapFunctions(context);
+
+                Provider.of<OnOff>(context, listen: false)
+                    .maxSpotify();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    Spotify(
+                        key: ObjectKey("spotify"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.24),
+                            screenHeight(context, mulBy: 0.15)
+                        )),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxSpotify()
+                );
                 break;
               case "terminal":
                 output="Opening Terminal";
-                Provider.of<OnOff>(context, listen: false).maxTerminal();
                 break;
               case "vscode":
                 output="Opening Visual Studio Code";
+                tapFunctions(context);
+
                 Provider.of<OnOff>(context, listen: false).maxVS();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    VSCode(
+                        key: ObjectKey("vscode"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.24),
+                            screenHeight(context, mulBy: 0.15))),
+                    Provider.of<OnOff>(context, listen: false).maxVS()
+                );
                 break;
               case "photos":
                 output="Opening Photos";
-            //TODO    Provider.of<OnOff>(context, listen: false).openPhotos();
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed. Create the app on GitHub.",
+                    "https://github.com/chrisbinsunny",
+                    "photos",
+                    "Not installed"
+                );
+                Provider.of<OnOff>(context, listen: false).onNotifications();
                 break;
               case "calendar":
                 output="Opening Calendar";
-                Provider.of<OnOff>(context, listen: false).maxCalendar();
+                tapFunctions(context);
+                Provider.of<OnOff>(context, listen: false)
+                    .maxCalendar();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    Calendar(
+                        key: ObjectKey("calendar"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.24),
+                            screenHeight(context, mulBy: 0.15))
+                    ),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxCalendar()
+                );
                 break;
               case "notes":
                 output="Opening Notes";
-             //TODO   Provider.of<OnOff>(context, listen: false).openNotes();
+                Provider.of<DataBus>(context, listen: false).setNotification(
+                    "App has not been installed. Create the app on GitHub.",
+                    "https://github.com/chrisbinsunny",
+                    "notes",
+                    "Not installed"
+                );
+                Provider.of<OnOff>(context, listen: false).onNotifications();
                 break;
               case "feedback":
                 output="Opening Feedback";
-                Provider.of<OnOff>(context, listen: false).maxFeedBack();
+                tapFunctions(context);
+
+                Provider.of<OnOff>(context, listen: false)
+                    .maxFeedBack();
+                Provider.of<Apps>(context, listen: false).openApp(
+                    FeedBack(
+                        key: ObjectKey("feedback"),
+                        initPos: Offset(
+                            screenWidth(context, mulBy: 0.2),
+                            screenHeight(context, mulBy: 0.12))),
+                    Provider.of<OnOff>(context, listen: false)
+                        .maxFeedBack()
+                );
                 break;
               default:
                 output="Application not found or Installed.";
             }
           }
+        else if(currentDir=="projects"){
+          String link="404";
+          switch(variable){
+            case "macbook":
+              link= "https://chrisbinsunny.github.io/chrishub";
+              break;
+            case "dream":
+              link= "https://chrisbinsunny.github.io/dream";
+              break;
+            case "chrisbinsunny.github.io":
+              link= "https://chrisbinsunny.github.io";
+              break;
+            case "flutter-talks":
+              link= "https://chrisbinsunny.github.io/Flutter-Talks";
+              break;
+          }
+          if(link=="404"){
+            output="Can't open the application from this location. Try using \"open -a\".";
+          }
+          else{
+            output="Opening ${variable}";
+            Future.delayed(const Duration(seconds: 1), () {
+              html.window.open(link, 'new tab');
+            });
+          }
+        }
+        else if(textWords.join(" ").contains(".pdf")){
+          String pdf="";
+          contents[currentDir]!.forEach((element) {
+            if(element.split("////")[0]==textWords.join(" ")){
+              pdf= element;
+            }
+          });
+          if(pdf==""){
+            output="File \"${textWords.join(" ")}\" not found. Check the file name";
+          }
+          else{
+            output="Opening ${pdf.split("////")[0].capitalize()}";
+            Future.delayed(const Duration(seconds: 1), () {
+              html.window.open(pdf.split("////")[1], 'new tab');
+            });
+          }
+        }
         else{
           output="Can't open the application from this location. Try using \"open -a\".";
         }
@@ -203,7 +379,9 @@ class _TerminalState extends State<Terminal> {
 
       case "cd":
         if (variable == "") {
-          currentDir = "~"; //TODO currently moves to root. should adjust as macos
+          log("1");
+          currentDir = "~";
+          directory = "/~";
           break;
         }
         if (textWords.length > 1) {
@@ -227,7 +405,11 @@ class _TerminalState extends State<Terminal> {
           output = "/$currentDir : Permission denied.";
           break;
         }
-        if (contents[currentDir].contains(variable)) {
+        if (currentDir == "downloads") {
+          output = "/$currentDir : Permission denied.";
+          break;
+        }
+        if (contents[currentDir]!.contains(variable,)) {
           directory = directory + "/" + variable;
           currentDir = variable;
         } else {
@@ -240,30 +422,59 @@ class _TerminalState extends State<Terminal> {
         if(variable=="") {
           output = "usage: mkdir directory ...";
           break;
-        } //TODO
+        }
         if (textWords.length > 1) {
-          for(String name in textOrg.split(" ")..removeAt(0))
+          for(String name in textOrg.split(" ")..removeAt(0))  ///Org text used for for Upper and Lower org cases
             Provider.of<Folders>(context, listen: false).createFolder(context, renaming: false, name: name);
           break;
         }
         Provider.of<Folders>(context, listen: false).createFolder(context, renaming: false, name: textOrg.split(" ")[1]);
-
         break;
+
       case "echo":
         output = textWords.join(" ");
         break;
+
+
       case "clear":
-        //TODO
+        ///Not working as of now.
+      ///What went wrong: The textfield is not enabled after clearing. leaving the code below.
+
+        // commandCards.clear();
+        // commandCards.add(
+        //   Column(
+        //     mainAxisAlignment: MainAxisAlignment.start,
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     mainAxisSize: MainAxisSize.max,
+        //     children: [
+        //       SizedBox(
+        //         height: 5,
+        //       ),
+        //       MBPText(
+        //         text:
+        //         "Last login: ${DateFormat("E LLL d HH:mm:ss").format(now)} on console",
+        //         color: Theme.of(context).cardColor.withOpacity(1),
+        //         fontFamily: "Menlo",
+        //         size: 10,
+        //       ),
+        //     ],
+        //   ),
+        // );
+
+      output="Bug found!!! Submit an issue on GitHub.";
         break;
       case "exit":
         {
           directory="/~";
+          Provider.of<Apps>(context, listen: false).closeApp("terminal");
+          Provider.of<OnOff>(context, listen: false)
+              .offTerminalFS();
           Provider.of<OnOff>(context, listen: false).toggleTerminal();
         }
         break;
       case "sudo":
         output =
-            "\"With great power comes great responsibility.\" ~Peter Parker Principle";
+            "\"With great power comes great responsibility.\" ~Peter Parker";
         break;
       default:
         output = "Command '" +
@@ -279,7 +490,6 @@ class _TerminalState extends State<Terminal> {
           if (updownIndex < oldCommands.length) {
             updownIndex++;
           }
-          debugPrint("Up.${oldCommands[oldCommands.length - updownIndex]}");
           commandTECs.last.text = oldCommands[oldCommands.length - updownIndex];
         });
       } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
@@ -287,7 +497,6 @@ class _TerminalState extends State<Terminal> {
           if (updownIndex > 1) {
             updownIndex--;
           }
-          debugPrint("Down.${oldCommands[oldCommands.length - updownIndex]}");
           commandTECs.last.text = oldCommands[oldCommands.length - updownIndex];
         });
       }
@@ -332,8 +541,8 @@ class _TerminalState extends State<Terminal> {
     terminalPan = Provider.of<OnOff>(context).getTerminalPan;
     return AnimatedPositioned(
       duration: Duration(milliseconds: terminalPan ? 0 : 200),
-      top: terminalFS ? screenHeight(context, mulBy: 0.0335) : position.dy,
-      left: terminalFS ? 0 : position.dx,
+      top: terminalFS ? 25 : position!.dy,
+      left: terminalFS ? 0 : position!.dx,
       child: RawKeyboardListener(
           autofocus: true,
           focusNode: FocusNode(),
@@ -350,7 +559,7 @@ class _TerminalState extends State<Terminal> {
           ? screenWidth(context, mulBy: 1)
           : screenWidth(context, mulBy: 0.4),
       height: terminalFS
-          ? screenHeight(context, mulBy: 0.966)
+          ? screenHeight(context, mulBy: 0.975)
           : screenHeight(context, mulBy: 0.5),
       decoration: BoxDecoration(
         border: Border.all(
@@ -393,7 +602,7 @@ class _TerminalState extends State<Terminal> {
                               "chrisbin -- -zsh -- ${terminalFS ? screenWidth(context, mulBy: .1).floor() : screenWidth(context, mulBy: 0.04).floor()}x${terminalFS ? screenHeight(context, mulBy: 0.0966).floor() : screenHeight(context, mulBy: 0.05).floor()}",
                           fontFamily: "HN",
                           color: Theme.of(context).cardColor.withOpacity(1),
-                          weight: Theme.of(context).textTheme.headline4.fontWeight,
+                          weight: Theme.of(context).textTheme.headline4!.fontWeight,
                         )
                       ],
                     ),
@@ -402,8 +611,8 @@ class _TerminalState extends State<Terminal> {
                     onPanUpdate: (tapInfo) {
                       if (!terminalFS) {
                         setState(() {
-                          position = Offset(position.dx + tapInfo.delta.dx,
-                              position.dy + tapInfo.delta.dy);
+                          position = Offset(position!.dx + tapInfo.delta.dx,
+                              position!.dy + tapInfo.delta.dy);
                         });
                       }
                     },
@@ -559,9 +768,9 @@ class _TerminalState extends State<Terminal> {
 }
 
 class TerminalCommand extends StatefulWidget {
-  final TextEditingController commandController;
-  final VoidCallback onSubmit;
-  TerminalCommand({Key key, this.commandController, this.onSubmit})
+  final TextEditingController? commandController;
+  final VoidCallback? onSubmit;
+  TerminalCommand({Key? key, this.commandController, this.onSubmit})
       : super(key: key);
 
   @override
@@ -611,14 +820,14 @@ class _TerminalCommandState extends State<TerminalCommand> {
                       setState(() {
                         submit = true;
                       });
-                      widget.onSubmit();
+                      widget.onSubmit!();
                     },
                     style: TextStyle(
                         color: Theme.of(context).cardColor.withOpacity(1),
                         fontFamily: "Menlo",
                         fontSize: 10,
                         fontWeight:
-                            Theme.of(context).textTheme.headline4.fontWeight
+                            Theme.of(context).textTheme.headline4!.fontWeight
                         // height: 1,
                         ),
                     decoration: new InputDecoration(
@@ -647,7 +856,7 @@ class _TerminalCommandState extends State<TerminalCommand> {
                 color: Theme.of(context).cardColor.withOpacity(1),
                 fontFamily: "Menlo",
                 fontSize: 10,
-                fontWeight: Theme.of(context).textTheme.headline4.fontWeight),
+                fontWeight: Theme.of(context).textTheme.headline4!.fontWeight),
           ),
         ),
       ],

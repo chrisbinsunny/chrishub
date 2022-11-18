@@ -46,6 +46,7 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 /Pics/
-/build/
 lib/components/alertDialog.dart
-lib/components/alertDialog.dart
+build/flutter_assets/NOTICES
+build/flutter_assets/NOTICES
+build/4f2a58af27abc49ecf55570043bbf938.cache.dill.track.dill

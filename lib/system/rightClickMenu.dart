@@ -3,7 +3,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
-import 'package:mac_dt/system/folders.dart';
+import 'package:mac_dt/system/folders/folders.dart';
+import '../apps/systemPreferences.dart';
+import '../providers.dart';
 import '../theme/theme.dart';
 import 'package:provider/provider.dart';
 import 'openApps.dart';
@@ -13,37 +15,37 @@ import 'dart:html' as html;
 import 'dart:ui' as ui;
 
 class RightClick extends StatefulWidget {
-  final Offset initPos;
-  const RightClick({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const RightClick({this.initPos, Key? key}) : super(key: key);
 
   @override
   _RightClickState createState() => _RightClickState();
 }
 
 class _RightClickState extends State<RightClick> {
-  Offset position = Offset(0.0, 0.0);
-  var themeNotifier;
+  Offset? position = Offset(0.0, 0.0);
+  late var themeNotifier;
 
   Offset QFinder(){
-    Offset offset=new Offset(0, 0);
-    if(widget.initPos.dx+screenWidth(context, mulBy: 0.15)+1>=screenWidth(context))
+    Offset? offset=new Offset(0, 0);
+    if(widget.initPos!.dx+screenWidth(context, mulBy: 0.15)+1>=screenWidth(context))
       {
-        if(widget.initPos.dy+screenHeight(context, mulBy: 0.3)+1>=screenHeight(context)) {
+        if(widget.initPos!.dy+screenHeight(context, mulBy: 0.3)+1>=screenHeight(context)) {
           offset =
-              widget.initPos - Offset(screenWidth(context, mulBy: 0.15) + 1, 0);
+              widget.initPos! - Offset(screenWidth(context, mulBy: 0.15) + 1, 0);
           offset = Offset(offset.dx, screenHeight(context, mulBy: 0.7) - 1);
         }
         else
-          offset=widget.initPos-Offset(screenWidth(context, mulBy: 0.15)+1,0);
+          offset=widget.initPos!-Offset(screenWidth(context, mulBy: 0.15)+1,0);
       }
     else{
-      if(widget.initPos.dy+screenHeight(context, mulBy: 0.3)+1>=screenHeight(context)) {
-        offset = Offset(widget.initPos.dx, screenHeight(context, mulBy: 0.7) - 1);
+      if(widget.initPos!.dy+screenHeight(context, mulBy: 0.3)+1>=screenHeight(context)) {
+        offset = Offset(widget.initPos!.dx, screenHeight(context, mulBy: 0.7) - 1);
       }
       else
         offset=widget.initPos;
     }
-    return offset;
+    return offset!;
   }
 
   @override
@@ -147,8 +149,23 @@ class _RightClickState extends State<RightClick> {
                         bottom: screenHeight(context, mulBy: 0.006)
                     ),
                     buttonFunc: (){
-                      print("Settings Screen");
-                      Provider.of<OnOff>(context, listen: false).offRCM();
+                      tapFunctions(context);
+                      Future.delayed(const Duration(milliseconds: 200), () {
+                        Provider.of<OnOff>(context, listen: false)
+                            .maxSysPref();
+                        Provider.of<Apps>(context, listen: false).openApp(
+                            SystemPreferences(
+                                key: ObjectKey("systemPreferences"),
+                                initPos: Offset(
+                                    screenWidth(context, mulBy: 0.24),
+                                    screenHeight(context, mulBy: 0.13)),
+                            wallpaper: true,
+                            ),
+                            Provider.of<OnOff>(context, listen: false)
+                                .maxSysPref()
+                        );
+                      });
+
                     },
                   ),
                   Container(
@@ -183,14 +200,14 @@ class _RightClickState extends State<RightClick> {
 }
 
 class RCMItem extends StatefulWidget {
-  final String name;
+  final String? name;
   final EdgeInsets margin;
-  VoidCallback buttonFunc=(){};
+  VoidCallback? buttonFunc=(){};
   bool folder;
   bool icon;
 
   RCMItem({
-    Key key,
+    Key? key,
     this.name,
     this.margin=EdgeInsets.zero,
     this.buttonFunc,
@@ -203,7 +220,7 @@ class RCMItem extends StatefulWidget {
 }
 
 class _RCMItemState extends State<RCMItem> {
-  Color color;
+  Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -258,10 +275,10 @@ class _RCMItemState extends State<RCMItem> {
 }
 
 class BrdrContainer extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   final double height;
   final double width;
-  const BrdrContainer({this.height = 1, this.width = 1, this.child, Key key})
+  const BrdrContainer({this.height = 1, this.width = 1, this.child, Key? key})
       : super(key: key);
 
   @override
@@ -281,37 +298,37 @@ class BrdrContainer extends StatelessWidget {
 
 
 class FolderRightClick extends StatefulWidget {
-  final Offset initPos;
-  const FolderRightClick({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const FolderRightClick({this.initPos, Key? key}) : super(key: key);
 
   @override
   _FolderRightClickState createState() => _FolderRightClickState();
 }
 
 class _FolderRightClickState extends State<FolderRightClick> {
-  Offset position = Offset(0.0, 0.0);
-  var themeNotifier;
+  Offset? position = Offset(0.0, 0.0);
+  late var themeNotifier;
 
   Offset QFinder(){
-    Offset offset=new Offset(0, 0);
-    if(widget.initPos.dx+screenWidth(context, mulBy: 0.15)+1>=screenWidth(context))
+    Offset? offset=new Offset(0, 0);
+    if(widget.initPos!.dx+screenWidth(context, mulBy: 0.15)+1>=screenWidth(context))
     {
-      if(widget.initPos.dy+screenHeight(context, mulBy: 0.73)+1>=screenHeight(context)) {
+      if(widget.initPos!.dy+screenHeight(context, mulBy: 0.73)+1>=screenHeight(context)) {
         offset =
-            widget.initPos - Offset(screenWidth(context, mulBy: 0.15) + 1, 0);
+            widget.initPos! - Offset(screenWidth(context, mulBy: 0.15) + 1, 0);
         offset = Offset(offset.dx, screenHeight(context, mulBy: 0.27) - 1);
       }
       else
-        offset=widget.initPos-Offset(screenWidth(context, mulBy: 0.15)+1,0);
+        offset=widget.initPos!-Offset(screenWidth(context, mulBy: 0.15)+1,0);
     }
     else{
-      if(widget.initPos.dy+screenHeight(context, mulBy: 0.73)+1>=screenHeight(context)) {
-        offset = Offset(widget.initPos.dx, screenHeight(context, mulBy: 0.27) - 1);
+      if(widget.initPos!.dy+screenHeight(context, mulBy: 0.73)+1>=screenHeight(context)) {
+        offset = Offset(widget.initPos!.dx, screenHeight(context, mulBy: 0.27) - 1);
       }
       else
         offset=widget.initPos;
     }
-    return offset;
+    return offset!;
   }
 
   @override

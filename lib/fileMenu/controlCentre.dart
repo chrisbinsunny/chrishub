@@ -12,15 +12,15 @@ import '../system/componentsOnOff.dart';
 import '../sizes.dart';
 
 class ControlCentre extends StatefulWidget {
-  const ControlCentre({Key key}) : super(key: key);
+  const ControlCentre({Key? key}) : super(key: key);
 
   @override
   _ControlCentreState createState() => _ControlCentreState();
 }
 
 class _ControlCentreState extends State<ControlCentre> {
-  double brightness;
-  double sound;
+  double? brightness;
+  late double sound;
 
   @override
   void initState() {
@@ -127,14 +127,154 @@ class _ControlCentreState extends State<ControlCentre> {
                                           margin: EdgeInsets.zero,
                                           padding: EdgeInsets.symmetric(
                                               horizontal: screenWidth(context,
-                                                  mulBy: 0.013),
+                                                  mulBy: 0.007),
                                               vertical: screenHeight(context,
-                                                  mulBy: 0.025)),
+                                                  mulBy: 0.012)),
                                           height: screenHeight(context,
                                               mulBy: 0.17),
                                           width:
                                               screenWidth(context, mulBy: 0.09),
                                           decoration: ccDecoration,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    height: 31,
+                                                    width: 31,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: Color(0xff0b84ff)
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                    child: Icon(
+                                                      CupertinoIcons.wifi,
+                                                      color: Colors.white,
+                                                      size: 19.5,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Wi-Fi",
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                          color: Theme.of(context).cardColor.withOpacity(1),
+                                                          fontWeight: FontWeight.w600,
+                                                          letterSpacing: 0.5
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "DLink Home",
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            color: Theme.of(context).cardColor.withOpacity(0.8),
+                                                            fontWeight: FontWeight.w300,
+                                                            letterSpacing: 0.5
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    height: 31,
+                                                    width: 31,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Color(0xff0b84ff)
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                    child: Icon(
+                                                      CupertinoIcons.bluetooth,
+                                                      color: Colors.white,
+                                                      size: 19.5,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Bluetooth",
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            color: Theme.of(context).cardColor.withOpacity(1),
+                                                            fontWeight: FontWeight.w600,
+                                                            letterSpacing: 0.5
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "On",
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            color: Theme.of(context).cardColor.withOpacity(0.8),
+                                                            fontWeight: FontWeight.w300,
+                                                            letterSpacing: 0.5
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Container(
+                                                    height: 31,
+                                                    width: 31,
+                                                    decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                        color: Color(0xff0b84ff)
+                                                    ),
+                                                    alignment: Alignment.center,
+                                                    child:Image.network(
+                                                      "https://img.icons8.com/ios-filled/50/000000/airdrop.png",
+                                                      color: Colors.white,
+                                                      height: 19.5,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 8,
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "AirDrop",
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            color: Theme.of(context).cardColor.withOpacity(1),
+                                                            fontWeight: FontWeight.w600,
+                                                            letterSpacing: 0.5
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "Contacts only",
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            color: Theme.of(context).cardColor.withOpacity(0.8),
+                                                            fontWeight: FontWeight.w300,
+                                                            letterSpacing: 0.5
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -400,19 +540,17 @@ class _ControlCentreState extends State<ControlCentre> {
                                                       .noOverlay,
                                                 ),
                                                 child: Slider(
-                                                  value: brightness,
+                                                  value: brightness!,
                                                   min: 0,
                                                   max: 100,
                                                   onChanged: (val) {
                                                     if (val > 95.98)
                                                       val = 95.98;
                                                     else if (val < 6.7) val = 6.7;
-                                                    setState(() {
-                                                      brightness = val;
-                                                      Provider.of<DataBus>(context,
-                                                              listen: false)
-                                                          .setBrightness(brightness);
-                                                    });
+                                                    brightness = val;
+                                                    Provider.of<DataBus>(context,
+                                                        listen: false)
+                                                        .setBrightness(brightness);
                                                   },
                                                 ),
                                               ),
@@ -638,10 +776,10 @@ class _ControlCentreState extends State<ControlCentre> {
 }
 
 class BrdrContainer extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
   final double height;
   final double width;
-  const BrdrContainer({this.height = 1, this.width = 1, this.child, Key key})
+  const BrdrContainer({this.height = 1, this.width = 1, this.child, Key? key})
       : super(key: key);
 
   @override
@@ -661,13 +799,13 @@ class BrdrContainer extends StatelessWidget {
 
 class SliderTrackShape extends RoundedRectSliderTrackShape {
   Rect getPreferredRect({
-    @required RenderBox parentBox,
+    required RenderBox parentBox,
     Offset offset = Offset.zero,
-    @required SliderThemeData sliderTheme,
+    required SliderThemeData sliderTheme,
     bool isEnabled = false,
     bool isDiscrete = false,
   }) {
-    final double trackHeight = sliderTheme.trackHeight;
+    final double trackHeight = sliderTheme.trackHeight!;
     final double trackLeft = offset.dx;
     final double trackTop =
         offset.dy + (parentBox.size.height - trackHeight) / 2;

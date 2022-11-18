@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mac_dt/components/wallpaper/wallpaper.dart';
 import 'package:provider/provider.dart';
 
+import 'data/system_data_CRUD.dart';
 import 'system/componentsOnOff.dart';
-import 'system/folders.dart';
+import 'system/folders/folders.dart';
 
 // var finderOpen = Provider.of<OnOff>(context).getFinder;
 // Provider.of<OnOff>(context, listen: false).toggleFinder();
@@ -12,7 +14,7 @@ class DataBus extends ChangeNotifier{
 
   String onTop="finder";
   String fs="";
-  double brightness =95.98;
+  double? brightness =95.98;
   Offset pointerPos = new Offset(0, 0);
   bool nightShift= false;
   double scale= 1;
@@ -25,13 +27,16 @@ class DataBus extends ChangeNotifier{
   };
 
 
+  WallData wallpaper=  SystemDataCRUD.getWallpaper();
 
-  double get getBrightness {
+
+
+  double? get getBrightness {
     return brightness;
   }
 
 
-  void setBrightness(double val) {
+  void setBrightness(double? val) {
     brightness= val;
     notifyListeners();
   }
@@ -76,6 +81,17 @@ class DataBus extends ChangeNotifier{
   }
 
   get getScale=>scale;
+
+  WallData get getWallpaper {
+    return wallpaper;
+  }
+
+
+  void setWallpaper(WallData val) {
+    wallpaper= val;
+    SystemDataCRUD.setWallpaper(val);
+    notifyListeners();
+  }
 
 }
 

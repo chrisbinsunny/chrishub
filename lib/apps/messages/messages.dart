@@ -13,31 +13,32 @@ import 'package:provider/provider.dart';
 import '../../../system/openApps.dart';
 import '../../../sizes.dart';
 import '../../../widgets.dart';
+import '../../theme/theme.dart';
 import 'chat_bubble.dart';
 import 'dart:html' as html;
 
 class Messages extends StatefulWidget {
-  final Offset initPos;
-  const Messages({this.initPos, Key key}) : super(key: key);
+  final Offset? initPos;
+  const Messages({this.initPos, Key? key}) : super(key: key);
 
   @override
   _MessagesState createState() => _MessagesState();
 }
 
 class _MessagesState extends State<Messages> {
-  Offset position = Offset(0.0, 0.0);
-  bool messagesFS;
-  bool messagesPan;
-  Future messageRecords;
+  Offset? position = Offset(0.0, 0.0);
+  late bool messagesFS;
+  late bool messagesPan;
+  Future? messageRecords;
   ScrollController chatScrollController = new ScrollController();
   ScrollController nameScrollController = new ScrollController();
-  int selectedChatIndex;
-  bool info;
-  MessageContent selectedChat= new MessageContent(
+  int? selectedChatIndex;
+  late bool info;
+  MessageContent? selectedChat= new MessageContent(
 
   );
 
-  Future<List<MessageContent>> readMessages() async {
+  Future<List<MessageContent>?> readMessages() async {
     var data = json
         .decode(await rootBundle.loadString('assets/messages/messageLog.json'));
     return data
@@ -62,8 +63,8 @@ class _MessagesState extends State<Messages> {
     return messagesOpen
         ? AnimatedPositioned(
       duration: Duration(milliseconds: messagesPan ? 0 : 200),
-      top: messagesFS ? screenHeight(context, mulBy: 0.034) : position.dy,
-      left: messagesFS ? 0 : position.dx,
+      top: messagesFS ? 25 : position!.dy,
+      left: messagesFS ? 0 : position!.dx,
       child: messagesWindow(context),
     )
         : Container();
@@ -76,10 +77,10 @@ class _MessagesState extends State<Messages> {
       duration: Duration(milliseconds: 200),
       width: messagesFS
           ? screenWidth(context, mulBy: 1)
-          : screenWidth(context, mulBy: 0.55),
+          : screenWidth(context, mulBy: 0.47),
       height: messagesFS
-          ? screenHeight(context, mulBy: 0.966)
-          : screenHeight(context, mulBy: 0.65),
+          ? screenHeight(context, mulBy: 0.975)
+          : screenHeight(context, mulBy: 0.57),
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.white.withOpacity(0.2),
@@ -107,11 +108,12 @@ class _MessagesState extends State<Messages> {
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 70.0, sigmaY: 70.0),
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth(context, mulBy: 0.005),
-                        vertical: screenHeight(context, mulBy: 0.025)),
+                    padding: EdgeInsets.only(
+                        left: screenWidth(context, mulBy: 0.005),
+                        right: screenWidth(context, mulBy: 0.005),
+                        top: screenHeight(context, mulBy: 0.025)),
                     height: screenHeight(context),
-                    width: screenWidth(context, mulBy: 0.2),
+                    width: screenWidth(context, mulBy: 0.17),
                     decoration: BoxDecoration(
                       color: Theme.of(context).hintColor,
                       borderRadius: BorderRadius.only(
@@ -235,69 +237,71 @@ class _MessagesState extends State<Messages> {
                           height: screenHeight(context, mulBy: 0.01),
                         ),
                         Expanded(
-                          child: Container(
-                            child: FutureBuilder(
-                                future: messageRecords,
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    if(selectedChat.senderName=="A")
-                                      selectedChat=  snapshot.data[0];
-                                    return ListView.builder(
-                                      physics: BouncingScrollPhysics(),
-                                      itemCount: snapshot.data.length,
-                                      controller: nameScrollController,
-                                      itemBuilder: (context, index) {
-                                        return InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              selectedChatIndex = index;
-                                              selectedChat=  snapshot.data[index];
-                                            });
-                                          },
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                height: screenHeight(context,
-                                                    mulBy: 0.08),
-                                                padding: EdgeInsets.only(
-                                                  left: screenWidth(context,
-                                                      mulBy: 0.01),
-                                                  right: screenWidth(context,
-                                                      mulBy: 0.008),
-                                                ),
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        5),
-                                                    color: selectedChatIndex == index
-                                                        ? Color(0xff0b84ff)
-                                                        : Colors.transparent),
-                                                child: Row(
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                        gradient: new LinearGradient(
-                                                            colors: [
-                                                              Color(0xff6d6d6d),
-                                                              Color(0xff484848)
-                                                            ],
-                                                            begin:
-                                                            const FractionalOffset(
-                                                                0, 0),
-                                                            end:
-                                                            const FractionalOffset(
-                                                                0, 1),
-                                                            stops: [0.0, 1.0],
-                                                            tileMode:
-                                                            TileMode.clamp),
-                                                      ),
-                                                      height: screenHeight(
-                                                          context,
-                                                          mulBy: 0.055),
-                                                      width: screenHeight(
-                                                          context,
-                                                          mulBy: 0.055),
+                          child: FutureBuilder(
+                              future: messageRecords,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  if(selectedChat!.senderName=="A")
+                                    selectedChat=  snapshot.data[0];
+                                  return ListView.builder(
+                                    physics: BouncingScrollPhysics(),
+                                    itemCount: snapshot.data.length,
+                                    controller: nameScrollController,
+                                    itemBuilder: (context, index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedChatIndex = index;
+                                            selectedChat=  snapshot.data[index];
+                                          });
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              height: screenHeight(context,
+                                                  mulBy: 0.08),
+                                              padding: EdgeInsets.only(
+                                                left: screenWidth(context,
+                                                    mulBy: 0.01),
+                                                right: screenWidth(context,
+                                                    mulBy: 0.008),
+                                              ),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      5),
+                                                  color: selectedChatIndex == index
+                                                      ? Color(0xff0b84ff)
+                                                      : Colors.transparent),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      gradient: new LinearGradient(
+                                                          colors: [
+                                                            Color(0xff6d6d6d),
+                                                            Color(0xff484848)
+                                                          ],
+                                                          begin:
+                                                          const FractionalOffset(
+                                                              0, 0),
+                                                          end:
+                                                          const FractionalOffset(
+                                                              0, 1),
+                                                          stops: [0.0, 1.0],
+                                                          tileMode:
+                                                          TileMode.clamp),
+                                                    ),
+                                                    height: screenHeight(
+                                                        context,
+                                                        mulBy: 0.055),
+                                                    width: screenHeight(
+                                                        context,
+                                                        mulBy: 0.055),
+                                                    clipBehavior: Clip.antiAlias,
+                                                    child: (snapshot.data[index].senderPhoto=="")?
+                                                    Padding(
                                                       padding: EdgeInsets.all(
                                                           screenHeight(context,
                                                               mulBy: 0.01)),
@@ -313,21 +317,28 @@ class _MessagesState extends State<Messages> {
                                                         maxLines: 1,
                                                         softWrap: false,
                                                       ),
+                                                    ):
+                                                    Image.network(
+                                                        snapshot.data[index].senderPhoto,
+                                                      fit: BoxFit.cover,
                                                     ),
-                                                    SizedBox(
-                                                      width: screenWidth(
-                                                          context,
-                                                          mulBy: 0.006),
-                                                    ),
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                      crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
-                                                      children: [
-                                                        Text(
+                                                  ),
+                                                  SizedBox(
+                                                    width: screenWidth(
+                                                        context,
+                                                        mulBy: 0.006),
+                                                  ),
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment
+                                                        .start,
+                                                    children: [
+                                                      SizedBox(
+                                                        width: screenWidth(context, mulBy: 0.07),
+                                                        child: Text(
                                                           "${snapshot.data[index].senderName}",
                                                           style: TextStyle(
                                                               color: Theme.of(
@@ -345,7 +356,10 @@ class _MessagesState extends State<Messages> {
                                                           maxLines: 1,
                                                           softWrap: false,
                                                         ),
-                                                        Text(
+                                                      ),
+                                                      SizedBox(
+                                                        width: screenWidth(context, mulBy: 0.07),
+                                                        child: Text(
                                                           snapshot
                                                               .data[index]
                                                               .messages
@@ -370,64 +384,64 @@ class _MessagesState extends State<Messages> {
                                                           maxLines: 1,
                                                           softWrap: false,
                                                         ),
-                                                        SizedBox(
-                                                          height: screenHeight(
-                                                              context,
-                                                              mulBy: 0.01),
-                                                        )
-                                                      ],
-                                                    ),
-                                                    Spacer(),
-                                                    Align(
-                                                      alignment: Alignment.topCenter,
-                                                      child: Padding(
-                                                        padding: EdgeInsets.only(top: screenHeight(context,
-                                                            mulBy: 0.01),),
-                                                        child: MBPText(
-                                                          text:
-                                                          "${DateFormat("d/M/yy").format(DateTime.parse(snapshot.data[index].dates.last))}",
-                                                          color: Theme.of(context)
-                                                              .cardColor
-                                                              .withOpacity(0.6),
-                                                          fontFamily: "HN",
-                                                          size: 11.5,
-                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: screenHeight(
+                                                            context,
+                                                            mulBy: 0.01),
+                                                      )
+                                                    ],
+                                                  ),
+                                                  Spacer(),
+                                                  Align(
+                                                    alignment: Alignment.topCenter,
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(top: screenHeight(context,
+                                                          mulBy: 0.01),),
+                                                      child: MBPText(
+                                                        text:
+                                                        "${DateFormat("d/M/yy").format(DateTime.parse(snapshot.data[index].dates.last))}",
+                                                        color: Theme.of(context)
+                                                            .cardColor
+                                                            .withOpacity(0.6),
+                                                        fontFamily: "HN",
+                                                        size: 11.5,
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
-                                              Align(
-                                                child: Container(
-                                                  color: ((selectedChatIndex ==
-                                                      index) ||
-                                                      (selectedChatIndex - 1 ==
-                                                          index))
-                                                      ? Colors.transparent
-                                                      : Theme.of(context)
-                                                      .cardColor
-                                                      .withOpacity(0.5),
-                                                  height: 0.3,
-                                                  width: screenWidth(context,
-                                                      mulBy: 0.15),
-                                                ),
-                                                alignment: Alignment.topRight,
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  }
-                                  return Theme(
-                                      data: ThemeData(
-                                          cupertinoOverrideTheme:
-                                          CupertinoThemeData(
-                                              brightness: Brightness.dark)),
-                                      child: Center(
-                                          child: CupertinoActivityIndicator()));
-                                }),
-                          ),
+                                            ),
+                                            Align(
+                                              child: Container(
+                                                color: ((selectedChatIndex ==
+                                                    index) ||
+                                                    (selectedChatIndex! - 1 ==
+                                                        index))
+                                                    ? Colors.transparent
+                                                    : Theme.of(context)
+                                                    .cardColor
+                                                    .withOpacity(0.5),
+                                                height: 0.3,
+                                                width: screenWidth(context,
+                                                    mulBy: 0.15),
+                                              ),
+                                              alignment: Alignment.topRight,
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                }
+                                return Theme(
+                                    data: ThemeData(
+                                        cupertinoOverrideTheme:
+                                        CupertinoThemeData(
+                                            brightness: Brightness.dark)),
+                                    child: Center(
+                                        child: CupertinoActivityIndicator()));
+                              }),
                         )
                       ],
                     ),
@@ -467,11 +481,9 @@ class _MessagesState extends State<Messages> {
                                       //vertical: screenHeight(context, mulBy: 0.03)
                                     ),
                                     decoration: BoxDecoration(
-                                        color: Color(0xff3b393b),
-                                        border: Border(
-                                            bottom: BorderSide(
-                                                color: Colors.black,
-                                                width: 0.7))),
+                                        color: Provider.of<ThemeNotifier>(context).isDark()?Color(0xff3b393b):Color(
+                                            0xffdcdcdc),
+                                       ),
                                     child: Row(
                                       children: [
                                         MBPText(
@@ -554,13 +566,15 @@ class _MessagesState extends State<Messages> {
                                                     fontFamily: "HN",
                                                     size: 10,
                                                   ),
+                                                if(snapshot.data[selectedChatIndex].messages.sender[reversedIndex]!="")
                                                 ChatBubble(
                                                   clipper: iMessageClipper(
                                                       type: BubbleType.receiverBubble),
                                                   margin:
                                                   EdgeInsets.only(top: 5),
                                                   backGroundColor:
-                                                  Color(0xff3b3b3d),
+                                                  Provider.of<ThemeNotifier>(context).isDark()?Color(0xff3b393b):Color(
+                                                      0xffc5c5c5),
                                                   child: Container(
                                                     constraints: BoxConstraints(
                                                       maxWidth: screenWidth(
@@ -570,7 +584,7 @@ class _MessagesState extends State<Messages> {
                                                     child: Text(
                                                       "${snapshot.data[selectedChatIndex].messages.sender[reversedIndex]}",
                                                       style: TextStyle(
-                                                          color: Colors.white,
+                                                          color: Theme.of(context).cardColor.withOpacity(1),
                                                           fontFamily: 'HN',
                                                           fontWeight:
                                                           FontWeight.w400,
@@ -578,6 +592,8 @@ class _MessagesState extends State<Messages> {
                                                     ),
                                                   ),
                                                 ),
+
+                                                if(snapshot.data[selectedChatIndex].messages.me[reversedIndex]!="")
                                                 ChatBubble(
                                                   clipper: iMessageClipper(
                                                       type: BubbleType
@@ -616,7 +632,9 @@ class _MessagesState extends State<Messages> {
                               ClipRect(
                                 child: BackdropFilter(
                                   filter: ImageFilter.blur(
-                                      sigmaX: 15.0, sigmaY: 15.0),
+                                      sigmaX: 15.0, sigmaY: 15.0,
+                                  tileMode: TileMode.decal
+                                  ),
                                   child: Container(
                                     height: screenHeight(context, mulBy: 0.055),
                                     width: double.infinity,
@@ -640,7 +658,7 @@ class _MessagesState extends State<Messages> {
                                             Duration(milliseconds: 200),
                                             width: screenWidth(context,
                                                 mulBy:
-                                                messagesFS ? 0.73 : 0.27),
+                                                messagesFS ? 0.73 : 0.23),
                                             height: screenHeight(context,
                                                 mulBy: 0.032),
                                             padding: EdgeInsets.only(
@@ -722,6 +740,8 @@ class _MessagesState extends State<Messages> {
               )
             ],
           ),
+
+          ///Info closer
           Visibility(
             visible: info,
             child: GestureDetector(
@@ -741,6 +761,8 @@ class _MessagesState extends State<Messages> {
               ),
             ),
           ),
+
+          ///Info
           Visibility(
             visible: info,
             child: Positioned(
@@ -767,7 +789,7 @@ class _MessagesState extends State<Messages> {
                     child: InkWell(
                       onTap: () {
                         html.window.open(
-                          selectedChat.profileLink,
+                          selectedChat!.profileLink,
                           'new tab',
                         );
                       },
@@ -811,7 +833,7 @@ class _MessagesState extends State<Messages> {
                                       mulBy: 0.012)),
                               child: MBPText(
                                 text:
-                                "${selectedChat.senderName.toString().getInitials().capitalize()}",
+                                "${selectedChat!.senderName.toString().getInitials().capitalize()}",
                                 color: Colors.white,
                                 fontFamily: "SFR",
                                 size: 25,
@@ -827,11 +849,11 @@ class _MessagesState extends State<Messages> {
                             ),
                             MBPText(
                               text:
-                              "${selectedChat.senderName.toString().capitalize()}",
+                              "${selectedChat!.senderName.toString().capitalize()}",
                               color: Theme.of(context).cardColor.withOpacity(1),
                               fontFamily: "HN",
                               size: 13,
-                              weight: Theme.of(context).textTheme.headline3.fontWeight,
+                              weight: Theme.of(context).textTheme.headline3!.fontWeight,
                               overflow:
                               TextOverflow.fade,
                               maxLines: 1,
@@ -1140,12 +1162,14 @@ class _MessagesState extends State<Messages> {
               ),
             ),
           ),
+
+          ///Drag around
           GestureDetector(
             onPanUpdate: (tapInfo) {
               if (!messagesFS) {
                 setState(() {
-                  position = Offset(position.dx + tapInfo.delta.dx,
-                      position.dy + tapInfo.delta.dy);
+                  position = Offset(position!.dx + tapInfo.delta.dx,
+                      position!.dy + tapInfo.delta.dy);
                 });
               }
             },
@@ -1162,10 +1186,13 @@ class _MessagesState extends State<Messages> {
                 alignment: Alignment.centerRight,
                 width: messagesFS
                     ? screenWidth(context, mulBy: 0.95)
-                    : screenWidth(context, mulBy: 0.5),
+                    : screenWidth(context, mulBy: 0.42),
                 height: screenHeight(context, mulBy: 0.04),
-                color: Colors.transparent),
+                color: Colors.transparent
+            ),
           ),
+
+          ///Open info
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal:
@@ -1184,6 +1211,8 @@ class _MessagesState extends State<Messages> {
               ),
             ),
           ),
+
+          ///Bring to top
           Visibility(
             visible: topApp != "Messages",
             child: GestureDetector(
@@ -1202,7 +1231,6 @@ class _MessagesState extends State<Messages> {
               ),
             ),
           ),
-
         ],
       ),
     );
@@ -1210,12 +1238,12 @@ class _MessagesState extends State<Messages> {
 }
 
 class MessageContent {
-  MainMessage messages;
+  MainMessage? messages;
   String senderName;
   String senderPhoto;
   String profileLink;
-  List<int> dateStops;
-  List<String> dates;
+  List<int>? dateStops;
+  List<String>? dates;
 
   MessageContent(
       {this.messages,
@@ -1237,8 +1265,8 @@ class MessageContent {
 }
 
 class MainMessage {
-  List<String> sender;
-  List<String> me;
+  List<String>? sender;
+  List<String>? me;
 
   MainMessage({this.me, this.sender});
 
