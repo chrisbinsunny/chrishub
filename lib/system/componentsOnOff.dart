@@ -28,6 +28,9 @@ class OnOff extends ChangeNotifier{
   bool feedBackOpen = false;
   bool feedBackFS = false;
   bool feedBackPan = false;
+  bool aboutOpen = false;
+  bool aboutFS = false;
+  bool aboutPan = false;
   bool calendarMax = false;
   bool calendarFS = false;
   bool calendarPan = false;
@@ -526,6 +529,21 @@ class OnOff extends ChangeNotifier{
     feedBackPan= true;
     notifyListeners();
   }
+
+  bool get getAboutPan {
+    return aboutPan;
+  }
+
+  void offAboutPan() {
+    aboutPan= false;
+    notifyListeners();
+  }
+
+  void onAboutPan() {
+    aboutPan= true;
+    notifyListeners();
+  }
+
 
   bool get getCc {
     return ccOpen;
