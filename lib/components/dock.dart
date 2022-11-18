@@ -10,6 +10,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/apps/messages/messages.dart';
 import 'package:provider/provider.dart';
+import '../apps/about.dart';
 import '../apps/calendar.dart';
 import '../apps/systemPreferences.dart';
 import '../system/componentsOnOff.dart';
@@ -224,17 +225,23 @@ class _DockerState extends State<Docker> {
                         },
                       ),
                       DockerItem(
-                        iName: "Maps",
+                        iName: "assets/icons/server.png",
                         on: false,
                         dx: _getPath(screenWidth(context, mulBy: 0.1764), _getCursor(), ),
-                        onTap: (){
-                          Provider.of<DataBus>(context, listen: false).setNotification(
-                          "App has not been installed. Create the app on GitHub.",
-                              "https://github.com/chrisbinsunny",
-                              "maps",
-                          "Not installed"
+                        onTap: () {
+                          tapFunctions(context);
+
+                          Provider.of<OnOff>(context, listen: false)
+                              .maxAbout();
+                          Provider.of<Apps>(context, listen: false).openApp(
+                              About(
+                                  key: ObjectKey("about"),
+                                  initPos: Offset(
+                                      screenWidth(context, mulBy: 0.2),
+                                      screenHeight(context, mulBy: 0.12))),
+                              Provider.of<OnOff>(context, listen: false)
+                                  .maxAbout()
                           );
-                          Provider.of<OnOff>(context, listen: false).onNotifications();
                         },
                       ),
                       DockerItem(
@@ -576,7 +583,7 @@ class _DockerItemState extends State<DockerItem> {
                     ..translate(-widget.dx*8, -(widget.dx*16), 0,
                     ),
                   child: Image.asset(
-                    "assets/apps/${widget.iName.toLowerCase()}.png",
+                      widget.iName.contains("/")?widget.iName:"assets/apps/${widget.iName.toLowerCase()}.png",
                   ))),
           Container(
             height: 4,
