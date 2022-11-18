@@ -29,6 +29,7 @@ class _WallpaperState extends State<Wallpaper> {
     WallData(name: "Big Sur Horizon", location: "assets/wallpapers/bigSurHorizon.jpg"),
     WallData(name: "Big Sur Mountains", location: "assets/wallpapers/bigSurMountains.jpg"),
     WallData(name: "Big Sur Road", location: "assets/wallpapers/bigSurRoad.jpg"),
+    WallData(name: "Flutter Forward", location: "assets/wallpapers/flutterForward.jpg"),
   ];
 
 
