@@ -158,7 +158,7 @@ class _RightClickState extends State<RightClick> {
                                 key: ObjectKey("systemPreferences"),
                                 initPos: Offset(
                                     screenWidth(context, mulBy: 0.24),
-                                    screenHeight(context, mulBy: 0.2)),
+                                    screenHeight(context, mulBy: 0.13)),
                             wallpaper: true,
                             ),
                             Provider.of<OnOff>(context, listen: false)
