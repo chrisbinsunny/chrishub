@@ -50,7 +50,6 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
 
     return MultiProvider(
       providers: [
@@ -70,20 +69,30 @@ class MyApp extends StatelessWidget {
           create: (context) => AnalyticsService(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Chrisbin\'s MacBook Pro',
-        navigatorObservers: [
-          Provider.of<AnalyticsService>(context, listen: false)
-              .getAnalyticsObserver()
-        ],
-        theme: themeNotifier.getTheme(),
-        home: MacOS(),
-      ),
+      child: Home(),
     );
   }
 }
 
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Chrisbin\'s MacBook Pro',
+      navigatorObservers: [
+        Provider.of<AnalyticsService>(context, listen: false)
+            .getAnalyticsObserver()
+      ],
+      theme: themeNotifier.getTheme(),
+      home: MacOS(),
+    );
+  }
+}
 
 
 void fullscreenWorkaround(Element element) {
