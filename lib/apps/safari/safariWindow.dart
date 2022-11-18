@@ -30,6 +30,7 @@ class _SafariState extends State<Safari> {
   String url = "";
   bool isDoc = false;
   final html.IFrameElement _iframeElementURL = html.IFrameElement();
+  final _navigatorKey2 = GlobalKey<NavigatorState>();
   final html.IFrameElement _iframeElementDOC = html.IFrameElement();
 
   void handleURL(
@@ -72,7 +73,11 @@ class _SafariState extends State<Safari> {
     setState(() {
       isDoc = true;
       url = text;
-      urlController.text = url.substring(8, url.indexOf("/", 8));
+      if(url.contains("twitter")){
+        urlController.text ="twitter.com";
+      }else{
+        urlController.text = url.substring(8, url.indexOf("/", 8));
+      }
 
       _iframeElementDOC.srcdoc = url;
     });
@@ -357,277 +362,464 @@ class _SafariState extends State<Safari> {
                         color: Theme.of(context).hintColor,
                       ),
                       child: (url == "")
-                          ? Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: screenHeight(context, mulBy: 0.08),
-                                  horizontal: screenWidth(context, mulBy: 0.12)),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  MBPText(
-                                    text: "Favourites",
-                                    color:
-                                        Theme.of(context).cardColor.withOpacity(1),
-                                    size: 22,
-                                    weight: Theme.of(context)
-                                        .textTheme
-                                        .headline1!
-                                        .fontWeight,
-                                  ),
-                                  SizedBox(
-                                    height: screenHeight(context, mulBy: 0.02),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          html.window.open(
-                                            'https://www.apple.com',
-                                            'new tab',
-                                          );
-                                        },
+                          ?WillPopScope(
+                        onWillPop: () async => !await _navigatorKey2.currentState!.maybePop(),
+                        child: Navigator(
+                          key: _navigatorKey2,
+                          onGenerateRoute: (routeSettings) {
+                            return MaterialPageRoute(
+                              builder: (context)
+                              {
+                                return SingleChildScrollView(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: screenHeight(context, mulBy: 0.08),
+                                        horizontal: screenWidth(context, mulBy: 0.06)),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: screenWidth(context, mulBy: 0.06)),
                                         child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Container(
-                                                height: 70,
-                                                width: 70,
-                                                padding: EdgeInsets.all(6),
+                                            MBPText(
+                                              text: "Favourites",
+                                              color:
+                                              Theme.of(context).cardColor.withOpacity(1),
+                                              size: 22,
+                                              weight: Theme.of(context)
+                                                  .textTheme
+                                                  .headline1!
+                                                  .fontWeight,
+                                            ),
+                                            SizedBox(
+                                              height: screenHeight(context, mulBy: 0.02),
+                                            ),
+                                            Wrap(
+                                              alignment: WrapAlignment.spaceBetween,
+                                              spacing: 15,
+                                              runSpacing: 20,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    html.window.open(
+                                                      'https://www.apple.com',
+                                                      'new tab',
+                                                    );
+                                                  },
+                                                  child: Column(
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(10),
+                                                        child: Container(
+                                                          height: 70,
+                                                          width: 70,
+                                                          padding: EdgeInsets.all(6),
 
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(10)),
-                                                child: Image.asset(
-                                                  "assets/caches/apple.png",
-                                                  fit: BoxFit.scaleDown,
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius:
+                                                              BorderRadius.circular(10)),
+                                                          child: Image.asset(
+                                                            "assets/caches/apple.png",
+                                                            fit: BoxFit.scaleDown,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: screenHeight(context,
+                                                            mulBy: 0.01),
+                                                      ),
+                                                      MBPText(
+                                                        text: "Apple",
+                                                        size: 10,
+                                                        color: Theme.of(context)
+                                                            .cardColor
+                                                            .withOpacity(0.8),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    handleURL(
+                                                        "https://www.google.com/webhp?igu=1");
+                                                  },
+                                                  child: Column(
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(10),
+                                                        child: Container(
+                                                          height: 70,
+                                                          width: 70,
+                                                          padding: EdgeInsets.all(6),
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius:
+                                                              BorderRadius.circular(10)),
+                                                          child: Image.asset(
+                                                            "assets/caches/google.png",
+                                                            fit: BoxFit.scaleDown,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: screenHeight(context,
+                                                            mulBy: 0.01),
+                                                      ),
+                                                      MBPText(
+                                                        text: "Google",
+                                                        size: 10,
+                                                        color: Theme.of(context)
+                                                            .cardColor
+                                                            .withOpacity(0.8),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    handleURL(
+                                                        "https://www.youtube.com/embed/GEZhD3J89ZE?start=4207&autoplay=1&enablejsapi=1");
+                                                  },
+                                                  child: Column(
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(10),
+                                                        child: Container(
+                                                          height: 70,
+                                                          width: 70,
+                                                          padding: EdgeInsets.all(6),
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius:
+                                                              BorderRadius.circular(10)),
+                                                          child: Image.asset(
+                                                            "assets/caches/youtube.jpg",
+                                                            fit: BoxFit.scaleDown,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: screenHeight(context,
+                                                            mulBy: 0.01),
+                                                      ),
+                                                      MBPText(
+                                                        text: "Youtube",
+                                                        size: 10,
+                                                        color: Theme.of(context)
+                                                            .cardColor
+                                                            .withOpacity(0.8),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    handleDOC(
+                                                      '<a class="twitter-timeline" href="https://twitter.com/chrisbinsunny?ref_src=twsrc%5Etfw">Tweets by chrisbinsunny</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>',
+                                                    );
+
+                                                  },
+                                                  child: Column(
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(10),
+                                                        child: Container(
+                                                          height: 70,
+                                                          width: 70,
+                                                          padding: EdgeInsets.all(6),
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius:
+                                                              BorderRadius.circular(10)),
+                                                          child: Image.asset(
+                                                            "assets/caches/twitter.png",
+                                                            fit: BoxFit.scaleDown,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: screenHeight(context,
+                                                            mulBy: 0.01),
+                                                      ),
+                                                      MBPText(
+                                                        text: "Twitter",
+                                                        size: 10,
+                                                        color: Theme.of(context)
+                                                            .cardColor
+                                                            .withOpacity(0.8),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    html.window.open(
+                                                        "https://github.com/chrisbinsunny",
+                                                        "new_tab");
+                                                  },
+                                                  child: Column(
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(10),
+                                                        child: Container(
+                                                          height: 70,
+                                                          width: 70,
+                                                          padding: EdgeInsets.all(6),
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius:
+                                                              BorderRadius.circular(10)),
+                                                          child: Image.asset(
+                                                            "assets/caches/github.png",
+                                                            fit: BoxFit.scaleDown,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: screenHeight(context,
+                                                            mulBy: 0.01),
+                                                      ),
+                                                      MBPText(
+                                                        text: "GitHub",
+                                                        size: 10,
+                                                        color: Theme.of(context)
+                                                            .cardColor
+                                                            .withOpacity(0.8),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    html.window.open(
+                                                        "https://www.instagram.com/binary.ghost",
+                                                        "new_tab");
+                                                  },
+                                                  child: Column(
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(10),
+                                                        child: Container(
+                                                          height: 70,
+                                                          width: 70,
+                                                          padding: EdgeInsets.all(6),
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius:
+                                                              BorderRadius.circular(10)),
+                                                          child: Image.asset(
+                                                            "assets/caches/insta.png",
+                                                            fit: BoxFit.scaleDown,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        height: screenHeight(context,
+                                                            mulBy: 0.01),
+                                                      ),
+                                                      MBPText(
+                                                        text: "Instagram",
+                                                        size: 10,
+                                                        color: Theme.of(context)
+                                                            .cardColor
+                                                            .withOpacity(0.8),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            SizedBox(
-                                              height: screenHeight(context,
-                                                  mulBy: 0.01),
-                                            ),
-                                            MBPText(
-                                              text: "Apple",
-                                              size: 10,
-                                              color: Theme.of(context)
-                                                  .cardColor
-                                                  .withOpacity(0.8),
-                                            )
                                           ],
                                         ),
                                       ),
-                                      InkWell(
-                                        onTap: () {
-                                          handleURL(
-                                              "https://www.google.com/webhp?igu=1");
-                                        },
-                                        child: Column(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Container(
-                                                height: 70,
-                                                width: 70,
-                                                padding: EdgeInsets.all(6),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(10)),
-                                                child: Image.asset(
-                                                  "assets/caches/google.png",
-                                                  fit: BoxFit.scaleDown,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: screenHeight(context,
-                                                  mulBy: 0.01),
-                                            ),
-                                            MBPText(
-                                              text: "Google",
-                                              size: 10,
-                                              color: Theme.of(context)
-                                                  .cardColor
-                                                  .withOpacity(0.8),
-                                            )
-                                          ],
+                                        SizedBox(
+                                          height: screenHeight(context, mulBy: 0.05),
                                         ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          handleURL(
-                                              "https://www.youtube.com/embed/GEZhD3J89ZE?start=4207&autoplay=1&enablejsapi=1");
-                                        },
-                                        child: Column(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Container(
-                                                height: 70,
-                                                width: 70,
-                                                padding: EdgeInsets.all(6),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(10)),
-                                                child: Image.asset(
-                                                  "assets/caches/youtube.jpg",
-                                                  fit: BoxFit.scaleDown,
-                                                ),
+                                        Container(
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              MBPText(
+                                                text: "Frequently Visited",
+                                                color:
+                                                Theme.of(context).cardColor.withOpacity(1),
+                                                size: 22,
+                                                weight: Theme.of(context)
+                                                    .textTheme
+                                                    .headline1!
+                                                    .fontWeight,
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: screenHeight(context,
-                                                  mulBy: 0.01),
-                                            ),
-                                            MBPText(
-                                              text: "Youtube",
-                                              size: 10,
-                                              color: Theme.of(context)
-                                                  .cardColor
-                                                  .withOpacity(0.8),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          handleDOC(
-                                            '<a class="twitter-timeline" href="https://twitter.com/chrisbinsunny?ref_src=twsrc%5Etfw">Tweets by chrisbinsunny</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>',
-                                          );
-                                        },
-                                        child: Column(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Container(
-                                                height: 70,
-                                                width: 70,
-                                                padding: EdgeInsets.all(6),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(10)),
-                                                child: Image.asset(
-                                                  "assets/caches/twitter.png",
-                                                  fit: BoxFit.scaleDown,
-                                                ),
+                                              SizedBox(
+                                                height: screenHeight(context, mulBy: 0.02),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: screenHeight(context,
-                                                  mulBy: 0.01),
-                                            ),
-                                            MBPText(
-                                              text: "Twitter",
-                                              size: 10,
-                                              color: Theme.of(context)
-                                                  .cardColor
-                                                  .withOpacity(0.8),
-                                            )
-                                          ],
+                                              Wrap(
+                                                alignment: WrapAlignment.spaceBetween,
+                                                spacing: 20,
+                                                runSpacing: 20,
+
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {
+                                                      html.window.open(
+                                                        'https://chrisbinsunny.github.io/chrishub',
+                                                        'new tab',
+                                                      );
+                                                    },
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          height: 100,
+                                                          width: 170,
+
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                              BorderRadius.circular(10),
+
+                                                          ),
+                                                          clipBehavior: Clip.antiAlias,
+                                                          child: Image.asset(
+                                                            "assets/caches/chrishub.jpg",
+                                                            fit: BoxFit.cover,
+                                                            alignment: Alignment.topLeft,
+
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: screenHeight(context,
+                                                              mulBy: 0.01),
+                                                        ),
+                                                        MBPText(
+                                                          text: "Chrisbin's MacBook Pro",
+                                                          size: 10,
+                                                          color: Theme.of(context)
+                                                              .cardColor
+                                                              .withOpacity(0.8),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      html.window.open(
+                                                        'https://chrisbinsunny.github.io/dream',
+                                                        'new tab',
+                                                      );
+                                                    },
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          height: 100,
+                                                          width: 170,
+
+                                                          decoration: BoxDecoration(
+                                                            borderRadius:
+                                                            BorderRadius.circular(10),
+
+                                                          ),
+                                                          clipBehavior: Clip.antiAlias,
+                                                          child: Image.asset(
+                                                            "assets/caches/dream.jpg",
+                                                            fit: BoxFit.cover,
+                                                            alignment: Alignment.topLeft,
+
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: screenHeight(context,
+                                                              mulBy: 0.01),
+                                                        ),
+                                                        MBPText(
+                                                          text: "Dream",
+                                                          size: 10,
+                                                          color: Theme.of(context)
+                                                              .cardColor
+                                                              .withOpacity(0.8),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      html.window.open(
+                                                        'https://chrisbinsunny.github.io/Flutter-Talks',
+                                                        'new tab',
+                                                      );
+                                                    },
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          height: 100,
+                                                          width: 170,
+
+                                                          decoration: BoxDecoration(
+                                                            borderRadius:
+                                                            BorderRadius.circular(10),
+
+                                                          ),
+                                                          clipBehavior: Clip.antiAlias,
+                                                          child: Image.asset(
+                                                            "assets/caches/flutterTalks.jpg",
+                                                            fit: BoxFit.cover,
+                                                            alignment: Alignment.topLeft,
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: screenHeight(context,
+                                                              mulBy: 0.01),
+                                                        ),
+                                                        MBPText(
+                                                          text: "Flutter Talks",
+                                                          size: 10,
+                                                          color: Theme.of(context)
+                                                              .cardColor
+                                                              .withOpacity(0.8),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          html.window.open(
-                                              "https://github.com/chrisbinsunny",
-                                              "new_tab");
-                                        },
-                                        child: Column(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Container(
-                                                height: 70,
-                                                width: 70,
-                                                padding: EdgeInsets.all(6),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(10)),
-                                                child: Image.asset(
-                                                  "assets/caches/github.png",
-                                                  fit: BoxFit.scaleDown,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: screenHeight(context,
-                                                  mulBy: 0.01),
-                                            ),
-                                            MBPText(
-                                              text: "GitHub",
-                                              size: 10,
-                                              color: Theme.of(context)
-                                                  .cardColor
-                                                  .withOpacity(0.8),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          html.window.open(
-                                              "https://www.instagram.com/binary.ghost",
-                                              "new_tab");
-                                        },
-                                        child: Column(
-                                          children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Container(
-                                                height: 70,
-                                                width: 70,
-                                                padding: EdgeInsets.all(6),
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(10)),
-                                                child: Image.asset(
-                                                  "assets/caches/insta.png",
-                                                  fit: BoxFit.scaleDown,
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: screenHeight(context,
-                                                  mulBy: 0.01),
-                                            ),
-                                            MBPText(
-                                              text: "Instagram",
-                                              size: 10,
-                                              color: Theme.of(context)
-                                                  .cardColor
-                                                  .withOpacity(0.8),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      )
                           : ((!isDoc)
                               ? HtmlElementView(
                                   viewType: 'urlIframe',
                                 )
-                              : HtmlElementView(
-                                  viewType: 'docIframe',
-                                )),
+                              : Container(
+                        color: Colors.black,
+                                padding: EdgeInsets.only(
+                                  left: screenWidth(context, mulBy: 0.09),
+                                  right: screenWidth(context, mulBy: 0.09),
+                                  top: screenHeight(context, mulBy: 0.05)
+                                ),
+                                child: HtmlElementView(
+                                    viewType: 'docIframe',
+                                  ),
+                              )),
                     ),
                   ),
                 ),
