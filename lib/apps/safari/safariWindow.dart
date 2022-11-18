@@ -11,7 +11,7 @@ import '../../widgets.dart';
 import 'dart:html' as html;
 import 'dart:ui' as ui;
 
-//TODO: BUG Found>> After opening youtube all searches redirects to youtube.
+//TODO: BUG Found>> After opening youtube and closing the safari, all searches redirects to youtube.
 
 class Safari extends StatefulWidget {
   final Offset? initPos;
