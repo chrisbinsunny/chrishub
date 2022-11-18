@@ -1101,16 +1101,13 @@ class FinderItems extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              height: screenHeight(context, mulBy: 0.1),
-              padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.0005)),
-              decoration: BoxDecoration(
-                border: Border.all(
-                    color: Colors.grey.withOpacity(0.0),
-                    width: 2
-                ),
+            Expanded(
+              child: Container(
+                height: screenHeight(context, mulBy: 0.1),
+                padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.0005)),
+                decoration: BoxDecoration(),
+                child: Image.asset(folder?"assets/icons/folder.png":"assets/icons/pdfMac.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045), ),
               ),
-              child: Image.asset(folder?"assets/icons/folder.png":"assets/icons/pdfMac.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045), ),
             ),
             SizedBox(height: screenHeight(context, mulBy: 0.005), ),
             Row(
@@ -1122,7 +1119,7 @@ class FinderItems extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(),
       width: screenWidth(context, mulBy: 0.07),
-                  child: Text(name, textAlign: TextAlign.center, style: TextStyle(color: Theme.of(context).cardColor.withOpacity(1), fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 2, overflow: TextOverflow.ellipsis, ),
+                  child: Text(name+"\n", textAlign: TextAlign.center, style: TextStyle(color: Theme.of(context).cardColor.withOpacity(1), fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 2, overflow: TextOverflow.ellipsis, ),
                 ),
               ],
             )
