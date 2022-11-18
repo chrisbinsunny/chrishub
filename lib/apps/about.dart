@@ -470,7 +470,257 @@ class _AboutState extends State<About> {
         );
         break;
       case "Skills":
-        return Container();
+        return Container(
+          alignment: Alignment.topCenter,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.02),
+                      ),
+                      Text(
+                          "Languages & Tools",
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Theme.of(context)
+                                  .cardColor
+                                  .withOpacity(1),
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1
+                          )
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.03),
+                      ),
+                      Text(
+                        "🧿     GoLang",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.015),
+                      ),
+                      Text(
+                        "🧿     Dart",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.015),
+                      ),
+                      Text(
+                        "🧿     Python",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.015),
+                      ),
+                      Text(
+                        "🧿     C",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.015),
+                      ),
+                      Text(
+                        "🧿     HTML5",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.015),
+                      ),
+                      Text(
+                        "🧿     Firebase",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.015),
+                      ),
+                      Text(
+                        "🧿     Git",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.02),
+                      ),
+                      Text(
+                          "Frameworks & others",
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Theme.of(context)
+                                  .cardColor
+                                  .withOpacity(1),
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1
+                          )
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.03),
+                      ),
+                      Text(
+                        "🧿     Flutter",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.015),
+                      ),
+                      Text(
+                        "🧿     Photoshop",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.015),
+                      ),
+                      Text(
+                        "🧿     DialogFlow",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.015),
+                      ),
+                      Text(
+                        "🧿     Gaming",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.015),
+                      ),
+                      Text(
+                        "🧿     Premiere Pro",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                      SizedBox(
+                        height: screenHeight(context, mulBy: 0.015),
+                      ),
+                      Text(
+                        "🧿     After Effwcts",
+                        style: TextStyle(
+                            fontFamily: "HN",
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            color: Theme.of(context)
+                                .cardColor
+                                .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
         break;
       case "Projects":
         return Container();
@@ -561,6 +811,7 @@ class _AboutState extends State<About> {
                         AboutWindowItems(
                           icon: CupertinoIcons.person_fill,
                           iName: "About Chrisbin",
+                          isSelected: selected=="About",
                           onTap: (){
                             setState(() {
                               selected = "About";
@@ -570,6 +821,7 @@ class _AboutState extends State<About> {
                         AboutWindowItems(
                           icon: CupertinoIcons.book_fill,
                           iName: "Education",
+                          isSelected: selected=="Education",
                           onTap: (){
                             setState(() {
                               selected = "Education";
@@ -579,6 +831,7 @@ class _AboutState extends State<About> {
                         AboutWindowItems(
                           icon: CupertinoIcons.hammer_fill,
                           iName: "Skills",
+                          isSelected: selected=="Skills",
                           onTap: (){
                             setState(() {
                               selected = "Skills";
@@ -588,6 +841,7 @@ class _AboutState extends State<About> {
                         AboutWindowItems(
                           icon: CupertinoIcons.device_desktop,
                           iName: "Open Projects",
+                          isSelected: selected=="Projects",
                           onTap: (){
                             setState(() {
                               selected = "Projects";
@@ -597,6 +851,7 @@ class _AboutState extends State<About> {
                         AboutWindowItems(
                           icon: CupertinoIcons.folder_fill,
                           iName: "Resume",
+                          isSelected: selected=="Resume",
                           onTap: (){
                             setState(() {
                               selected = "Resume";
@@ -791,7 +1046,7 @@ class _AboutWindowItemsState extends State<AboutWindowItems> {
             bottom: 7
           ),
           decoration: BoxDecoration(
-              color: widget.isSelected?Colors.black.withOpacity(0.14):
+              color: widget.isSelected?Colors.blueAccent.withOpacity(0.14):
               hovering ? Colors.blueAccent.withOpacity(0.14) : Colors.transparent
               ,
               borderRadius: BorderRadius.all(Radius.circular(5))),
