@@ -37,7 +37,7 @@ class OnOff extends ChangeNotifier{
   bool terminalMax = false;
   bool terminalFS = false;
   bool terminalPan = false;
-  bool messagesMax = true;
+  bool messagesMax = false;
   bool messagesFS = false;
   bool messagesPan = false;
   bool rightClickMenu = false;
@@ -527,6 +527,50 @@ class OnOff extends ChangeNotifier{
 
   void onFeedBackPan() {
     feedBackPan= true;
+    notifyListeners();
+  }
+
+  bool get getAbout {
+    return aboutOpen;
+  }
+
+  bool get getAboutFS {
+    return aboutFS;
+  }
+
+  void toggleAbout() {
+    aboutOpen= !aboutOpen;
+    notifyListeners();
+  }
+
+  void toggleAboutFS() {
+    bool localFs= fsAni;
+    aboutFS= !aboutFS;
+    fs=(fs=="")?"About Me":"";
+    if(!localFs){
+      fsAni = true;
+    }
+    notifyListeners();
+    if(localFs){
+      Future.delayed(Duration(milliseconds: 400), () {
+        fsAni = false;
+        notifyListeners();
+      });
+    }
+  }
+
+  void offAboutFS() {
+    aboutFS= false;
+    fs="";
+    notifyListeners();
+    Future.delayed(Duration(milliseconds: 400),(){
+      fsAni=false;
+      notifyListeners();
+    });
+  }
+
+  void maxAbout() {
+    aboutOpen= true;
     notifyListeners();
   }
 
