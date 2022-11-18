@@ -86,7 +86,8 @@ class Apps extends ChangeNotifier{
       onTop="Messages";
     else if(apps.last.key==ObjectKey("systemPreferences"))
       onTop="System Preferences";
-
+    else if(apps.last.key==ObjectKey("about"))
+      onTop="About Me";
     notifyListeners();
   }
 
