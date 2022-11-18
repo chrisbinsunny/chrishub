@@ -240,7 +240,234 @@ class _AboutState extends State<About> {
         );
         break;
       case "Education":
-        return Container();
+        return Container(
+          alignment: Alignment.topCenter,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.02),
+                ),
+                Text(
+                    "Education",
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1
+                    )
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.03),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "🧿     ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                      ),
+                    ),
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          text: "2018-2021\n",
+                          children: [
+                            TextSpan(
+                              text: "St. Joesph's College of Engineering & Technology, Palai\n",
+                              style: TextStyle(
+                                color: Color(0xff118bff),
+
+                              ),
+                            ),
+                            TextSpan(
+                              text: "Btech\nComputer Science and Engineering",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16
+                              ),
+                            )
+                          ],
+                          style: TextStyle(
+                          fontSize: 17,
+                          fontFamily: "HN",
+                          fontWeight: FontWeight.w700,
+                          color: Theme.of(context)
+                              .cardColor
+                              .withOpacity(1),
+                            letterSpacing: 1
+                        ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.015),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "🧿     ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                      ),
+                    ),
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          text: "2017-2018\n",
+                          children: [
+                            TextSpan(
+                              text: "Believer's Church Caarmel Engineering College\n",
+                              style: TextStyle(
+                                color: Color(0xff118bff),
+
+                              ),
+                            ),
+                            TextSpan(
+                              text: "Btech\nComputer Science and Engineering",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16
+                              ),
+                            )
+                          ],
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontFamily: "HN",
+
+                              fontWeight: FontWeight.w700,
+                              color: Theme.of(context)
+                                  .cardColor
+                                  .withOpacity(1),
+                              letterSpacing: 1
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.015),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "🧿     ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                      ),
+                    ),
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          text: "2015-2017\n",
+                          children: [
+                            TextSpan(
+                              text: "Holy Cross Vidya Sadan, Thellakom\n",
+                              style: TextStyle(
+                                color: Color(0xff118bff),
+
+                              ),
+                            ),
+                            TextSpan(
+                              text: "AISSCE\nComputer Science",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16
+                              ),
+                            )
+                          ],
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontFamily: "HN",
+
+                              fontWeight: FontWeight.w700,
+                              color: Theme.of(context)
+                                  .cardColor
+                                  .withOpacity(1),
+                              letterSpacing: 1
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: screenHeight(context, mulBy: 0.015),
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "🧿     ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(1),
+                      ),
+                    ),
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          text: "2005-2015\n",
+                          children: [
+                            TextSpan(
+                              text: "Holy Cross Vidya Sadan, Thellakom\n",
+                              style: TextStyle(
+                                color: Color(0xff118bff),
+
+                              ),
+                            ),
+                            TextSpan(
+                              text: "AISSE",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16
+                              ),
+                            )
+                          ],
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700,
+                              fontFamily: "HN",
+
+                              color: Theme.of(context)
+                                  .cardColor
+                                  .withOpacity(1),
+                              letterSpacing: 1
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
         break;
       case "Skills":
         return Container();
@@ -336,29 +563,45 @@ class _AboutState extends State<About> {
                           iName: "About Chrisbin",
                           onTap: (){
                             setState(() {
-                              selected = "Applications";
+                              selected = "About";
                             });
                           },
                         ),
                         AboutWindowItems(
                           icon: CupertinoIcons.book_fill,
                           iName: "Education",
-                          onTap: (){},
+                          onTap: (){
+                            setState(() {
+                              selected = "Education";
+                            });
+                          },
                         ),
                         AboutWindowItems(
                           icon: CupertinoIcons.hammer_fill,
                           iName: "Skills",
-                          onTap: (){},
+                          onTap: (){
+                            setState(() {
+                              selected = "Skills";
+                            });
+                          },
                         ),
                         AboutWindowItems(
                           icon: CupertinoIcons.device_desktop,
                           iName: "Open Projects",
-                          onTap: (){},
+                          onTap: (){
+                            setState(() {
+                              selected = "Projects";
+                            });
+                          },
                         ),
                         AboutWindowItems(
                           icon: CupertinoIcons.folder_fill,
                           iName: "Resume",
-                          onTap: (){},
+                          onTap: (){
+                            setState(() {
+                              selected = "Resume";
+                            });
+                          },
                         ),
                       ],
                     ),
