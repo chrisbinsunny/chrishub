@@ -81,7 +81,7 @@ class _FinderState extends State<Finder> {
               },
             ),
             LaunchPadItem(
-              iName: "Safari-Mac",
+              iName: "Safari",
               folder: true,
 
               onDoubleTap: () {
@@ -103,7 +103,7 @@ class _FinderState extends State<Finder> {
               },
             ),
             LaunchPadItem(
-              iName: "Messages-Mac",
+              iName: "Messages",
               folder: true,
 
               onDoubleTap: () {
@@ -215,7 +215,7 @@ class _FinderState extends State<Finder> {
               },
             ),
             LaunchPadItem(
-              iName: "Contacts-Mac",              folder: true,
+              iName: "Contacts",              folder: true,
 
               onDoubleTap: (){
                 Provider.of<DataBus>(context, listen: false).setNotification(
@@ -257,7 +257,7 @@ class _FinderState extends State<Finder> {
                         alignment: Alignment.topCenter,
                         children: [
                           Image.asset(
-                            "assets/appsMac/calendar-Mac.png",
+                            "assets/apps/calendar.png",
                           ),
                           Positioned(
                             top: cont.smallest.height * .13,
