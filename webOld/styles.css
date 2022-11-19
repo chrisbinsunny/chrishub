@@ -1,0 +1,49 @@
+body {
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  display: flex;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+
+}
+
+.progress {
+  background: rgba(255,255,255,0.1);
+  justify-content: flex-start;
+  border-radius: 100px;
+  align-items: center;
+  position: relative;
+  padding: 0 0px;
+  display: flex;
+  margin-top:8%;
+  height: 5px;
+  width: 190px;
+}
+
+.progress-value {
+  animation: load 10s normal forwards;
+  box-shadow: 0 10px 40px -10px #fff;
+  border-radius: 100px;
+  background: #fff;
+  height: 4px;
+  width: 0;
+}
+
+@keyframes load {
+  0% { width: 0; }
+  10% { width: 10; }
+  30% { width: 30%; }
+  50% { width: 45%; }
+  60% { width: 55%; }
+  70% { width: 68%; }
+  80% { width: 77%; }
+  90% { width: 85%; }
+  100% { width: 95%; }
+}
+
+.total{
+  text-align:center;
+  align-items: center;
+}
