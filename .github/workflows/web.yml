@@ -15,3 +15,4 @@ jobs:
         with:
           targetBranch: production
           baseHref: /chrishub/
+          customArgs: --web-renderer canvaskit
