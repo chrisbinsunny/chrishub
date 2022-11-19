@@ -424,7 +424,7 @@ class _SafariState extends State<Safari> {
                                                               borderRadius:
                                                               BorderRadius.circular(10)),
                                                           child: Image.asset(
-                                                            "assets/caches/apple.png",
+                                                            "assets/caches/favicon.png",
                                                             fit: BoxFit.scaleDown,
                                                           ),
                                                         ),
