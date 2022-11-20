@@ -157,7 +157,7 @@ class _LaunchPadState extends State<LaunchPad> {
                                 },
                               ),
                               LaunchPadItem(
-                                iName: "Safari-Mac",
+                                iName: "Safari",
                                 onTap: () {
                                 tapFunctions(context);
                                 Future.delayed(const Duration(milliseconds: 200), () {
@@ -177,7 +177,7 @@ class _LaunchPadState extends State<LaunchPad> {
                               },
                               ),
                               LaunchPadItem(
-                                iName: "Messages-Mac",
+                                iName: "Messages",
                                 onTap: () {
                                   tapFunctions(context);
                                   Future.delayed(const Duration(milliseconds: 200), () {
@@ -281,7 +281,7 @@ class _LaunchPadState extends State<LaunchPad> {
                                 },
                               ),
                               LaunchPadItem(
-                                iName: "Contacts-Mac",
+                                iName: "Contacts",
                                 onTap: (){
                                   Provider.of<DataBus>(context, listen: false).setNotification(
                                       "App has not been installed. Create the app on GitHub.",
@@ -322,7 +322,7 @@ class _LaunchPadState extends State<LaunchPad> {
                                           alignment: Alignment.topCenter,
                                           children: [
                                             Image.asset(
-                                              "assets/appsMac/calendar-Mac.png",
+                                              "assets/apps/calendar.png",
                                             ),
                                             Positioned(
                                               top: cont.smallest.height * .13,
@@ -492,7 +492,7 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
             ),
           ),
           MBPText(
-            text: widget.iName.split("-")[0],
+            text: widget.iName,
               color: widget.folder?Theme.of(context).cardColor.withOpacity(1):Colors.white
           ),
         ],

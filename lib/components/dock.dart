@@ -187,7 +187,7 @@ class _DockerState extends State<Docker> {
                         },
                       ),
                       DockerItem(
-                        iName: "Safari-Mac",
+                        iName: "Safari",
                         on: safariOpen,
                         dx: _getPath(screenWidth(context, mulBy: 0.098), _getCursor(),),
                         onTap: () {
@@ -206,7 +206,7 @@ class _DockerState extends State<Docker> {
                         },
                       ),
                       DockerItem(
-                        iName: "Messages-Mac",
+                        iName: "Messages",
                         on: messageOpen,
                         dx: _getPath(screenWidth(context, mulBy: 0.1372), _getCursor(), ),
                         onTap: () {
@@ -394,7 +394,7 @@ class _DockerState extends State<Docker> {
                                     alignment: Alignment.topCenter,
                                     children: [
                                       Image.asset(
-                                        "assets/apps/calendar-Mac.png",
+                                        "assets/apps/calendar.png",
                                       ),
                                       Positioned(
                                         top: screenHeight(context, mulBy: 0.006),
