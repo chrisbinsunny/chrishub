@@ -979,7 +979,7 @@ class _AboutState extends State<About> {
         );
         break;
       case "Resume":
-        html.window.open('https://drive.google.com/uc?export=download&id=1lPK15gLkNr2Rso3JNr0b-RdmFN245w87', '_self');
+        html.window.open('https://drive.google.com/uc?export=download&id=1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX', '_self');
         return SizedBox();
         break;
     }
