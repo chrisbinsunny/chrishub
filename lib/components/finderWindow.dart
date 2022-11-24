@@ -66,7 +66,7 @@ class _FinderState extends State<Finder> {
               iName: "About Me",
               onTap: () {
                 tapFunctions(context);
-                html.window.open('https://drive.google.com/uc?export=download&id=1lPK15gLkNr2Rso3JNr0b-RdmFN245w87', '_self');
+                html.window.open('https://drive.google.com/uc?export=download&id=1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX', '_self');
                 Provider.of<OnOff>(context, listen: false)
                     .maxAbout();
                 Provider.of<Apps>(context, listen: false).openApp(
