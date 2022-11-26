@@ -426,11 +426,11 @@ class _FinderState extends State<Finder> {
                         link: "https://drive.google.com/file/d/11j0UCdSXBRA1DPFct1EImmKFpyQu0fiH/view",
                       ),
                       FinderItems(
-                        name: "Chrisbin Resume Dark.pdf",
+                        name: "Chrisbin Resume Dark long.pdf",
                         link: "https://drive.google.com/file/d/1lPK15gLkNr2Rso3JNr0b-RdmFN245w87/view",
                       ),
                       FinderItems(
-                        name: "Chrisbin Resume Light.pdf",
+                        name: "Chrisbin Resume Light long.pdf",
                         link: "https://drive.google.com/file/d/11j0UCdSXBRA1DPFct1EImmKFpyQu0fiH/view",
                       ),
 
