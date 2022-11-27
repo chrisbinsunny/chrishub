@@ -421,9 +421,10 @@ class _FinderState extends State<Finder> {
                         name: "Cabby: Published Paper.pdf",
                         link: "https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
                       ),
+
                       FinderItems(
                         name: "Chrisbin Resume final.pdf",
-                        link: "https://drive.google.com/file/d/11j0UCdSXBRA1DPFct1EImmKFpyQu0fiH/view",
+                        link: "https://drive.google.com/file/d/1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX/view",
                       ),
                       FinderItems(
                         name: "Chrisbin Resume Dark long.pdf",
