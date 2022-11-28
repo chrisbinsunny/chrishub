@@ -1176,12 +1176,12 @@ class Interests extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         children: [
           FinderItems(
-            name: "Interests",
+            name: "Software Engineering",
             link: "",
             folder: true,
           ),
           FinderItems(
-            name: "Languages",
+            name: "Game Development",
             link: "",
             folder: true,
           ),
