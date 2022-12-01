@@ -1196,7 +1196,7 @@ class Interests extends StatelessWidget {
             folder: true,
           ),
           FinderItems(
-            name: "AI in Games",
+            name: "Computer Vision",
             link: "",
             folder: true,
           ),
