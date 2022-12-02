@@ -423,7 +423,7 @@ class _FinderState extends State<Finder> {
                       ),
 
                       FinderItems(
-                        name: "Chrisbin Resume final.pdf",
+                        name: "Chrisbin Resume.pdf",
                         link: "https://drive.google.com/file/d/1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX/view",
                       ),
                       FinderItems(
