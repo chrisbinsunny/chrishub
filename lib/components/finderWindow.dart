@@ -51,8 +51,8 @@ class _FinderState extends State<Finder> {
       case "Applications":
         return GridView(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              childAspectRatio: 6/3,
+              crossAxisCount: finderFS?6:4,
+              childAspectRatio: finderFS?3.3:2.5,
               mainAxisSpacing: screenHeight(context, mulBy: 0.05)
           ),
           padding: EdgeInsets.symmetric(
@@ -390,7 +390,6 @@ class _FinderState extends State<Finder> {
               FolderForFinder(
                 name: e.name,
                 renaming: false,
-
               )
           ).toList(),
         );
