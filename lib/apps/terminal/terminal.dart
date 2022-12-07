@@ -86,8 +86,9 @@ class _TerminalState extends State<Terminal> {
     "languages": ["Flutter", "Dart", "Python", "GoLang", "C++", "Java",  ],
     "documents":[
       "cabby: published paper.pdf////https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
-      "chrisbin resume dark.pdf////https://drive.google.com/file/d/1lPK15gLkNr2Rso3JNr0b-RdmFN245w87/view",
-      "chrisbin resume light.pdf////https://drive.google.com/file/d/11j0UCdSXBRA1DPFct1EImmKFpyQu0fiH/view",
+      "chrisbin resume.pdf////https://drive.google.com/file/d/1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX/view",
+      "chrisbin resume dark long.pdf////https://drive.google.com/file/d/1lPK15gLkNr2Rso3JNr0b-RdmFN245w87/view",
+      "chrisbin resume light long.pdf////https://drive.google.com/file/d/11j0UCdSXBRA1DPFct1EImmKFpyQu0fiH/view",
       "interests",
       "languages",
       "projects",

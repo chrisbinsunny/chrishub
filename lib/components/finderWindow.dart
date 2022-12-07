@@ -51,8 +51,8 @@ class _FinderState extends State<Finder> {
       case "Applications":
         return GridView(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              childAspectRatio: 6/3,
+              crossAxisCount: finderFS?6:4,
+              childAspectRatio: finderFS?3.3:2.5,
               mainAxisSpacing: screenHeight(context, mulBy: 0.05)
           ),
           padding: EdgeInsets.symmetric(
@@ -66,7 +66,7 @@ class _FinderState extends State<Finder> {
               iName: "About Me",
               onTap: () {
                 tapFunctions(context);
-                html.window.open('https://drive.google.com/uc?export=download&id=1lPK15gLkNr2Rso3JNr0b-RdmFN245w87', '_self');
+                html.window.open('https://drive.google.com/uc?export=download&id=1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX', '_self');
                 Provider.of<OnOff>(context, listen: false)
                     .maxAbout();
                 Provider.of<Apps>(context, listen: false).openApp(
@@ -376,9 +376,9 @@ class _FinderState extends State<Finder> {
       case "Desktop":
         return GridView(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              childAspectRatio: 6/5,
-              mainAxisSpacing: screenHeight(context, mulBy: 0.05)
+              crossAxisCount: finderFS?6:4,
+              childAspectRatio: finderFS?0.9:6/5,
+              mainAxisSpacing: 0
           ),
           padding: EdgeInsets.symmetric(
             vertical: screenHeight(context, mulBy: 0.04),
@@ -390,7 +390,6 @@ class _FinderState extends State<Finder> {
               FolderForFinder(
                 name: e.name,
                 renaming: false,
-
               )
           ).toList(),
         );
@@ -421,14 +420,20 @@ class _FinderState extends State<Finder> {
                         name: "Cabby: Published Paper.pdf",
                         link: "https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
                       ),
+
                       FinderItems(
-                        name: "Chrisbin Resume Dark.pdf",
+                        name: "Chrisbin Resume.pdf",
+                        link: "https://drive.google.com/file/d/1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX/view",
+                      ),
+                      FinderItems(
+                        name: "Chrisbin Resume Dark long.pdf",
                         link: "https://drive.google.com/file/d/1lPK15gLkNr2Rso3JNr0b-RdmFN245w87/view",
                       ),
                       FinderItems(
-                        name: "Chrisbin Resume Light.pdf",
+                        name: "Chrisbin Resume Light long.pdf",
                         link: "https://drive.google.com/file/d/11j0UCdSXBRA1DPFct1EImmKFpyQu0fiH/view",
                       ),
+
                       FinderItems(
                         name: "Interests",
                         link: "",
@@ -1170,17 +1175,27 @@ class Interests extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         children: [
           FinderItems(
-            name: "Interests",
+            name: "Software Engineering",
             link: "",
             folder: true,
           ),
           FinderItems(
-            name: "Languages",
+            name: "Game Development",
             link: "",
             folder: true,
           ),
           FinderItems(
-            name: "Projects",
+            name: "AI in Games",
+            link: "",
+            folder: true,
+          ),
+          FinderItems(
+            name: "Deep Learning",
+            link: "",
+            folder: true,
+          ),
+          FinderItems(
+            name: "Computer Vision",
             link: "",
             folder: true,
           ),
