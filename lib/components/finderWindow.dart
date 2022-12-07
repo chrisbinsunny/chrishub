@@ -376,9 +376,9 @@ class _FinderState extends State<Finder> {
       case "Desktop":
         return GridView(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              childAspectRatio: 6/5,
-              mainAxisSpacing: screenHeight(context, mulBy: 0.05)
+              crossAxisCount: finderFS?6:4,
+              childAspectRatio: finderFS?0.9:6/5,
+              mainAxisSpacing: 0
           ),
           padding: EdgeInsets.symmetric(
             vertical: screenHeight(context, mulBy: 0.04),
