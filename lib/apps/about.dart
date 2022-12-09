@@ -28,6 +28,23 @@ class _AboutState extends State<About> {
   late bool aboutPan;
   late bool aboutOpen;
   String selected = "About";
+  final html.IFrameElement _iframeElementURL = html.IFrameElement();
+
+
+  @override
+  void initState() {
+    position = widget.initPos;
+    super.initState();
+    _iframeElementURL.src = 'https://drive.google.com/file/d/1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX/preview';
+    _iframeElementURL.style.border = 'none';
+    _iframeElementURL.allow = "autoplay; encrypted-media;";
+    _iframeElementURL.allowFullscreen = true;
+    ui.platformViewRegistry.registerViewFactory(
+      'resumeIframe',
+          (int viewId) => _iframeElementURL,
+    );
+
+  }
 
 
   getContent(){
@@ -979,17 +996,19 @@ class _AboutState extends State<About> {
         );
         break;
       case "Resume":
-        html.window.open('https://drive.google.com/uc?export=download&id=1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX', '_self');
-        return SizedBox();
+        //html.window.open('https://drive.google.com/uc?export=download&id=1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX', '_self');
+        return Container(
+          width: screenWidth(
+            context,
+          ),
+          child: HtmlElementView(
+            viewType: 'resumeIframe',
+          ),
+        );
         break;
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    position = widget.initPos;
-  }
 
   @override
   Widget build(BuildContext context) {
