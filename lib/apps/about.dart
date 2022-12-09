@@ -1026,7 +1026,7 @@ class _AboutState extends State<About> {
             left: aboutFS ? 0 : position!.dx,
             child: aboutWindow(context),
           )
-        : Container();
+        : Nothing();
   }
 
   AnimatedContainer aboutWindow(BuildContext context) {
