@@ -50,6 +50,7 @@ class _FinderState extends State<Finder> {
   getContent(){
     switch(selected){
       case "Applications":
+
         return GridView(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: finderFS?6:4,
@@ -549,7 +550,6 @@ class _FinderState extends State<Finder> {
 
   @override
   Widget build(BuildContext context) {
-    var finderOpen = Provider.of<OnOff>(context).getFinder;
     finderFS = Provider.of<OnOff>(context).getFinderFS;
     finderPan = Provider.of<OnOff>(context).getFinderPan;
     folders = Provider.of<Folders>(context, listen: true).getFolders;
