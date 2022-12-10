@@ -45,6 +45,7 @@ class _FinderState extends State<Finder> {
   late DateTime now;
   late List<Folder> folders;
   final _navigatorKey2 = GlobalKey<NavigatorState>();
+  final _navigatorKey3 = GlobalKey<NavigatorState>();
 
 
   getContent(){
@@ -403,74 +404,70 @@ class _FinderState extends State<Finder> {
               return MaterialPageRoute(
                 builder: (context)
                 {
-                  return GridView(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 5,
-                        childAspectRatio: 6/5.5,
-                        mainAxisSpacing: screenHeight(context, mulBy: 0.05)
-                    ),
+                  return Padding(
                     padding: EdgeInsets.symmetric(
                       vertical: screenHeight(context, mulBy: 0.04),
                     ),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    physics: BouncingScrollPhysics(),
-                    children: [
-                      FinderItems(
-                        name: "Cabby: Published Paper.pdf",
-                        link: "https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
-                      ),
+                    child: Wrap(
+                      spacing: 20,
+                      runSpacing: 20,
+                      children: [
+                        FinderItems(
+                          name: "Cabby: Published Paper.pdf",
+                          link: "https://www.transistonline.com/downloads/cabby-the-ride-sharing-platform/",
+                        ),
 
-                      FinderItems(
-                        name: "Chrisbin Resume.pdf",
-                        link: "https://drive.google.com/file/d/1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX/view",
-                      ),
-                      FinderItems(
-                        name: "Chrisbin Resume Dark long.pdf",
-                        link: "https://drive.google.com/file/d/1lPK15gLkNr2Rso3JNr0b-RdmFN245w87/view",
-                      ),
-                      FinderItems(
-                        name: "Chrisbin Resume Light long.pdf",
-                        link: "https://drive.google.com/file/d/11j0UCdSXBRA1DPFct1EImmKFpyQu0fiH/view",
-                      ),
+                        FinderItems(
+                          name: "Chrisbin Resume.pdf",
+                          link: "https://drive.google.com/file/d/1cuIQHOhjvZfM_M74HjsICNpuzvMO0uKX/view",
+                        ),
+                        FinderItems(
+                          name: "Chrisbin Resume Dark long.pdf",
+                          link: "https://drive.google.com/file/d/1lPK15gLkNr2Rso3JNr0b-RdmFN245w87/view",
+                        ),
+                        FinderItems(
+                          name: "Chrisbin Resume Light long.pdf",
+                          link: "https://drive.google.com/file/d/11j0UCdSXBRA1DPFct1EImmKFpyQu0fiH/view",
+                        ),
 
-                      FinderItems(
-                        name: "Interests",
-                        link: "",
-                        nav: (){
-                          Navigator.of(context)
-                              .push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) =>
-                                Interests(),
-                          ));
-                        },
-                        folder: true,
-                      ),
-                      FinderItems(
-                        name: "Languages",
-                        link: "",
-                        nav: (){
-                          Navigator.of(context)
-                              .push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) =>
-                                Languages(),
-                          ));
-                        },
-                        folder: true,
-                      ),
-                      FinderItems(
-                        name: "Projects",
-                        link: "",
-                        nav: (){
-                          Navigator.of(context)
-                              .push(PageRouteBuilder(
-                            pageBuilder: (_, __, ___) =>
-                                Projects(),
-                          ));
-                        },
-                        folder: true,
-                      ),
-                    ],
+                        FinderItems(
+                          name: "Interests",
+                          link: "",
+                          nav: (){
+                            Navigator.of(context)
+                                .push(PageRouteBuilder(
+                              pageBuilder: (_, __, ___) =>
+                                  Interests(),
+                            ));
+                          },
+                          folder: true,
+                        ),
+                        FinderItems(
+                          name: "Languages",
+                          link: "",
+                          nav: (){
+                            Navigator.of(context)
+                                .push(PageRouteBuilder(
+                              pageBuilder: (_, __, ___) =>
+                                  Languages(),
+                            ));
+                          },
+                          folder: true,
+                        ),
+                        FinderItems(
+                          name: "Projects",
+                          link: "",
+                          nav: (){
+                            Navigator.of(context)
+                                .push(PageRouteBuilder(
+                              pageBuilder: (_, __, ___) =>
+                                  Projects(),
+                            ));
+                          },
+                          folder: true,
+                        ),
+                      ],
+                    ),
                   );
                 },
               );
@@ -479,6 +476,60 @@ class _FinderState extends State<Finder> {
         );
         break;
       case "Downloads":
+        return Navigator(
+          key: _navigatorKey3,
+          onGenerateRoute: (routeSettings) {
+            return MaterialPageRoute(
+              builder: (context)
+              {
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: screenHeight(context, mulBy: 0.04),
+                  ),
+                  child: Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    children: [
+                      FinderItems(
+                        name: "Antonn- Game Testing platform.pdf",
+                        link: "",
+                      ),
+                      FinderItems(
+                        name: "Cabby final.pdf",
+                        link: "",
+                      ),
+                      FinderItems(
+                        name: "Chrisbin seminar.pdf",
+                        link: "",
+                      ),
+                      FinderItems(
+                        name: "Flutter Talks.pdf",
+                        link: "",
+                      ),
+                      FinderItems(
+                        name: "Ride Sharing platform.pdf",
+                        link: "",
+                      ),
+                      FinderItems(
+                        name: "Dream.zip",
+                        link: "",
+                        nav: null,
+                        folder: true,
+                      ),
+                      FinderItems(
+                        name: "Material Icon Pack.zip",
+                        link: "",
+                        nav: null,
+                        folder: true,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        );
+
         return GridView(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 5,
@@ -549,7 +600,6 @@ class _FinderState extends State<Finder> {
 
   @override
   Widget build(BuildContext context) {
-    var finderOpen = Provider.of<OnOff>(context).getFinder;
     finderFS = Provider.of<OnOff>(context).getFinderFS;
     finderPan = Provider.of<OnOff>(context).getFinderPan;
     folders = Provider.of<Folders>(context, listen: true).getFolders;
@@ -1118,39 +1168,41 @@ class FinderItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: folder?nav:(link=="")?null:(){html.window.open(link, 'new tab');},
-      child: Container(
-        width: screenWidth(context, mulBy: 0.08),
-
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              child: Container(
-                height: screenHeight(context, mulBy: 0.1),
-                padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.0005)),
-                decoration: BoxDecoration(),
-                child: Image.asset(folder?"assets/icons/folder.png":"assets/icons/pdfMac.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045), ),
-              ),
-            ),
-            SizedBox(height: screenHeight(context, mulBy: 0.005), ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.005)),
-                  alignment: Alignment.center,
+    return SizedBox(
+      height: screenHeight(context, mulBy: 0.11),
+      child: InkWell(
+        onTap: folder?nav:(link=="")?null:(){html.window.open(link, 'new tab');},
+        child: Container(
+          width: screenWidth(context, mulBy: 0.08),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: Container(
+                  height: screenHeight(context, mulBy: 0.1),
+                  padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.0005)),
                   decoration: BoxDecoration(),
-      width: screenWidth(context, mulBy: 0.07),
-                  child: Text(name+"\n", textAlign: TextAlign.center, style: TextStyle(color: Theme.of(context).cardColor.withOpacity(1), fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 2, overflow: TextOverflow.ellipsis, ),
+                  child: Image.asset(folder?"assets/icons/folder.png":"assets/icons/pdfMac.png", height: screenHeight(context, mulBy: 0.085), width: screenWidth(context, mulBy: 0.045), ),
                 ),
-              ],
-            )
-          ],
+              ),
+              SizedBox(height: screenHeight(context, mulBy: 0.005), ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: screenWidth(context,mulBy: 0.005)),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(),
+        width: screenWidth(context, mulBy: 0.07),
+                    child: Text(name+"\n", textAlign: TextAlign.center, style: TextStyle(color: Theme.of(context).cardColor.withOpacity(1), fontFamily: "HN", fontWeight: FontWeight.w500, fontSize: 12,), maxLines: 2, overflow: TextOverflow.ellipsis, ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -226,7 +226,7 @@ class _DockerState extends State<Docker> {
                         },
                       ),
                       DockerItem(
-                        iName: "assets/icons/server.png",
+                        iName: "assets/apps/about me.png",
                         on: false,
                         dx: _getPath(screenWidth(context, mulBy: 0.1764), _getCursor(), ),
                         onTap: () {

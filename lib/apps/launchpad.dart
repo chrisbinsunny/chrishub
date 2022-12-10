@@ -46,7 +46,6 @@ class _LaunchPadState extends State<LaunchPad> {
   }
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool launchPadOpen= Provider.of<OnOff>(context).getLaunchPad;
     return IgnorePointer(
       ignoring: !launchPadOpen,
@@ -489,7 +488,7 @@ class _LaunchPadItemState extends State<LaunchPadItem> {
         children: [
           Expanded(
             child: Image.asset(
-              widget.iName=="About Me"?"assets/icons/server.png":"assets/apps/${widget.iName.toLowerCase()}.png",
+              "assets/apps/${widget.iName.toLowerCase()}.png",
               // fit: BoxFit.contain,
             ),
           ),
