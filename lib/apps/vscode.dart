@@ -28,7 +28,7 @@ class _VSCodeState extends State<VSCode> {
   void initState() {
     position = widget.initPos;
     super.initState();
-    _iframeElementURL.src = 'https://github1s.com/chrisbinsunny/chrishub/blob/master/js/jquery.animatedheadline.js';
+    _iframeElementURL.src = 'https://github1s.com/chrisbinsunny/chrishub';
     _iframeElementURL.style.border = 'none';
     _iframeElementURL.allow = "autoplay";
     _iframeElementURL.allowFullscreen = true;
