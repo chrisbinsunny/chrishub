@@ -15,6 +15,30 @@ class AnalyticsService extends ChangeNotifier{
     );
   }
 
+  Future<void> logCurrentScreen(String screen) async {
+    await analytics.logScreenView(
+      screenName: screen,
+    );
+  }
+
+  Future<void> logSearch(String search) async {
+    await FirebaseAnalytics.instance.logEvent(
+      name: "Safari Search",
+      parameters: {
+        "search": search,
+      },
+    );
+  }
+
+  Future<void> logFolder(String name) async {
+    await FirebaseAnalytics.instance.logEvent(
+      name: "Folder name",
+      parameters: {
+        "name": name,
+      },
+    );
+  }
+
   // User properties tells us what the user is
   Future setUserProperties({ required String value, required String name}) async {
     await analytics.setUserProperty(name: name, value: value);
