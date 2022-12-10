@@ -10,6 +10,7 @@ import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 import '../../components/finderWindow.dart';
+import '../../data/analytics.dart';
 import '../../providers.dart';
 import '../../system/folders/folders.dart';
 import '../../system/openApps.dart';
@@ -533,6 +534,8 @@ class _TerminalState extends State<Terminal> {
         commandCards.add(createCard());
       });
     });
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logCurrentScreen("Terminal");
   }
 
   @override
