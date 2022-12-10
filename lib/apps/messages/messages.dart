@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import '../../../system/openApps.dart';
 import '../../../sizes.dart';
 import '../../../widgets.dart';
+import '../../data/analytics.dart';
 import '../../theme/theme.dart';
 import 'chat_bubble.dart';
 import 'dart:html' as html;
@@ -52,6 +53,8 @@ class _MessagesState extends State<Messages> {
     messageRecords = readMessages();
     selectedChatIndex = 0;
     info= false;
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logCurrentScreen("Messages");
     super.initState();
   }
 

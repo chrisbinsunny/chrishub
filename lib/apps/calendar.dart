@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:provider/provider.dart';
+import '../data/analytics.dart';
 import '../system/openApps.dart';
 import '../sizes.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -28,6 +29,8 @@ class _CalendarState extends State<Calendar> {
   void initState() {
     position = widget.initPos;
     super.initState();
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logCurrentScreen("Calendar");
   }
 
   @override
