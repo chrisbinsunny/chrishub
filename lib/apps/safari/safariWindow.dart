@@ -61,7 +61,7 @@ class _SafariState extends State<Safari> {
 
     setState(() {
       url = Uri.encodeFull(url);
-      urlController.text = url.substring(8, url.indexOf("/", 8));
+      urlController.text = "https://"+url.substring(8, url.indexOf("/", 8));
       _iframeElementURL.src = url;
       debugPrint(_iframeElementURL.innerHtml.toString());
     });
@@ -95,6 +95,7 @@ class _SafariState extends State<Safari> {
     _iframeElementURL.src = 'https://www.google.com/webhp?igu=1';
     _iframeElementURL.style.border = 'none';
     _iframeElementURL.allow = "autoplay";
+    _iframeElementURL.allow = "keyboard-map";
     _iframeElementURL.allowFullscreen = true;
     ui.platformViewRegistry.registerViewFactory(
       'urlIframe',
