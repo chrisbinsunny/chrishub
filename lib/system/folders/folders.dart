@@ -9,6 +9,7 @@ import 'package:mac_dt/system/folders/folders_CRUD.dart';
 import 'package:provider/provider.dart';
 
 import '../../apps/systemPreferences.dart';
+import '../../data/analytics.dart';
 import '../componentsOnOff.dart';
 import '../../providers.dart';
 import '../../sizes.dart';
@@ -59,6 +60,8 @@ class Folders extends ChangeNotifier{
     log(initPos.dy.toString());
     folders.add(Folder(key: UniqueKey(), name: name, renaming: renaming, initPos: initPos, ));
     FoldersDataCRUD.addFolder(FolderProps(name: name, x: initPos.dx, y: initPos.dy,));
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logFolder(name);
     notifyListeners();
   }
 
