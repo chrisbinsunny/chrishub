@@ -18,6 +18,7 @@ import '../apps/systemPreferences.dart';
 import '../apps/terminal/terminal.dart';
 import '../apps/vscode.dart';
 import '../components/windowWidgets.dart';
+import '../data/analytics.dart';
 import '../providers.dart';
 import '../system/folders/folders.dart';
 import '../system/folders/folders_CRUD.dart';
@@ -539,6 +540,9 @@ class _FinderState extends State<Finder> {
     now = DateTime.now();
 
     super.initState();
+
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logCurrentScreen("Finder");
   }
 
 

@@ -10,6 +10,7 @@ import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../components/wallpaper/wallpaper.dart';
+import '../data/analytics.dart';
 import '../system/componentsOnOff.dart';
 import '../system/openApps.dart';
 import '../providers.dart';
@@ -40,6 +41,8 @@ class _LaunchPadState extends State<LaunchPad> {
   void initState() {
     now = DateTime.now();
     super.initState();
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logCurrentScreen("Launchpad");
   }
   @override
   Widget build(BuildContext context) {

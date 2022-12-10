@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
+import '../../data/analytics.dart';
 import '../../system/openApps.dart';
 import '../../sizes.dart';
 import '../../widgets.dart';
@@ -109,6 +110,8 @@ class _FeedBackState extends State<FeedBack> {
     mobileNoController = TextEditingController();
     feedbackController = TextEditingController();
   feedback=dataBase.getFeedback();
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logCurrentScreen("Feedback");
   }
 
   @override

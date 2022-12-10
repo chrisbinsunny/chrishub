@@ -13,6 +13,7 @@ import 'dart:html' as html;
 import 'dart:ui' as ui;
 
 import '../components/wallpaper/wallpaper.dart';
+import '../data/analytics.dart';
 
 /// Wallpaper screen is in a separate file. On right click>change wallpaper it willchange automatically
 /// due to the timer added in initstate. Usually wallpaper bool value is false. To be passed as true
@@ -56,6 +57,8 @@ class _SystemPreferencesState extends State<SystemPreferences> {
     });
 
     super.initState();
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logCurrentScreen("System Preferences");
   }
 
   @override

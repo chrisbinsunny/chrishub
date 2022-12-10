@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
+import '../data/analytics.dart';
 import '../system/openApps.dart';
 import '../sizes.dart';
 import '../widgets.dart';
@@ -35,7 +36,8 @@ class _VSCodeState extends State<VSCode> {
       'vsIframe',
           (int viewId) => _iframeElementURL,
     );
-
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logCurrentScreen("VS Code");
   }
 
   @override

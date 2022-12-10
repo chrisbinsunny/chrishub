@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
+import 'package:mac_dt/data/analytics.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
@@ -43,8 +44,10 @@ class _AboutState extends State<About> {
       'resumeIframe',
           (int viewId) => _iframeElementURL,
     );
-
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logCurrentScreen("About me");
   }
+
 
 
   getContent(){
