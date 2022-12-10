@@ -54,7 +54,7 @@ class _SpotifyState extends State<Spotify> {
       left: spotifyFS ? 0 : position!.dx,
       child: spotifyWindow(context),
     )
-        : Container();
+        : Nothing();
   }
 
   AnimatedContainer spotifyWindow(BuildContext context) {
