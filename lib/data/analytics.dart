@@ -16,6 +16,9 @@ class AnalyticsService extends ChangeNotifier{
   }
 
   Future<void> logCurrentScreen(String screen) async {
+    await analytics.setCurrentScreen(
+      screenName: screen,
+    );
     await analytics.logScreenView(
       screenName: screen,
     );
