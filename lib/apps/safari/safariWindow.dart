@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:mac_dt/system/componentsOnOff.dart';
 import 'package:mac_dt/theme/theme.dart';
 import 'package:provider/provider.dart';
+import '../../data/analytics.dart';
 import '../../system/openApps.dart';
 import '../../sizes.dart';
 import '../../widgets.dart';
@@ -36,6 +37,8 @@ class _SafariState extends State<Safari> {
   void handleURL(
     String text,
   ) {
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logSearch(text);
     isDoc = false;
     text = text.trim();
     if (text.length == 0) return;
@@ -67,6 +70,8 @@ class _SafariState extends State<Safari> {
   void handleDOC(
     String text,
   ) {
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logSearch(text);
     text = text.trim();
     if (text.length == 0) return;
 
@@ -100,6 +105,8 @@ class _SafariState extends State<Safari> {
       'docIframe',
       (int viewId) => _iframeElementDOC,
     );
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logCurrentScreen("Safari");
   }
 
   @override
@@ -424,7 +431,7 @@ class _SafariState extends State<Safari> {
                                                               borderRadius:
                                                               BorderRadius.circular(10)),
                                                           child: Image.asset(
-                                                            "assets/caches/favicon.png",
+                                                            "assets/caches/apple.png",
                                                             fit: BoxFit.scaleDown,
                                                           ),
                                                         ),
