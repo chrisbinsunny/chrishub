@@ -39,6 +39,16 @@ class AnalyticsService extends ChangeNotifier{
     );
   }
 
+  Future<void> logTerminal(String search) async {
+    await FirebaseAnalytics.instance.logEvent(
+      name: "Terminal command",
+      parameters: {
+        "command": search,
+      },
+    );
+  }
+
+
   // User properties tells us what the user is
   Future setUserProperties({ required String value, required String name}) async {
     await analytics.setUserProperty(name: name, value: value);

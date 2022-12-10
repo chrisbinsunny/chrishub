@@ -130,6 +130,8 @@ class _TerminalState extends State<Terminal> {
   }
 
   processCommands(String text) {
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logTerminal(text);
     String textOrg= text;
     text = text.toLowerCase();
     var textWords = text.split(" ");
