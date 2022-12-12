@@ -70,7 +70,7 @@ class _MessagesState extends State<Messages> {
       left: messagesFS ? 0 : position!.dx,
       child: messagesWindow(context),
     )
-        : Container();
+        : Nothing();
   }
 
   AnimatedContainer messagesWindow(BuildContext context) {

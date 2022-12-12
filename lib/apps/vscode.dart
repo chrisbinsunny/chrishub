@@ -52,7 +52,7 @@ class _VSCodeState extends State<VSCode> {
       left: vsFS ? 0 : position!.dx,
       child: vsWindow(context),
     )
-        : Container();
+        : Nothing();
   }
 
   AnimatedContainer vsWindow(BuildContext context) {

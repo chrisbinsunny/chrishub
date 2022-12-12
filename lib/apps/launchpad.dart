@@ -41,8 +41,7 @@ class _LaunchPadState extends State<LaunchPad> {
   void initState() {
     now = DateTime.now();
     super.initState();
-    Provider.of<AnalyticsService>(context, listen: false)
-        .logCurrentScreen("Launchpad");
+
   }
   @override
   Widget build(BuildContext context) {

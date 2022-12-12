@@ -127,7 +127,7 @@ class _FeedBackState extends State<FeedBack> {
             left: feedbackFS ? 0 : position!.dx,
             child: feedbackWindow(context),
           )
-        : Container();
+        : Nothing();
   }
 
   AnimatedContainer feedbackWindow(BuildContext context) {

@@ -77,7 +77,7 @@ class _SystemPreferencesState extends State<SystemPreferences> {
             left: position!.dx,
             child: sysPrefWindow(context),
           )
-        : Container();
+        : Nothing();
   }
 
   AnimatedContainer sysPrefWindow(BuildContext context) {

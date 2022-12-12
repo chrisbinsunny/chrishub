@@ -16,10 +16,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter/rendering.dart';
 import '../components/notification.dart';
 import 'openApps.dart';
-import '../theme/theme.dart';
 import '../components/dock.dart';
 import '../fileMenu/fileMenu.dart';
-import 'dart:html' as html;
 
 
 class MacOS extends StatefulWidget {
@@ -34,12 +32,10 @@ class _MacOSState extends State<MacOS> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
     bool ccOpen = Provider.of<OnOff>(context).getCc;
     final dataBus = Provider.of<DataBus>(context, listen: true);
     List<Widget> apps = Provider.of<Apps>(context).getApps;
     List<Folder> folders = Provider.of<Folders>(context, listen: true).getFolders;
-    List<DesktopItem> desktopItems = Provider.of<Folders>(context, listen: true).getDesktopItems;
     return Scaffold(
       body: Center(
         child: Stack(
@@ -106,18 +102,20 @@ class _MacOSState extends State<MacOS> {
             Docker(),
 
             ///Click to dismiss Control Centre
-            ccOpen
-                ? InkWell(
-                    onTap: () {
-                      Provider.of<OnOff>(context, listen: false).offCc();
-                    },
+            Visibility(
+              visible: ccOpen,
+                  child: InkWell(
+                      onTap: () {
+                        Provider.of<OnOff>(context, listen: false).offCc();
+
+                      },
               mouseCursor: SystemMouseCursors.basic,
-                    child: Container(
-                      height: screenHeight(context),
-                      width: screenWidth(context),
+                      child: Container(
+                        height: screenHeight(context),
+                        width: screenWidth(context),
+                      ),
                     ),
-                  )
-                : Container(),
+            ),
 
             ///Control Centre
             Positioned(
@@ -166,32 +164,3 @@ class _MacOSState extends State<MacOS> {
   }
 }
 
-class Unfocuser extends StatelessWidget {
-  const Unfocuser({Key? key, this.child}) : super(key: key);
-
-  final Widget? child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Listener(
-      onPointerUp: (e) {
-        final rb = context.findRenderObject() as RenderBox;
-        final result = BoxHitTestResult();
-        rb.hitTest(result, position: e.position);
-
-        for (final e in result.path) {
-          if (e.target is RenderEditable) {
-            return;
-          }
-        }
-
-        final primaryFocus = FocusManager.instance.primaryFocus!;
-
-        if (primaryFocus.context!.widget is EditableText) {
-          primaryFocus.unfocus();
-        }
-      },
-      child: child,
-    );
-  }
-}
