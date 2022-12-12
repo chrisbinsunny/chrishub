@@ -16,6 +16,8 @@ class AnalyticsService extends ChangeNotifier{
   }
 
   Future<void> logCurrentScreen(String screen) async {
+    print('Setting current screen to $screen');
+
     await analytics.setCurrentScreen(
       screenName: screen,
     );
@@ -26,7 +28,7 @@ class AnalyticsService extends ChangeNotifier{
 
   Future<void> logSearch(String search) async {
     await FirebaseAnalytics.instance.logEvent(
-      name: "Safari Search",
+      name: "safariSearch",
       parameters: {
         "search": search,
       },
@@ -35,7 +37,7 @@ class AnalyticsService extends ChangeNotifier{
 
   Future<void> logFolder(String name) async {
     await FirebaseAnalytics.instance.logEvent(
-      name: "Folder name",
+      name: "folderName",
       parameters: {
         "name": name,
       },
@@ -44,13 +46,21 @@ class AnalyticsService extends ChangeNotifier{
 
   Future<void> logTerminal(String search) async {
     await FirebaseAnalytics.instance.logEvent(
-      name: "Terminal command",
+      name: "terminalCommand",
       parameters: {
         "command": search,
       },
     );
   }
 
+  Future<void> logWallPaper(String search) async {
+    await FirebaseAnalytics.instance.logEvent(
+      name: "wallpaperChanged",
+      parameters: {
+        "wallpaper": search,
+      },
+    );
+  }
 
   // User properties tells us what the user is
   Future setUserProperties({ required String value, required String name}) async {
