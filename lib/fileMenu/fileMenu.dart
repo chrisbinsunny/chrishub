@@ -105,42 +105,43 @@ class _FileMenuState extends State<FileMenu> {
                     ],
                   ),
                   Spacer(),
-                  Row(
-                    children: [
-                    FittedBox(fit: BoxFit.fitHeight, child:Text("${num+60}% ", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, fontSize: 12.5, color: Colors.white),),),
-                      Image.asset("assets/icons/battery.png", height: 12, ),
-                      SizedBox(width: size.width*0.014,),
-                      Image.asset("assets/icons/wifi.png", height: 13.5,),
-                      SizedBox(width: size.width*0.014,),
-                      Image.asset("assets/icons/spotlight.png", height: 14.5,),
-                      SizedBox(width: size.width*0.014,),
-                      InkWell(child: Image.asset("assets/icons/cc.png", height: 16,filterQuality: FilterQuality.low,),
-                      onTap: (){
-                        Provider.of<Folders>(context, listen: false).deSelectAll();
-                        Provider.of<OnOff>(context, listen: false).toggleCc();
-                      },
-                      ),
-                      SizedBox(width: size.width*0.014,),
-                      Image.asset("assets/icons/siri.png", height: 15),
-                      SizedBox(width: size.width*0.014,),
-                      // FittedBox(fit: BoxFit.fitHeight,
-                      //   child: Text(
-                      //     "${DateFormat('E d LLL hh:mm a').format(DateTime.now())}",
-                      //     style: TextStyle(fontFamily: 'HN',
-                      //         fontWeight: FontWeight.w400,
-                      //         color: Colors.white),),),
-                      StreamBuilder(
-                        stream: Stream.periodic(const Duration(seconds: 1)),
-                        builder: (context, snapshot){
-                        return FittedBox(fit: BoxFit.fitHeight,
-                          child: Text(
-                            "${DateFormat('E d LLL hh:mm a').format(DateTime.now())}",
-                            style: TextStyle(fontFamily: 'HN',
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white),),);
-                      },),
-                      SizedBox(width: size.width*0.014,),
-                    ],
+                  InkWell(
+                    onTap: (){
+                      Provider.of<Folders>(context, listen: false).deSelectAll();
+                      Provider.of<OnOff>(context, listen: false).toggleCc();
+                    },
+                    child: Row(
+                      children: [
+                      FittedBox(fit: BoxFit.fitHeight, child:Text("${num+60}% ", style: TextStyle(fontFamily: 'HN', fontWeight: FontWeight.w400, fontSize: 12.5, color: Colors.white),),),
+                        Image.asset("assets/icons/battery.png", height: 12, ),
+                        SizedBox(width: size.width*0.014,),
+                        Image.asset("assets/icons/wifi.png", height: 13.5,),
+                        SizedBox(width: size.width*0.014,),
+                        Image.asset("assets/icons/spotlight.png", height: 14.5,),
+                        SizedBox(width: size.width*0.014,),
+                        Image.asset("assets/icons/cc.png", height: 16,filterQuality: FilterQuality.low,),
+                        SizedBox(width: size.width*0.014,),
+                        Image.asset("assets/icons/siri.png", height: 15),
+                        SizedBox(width: size.width*0.014,),
+                        // FittedBox(fit: BoxFit.fitHeight,
+                        //   child: Text(
+                        //     "${DateFormat('E d LLL hh:mm a').format(DateTime.now())}",
+                        //     style: TextStyle(fontFamily: 'HN',
+                        //         fontWeight: FontWeight.w400,
+                        //         color: Colors.white),),),
+                        StreamBuilder(
+                          stream: Stream.periodic(const Duration(seconds: 1)),
+                          builder: (context, snapshot){
+                          return FittedBox(fit: BoxFit.fitHeight,
+                            child: Text(
+                              "${DateFormat('E d LLL hh:mm a').format(DateTime.now())}",
+                              style: TextStyle(fontFamily: 'HN',
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white),),);
+                        },),
+                        SizedBox(width: size.width*0.014,),
+                      ],
+                    ),
                   ),
                 ],
               )
