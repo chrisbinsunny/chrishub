@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
+import '../../data/analytics.dart';
 import '../../providers.dart';
 import '../../theme/theme.dart';
 part 'wallpaper.g.dart';
@@ -179,6 +180,8 @@ class _WallpaperState extends State<Wallpaper> {
                         Provider.of<DataBus>(context,
                             listen: false)
                             .setWallpaper(wallData[index],);
+                        Provider.of<AnalyticsService>(context, listen: false)
+                            .logWallPaper(wallData[index].name);
                       },
                       child: Container(
                         padding: EdgeInsets.all(1),
