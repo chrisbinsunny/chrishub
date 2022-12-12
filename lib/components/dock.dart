@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 import '../apps/about.dart';
 import '../apps/calendar.dart';
 import '../apps/systemPreferences.dart';
+import '../data/analytics.dart';
 import '../system/componentsOnOff.dart';
 import '../system/folders/folders.dart';
 import '../system/openApps.dart';
@@ -184,6 +185,8 @@ class _DockerState extends State<Docker> {
                           Provider.of<OnOff>(context, listen: false).offFRCM();
                           Provider.of<OnOff>(context, listen: false).offRCM();
                           Provider.of<OnOff>(context, listen: false).toggleLaunchPad();
+                          Provider.of<AnalyticsService>(context, listen: false)
+                              .logCurrentScreen("Launchpad");
                         },
                       ),
                       DockerItem(
