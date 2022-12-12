@@ -15,6 +15,7 @@ import 'package:mac_dt/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/rendering.dart';
 import '../components/notification.dart';
+import '../data/analytics.dart';
 import 'openApps.dart';
 import '../theme/theme.dart';
 import '../components/dock.dart';
@@ -110,6 +111,7 @@ class _MacOSState extends State<MacOS> {
                 ? InkWell(
                     onTap: () {
                       Provider.of<OnOff>(context, listen: false).offCc();
+
                     },
               mouseCursor: SystemMouseCursors.basic,
                     child: Container(
