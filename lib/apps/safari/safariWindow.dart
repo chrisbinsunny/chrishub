@@ -122,7 +122,7 @@ class _SafariState extends State<Safari> {
             left: safariFS ? 0 : position!.dx,
             child: safariWindow(context),
           )
-        : Container();
+        : Nothing();
   }
 
   AnimatedContainer safariWindow(BuildContext context) {
