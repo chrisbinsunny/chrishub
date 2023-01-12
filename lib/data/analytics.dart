@@ -82,7 +82,7 @@ class AnalyticsService extends ChangeNotifier{
 
   Future logOpened(String a) async {
     await analytics.logEvent(
-      name: "App Opened",
+      name: "appOpened",
       parameters: {'app': a,},
     );
   }
