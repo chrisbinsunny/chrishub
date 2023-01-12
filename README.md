@@ -14,6 +14,7 @@ Chrisbin’s MacBook Pro is a portfolio website created as a web Simulation of m
 ![GitHub](https://img.shields.io/github/license/chrisbinsunny/chrishub)
 ![GitHub Repo stars](https://img.shields.io/github/stars/chrisbinsunny/chrishub?style=social)
 ![Twitter Follow](https://img.shields.io/twitter/follow/chrisbinsunny?style=social)
+[![Visitors](https://api.visitorbadge.io/api/combined?path=https%3A%2F%2Fgithub.com%2Fchrisbinsunny%2Fchrishub&label=Visitors&countColor=%23263759&style=flat)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2Fchrisbinsunny%2Fchrishub)
 
 
 The project started as a minimal project and later took it shape into this.
